@@ -13,3 +13,14 @@ haiku [anthropic/claude-haiku-5.5 @ anthropic] main: 24840 calls (0 cached)
   12000/24840  1657s  spend $0.2303
   13000/24840  1806s  spend $0.2560
   14000/24840  1955s  spend $0.2818
+  15000/24840  2097s  spend $0.3077
+  16000/24840  2245s  spend $0.3335
+  17000/24840  2391s  spend $0.3601
+  18000/24840  2525s  spend $0.3872
+  19000/24840  2665s  spend $0.4144
+  20000/24840  2804s  spend $0.4417
+  21000/24840  2940s  spend $0.4689
+  22000/24840  3072s  spend $0.4965
+  23000/24840  3217s  spend $0.5239
+  24000/24840  3353s  spend $0.5512
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/haiku.csv: 24840 rows, 0 errors, new spend $0.5743

@@ -19,13 +19,13 @@ from summarize import WORKHORSES
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIG = os.path.join(ROOT, "figures")
 ORDER = ["llama-8b", "llama-70b", "llama-70b-pa", "qwen-9b", "qwen-122b", "gemma-26b", "gemma-26b-cw", "gemma-31b",
-         "gemma-31b-nv", "nemo-12b", "mistral-small", "mistral-large", "gpt4o-mini", "haiku", "gpt6-luna", "gemini-lite"]
+         "nemo-12b", "mistral-small", "mistral-large", "gpt4o-mini", "gpt4o-mini_sampled", "haiku", "gpt6-luna", "gemini-lite"]
 NAME = {"llama-8b": "Llama-3.1 8B", "llama-70b": "Llama-3.3 70B", "llama-70b-pa": "Llama-3.3 70B (Parasail fp8)",
         "qwen-9b": "Qwen3.5 9B", "qwen-122b": "Qwen3.5 122B-A10B", "gemma-26b": "Gemma-4 26B-A4B",
         "gemma-31b": "Gemma-4 31B", "nemo-12b": "Mistral Nemo 12B", "mistral-small": "Mistral Small 24B",
         "mistral-large": "Mistral Large 4", "gpt4o-mini": "GPT-4o-mini (bridge)",
         "gemma-26b-cw": "Gemma-4 26B-A4B (CoreWeave)", "gemma-31b-nv": "Gemma-4 31B (Novita)",
-        "haiku": "Claude Haiku 5.5 (sampled)", "gpt6-luna": "GPT-6-luna (sampled)", "gemini-lite": "Gemini 3.1 Flash-Lite (sampled)"}
+        "haiku": "Claude Haiku 5.5 (sampled)", "gpt6-luna": "GPT-6-luna (sampled)", "gemini-lite": "Gemini 3.1 Flash-Lite (sampled)", "gpt4o-mini_sampled": "GPT-4o-mini (bridge, sampled)"}
 FRAME = {"neutral_own": ("neutral", "#111111", -0.22), "political": ("political", C["hl"], 0.0),
          "workplace": ("workplace", "#4e79a7", 0.22)}
 
@@ -33,7 +33,7 @@ FRAME = {"neutral_own": ("neutral", "#111111", -0.22), "political": ("political"
 def load():
     F = {}
     for p in glob.glob(os.path.join(ROOT, "results", "llm", "fits", "main", "*.json")):
-        j = json.load(open(p)); F[j["endpoint"]["key"]] = {a["arm"]: a for a in j["arms"]}
+        j = json.load(open(p)); F[os.path.basename(p)[:-5]] = {a["arm"]: a for a in j["arms"]}   # key = file stem
     comp = pd.read_csv(os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")).set_index("key")
     return F, comp
 
@@ -114,15 +114,18 @@ def fig_invariants(F, comp):
     axes[0].set_ylim(len(keys) - 0.5, -0.8)
     for arm, (fl, col, off) in FRAME.items():
         axes[2].text(axes[2].get_xlim()[1], -0.55 + off * 1.8, fl, color=col, fontsize=9.5, ha="right", va="center")
-    fig.text(0.02, 1.02, "Temperature-invariant response quantities, per endpoint and framing", fontsize=15, color=C["text"])
+    fig.text(0.02, 1.02, "Rivals count for less than allies, inertia appears once positions have content, and summing vs averaging depends on the model",
+             fontsize=15, color=C["text"])
     fig.text(0.02, 0.985, "Ratios to β do not change with sampling temperature (every coefficient scales as 1/T). Dots: bootstrap median; bars: 95% CI.",
              fontsize=11, color=C["text2"])
     note(fig, "Source: OpenRouter, pinned endpoints, first-token logprobs at T = 1, two calls per prompt; 209 neighbour multisets × own position per framing, label/order controls; "
-              "CIs from 1,000 cluster-bootstrap draws.\n* = fails comprehension check (≥ 90%); † = fails 0.3-nat repeat-noise gate; both faded, descriptive only. α is interpretable only where H3 is negative (Amendment 1.4).", y=-0.01)
+              "CIs from 1,000 cluster-bootstrap draws. Sampled endpoints: 30 samples per prompt, k ≤ 4, neutral + political only.\n* = fails comprehension check (≥ 90%); † = fails 0.3-nat repeat-noise gate; both faded, descriptive only. α is interpretable only where H3 is negative (Amendment 1.4).", y=-0.01)
     fig.savefig(os.path.join(FIG, "llm_stage1_invariants.png")); plt.close(fig)
 
 
 def fig_H4(F, comp):
+    from summarize import pooled_sd, NOISE_GATE
+    noisy = {k for k in F if pooled_sd(F[k]) > NOISE_GATE}
     fig, axes = plt.subplots(1, 3, figsize=(13, 4.8), sharey=True)
     for ax, (arm, (fl, col, _)) in zip(axes, FRAME.items()):
         for j, (s, l) in enumerate(H4_PAIRS):
@@ -131,18 +134,20 @@ def fig_H4(F, comp):
             for x, k in ((0, s), (1, l)):
                 lo, med, hi = ci(F[k][arm]["draws"]["beta"]); y.append(F[k][arm]["coef"]["beta"]["est"])
                 ax.plot([x, x], [lo, hi], color=C["series"], lw=1.1)
-            gated = [k for k in (s, l) if k in comp.index and not comp.loc[k, "passes"]]
+            gated = [k for k in (s, l) if (k in comp.index and not comp.loc[k, "passes"]) or k in noisy]
+            mark = (" *" if any(k in comp.index and not comp.loc[k, "passes"] for k in (s, l)) else "") + (" †" if any(k in noisy for k in (s, l)) else "")
             c = C["text3"] if gated else C["text"]
             ax.plot([0, 1], y, marker="o", ms=3.5, color=c, lw=1.2, ls="--" if gated else "-")
-            ax.text(1.06, y[1], NAME[l].split(" ")[0] + (" *" if gated else ""), color=c, fontsize=9.5, va="center")
+            ax.text(1.06, y[1], NAME[l].split(" ")[0] + mark, color=c, fontsize=9.5, va="center")
         ax.set_xticks([0, 1]); ax.set_xticklabels(["small", "large"]); ax.set_xlim(-0.2, 1.45)
         ax.set_title(fl, loc="left", fontsize=12, color=col)
     axes[0].set_ylabel("β at T = 1 (logit units per neighbour)")
-    fig.text(0.02, 1.03, "H4: coupling strength β, small vs large model within each family", fontsize=15, color=C["text"])
+    fig.text(0.02, 1.03, "H4: β is higher for the larger model in every family, but only Qwen passes both the comprehension and noise gates", fontsize=15, color=C["text"])
     fig.text(0.02, 0.98, "β is a sampling knob (β(T) = β(1)/T); a size effect at T = 1 can also reflect task comprehension. Bars: 95% CI.",
              fontsize=11, color=C["text2"])
     note(fig, "Source: OpenRouter, pinned endpoints; pairs: Llama 3.1-8B→3.3-70B, Qwen3.5 9B→122B-A10B, Gemma-4 26B-A4B→31B, Mistral Nemo→Large 4 "
-              "(confounds listed in PREREG §6).\n* dashed = a member fails the comprehension check; excluded from H4.", y=-0.02)
+              "(confounds listed in PREREG §6).\nDashed = excluded from H4: * a member fails the comprehension check; † a member fails the 0.3-nat repeat-noise gate (no passing backup). "
+              "H4 required ≥ 3 of 4 families; 1 was testable, so H4 is not supported.", y=-0.02)
     fig.savefig(os.path.join(FIG, "llm_stage1_H4.png")); plt.close(fig)
 
 

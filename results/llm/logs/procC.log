@@ -77,3 +77,25 @@ mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 1
   11000/12428  3404s  spend $1.0150
   12000/12428  3671s  spend $1.0227
 wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/mistral-small.csv: 12428 rows, 0 errors, new spend $1.0262
+21:15:23 done mistral-small
+21:15:27 spend check: max(cache $7.559, key $5.628) = $7.559  (cap $12.0)
+mistral-large [mistralai/mistral-large-4-0 @ mistral] comprehension: 2116 calls (0 cached)
+  1000/2116  235s  spend $1.1108
+  2000/2116  402s  spend $1.2031
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistral-large.csv: 2116 rows, 0 errors, new spend $1.2140
+mistral-large [mistralai/mistral-large-4-0 @ mistral] main: 12428 calls (0 cached)
+  1000/12428  220s  spend $1.2978
+  2000/12428  367s  spend $1.3770
+  3000/12428  516s  spend $1.4545
+  4000/12428  696s  spend $1.5354
+  5000/12428  862s  spend $1.6568
+  6000/12428  1057s  spend $1.7930
+  7000/12428  1236s  spend $1.9369
+  8000/12428  1387s  spend $2.0628
+  9000/12428  1547s  spend $2.1902
+  10000/12428  1707s  spend $2.3263
+  11000/12428  1878s  spend $2.4506
+  12000/12428  2044s  spend $2.5407
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/mistral-large.csv: 12428 rows, 0 errors, new spend $2.5812
+21:58:23 done mistral-large
+21:58:28 final spend: cache $9.545, key $9.557

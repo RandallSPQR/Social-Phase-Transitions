@@ -21,6 +21,8 @@ NOISE_GATE = 0.30
 
 def pooled_sd(arms):
     """Endpoint-level repeat SD (PREREG §4): RMS over all prompts of all arms."""
+    if any(a.get("repeat_sd") is None for a in arms.values()):
+        return float("nan")                                  # sampled endpoint: gate not applicable
     n = np.array([a["prompts"] for a in arms.values()]); sd = np.array([a["repeat_sd"] for a in arms.values()])
     return float(np.sqrt((n * sd ** 2).sum() / n.sum()))
 
@@ -39,7 +41,7 @@ ALPHA = 0.05
 def load(fits_dir):
     F = {}
     for p in glob.glob(os.path.join(fits_dir, "*.json")):
-        j = json.load(open(p)); F[j["endpoint"]["key"]] = {a["arm"]: a for a in j["arms"]}
+        j = json.load(open(p)); F[os.path.basename(p)[:-5]] = {a["arm"]: a for a in j["arms"]}   # key = file stem
     return F
 
 
@@ -47,7 +49,7 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     F = load(fits_dir)
     comp_path = comp_path or os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")
     comp = pd.read_csv(comp_path).set_index("key") if os.path.exists(comp_path) else pd.DataFrame()
-    gate = {k: pooled_sd(a) <= NOISE_GATE for k, a in F.items()}
+    gate = {k: not (pooled_sd(a) > NOISE_GATE) for k, a in F.items()}
     used = {resolve(k, F, gate) for k in WORKHORSES if k not in BACKUP_KEY.values()} - {None}
     rows = []
     for key, arms in F.items():

@@ -1,13 +1,13 @@
-family_pair,arm,status,beta_small,beta_large,diff_lo,diff_hi,p_one_sided,holm,significant
-llama-8b -> llama-70b,neutral_own,missing,,,,,,,False
-llama-8b -> llama-70b,political,missing,,,,,,,False
-llama-8b -> llama-70b,workplace,missing,,,,,,,False
-qwen-9b -> qwen-122b,neutral_own,tested,0.09218823902294744,0.34589771564373784,0.22148499999999996,0.28482275,0.001,0.003,True
-qwen-9b -> qwen-122b,political,tested,0.11792580336508374,0.23742055549031327,0.0910045,0.15144175,0.001,0.003,True
-qwen-9b -> qwen-122b,workplace,tested,0.10428894019632037,0.23507069237884373,0.1035425,0.15908199999999997,0.001,0.003,True
-gemma-26b -> gemma-31b,neutral_own,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,,,,,,False
-gemma-26b -> gemma-31b,political,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,,,,,,False
-gemma-26b -> gemma-31b,workplace,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,,,,,,False
-nemo-12b -> mistral-large,neutral_own,missing,,,,,,,False
-nemo-12b -> mistral-large,political,missing,,,,,,,False
-nemo-12b -> mistral-large,workplace,missing,,,,,,,False
+family_pair,arm,beta_small,beta_large,diff_lo,diff_hi,p_one_sided,status,holm,significant
+llama-8b -> llama-70b,neutral_own,0.04083971952268543,0.6498916778288844,0.526072,0.72183225,0.001,excluded: does not parse task (llama-8b),,False
+llama-8b -> llama-70b,political,0.04998307155755867,0.7814015703287489,0.579031,0.9670207499999999,0.001,excluded: does not parse task (llama-8b),,False
+llama-8b -> llama-70b,workplace,0.05786360253713915,0.6294442589319473,0.4762462499999999,0.7137495,0.001,excluded: does not parse task (llama-8b),,False
+qwen-9b -> qwen-122b,neutral_own,0.09218823902294744,0.34589771564373784,0.22311275,0.2862515,0.001,tested,0.003,True
+qwen-9b -> qwen-122b,political,0.11792580336508374,0.23742055549031327,0.09006124999999998,0.15107200000000004,0.001,tested,0.003,True
+qwen-9b -> qwen-122b,workplace,0.10428894019632037,0.23507069237884373,0.10530424999999999,0.160403,0.001,tested,0.003,True
+gemma-26b -> gemma-31b,neutral_own,,,,,,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,False
+gemma-26b -> gemma-31b,political,,,,,,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,False
+gemma-26b -> gemma-31b,workplace,,,,,,"excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)",,False
+nemo-12b -> mistral-large,neutral_own,,,,,,"excluded: noise gate failed, no passing backup (mistral-large)",,False
+nemo-12b -> mistral-large,political,,,,,,"excluded: noise gate failed, no passing backup (mistral-large)",,False
+nemo-12b -> mistral-large,workplace,,,,,,"excluded: noise gate failed, no passing backup (mistral-large)",,False

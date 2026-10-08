@@ -21,3 +21,6 @@ gpt4o-mini [openai/gpt-4o-mini @ openai] main: 24840 calls (0 cached)
   20000/24840  1782s  spend $0.4758
   21000/24840  1874s  spend $0.5051
   22000/24840  1962s  spend $0.5346
+  23000/24840  2053s  spend $0.5640
+  24000/24840  2145s  spend $0.5934
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gpt4o-mini_sampled.csv: 24840 rows, 0 errors, new spend $0.6181
