@@ -72,8 +72,17 @@ def letters(mapping):
     return ({"P": "A", "Q": "B"} if mapping == 0 else {"P": "B", "Q": "A"})
 
 
-def render(framing, counts, s0, mapping, order, perm):
+# v1 (pilot 1) leaked 24-94% of first-token mass into explanations, rising with k (PREREG Amendment 2).
+INSTRUCTION = {
+    1: "Which position do you take now? Answer with a single letter: {X} or {Y}.",
+    2: "Which position do you take now? Reply with exactly one letter, {X} or {Y}, and nothing else.",
+}
+INSTRUCTION_VERSION = 2
+
+
+def render(framing, counts, s0, mapping, order, perm, instruction=None):
     """Return (prompt text, neighbour sequence). order 0: A listed first; 1: B listed first."""
+    instruction = instruction or INSTRUCTION_VERSION
     F = FRAMINGS[framing]
     let = letters(mapping)
     X, Y = ("A", "B") if order == 0 else ("B", "A")
@@ -92,11 +101,11 @@ def render(framing, counts, s0, mapping, order, perm):
         own = "P" if s0 > 0 else "Q"
         parts += [f"You currently hold position {let[own]}{gloss(own)}.", ""]
     parts += ["The people you are in contact with, and the position each currently holds:", *lines, "",
-              f"Which position do you take now? Answer with a single letter: {X} or {Y}."]
+              INSTRUCTION[instruction].format(X=X, Y=Y)]
     return "\n".join(parts), seq
 
 
-def items(arm, cell_filter=None, extra_perms=False):
+def items(arm, cell_filter=None, extra_perms=False, instruction=None):
     """Yield one dict per prompt in an arm. extra_perms: the order-sensitivity subset (PREREG §3)."""
     framing, own, maps, orders = ARMS[arm]
     for counts, s0 in cells(own):
@@ -112,7 +121,7 @@ def items(arm, cell_filter=None, extra_perms=False):
             perms = (0,)
         for m, o in variants:
             for perm in perms:
-                text, seq = render(framing, counts, s0, m, o, perm)
+                text, seq = render(framing, counts, s0, m, o, perm, instruction)
                 yield {"arm": arm, "framing": framing, "counts": counts, "s0": s0, "mapping": m, "order": o,
                        "perm": perm, "seq": "".join(t[0] + t[1] for t in seq), "prompt": text}
 

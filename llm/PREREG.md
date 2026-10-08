@@ -220,3 +220,17 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
 4. *H5 interpretation caveat.* With a planted pairwise interaction, A3 overestimated α (1.30 vs true 1.0),
    because M_a² terms are partly collinear with k-scaling. α is interpreted as summation/averaging only
    where H3 is negative for that cell; otherwise it is reported as descriptive.
+
+**Amendment 2 (2026-10-08, after pilot 1, before any main run). Answer instruction changed.**
+
+- **Problem.** Pilot 1 (Llama-3.1-8B, instruction v1: "Answer with a single letter: A or B.") put 58–69% of
+  first-token mass on starting an explanation ("Since", "To", "Given"). The leak **rose with k**: 24% at
+  k = 1, 55% at k = 3, 94% at k = 5–6. Every prompt failed the 5% leak rule. Renormalising over {A, B} under
+  that leak would bias exactly the k-dependence tested by H5.
+- **New instruction (v2):** "Which position do you take now? Reply with exactly one letter, A or B, and
+  nothing else." This is the wording used in the provider probes.
+- **Check** (`llm/probe_instruction.py`, `results/llm/catalog/instruction_leak_2026-10-08.csv`): 2 cells
+  per k on 4 endpoints. Maximum leak under v2 was 1.1% (Mistral Large 4, k = 6), versus 57% under v1.
+  Llama-8B went from 19–95% to 0.0%.
+- Nothing else in the battery changed. Pilot-1 data are kept in
+  `results/llm/stage1/pilot/llama-8b_instruction-v1.csv` and are not analysed further.

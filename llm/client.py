@@ -5,7 +5,7 @@ hashed; the compact response is appended to results/llm/cache/<model>.jsonl.
 Reruns with the same body are free. The API key is read from OPENROUTER_API_KEY
 if set (otherwise the session proxy injects auth); it is never printed or stored.
 """
-import hashlib, json, os, threading, time
+import hashlib, json, os, random, threading, time
 import requests
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,7 +93,8 @@ def chat(body, rep=0, budget_usd=None, retries=6, timeout=60):
     payload = dict(body)
     payload["usage"] = {"include": True}
     err = None
-    for a in range(retries):
+    a = n429 = 0
+    while a < retries:
         try:
             r = requests.post(URL, headers=_headers(), json=payload, timeout=timeout)
             if r.status_code == 200:
@@ -117,9 +118,14 @@ def chat(body, rep=0, budget_usd=None, retries=6, timeout=60):
                 err = f"http {r.status_code}: {r.text[:300]}"
                 if r.status_code in (400, 401, 402, 403, 404):
                     break                       # not retryable
+                if r.status_code == 429 and n429 < 60:   # shared upstream pool: short jittered retry
+                    n429 += 1
+                    time.sleep(0.5 + 2.5 * random.random())
+                    continue
         except requests.RequestException as e:
             err = f"{type(e).__name__}: {str(e)[:200]}"
         time.sleep(min(2 ** a, 30))
+        a += 1
     raise RuntimeError(f"{model} rep={rep}: {err}")
 
 

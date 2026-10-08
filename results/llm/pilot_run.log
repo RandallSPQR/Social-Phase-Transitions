@@ -1,0 +1,3 @@
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] pilot: 1236 calls (875 cached)
+  1000/1236  175s  spend $0.0050
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/pilot/llama-8b.csv: 1236 rows, 0 errors, new spend $0.0159
