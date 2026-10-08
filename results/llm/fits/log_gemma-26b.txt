@@ -1,0 +1,71 @@
+
+== neutral_noown  prompts=418 cells=209 excluded=0 repeat_sd=0.7268661097924325 perm_sd=None
+  b_a                1.225  [  1.047,   1.509]  p=0.0010
+  b_r               -0.002  [ -0.173,   0.144]  p=0.9980
+  h                  0.043  [ -0.257,   0.328]  p=0.7980
+  h_O                0.197  [  0.078,   0.328]  p=0.0020
+  beta               0.611  [  0.491,   0.795]  p=0.0010
+  w_r_over_w_a      -0.002  [ -0.145,   0.112]  p=0.9980
+  b_r_minus_b_a     -1.227  [ -1.530,  -1.025]  p=0.0010
+  alpha              0.766  [  0.085,   1.954]  p=0.0320
+  H3 pairwise  T=7.87 (q=3) p=0.0430 [secondary p=0.5020]  cvCE 0.4184->0.4261 rel=-0.018 fracdP=0.24 pass=False
+  H3 cubic     T=37.34 (q=4) p=0.0010 [secondary p=0.0010]  cvCE 0.4184->0.3688 rel=+0.118 fracdP=0.56 pass=True
+  order effects {'first': 0.5196986309178823, 'last': 0.30577102137600265}  A0 CE=0.4121 floor=0.1360
+
+== neutral_own  prompts=836 cells=418 excluded=0 repeat_sd=0.6568923141338634 perm_sd=1.3208466719720082
+  b_a                1.556  [  1.396,   1.771]  p=0.0010
+  b_r               -0.152  [ -0.267,  -0.058]  p=0.0040
+  gamma             -0.534  [ -0.765,  -0.312]  p=0.0010
+  h                  0.166  [ -0.048,   0.396]  p=0.1280
+  h_O                0.257  [  0.159,   0.361]  p=0.0010
+  beta               0.702  [  0.609,   0.818]  p=0.0010
+  w_r_over_w_a      -0.098  [ -0.167,  -0.036]  p=0.0040
+  b_r_minus_b_a     -1.708  [ -1.955,  -1.525]  p=0.0010
+  alpha              0.456  [  0.102,   0.781]  p=0.0180
+  H3 pairwise  T=3.65 (q=5) p=0.6090 [secondary p=0.9300]  cvCE 0.3540->0.3576 rel=-0.010 fracdP=0.06 pass=False
+  H3 cubic     T=24.17 (q=4) p=0.0010 [secondary p=0.0010]  cvCE 0.3540->0.3391 rel=+0.042 fracdP=0.29 pass=True
+  order effects {'first': 0.03076239387497567, 'last': -0.07911403365667684}  A0 CE=0.3479 floor=0.1047
+
+== neutral_own_w2  prompts=836 cells=418 excluded=0 repeat_sd=0.6148244658949092 perm_sd=None
+  b_a                1.613  [  1.463,   1.845]  p=0.0010
+  b_r               -0.332  [ -0.476,  -0.220]  p=0.0010
+  gamma             -0.664  [ -0.909,  -0.436]  p=0.0010
+  h                  0.203  [ -0.023,   0.443]  p=0.0780
+  h_O                0.227  [  0.123,   0.347]  p=0.0010
+  beta               0.640  [  0.548,   0.768]  p=0.0010
+  w_r_over_w_a      -0.206  [ -0.289,  -0.136]  p=0.0010
+  b_r_minus_b_a     -1.945  [ -2.242,  -1.749]  p=0.0010
+  alpha              0.512  [  0.178,   0.796]  p=0.0020
+  H3 pairwise  T=1.81 (q=5) p=0.8890 [secondary p=0.8190]  cvCE 0.3353->0.3435 rel=-0.024 fracdP=0.06 pass=False
+  H3 cubic     T=38.68 (q=4) p=0.0010 [secondary p=0.0010]  cvCE 0.3353->0.3091 rel=+0.078 fracdP=0.35 pass=True
+  order effects {'first': 0.22463791615958895, 'last': 0.016188373778912028}  A0 CE=0.3281 floor=0.0850
+
+== political  prompts=1672 cells=418 excluded=0 repeat_sd=0.7843062263309145 perm_sd=None
+  b_a                1.092  [  0.964,   1.298]  p=0.0010
+  b_r               -0.493  [ -0.636,  -0.367]  p=0.0010
+  gamma              5.251  [  4.727,   6.120]  p=0.0010
+  h_C                1.397  [  1.006,   1.883]  p=0.0010
+  h_L                0.315  [  0.124,   0.498]  p=0.0010
+  h_O               -0.191  [ -0.386,  -0.005]  p=0.0460
+  beta               0.300  [  0.230,   0.404]  p=0.0010
+  w_r_over_w_a      -0.451  [ -0.561,  -0.324]  p=0.0010
+  b_r_minus_b_a     -1.585  [ -1.866,  -1.393]  p=0.0010
+  alpha              0.160  [ -0.276,   0.433]  p=0.4380
+  H3 pairwise  T=24.16 (q=5) p=0.0010 [secondary p=0.0010]  cvCE 0.1301->0.1272 rel=+0.022 fracdP=0.06 pass=False
+  H3 cubic     T=16.63 (q=4) p=0.0010 [secondary p=0.9130]  cvCE 0.1301->0.1270 rel=+0.024 fracdP=0.08 pass=False
+  order effects {'first': -0.3496370835448088, 'last': 0.2549220218937575}  A0 CE=0.1272 floor=0.0436
+
+== workplace  prompts=1672 cells=418 excluded=0 repeat_sd=0.6968327297670383 perm_sd=None
+  b_a                1.649  [  1.445,   1.975]  p=0.0010
+  b_r               -1.023  [ -1.217,  -0.879]  p=0.0010
+  gamma              2.274  [  1.973,   2.685]  p=0.0010
+  h_C                1.863  [  1.585,   2.246]  p=0.0010
+  h_L               -0.381  [ -0.513,  -0.261]  p=0.0010
+  h_O               -0.285  [ -0.407,  -0.175]  p=0.0010
+  beta               0.313  [  0.216,   0.427]  p=0.0010
+  w_r_over_w_a      -0.620  [ -0.719,  -0.531]  p=0.0010
+  b_r_minus_b_a     -2.672  [ -3.115,  -2.368]  p=0.0010
+  alpha              0.083  [ -0.177,   0.331]  p=0.4780
+  H3 pairwise  T=46.55 (q=5) p=0.0010 [secondary p=0.0010]  cvCE 0.2375->0.2084 rel=+0.122 fracdP=0.39 pass=True
+  H3 cubic     T=25.77 (q=4) p=0.0010 [secondary p=0.0010]  cvCE 0.2375->0.2069 rel=+0.129 fracdP=0.28 pass=True
+  order effects {'first': 0.24717856918569148, 'last': 0.13187702803802007}  A0 CE=0.2314 floor=0.0608

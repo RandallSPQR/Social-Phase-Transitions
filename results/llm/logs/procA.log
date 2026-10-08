@@ -1,3 +1,9 @@
 18:34:17 spend check: max(cache $0.134, key $0.142) = $0.142  (cap $12.0)
 llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] comprehension: 2116 calls (0 cached)
   1000/2116  835s  spend $0.0337
+  2000/2116  1500s  spend $0.0698
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/llama-8b.csv: 2116 rows, 0 errors, new spend $0.0741
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] main: 12428 calls (0 cached)
+  1000/12428  667s  spend $0.1076
+  2000/12428  1216s  spend $0.1386
+  3000/12428  1915s  spend $0.1689

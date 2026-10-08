@@ -34,3 +34,34 @@ wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/qwen-
 qwen-9b [qwen/qwen3.5-9b @ parasail/bf16] main: 12428 calls (0 cached)
   1000/12428  79s  spend $2.0376
   2000/12428  149s  spend $2.0507
+  3000/12428  219s  spend $2.0635
+  4000/12428  303s  spend $2.0768
+  5000/12428  384s  spend $2.0960
+  6000/12428  463s  spend $2.1175
+  7000/12428  543s  spend $2.1403
+  8000/12428  626s  spend $2.1601
+  9000/12428  706s  spend $2.1798
+  10000/12428  785s  spend $2.2009
+  11000/12428  864s  spend $2.2203
+  12000/12428  942s  spend $2.2351
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/qwen-9b.csv: 12428 rows, 0 errors, new spend $2.2418
+19:13:19 done qwen-9b
+19:13:20 spend check: max(cache $2.975, key $1.173) = $2.975  (cap $12.0)
+qwen-122b [qwen/qwen3.5-122b-a10b @ alibaba] comprehension: 2116 calls (0 cached)
+  1000/2116  119s  spend $2.2792
+error: qwen/qwen3.5-122b-a10b rep=0: api error: {'message': 'Upstream error from Alibaba: Request rate increased too quickly. To ensure system stability, please adjust your client logic to scale requests mor
+  2000/2116  254s  spend $2.3200
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/qwen-122b.csv: 2115 rows, 1 errors, new spend $2.3248
+qwen-122b [qwen/qwen3.5-122b-a10b @ alibaba] main: 12428 calls (0 cached)
+  1000/12428  108s  spend $2.3620
+  2000/12428  203s  spend $2.3972
+  3000/12428  297s  spend $2.4317
+  4000/12428  400s  spend $2.4676
+  5000/12428  506s  spend $2.5190
+  6000/12428  612s  spend $2.5765
+  7000/12428  717s  spend $2.6372
+  8000/12428  826s  spend $2.6899
+  9000/12428  933s  spend $2.7427
+  10000/12428  1040s  spend $2.7988
+  11000/12428  1148s  spend $2.8509
+  12000/12428  1257s  spend $2.8908

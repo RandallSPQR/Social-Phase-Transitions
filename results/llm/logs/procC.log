@@ -17,3 +17,32 @@ gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] main: 12428 calls (0 cache
   11000/12428  1085s  spend $0.2423
   12000/12428  1204s  spend $0.2595
 wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-26b.csv: 12428 rows, 0 errors, new spend $0.2671
+18:59:29 done gemma-26b
+18:59:30 spend check: max(cache $2.530, key $0.872) = $2.530  (cap $12.0)
+gemma-31b [google/gemma-4-31b-it @ io-net] comprehension: 2116 calls (0 cached)
+  1000/2116  133s  spend $0.3022
+  2000/2116  269s  spend $0.3404
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/gemma-31b.csv: 2116 rows, 0 errors, new spend $0.3449
+gemma-31b [google/gemma-4-31b-it @ io-net] main: 12428 calls (0 cached)
+  1000/12428  109s  spend $0.3767
+  2000/12428  234s  spend $0.4075
+  3000/12428  340s  spend $0.4375
+  4000/12428  486s  spend $0.4704
+  5000/12428  632s  spend $0.5148
+  6000/12428  749s  spend $0.5646
+  7000/12428  886s  spend $0.6166
+  8000/12428  1022s  spend $0.6624
+  9000/12428  1140s  spend $0.7085
+  10000/12428  1269s  spend $0.7577
+  11000/12428  1414s  spend $0.8043
+  12000/12428  1540s  spend $0.8400
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-31b.csv: 12428 rows, 0 errors, new spend $0.8563
+19:31:57 done gemma-31b
+19:31:58 spend check: max(cache $3.859, key $1.322) = $3.859  (cap $12.0)
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] comprehension: 2116 calls (0 cached)
+  1000/2116  89s  spend $0.8584
+  2000/2116  174s  spend $0.8607
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/nemo-12b.csv: 2116 rows, 0 errors, new spend $0.8610
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] main: 12428 calls (0 cached)
+  1000/12428  96s  spend $0.8630
+  2000/12428  178s  spend $0.8650
