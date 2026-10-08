@@ -70,3 +70,7 @@ mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 1
   4000/12428  1164s  spend $0.9384
   5000/12428  1539s  spend $0.9484
   6000/12428  1860s  spend $0.9597
+  7000/12428  2162s  spend $0.9718
+  8000/12428  2494s  spend $0.9823
+  9000/12428  2842s  spend $0.9929
+  10000/12428  3096s  spend $1.0045
