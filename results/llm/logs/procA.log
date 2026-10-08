@@ -10,3 +10,4 @@ llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] main: 12428 calls (
   4000/12428  2360s  spend $0.2012
   5000/12428  2919s  spend $0.2469
   6000/12428  3589s  spend $0.2973
+  7000/12428  4143s  spend $0.3502

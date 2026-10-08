@@ -11,11 +11,27 @@ import glob, json, os, sys
 import numpy as np, pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from analysis import holm
-from endpoints import H4_PAIRS
+from endpoints import H4_PAIRS, BACKUP_KEY
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WORKHORSES = ["llama-8b", "llama-70b", "qwen-9b", "qwen-122b", "gemma-26b", "gemma-31b", "nemo-12b",
-              "mistral-small", "mistral-large"]
+              "mistral-small", "mistral-large", "gemma-26b-cw", "gemma-31b-nv"]
+NOISE_GATE = 0.30
+
+
+def pooled_sd(arms):
+    """Endpoint-level repeat SD (PREREG §4): RMS over all prompts of all arms."""
+    n = np.array([a["prompts"] for a in arms.values()]); sd = np.array([a["repeat_sd"] for a in arms.values()])
+    return float(np.sqrt((n * sd ** 2).sum() / n.sum()))
+
+
+def resolve(key, F, gate):
+    """Endpoint used for a model in confirmatory analysis: the primary if it passes the noise gate,
+    else its pre-listed backup if that passes, else None (model dropped)."""
+    if key in F and gate.get(key):
+        return key
+    b = BACKUP_KEY.get(key)
+    return b if b in F and gate.get(b) else None
 CONF_ARMS = ["neutral_own", "political", "workplace"]
 ALPHA = 0.05
 
@@ -31,13 +47,15 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     F = load(fits_dir)
     comp_path = comp_path or os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")
     comp = pd.read_csv(comp_path).set_index("key") if os.path.exists(comp_path) else pd.DataFrame()
+    gate = {k: pooled_sd(a) <= NOISE_GATE for k, a in F.items()}
+    used = {resolve(k, F, gate) for k in WORKHORSES if k not in BACKUP_KEY.values()} - {None}
     rows = []
     for key, arms in F.items():
         for arm, r in arms.items():
             c = r["coef"]
             row = {"key": key, "arm": arm, "n_prompts": r["n_prompts"], "excluded_frac": r["excluded_frac"],
                    "repeat_sd": r.get("repeat_sd"), "perm_sd": r.get("perm_sd"),
-                   "noise_ok": r["endpoint_passes_noise_gate"],
+                   "endpoint_repeat_sd": pooled_sd(arms), "noise_ok": gate[key],
                    "comprehension_ok": bool(comp.loc[key, "passes"]) if key in comp.index else None}
             for n in ("b_a", "b_r", "gamma", "h", "h_C", "h_L", "h_O", "beta", "b_r_minus_b_a", "w_r_over_w_a", "alpha"):
                 if n in c:
@@ -45,7 +63,7 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
             for blk, t in r["H3"].items():
                 row[f"H3_{blk}_p"] = t["p"]; row[f"H3_{blk}_cvrel"] = t["cv_rel_improvement"]
                 row[f"H3_{blk}_fracdP"] = t["frac_cells_dP_ge_0.05"]; row[f"H3_{blk}_mineff"] = t["passes_min_effect"]
-            row["confirmatory"] = (key in WORKHORSES and arm in CONF_ARMS and row["noise_ok"] and row["comprehension_ok"] is True)
+            row["confirmatory"] = (key in used and arm in CONF_ARMS and row["comprehension_ok"] is True)
             rows.append(row)
     T = pd.DataFrame(rows)
     C = T[T["confirmatory"]].copy()
@@ -69,11 +87,15 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     # H4: one-sided bootstrap test of beta_large > beta_small, per family x framing, comprehension-gated
     h4 = []
     rng = np.random.default_rng(4)
-    for small, large in H4_PAIRS:
+    for small0, large0 in H4_PAIRS:
+        small, large = resolve(small0, F, gate) or small0, resolve(large0, F, gate) or large0
         for arm in CONF_ARMS:
             ok = all(k in F and arm in F[k] for k in (small, large))
             gated = [k for k in (small, large) if k in comp.index and not bool(comp.loc[k, "passes"])]
             row = {"family_pair": f"{small} -> {large}", "arm": arm}
+            dropped = [k for k in (small0, large0) if resolve(k, F, gate) is None and (k in F)]
+            if dropped:
+                row["status"] = "excluded: noise gate failed, no passing backup (" + ", ".join(dropped) + ")"; h4.append(row); continue
             if not ok:
                 row["status"] = "missing"; h4.append(row); continue
             bs, bl = np.array(F[small][arm]["draws"]["beta"]), np.array(F[large][arm]["draws"]["beta"])

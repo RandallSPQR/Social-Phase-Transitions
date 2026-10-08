@@ -64,3 +64,5 @@ mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] compreh
   2000/2116  657s  spend $0.9100
 wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistral-small.csv: 2116 rows, 0 errors, new spend $0.9109
 mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 12428 calls (0 cached)
+  1000/12428  319s  spend $0.9181
+  2000/12428  547s  spend $0.9248
