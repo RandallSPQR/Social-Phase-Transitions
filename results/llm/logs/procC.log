@@ -46,3 +46,21 @@ wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/nemo-
 nemo-12b [mistralai/mistral-nemo @ io-net/fp16] main: 12428 calls (0 cached)
   1000/12428  96s  spend $0.8630
   2000/12428  178s  spend $0.8650
+  3000/12428  261s  spend $0.8669
+  4000/12428  349s  spend $0.8689
+  5000/12428  434s  spend $0.8718
+  6000/12428  520s  spend $0.8751
+  7000/12428  607s  spend $0.8785
+  8000/12428  707s  spend $0.8816
+  9000/12428  794s  spend $0.8847
+  10000/12428  889s  spend $0.8880
+  11000/12428  971s  spend $0.8910
+  12000/12428  1064s  spend $0.8932
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/nemo-12b.csv: 12428 rows, 0 errors, new spend $0.8942
+19:54:09 done nemo-12b
+19:54:11 spend check: max(cache $4.418, key $2.167) = $4.418  (cap $12.0)
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  310s  spend $0.9018
+  2000/2116  657s  spend $0.9100
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistral-small.csv: 2116 rows, 0 errors, new spend $0.9109
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 12428 calls (0 cached)
