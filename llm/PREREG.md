@@ -290,3 +290,68 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
 - **Spot-check sampling** keeps the pre-registered reduced battery (neutral + political, k ≤ 4, 30 samples,
   T = 1). The spot checks run only if total spend after the workhorse fits is ≤ $12. Spend is the larger of
   the summed per-call costs in the cache and the OpenRouter key usage.
+
+**Amendment 4 (2026-10-09, owner-requested; committed before any GPU run). Self-hosted Gemma-4 in bf16.**
+
+- **Why.** Both Gemma-4 provider endpoints failed the 0.3-nat repeat-noise gate (Parasail 0.70, CoreWeave
+  0.35, Io Net 0.304), and the Novita backup returned no logprobs on 77% of calls. Self-hosting removes
+  provider jitter and gives logprobs and activations from the same computation.
+- **New endpoints: `gemma-26b-local` and `gemma-31b-local`.**
+  - Weights: `google/gemma-4-26b-a4b-it` and `google/gemma-4-31b-it`, bf16, HF `transformers`, one RunPod
+    GPU pod (`llm/local_gemma.py`, `llm/pod_run.sh`).
+  - Prompts: the identical battery (`llm/battery.py`, instruction v2), i.e. all five arms, the
+    order-sensitivity subset and the comprehension battery. Each is wrapped with the **official Gemma chat
+    template** (`tokenizer.apply_chat_template(..., add_generation_prompt=True)`), user turn only.
+  - **One forward pass per prompt** (batched, left-padded); the next-token distribution is read at the last
+    position. P(A) uses the Stage 1 rule: top-5 tokens whose stripped text is `A`/`B`, renormalised, with
+    leak and censoring recorded. The exact full-vocabulary version (all token ids whose stripped decode is
+    `A`/`B`) is recorded alongside, as secondary.
+  - **Two replicates** per prompt, run in different batch orders and padding, so batch-composition
+    numerics are measured. The 0.3-nat gate applies unchanged.
+- **Confirmatory, reported regardless of outcome.**
+  1. **Comprehension check and noise gate** exactly as in Stage 1. Only endpoints that pass both enter
+     the analyses below.
+  2. **H1–H5** with the same analysis code. The confirmatory set is **extended** to the passing local
+     Gemma endpoints. Holm families are recomputed over all extended cells. The original 12-cell Stage 1
+     results stand as reported; both versions are reported.
+  3. **H4 in the Gemma family** (26B-A4B local → 31B local; one-sided bootstrap, Holm over the 3 framings)
+     is reported in its own right. The overall H4 rule ("≥ 3 of 4 families") is unchanged. With Llama
+     (comprehension) and Mistral (noise gate) excluded, at most 2 families are testable, so the overall
+     verdict cannot become "supported" under this amendment.
+  4. **Local-vs-provider comparison.** Pairs: local 31B vs Io Net 31B; local 26B vs Parasail 26B; local
+     26B vs CoreWeave 26B.
+     - For each pair × arm (neutral_own, neutral_noown, political, workplace) and each coefficient
+       (b_a, b_r, γ, h / h_C / h_L, h_O, β, α), compute a **paired bootstrap** of provider − local: the
+       same cell-resampling indices for both endpoints, B = 1,000.
+     - **Tolerance (same as the GPT-4o-mini bridge):** a coefficient "agrees" if its 95% paired-bootstrap
+       CI contains 0.
+     - **Verdict per pair:** "jitter averages out" if ≥ 90% of coefficients agree and the attenuation test
+       below does not reject; "jitter biases estimates" otherwise.
+     - **Attenuation test:** regress provider coefficient estimates on local ones across all (arm,
+       coefficient) entries, excluding β (a sum of b_a and b_r) and α (a different model). Through the
+       origin, weighted by 1/(se²_provider + se²_local), with a cell-bootstrap CI for the slope.
+       Prediction from measured jitter σ: κ = (1 + πσ²/8)^(−1/2), i.e. 0.92 Parasail, 0.98 CoreWeave,
+       0.98 Io Net. Report whether the CI contains 1, and whether it contains κ.
+     - **Confound note:** providers may also differ in quantisation (Io Net's is unreported), chat-template
+       handling and serving stack. A disagreement shows that provider estimates differ from bf16 HF
+       inference, not that jitter caused it.
+- **Exploratory annex (labelled; cannot alter H1–H5).**
+  - **Activations:** last-token residual-stream hidden states at 6 layers (≈ 1/6, 2/6, …, 6/6 of depth),
+    replicate 1 only, for the main battery (perm 0 and the order subset) and the comprehension battery.
+    Stored as fp16 `.npy` with a prompt index.
+  - **Probes, per layer:** L2 logistic regression, 10-fold CV grouped by multiset, evaluated by held-out
+    AUC.
+    - Targets: (a) ally-majority side, (b) rival-majority side (strict majorities), (c) own position.
+    - **Controls:** a letter-count probe (number of "A" tokens among the ally, rival and own lines); shuffled
+      labels; and probes trained on neutral and tested on political.
+  - **"Represented but not used" test:** compare rival-majority decodability with the fitted rival effect
+    b_r (and ally with b_a).
+    - Supported descriptively if the rival target is decodable (AUC ≥ 0.9 at some layer, and above the
+      letter-count control) while |b_r| is small relative to b_a.
+    - Plus: the cosine between the rival-majority probe direction at the last layer and the unembedding
+      readout W_U[A] − W_U[B].
+  - **SAE:** feature lookup only if an existing SAE release covers Gemma-4 (the owner's setup); otherwise
+    skipped.
+- **Cost control.** A GPU-hour and $ estimate goes to the owner, and no pod is rented without the
+  owner's OK. Pods self-terminate when the batteries finish. Pod IDs and spend are logged in
+  EXECUTION_LOG.
