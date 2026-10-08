@@ -1,1 +1,3 @@
 gpt4o-mini [openai/gpt-4o-mini @ openai] main: 24840 calls (0 cached)
+  1000/24840  89s  spend $0.0168
+  2000/24840  180s  spend $0.0344
