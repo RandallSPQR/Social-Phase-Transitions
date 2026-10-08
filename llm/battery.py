@@ -39,7 +39,9 @@ ARMS = {  # arm: (framing, own position shown, mappings, orders)
     "neutral_noown": ("neutral", False, (0,), (0, 1)),
     "political":     ("political", True, (0, 1), (0, 1)),
     "workplace":     ("workplace", True, (0, 1), (0, 1)),
+    "neutral_own_w2": ("neutral", True, (0,), (0, 1)),      # wording-robustness arm (Amendment 3)
 }
+ARM_INSTRUCTION = {"neutral_own_w2": 3}
 
 
 def multisets(kmax=6):
@@ -76,11 +78,18 @@ def letters(mapping):
 INSTRUCTION = {
     1: "Which position do you take now? Answer with a single letter: {X} or {Y}.",
     2: "Which position do you take now? Reply with exactly one letter, {X} or {Y}, and nothing else.",
+    3: "Having considered your contacts, which position do you choose? Reply with exactly one letter, {X} or {Y}, and nothing else.",
+}
+# Comprehension battery (Amendment 3a): factual reading questions on the same scenario, not conformity-based.
+COMPREHENSION = {
+    "own": "Which position do you currently hold? Reply with exactly one letter, {X} or {Y}, and nothing else.",
+    "ally_majority": "Which position do most of your allies currently hold? Reply with exactly one letter, {X} or {Y}, and nothing else.",
+    "rival_majority": "Which position do most of your rivals currently hold? Reply with exactly one letter, {X} or {Y}, and nothing else.",
 }
 INSTRUCTION_VERSION = 2
 
 
-def render(framing, counts, s0, mapping, order, perm, instruction=None):
+def render(framing, counts, s0, mapping, order, perm, instruction=None, question=None):
     """Return (prompt text, neighbour sequence). order 0: A listed first; 1: B listed first."""
     instruction = instruction or INSTRUCTION_VERSION
     F = FRAMINGS[framing]
@@ -101,13 +110,14 @@ def render(framing, counts, s0, mapping, order, perm, instruction=None):
         own = "P" if s0 > 0 else "Q"
         parts += [f"You currently hold position {let[own]}{gloss(own)}.", ""]
     parts += ["The people you are in contact with, and the position each currently holds:", *lines, "",
-              INSTRUCTION[instruction].format(X=X, Y=Y)]
+              (question or INSTRUCTION[instruction]).format(X=X, Y=Y)]
     return "\n".join(parts), seq
 
 
 def items(arm, cell_filter=None, extra_perms=False, instruction=None):
     """Yield one dict per prompt in an arm. extra_perms: the order-sensitivity subset (PREREG §3)."""
     framing, own, maps, orders = ARMS[arm]
+    instruction = instruction or ARM_INSTRUCTION.get(arm)
     for counts, s0 in cells(own):
         if cell_filter is not None and not cell_filter(counts, s0):
             continue
@@ -124,6 +134,24 @@ def items(arm, cell_filter=None, extra_perms=False, instruction=None):
                 text, seq = render(framing, counts, s0, m, o, perm, instruction)
                 yield {"arm": arm, "framing": framing, "counts": counts, "s0": s0, "mapping": m, "order": o,
                        "perm": perm, "seq": "".join(t[0] + t[1] for t in seq), "prompt": text}
+
+
+def comprehension_items():
+    """Neutral framing, own position shown, both letter orders, k = 1..6. Majority questions only where the
+    majority is strict (ties excluded). Correct answer is a letter (mapping 0: P = A)."""
+    for counts, s0 in cells(True):
+        Ma, Mr = counts[0] - counts[1], counts[2] - counts[3]
+        qs = [("own", "A" if s0 > 0 else "B")]
+        if Ma != 0:
+            qs.append(("ally_majority", "A" if Ma > 0 else "B"))
+        if Mr != 0:
+            qs.append(("rival_majority", "A" if Mr > 0 else "B"))
+        for qname, correct in qs:
+            for o in (0, 1):
+                text, seq = render("neutral", counts, s0, 0, o, 0, question=COMPREHENSION[qname])
+                yield {"arm": "comprehension", "question": qname, "framing": "neutral", "counts": counts, "s0": s0,
+                       "mapping": 0, "order": o, "perm": 0, "seq": "".join(t[0] + t[1] for t in seq),
+                       "correct": correct, "prompt": text}
 
 
 def body(model, tag, prompt, mode="lp", reasoning_off=False, temperature=1.0):

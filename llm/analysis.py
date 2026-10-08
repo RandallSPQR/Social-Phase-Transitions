@@ -304,6 +304,7 @@ def analyse_arm(P, st, B=1000, nboot=999, seed=0):
     res["label_entropy"] = ce(y, y, w)
     draws = bootstrap(main, B, rng)
     res["coef"] = {k: boot_summary(est[k], draws[k]) for k in draws}
+    res["draws"] = {k: [round(float(x), 5) for x in draws[k]] for k in ("beta", "b_a", "b_r", "gamma", "alpha") if k in draws}
     res["A3"] = {"alpha": float(a3[0]), "b_a_k1": float(a3[1]), "b_r_k1": float(a3[2])}
     res["H3"] = {}
     for m in ("A1", "A2"):

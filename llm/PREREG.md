@@ -209,7 +209,8 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
    - For sampled endpoints the same score test is primary, because the binomial LR test ignores
      between-prompt (order) variation and over-rejects. The binomial LR is secondary.
    - Holm, the minimum-effect threshold and grouped-CV held-out CE are unchanged.
-2. *Estimand made explicit.* All coefficients are those of the **order-averaged (marginal) response
+2. *Estimand made explicit (this definition came out of the synthetic coverage check, not from any LLM
+   data).* All coefficients are those of the **order-averaged (marginal) response
    function**: the cross-entropy fit to probabilities, with neighbour order randomised. Per-prompt noise
    attenuates these relative to a latent per-prompt logit (by ~2% at noise SD 0.3). The marginal function
    is what governs network dynamics in which neighbour order is random.
@@ -234,3 +235,58 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
   Llama-8B went from 19–95% to 0.0%.
 - Nothing else in the battery changed. Pilot-1 data are kept in
   `results/llm/stage1/pilot/llama-8b_instruction-v1.csv` and are not analysed further.
+
+**Amendment 3 (2026-10-08, owner-requested, before any main run).**
+
+- **(a) Comprehension check.** This is a separate battery and is not conformity-based (`battery.comprehension_items`,
+  `llm/comprehension.py`).
+  - Neutral framing, own position shown, both letter orders, k = 1–6. Each prompt has the same scenario and
+    contact list as the main battery, then one factual question:
+    - "Which position do you currently hold?" (836 prompts)
+    - "Which position do most of your allies currently hold?" (640 prompts; strict majorities only)
+    - "Which position do most of your rivals currently hold?" (640 prompts; strict majorities only)
+  - One call per prompt, logprobs at T = 1.
+  - A prompt is correct if the renormalised P(correct letter) > 0.5; a prompt with leak > 5% counts as
+    incorrect.
+  - **Pass iff accuracy ≥ 90% on each of the three question types.**
+  - Endpoints below the threshold are labelled "does not parse task". They are excluded from H4 and from
+    every confirmatory Holm family, and their social fits are reported descriptively only.
+  - Run on every workhorse and on the GPT-4o-mini bridge.
+- **(b) Temperature.**
+  - Sampling at temperature T with no top-p/top-k truncation is softmax(z/T). For a two-option choice this
+    gives logit P_T = logit P₁ / T, so **β(T) = β(1)/T**, computed analytically.
+  - Applicability is classified per endpoint (`llm/temp_check.py semantics`): pre- vs post-temperature
+    logprobs. The analytic rule is claimed for endpoints returning pre-temperature logprobs with no
+    truncation parameters sent (we send no top_p/top_k); elsewhere it is flagged as assumed.
+  - **Verification on GPT-4o-mini** (`temp_check.py verify`):
+    - 20 prompts from its neutral battery with P₁ ∈ [0.1, 0.9], chosen in hash order; 50 samples each at
+      T = 0.5 and T = 1.5.
+    - Pass if, at each T, the 95% CI of the logistic slope of samples on logit₁ contains 1/T, and the
+      Pearson χ² (df = 20) has p > 0.01.
+  - **The planned sampled temperature sweep** on Llama-8B and Qwen-9B (40 cells × 4 T × 40 samples) is
+    **cancelled** if verification passes. If it fails, the owner is asked before any sweep.
+- **(c) Interpretation.**
+  - **β is largely a sampling knob:** a deployment's temperature rescales it as 1/T. Cross-model differences
+    in β at T = 1 therefore mean little for collective phases. The substantive, model-specific quantities
+    are:
+    - valence asymmetry w_rival/w_ally
+    - inertia γ
+    - degree scaling α
+    - interaction structure
+    - the fields h_C, h_L and h_O
+  - **H4 has a comprehension confound:** a model that misreads the task has a small or negative β regardless
+    of size, so "β rises with size" can reflect parsing rather than social responsiveness. The
+    comprehension gate addresses part of this. Any H4 result is reported next to the comprehension
+    accuracies.
+- **(d) Stage 3 requirement.** Option order (which letter is listed first) is randomised **per call** in live
+  networks. Otherwise h_O acts as a global external field. Content fields (e.g. workplace h_C) are
+  real-scenario preferences and are kept as measured external fields in Stage 2 predictions.
+- **(e)** See the note on Amendment 1 item 2.
+- **Wording-robustness arm** (`neutral_own_w2`), with wording "Having considered your contacts, which position
+  do you choose? Reply with exactly one letter, A or B, and nothing else."
+  - Same 836 prompts and replicates as `neutral_own`; secondary.
+  - Coefficient differences vs `neutral_own` are reported with bootstrap CIs, and flagged if a CI
+    excludes 0.
+- **Spot-check sampling** keeps the pre-registered reduced battery (neutral + political, k ≤ 4, 30 samples,
+  T = 1). The spot checks run only if total spend after the workhorse fits is ≤ $12. Spend is the larger of
+  the summed per-call costs in the cache and the OpenRouter key usage.

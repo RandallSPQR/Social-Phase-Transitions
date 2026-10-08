@@ -73,6 +73,10 @@ def run(key, phase, arms, reps, samples=0, temperature=1.0, kmax=6, workers=16, 
         filt = kmax_filter(kmax, filt)
     jobs = []
     for arm in arms:
+        if arm == "comprehension":
+            for it in battery.comprehension_items():
+                jobs.append((it, battery.body(model, tag, it["prompt"], "lp", roff, 1.0), 0))
+            continue
         its = list(battery.items(arm, filt))
         if order_subset and arm == "neutral_own" and not samples:
             its += list(battery.items(arm, filt, extra_perms=True))
@@ -117,7 +121,7 @@ def run(key, phase, arms, reps, samples=0, temperature=1.0, kmax=6, workers=16, 
     keys = []
     for r in rows:
         keys += [k for k in r if k not in keys]
-    rows.sort(key=lambda r: (r["arm"], r["counts"], r["s0"], r["mapping"], r["order"], r["perm"], r["rep"]))
+    rows.sort(key=lambda r: (r["arm"], r.get("question", ""), r["counts"], r["s0"], r["mapping"], r["order"], r["perm"], r["rep"]))
     with open(path, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(rows)
     print(f"wrote {path}: {len(rows)} rows, {errs} errors, new spend ${client.spend()['usd']:.4f}", flush=True)
@@ -127,7 +131,7 @@ def run(key, phase, arms, reps, samples=0, temperature=1.0, kmax=6, workers=16, 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--key", required=True)
-    ap.add_argument("--phase", choices=["pilot", "main"], required=True)
+    ap.add_argument("--phase", choices=["pilot", "main", "comprehension"], required=True)
     ap.add_argument("--arms", nargs="+", default=list(battery.ARMS))
     ap.add_argument("--reps", type=int, default=2)
     ap.add_argument("--samples", type=int, default=0)
