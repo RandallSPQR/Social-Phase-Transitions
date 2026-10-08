@@ -9,3 +9,7 @@ haiku [anthropic/claude-haiku-5.5 @ anthropic] main: 24840 calls (0 cached)
   8000/24840  1094s  spend $0.1360
   9000/24840  1229s  spend $0.1573
   10000/24840  1368s  spend $0.1812
+  11000/24840  1507s  spend $0.2056
+  12000/24840  1657s  spend $0.2303
+  13000/24840  1806s  spend $0.2560
+  14000/24840  1955s  spend $0.2818

@@ -17,3 +17,10 @@ gemini-lite [google/gemini-3.1-flash-lite @ google-ai-studio] main: 24840 calls 
   16000/24840  1219s  spend $0.6085
   17000/24840  1299s  spend $0.6570
   18000/24840  1378s  spend $0.7067
+  19000/24840  1455s  spend $0.7564
+  20000/24840  1536s  spend $0.8063
+  21000/24840  1615s  spend $0.8561
+  22000/24840  1695s  spend $0.9063
+  23000/24840  1772s  spend $0.9563
+  24000/24840  1850s  spend $1.0062
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemini-lite.csv: 24840 rows, 0 errors, new spend $1.0482

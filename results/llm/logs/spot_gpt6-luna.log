@@ -8,3 +8,6 @@ gpt6-luna [openai/gpt-6-luna @ openai] main: 24840 calls (0 cached)
   7000/24840  1039s  spend $0.0995
   8000/24840  1197s  spend $0.1142
   9000/24840  1352s  spend $0.1316
+  10000/24840  1516s  spend $0.1508
+  11000/24840  1722s  spend $0.1702
+  12000/24840  1877s  spend $0.1900
