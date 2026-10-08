@@ -1,0 +1,13 @@
+model,tag,reasoning_param,content_last,served,reasoning_tokens,completion_tokens,prompt_tokens,cost
+anthropic/claude-haiku-5.5,anthropic,"{""enabled"": false}",'B',Anthropic,0,3,104,1.19e-05
+anthropic/claude-haiku-5.5,anthropic,"{""effort"": ""none""}",'B',Anthropic,0,3,104,1.19e-05
+anthropic/claude-haiku-5.5,anthropic,"{""max_tokens"": 0}",None,Anthropic,64,64,106,4.26e-05
+openai/gpt-6-luna,openai,"{""enabled"": false}",'A',OpenAI,0,5,78,1.03e-05
+openai/gpt-6-luna,openai,"{""effort"": ""none""}",'A',OpenAI,0,5,78,1.03e-05
+openai/gpt-6-luna,openai,"{""max_tokens"": 0}",None,OpenAI,64,64,78,3.98e-05
+google/gemini-3.1-flash-lite,google-ai-studio,"{""enabled"": false}",'A',Google AI Studio,0,1,73,1.975e-05
+google/gemini-3.1-flash-lite,google-ai-studio,"{""effort"": ""none""}",'A',Google AI Studio,0,1,73,1.975e-05
+google/gemini-3.1-flash-lite,google-ai-studio,"{""max_tokens"": 0}",'A',Google AI Studio,0,1,73,1.975e-05
+google/gemini-2.5-flash-lite,google-ai-studio,"{""enabled"": false}",'A',Google AI Studio,0,1,73,7.7e-06
+google/gemini-2.5-flash-lite,google-ai-studio,"{""effort"": ""none""}",'A',Google AI Studio,0,1,73,7.7e-06
+google/gemini-2.5-flash-lite,google-ai-studio,"{""max_tokens"": 0}",'A',Google AI Studio,0,1,73,7.7e-06
