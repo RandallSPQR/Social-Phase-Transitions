@@ -85,3 +85,18 @@ judgment calls, in time order (2026-10-08).
    - Caveat: at T = 1.5, 99 of 1,000 samples were unparseable (stray tokens, other scripts, "C"). They are
      spread across prompts (≤ 16% per prompt; correlation with P₁ −0.2). Sampling above T = 1 needs a
      resample-on-invalid rule in Stage 3. The 1/T rule describes the valid-reply-conditional choice.
+8. **Step 1d: repository housekeeping.**
+   - **Scrub check:** all 268,884 cached records were scanned (every snapshot). No credentials, headers,
+     cookies or e-mail addresses. Records hold only the request body (model, messages, sampling
+     parameters, provider pin) and a compact response.
+   - The one account-linked field is OpenRouter's generation `id` (`gen-…`). It is not a credential and is
+     usable only with the owner's key. It is kept for auditability unless the owner asks to strip it.
+   - **Manifest and scripts:**
+     - `results/llm/cache_manifest.json`: SHA-256, size and records per snapshot, plus the dataset location.
+     - `llm/fetch_cache.py`: download and verify.
+     - `llm/upload_cache_hf.py`: upload, then re-download into a temp dir to verify SHA-256.
+   - **Hugging Face upload is BLOCKED.** The session's network policy refuses huggingface.co (403 at the
+     proxy), and no HF token is available.
+   - **Planned dataset id:** `RandallSPQR/social-phase-transitions-llm-cache` (owner to confirm).
+   - **Pending:** remove the `.jsonl.gz` snapshots from git (no force-push), then squash-merge into main.
+     This only happens after the upload is verified, so the data is never unreachable.
