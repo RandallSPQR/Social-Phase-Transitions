@@ -45,11 +45,14 @@ def load(fits_dir):
     return F
 
 
-def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_path=None, out=None):
+def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_path=None, out=None, relax_gate=False):
+    """relax_gate=True: post-data SENSITIVITY analysis (EXECUTION_LOG step 1a); every endpoint treated as passing
+    the noise gate, primaries used. Outputs carry the suffix _sensitivity_gate_relaxed. Not confirmatory."""
     F = load(fits_dir)
     comp_path = comp_path or os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")
     comp = pd.read_csv(comp_path).set_index("key") if os.path.exists(comp_path) else pd.DataFrame()
-    gate = {k: not (pooled_sd(a) > NOISE_GATE) for k, a in F.items()}
+    gate = {k: True if relax_gate else not (pooled_sd(a) > NOISE_GATE) for k, a in F.items()}
+    sfx = "_sensitivity_gate_relaxed" if relax_gate else ""
     used = {resolve(k, F, gate) for k in WORKHORSES if k not in BACKUP_KEY.values()} - {None}
     rows = []
     for key, arms in F.items():
@@ -115,9 +118,9 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     n_testable = int(((H4["arm"] == "neutral_own") & tested).sum())
     verdict = ("supported" if n_neu >= 3 else "not supported") + f" ({n_neu} of {n_testable} testable families significant in neutral; ≥3 of 4 required)"
     out = out or os.path.join(ROOT, "results", "llm")
-    T.drop(columns=[c for c in T if c.endswith("_mineff")]).to_csv(os.path.join(out, "stage1_cells.csv"), index=False)
-    H4.to_csv(os.path.join(out, "stage1_H4.csv"), index=False)
-    json.dump({"H4_verdict": verdict}, open(os.path.join(out, "stage1_verdicts.json"), "w"), indent=1)
+    T.drop(columns=[c for c in T if c.endswith("_mineff")]).to_csv(os.path.join(out, f"stage1_cells{sfx}.csv"), index=False)
+    H4.to_csv(os.path.join(out, f"stage1_H4{sfx}.csv"), index=False)
+    json.dump({"H4_verdict": verdict}, open(os.path.join(out, f"stage1_verdicts{sfx}.json"), "w"), indent=1)
     pd.set_option("display.width", 250)
     show = ["key", "arm", "confirmatory", "beta", "b_a", "b_r", "b_r_minus_b_a", "H1_holm", "gamma", "alpha",
             "H3_pairwise_holm", "H3_pairwise_supported", "H3_cubic_holm", "H3_cubic_supported", "repeat_sd", "excluded_frac"]
@@ -127,4 +130,4 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
 
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main(relax_gate="--relax-gate" in sys.argv)

@@ -37,7 +37,7 @@ hypothesis family.
   - Not significant for Llama-70B political (Holm p = 0.078).
   - Scope: this is valence asymmetry, not non-reciprocity (Amendment 3c).
 - **H2 (label fields): supported.**
-  - The letter field is significant in 10 of 12 cells; the content field h_C in all 6 content cells.
+  - The letter field is significant in 10 of 12 cells; the content field h_C in all 8 content cells (4 endpoints × 2 content framings). [Corrected 2026-10-09: an earlier version said "6 of 6".]
   - Content direction varies by model:
     - Llama-70B prefers *oppose* and *keep*.
     - Qwen and Nemo prefer *adopt* in workplace.

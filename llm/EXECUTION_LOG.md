@@ -52,3 +52,24 @@ judgment calls, in time order (2026-10-08).
      most about $2.40 at list price, so spend after the workhorses was guaranteed to be ≤ $12, the owner's
      condition.
    - Per-process caps held the worst case to about $11.50.
+
+## Phase 2 (owner instructions of 2026-10-09). All items below are post-data.
+
+6. **Step 1a: noise-gate sensitivity analysis** (`python llm/summarize.py --relax-gate`; outputs carry the
+   suffix `_sensitivity_gate_relaxed`).
+   - The confirmatory H1–H5 analysis is unchanged: 4 endpoints, 12 cells.
+   - **Sensitivity** (gate relaxed; primaries Gemma-26B @ Parasail, Gemma-31B @ Io Net and Mistral Large
+     added; 7 endpoints, 21 cells):
+     - H1 is significant in 18 of 21 cells, all with rivals weighted less than allies.
+     - H2 letter field 18 of 21; content field 11 of 14.
+     - H3 pairwise is supported in 4 cells: Llama-70B political and workplace, Mistral Large workplace,
+       Gemma-26B workplace.
+     - H3 cubic is supported in 4 cells: Gemma-26B neutral and workplace, Gemma-31B neutral and political.
+       **All four are on gate-failed (jittery) endpoints.** Per-call jitter plus saturation could produce
+       apparent curvature, so they are pending the local bf16 replication (Amendment 4).
+     - H5 departs from summation in 12 of 21 cells.
+     - **H4 would be supported** (3 of 3 testable families; Llama is still excluded by comprehension).
+   - Stage 2 includes the gate-failed endpoints, with their jitter modelled explicitly as per-call logit
+     noise.
+   - Correction to `results/llm/STAGE1_RESULTS.md`: the content field h_C is significant in 8 of 8
+     confirmatory content cells, not "6 of 6".
