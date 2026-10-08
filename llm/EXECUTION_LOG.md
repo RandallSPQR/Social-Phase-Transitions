@@ -73,3 +73,15 @@ judgment calls, in time order (2026-10-08).
      noise.
    - Correction to `results/llm/STAGE1_RESULTS.md`: the content field h_C is significant in 8 of 8
      confirmatory content cells, not "6 of 6".
+7. **Step 1b: temperature.** The owner accepts β(T) = β(1)/T provisionally.
+   - The clean check reran the pre-registered verification on **Qwen3.5-9B @ Parasail** (deterministic
+     logprobs, repeat SD 0.035): 20 prompts × 50 samples at each T, about $0.03
+     (`results/llm/temperature_verify_qwen-9b.json`).
+   - **It passes at both temperatures:**
+     - T = 0.5: slope 2.22 (95% CI 1.87–2.61; expected 2.0), χ² p = 0.13.
+     - T = 1.5: slope 0.68 (0.45–0.93; expected 0.67), χ² p = 0.57.
+   - This supports reading the GPT-4o-mini failure as reference-logit jitter rather than a failure of the
+     1/T rule.
+   - Caveat: at T = 1.5, 99 of 1,000 samples were unparseable (stray tokens, other scripts, "C"). They are
+     spread across prompts (≤ 16% per prompt; correlation with P₁ −0.2). Sampling above T = 1 needs a
+     resample-on-invalid rule in Stage 3. The 1/T rule describes the valid-reply-conditional choice.

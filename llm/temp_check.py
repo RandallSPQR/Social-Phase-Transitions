@@ -57,8 +57,8 @@ def semantics():
     print(pd.DataFrame(rows).to_string(index=False))
 
 
-def verify(n_samples=50, temps=(0.5, 1.5)):
-    d = pd.read_csv(os.path.join(OUT, "stage1", "main", "gpt4o-mini.csv"), dtype={"counts": str})
+def verify(key="gpt4o-mini", n_samples=50, temps=(0.5, 1.5)):
+    d = pd.read_csv(os.path.join(OUT, "stage1", "main", f"{key}.csv"), dtype={"counts": str})
     d = d[(d.arm == "neutral_own") & (d.perm == 0) & (d.rep == 0)].copy()
     d["ident"] = [hashlib.sha256(f"{c}|{s}|{o}".encode()).hexdigest() for c, s, o in zip(d.counts, d.s0, d.order)]
     d = d.sort_values("ident")
@@ -66,7 +66,7 @@ def verify(n_samples=50, temps=(0.5, 1.5)):
     if len(q) < 20:
         rest = d.drop(q.index).assign(dist=lambda x: (x.pA - 0.5).abs()).sort_values("dist")
         q = pd.concat([q, rest.head(20 - len(q))])
-    model, tag, _, roff, _ = E["gpt4o-mini"]
+    model, tag, _, roff, _ = E[key]
     jobs = []
     for _, r in q.iterrows():
         counts = tuple(int(c) for c in r["counts"].zfill(4))
@@ -80,7 +80,8 @@ def verify(n_samples=50, temps=(0.5, 1.5)):
         return {"ident": ident, "p1": p1, "T": T, "answer": ans}
     with ThreadPoolExecutor(12) as ex:
         S = pd.DataFrame(list(ex.map(one, jobs)))
-    S.to_csv(os.path.join(OUT, "temperature_verify.csv"), index=False)
+    sfx = "" if key == "gpt4o-mini" else f"_{key}"
+    S.to_csv(os.path.join(OUT, f"temperature_verify{sfx}.csv"), index=False)
     res = {}
     for T, g in S.groupby("T"):
         g = g[g.answer.notna()]
@@ -97,9 +98,9 @@ def verify(n_samples=50, temps=(0.5, 1.5)):
         res[str(T)] = {"slope": slope, "slope_lo": float(lo), "slope_hi": float(hi), "expected": 1 / T,
                        "chi2": x2, "df": len(agg), "p_chi2": float(chi2.sf(x2, len(agg))), "n_invalid": int(S[(S["T"] == T) & S.answer.isna()].shape[0]),
                        "passes": bool(lo <= 1 / T <= hi and chi2.sf(x2, len(agg)) > 0.01)}
-    json.dump(res, open(os.path.join(OUT, "temperature_verify.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(OUT, f"temperature_verify{sfx}.json"), "w"), indent=1)
     print(json.dumps(res, indent=1)); print("spend", client.spend())
 
 
 if __name__ == "__main__":
-    {"semantics": semantics, "verify": verify}[sys.argv[1]]()
+    {"semantics": semantics, "verify": verify}[sys.argv[1]](*sys.argv[2:])
