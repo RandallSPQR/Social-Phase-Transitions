@@ -1,0 +1,19 @@
+18:34:28 spend check: max(cache $0.134, key $0.142) = $0.142  (cap $12.0)
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  95s  spend $0.0172
+  2000/2116  182s  spend $0.0352
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/gemma-26b.csv: 2116 rows, 0 errors, new spend $0.0373
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] main: 12428 calls (0 cached)
+  1000/12428  101s  spend $0.0527
+  2000/12428  217s  spend $0.0673
+  3000/12428  292s  spend $0.0817
+  4000/12428  396s  spend $0.0974
+  5000/12428  481s  spend $0.1170
+  6000/12428  581s  spend $0.1384
+  7000/12428  677s  spend $0.1605
+  8000/12428  797s  spend $0.1805
+  9000/12428  897s  spend $0.2008
+  10000/12428  995s  spend $0.2220
+  11000/12428  1085s  spend $0.2423
+  12000/12428  1204s  spend $0.2595
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-26b.csv: 12428 rows, 0 errors, new spend $0.2671

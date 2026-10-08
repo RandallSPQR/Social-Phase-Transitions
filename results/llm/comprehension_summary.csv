@@ -1,0 +1,2 @@
+key,model,tag,n,acc_ally_majority,meanP_ally_majority,worst_k_ally_majority,acc_own,meanP_own,worst_k_own,acc_rival_majority,meanP_rival_majority,worst_k_rival_majority,leak_gt5,passes
+llama-70b,meta-llama/llama-3.3-70b-instruct,coreweave/fp16,2116,0.9641,0.9639,0.917,1.0,1.0,1.0,0.9875,0.987,0.981,0,True

@@ -1,0 +1,3 @@
+18:34:17 spend check: max(cache $0.134, key $0.142) = $0.142  (cap $12.0)
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  835s  spend $0.0337

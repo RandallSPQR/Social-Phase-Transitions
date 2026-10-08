@@ -1,0 +1,36 @@
+18:34:27 spend check: max(cache $0.134, key $0.142) = $0.142  (cap $12.0)
+llama-70b [meta-llama/llama-3.3-70b-instruct @ coreweave/fp16] comprehension: 2116 calls (0 cached)
+  1000/2116  56s  spend $0.1088
+  2000/2116  101s  spend $0.2254
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/llama-70b.csv: 2116 rows, 0 errors, new spend $0.2391
+llama-70b [meta-llama/llama-3.3-70b-instruct @ coreweave/fp16] main: 12428 calls (0 cached)
+  1000/12428  55s  spend $0.3471
+  2000/12428  94s  spend $0.4481
+  3000/12428  131s  spend $0.5468
+  4000/12428  179s  spend $0.6510
+  5000/12428  228s  spend $0.7983
+  6000/12428  280s  spend $0.9610
+  7000/12428  328s  spend $1.1318
+  8000/12428  376s  spend $1.2822
+  9000/12428  425s  spend $1.4322
+  10000/12428  479s  spend $1.5909
+  11000/12428  526s  spend $1.7386
+  12000/12428  575s  spend $1.8533
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/llama-70b.csv: 12428 rows, 0 errors, new spend $1.9043
+18:47:04 done llama-70b
+18:47:04 spend check: max(cache $2.204, key $0.142) = $2.204  (cap $12.0)
+llama-70b-pa [meta-llama/llama-3.3-70b-instruct @ parasail/fp8] main: 4068 calls (0 cached)
+  1000/4068  92s  spend $1.9273
+  2000/4068  168s  spend $1.9485
+  3000/4068  236s  spend $1.9693
+  4000/4068  340s  spend $1.9915
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/llama-70b-pa.csv: 4068 rows, 0 errors, new spend $1.9931
+18:53:12 done llama-70b-pa
+18:53:13 spend check: max(cache $2.379, key $0.322) = $2.379  (cap $12.0)
+qwen-9b [qwen/qwen3.5-9b @ parasail/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  92s  spend $2.0069
+  2000/2116  173s  spend $2.0221
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/qwen-9b.csv: 2116 rows, 0 errors, new spend $2.0239
+qwen-9b [qwen/qwen3.5-9b @ parasail/bf16] main: 12428 calls (0 cached)
+  1000/12428  79s  spend $2.0376
+  2000/12428  149s  spend $2.0507
