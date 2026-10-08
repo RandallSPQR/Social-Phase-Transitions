@@ -1,2 +1,3 @@
 20:14:44 spend check: max(cache $4.743, key $2.765) = $4.743  (cap $12.0)
 gemma-31b-nv [google/gemma-4-31b-it @ novita/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  723s  spend $0.0196

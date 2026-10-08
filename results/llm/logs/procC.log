@@ -66,3 +66,7 @@ wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistr
 mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 12428 calls (0 cached)
   1000/12428  319s  spend $0.9181
   2000/12428  547s  spend $0.9248
+  3000/12428  849s  spend $0.9314
+  4000/12428  1164s  spend $0.9384
+  5000/12428  1539s  spend $0.9484
+  6000/12428  1860s  spend $0.9597

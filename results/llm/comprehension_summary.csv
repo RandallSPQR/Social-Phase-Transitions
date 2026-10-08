@@ -1,4 +1,5 @@
 key,model,tag,n,acc_ally_majority,meanP_ally_majority,worst_k_ally_majority,acc_own,meanP_own,worst_k_own,acc_rival_majority,meanP_rival_majority,worst_k_rival_majority,leak_gt5,passes
+gemma-26b-cw,google/gemma-4-26b-a4b-it,coreweave/bf16,2116,1.0,0.9999,1.0,1.0,1.0,1.0,0.9984,0.9985,0.996,0,True
 gemma-26b,google/gemma-4-26b-a4b-it,parasail/bf16,2116,1.0,0.9997,1.0,1.0,1.0,1.0,1.0,0.9993,1.0,0,True
 gemma-31b,google/gemma-4-31b-it,io-net,2116,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0,True
 gpt4o-mini,openai/gpt-4o-mini,openai,2116,1.0,0.9975,1.0,1.0,1.0,1.0,0.9891,0.9887,0.875,0,True

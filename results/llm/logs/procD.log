@@ -1,2 +1,21 @@
 20:14:44 spend check: max(cache $4.743, key $2.765) = $4.743  (cap $12.0)
 gemma-26b-cw [google/gemma-4-26b-a4b-it @ coreweave/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  87s  spend $0.0099
+  2000/2116  149s  spend $0.0206
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/gemma-26b-cw.csv: 2116 rows, 0 errors, new spend $0.0218
+gemma-26b-cw [google/gemma-4-26b-a4b-it @ coreweave/bf16] main: 12428 calls (238 cached)
+  1000/12428  47s  spend $0.0296
+  2000/12428  91s  spend $0.0373
+  3000/12428  140s  spend $0.0457
+  4000/12428  213s  spend $0.0549
+  5000/12428  283s  spend $0.0673
+  6000/12428  344s  spend $0.0814
+  7000/12428  402s  spend $0.0960
+  8000/12428  461s  spend $0.1089
+  9000/12428  521s  spend $0.1218
+  10000/12428  575s  spend $0.1355
+  11000/12428  630s  spend $0.1484
+  12000/12428  706s  spend $0.1585
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-26b-cw.csv: 12428 rows, 0 errors, new spend $0.1631
+20:31:16 done gemma-26b-cw
+20:31:18 final spend: cache $5.119, key $4.958
