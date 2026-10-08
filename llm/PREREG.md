@@ -193,4 +193,30 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
 
 ## Amendments
 
-(none yet)
+**Amendment 1 (2026-10-08, before any battery data; motivated only by synthetic tests in `llm/selftest.py`).**
+
+1. *H3 significance test replaced.*
+   - **Problem:** the logit-scale F test needs clipping (±6). Strong responders exceed that at k = 5–6,
+     and the clip then acts like curvature. On synthetic *additive* data the cubic block was rejected in
+     37% of full-size datasets at nominal 5%.
+   - **New primary test:** a cluster-robust **score test** on the cross-entropy fit (efficient score of
+     the block, clusters = cells), with p-values from a **wild score bootstrap** (Kline & Santos 2012;
+     Rademacher by cell, 999 draws). It is asymptotically equivalent to the LR test and needs no clipping.
+   - **Calibration on synthetic null data:** rejection at α = 0.05 was 0.05/0.08 (full size, 60 sets),
+     0.07/0.05 (pilot size, 150 sets) and 0.03/0.02 (very strong responders), for the pairwise/cubic
+     blocks. Power: 100% at λ = 0.1 on Q_aa.
+   - The logit-scale F (wild cluster bootstrap) is retained as a **secondary** statistic.
+   - For sampled endpoints the same score test is primary, because the binomial LR test ignores
+     between-prompt (order) variation and over-rejects. The binomial LR is secondary.
+   - Holm, the minimum-effect threshold and grouped-CV held-out CE are unchanged.
+2. *Estimand made explicit.* All coefficients are those of the **order-averaged (marginal) response
+   function**: the cross-entropy fit to probabilities, with neighbour order randomised. Per-prompt noise
+   attenuates these relative to a latent per-prompt logit (by ~2% at noise SD 0.3). The marginal function
+   is what governs network dynamics in which neighbour order is random.
+   - Bootstrap 95% CIs cover the marginal truth at 0.90–0.97 (30 synthetic full-size datasets). Against
+     the latent truth, β coverage was 0, because of the attenuation.
+3. *Clarification.* Confirmatory fits use the main battery (perm 0). Order-subset prompts (perm 1, 2) are
+   used only for permutation-noise SD and the exploratory order-effect model.
+4. *H5 interpretation caveat.* With a planted pairwise interaction, A3 overestimated α (1.30 vs true 1.0),
+   because M_a² terms are partly collinear with k-scaling. α is interpreted as summation/averaging only
+   where H3 is negative for that cell; otherwise it is reported as descriptive.
