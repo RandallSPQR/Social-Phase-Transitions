@@ -46,7 +46,7 @@ EOF
   [ -n "${RUNPOD_POD_ID:-}" ] && runpodctl remove pod "$RUNPOD_POD_ID"
 }
 trap 'finish $?' EXIT
-pip install -q "transformers>=4.57" accelerate huggingface_hub pandas numpy 2>&1 | tail -2 | tee -a "$LOG"
+pip install -q "transformers==5.19.0" accelerate huggingface_hub pandas numpy 2>&1 | tail -2 | tee -a "$LOG"
 cd "$REPO"
 nvidia-smi --query-gpu=name,memory.total --format=csv | tee -a "$LOG"
 for spec in "google/gemma-4-26b-a4b-it gemma-26b-local" "google/gemma-4-31b-it gemma-31b-local"; do

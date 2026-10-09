@@ -307,3 +307,27 @@ judgment calls, in time order (2026-10-08).
       leaves the original predictions byte-identical.
     - `python llm/test_stage3.py`: all checks pass (prompts, Ising β for 27 fits, mock-LLM runner reproduces the
       simulator with |z| < 2).
+
+23. **Stage 3 launched; main squash-merged; GPU runner fixed in a dry run; A100 poller.**
+    - **Stage 3 live run started** (`llm/stage3.py run`, 70 chains, budget stop $12) after the addendum commit
+      (de0ff08) and one smoke call per endpoint (tag `stage3-smoke`, not part of the data; all 7 endpoints served
+      by their pinned providers).
+    - **main**: squash of this branch at de0ff08 pushed as 23471e7 (no cache snapshots, no generation ids).
+    - **GPU runner dry run** on tiny random-weight Gemma-4 checkpoints built from the real configs, tokenizer and
+      chat template (`Gemma4ForConditionalGeneration`, MoE and dense variants), CPU, transformers 5.19.0 +
+      torch 2.8.0 (the pod image's torch). Two problems found and fixed before any rental:
+      1. **Pinned transformers.** Gemma-4 needs transformers ≥ 5.5; the pod script asked for ≥ 4.57. Now pinned
+         to the validated 5.19.0.
+      2. **Padding.** The left-padding check failed in bf16 (0.57 nats MoE, 0.15 dense) but passes in fp32
+         (8e-5 nats): bf16 numerics, not a masking bug. With a 0.05 abort it would have stopped a correct run.
+         **Deviation (implementation, pre-data):** the battery now runs in padding-free batches (prompts grouped by
+         exact token length; replicate 1 uses another batch size and a shuffled order within each length), with an
+         assertion that no batch contains padding. The padding check is kept as a reported diagnostic. Nothing
+         else in Amendment 4 changes.
+      - After the fixes both variants run end to end: Stage 1 CSV schema (main + comprehension), activations at 6
+        layers, replicates agree.
+    - **A100 poller** `llm/runpod_launch.py` (owner: A100 only, wait if needed; owner's volume in EUR-IS-1, which
+      lists no A100 stock right now). Polls every 3 min, tries a create when stock is listed and every 15 min
+      regardless; then polices the pod: terminate at 4.25 h or estimated spend > $12 (balance drop minus the
+      owner's other burn measured at launch). It only ever touches the pod it created. Pod code ships as a tarball
+      in the private dataset (`code/pod_code_<rev>.tgz`); HF_TOKEN is passed as a pod env variable.

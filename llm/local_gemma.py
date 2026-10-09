@@ -62,14 +62,13 @@ def main():
     from transformers import AutoTokenizer, AutoModelForCausalLM
     tok = AutoTokenizer.from_pretrained(a.model_id); tok.padding_side = "left"
     try:
-        model = AutoModelForCausalLM.from_pretrained(a.model_id, torch_dtype=torch.bfloat16, device_map=a.device)
+        model = AutoModelForCausalLM.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
     except (ValueError, KeyError):
         from transformers import AutoModelForImageTextToText      # multimodal checkpoints (text-only use)
-        model = AutoModelForImageTextToText.from_pretrained(a.model_id, torch_dtype=torch.bfloat16, device_map=a.device)
+        model = AutoModelForImageTextToText.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
     model.eval()
     A_ids, B_ids = letter_ids(tok)
-    # padding check (abort if left-padding changes next-token logprobs): 4 prompts batched with a long
-    # neighbour vs run alone; tolerance 0.05 nats in bf16
+    # padding diagnostic: 4 prompts batched with a long neighbour vs run alone (reported, not used to abort)
     probe = [it["prompt"] for it in list(battery.items("political"))[:4]]
     pt = [tok.apply_chat_template([{"role": "user", "content": p}], tokenize=False, add_generation_prompt=True) for p in probe]
     long_t = tok.apply_chat_template([{"role": "user", "content": probe[0] + " " + "filler " * 60}], tokenize=False, add_generation_prompt=True)
@@ -82,9 +81,11 @@ def main():
             l1 = torch.log_softmax(model(**e1).logits[:, -1, :].float(), -1)
             top = torch.topk(l1[0], 20).indices
             worst = max(worst, float((lb[i + 1, top] - l1[0, top]).abs().max()))
-    print(f"padding check: max |batched − single| over top-20 tokens = {worst:.4f} nats", flush=True)
-    if worst > 0.05:
-        sys.exit(f"ABORT: left padding changes logprobs by {worst:.3f} nats (> 0.05)")
+    # Diagnostic only since 2026-10-09: the battery is run with padding-free batches (every batch holds prompts of
+    # identical token length), so left padding cannot touch any recorded logprob. On tiny random Gemma-4 checkpoints
+    # the padded/unpadded gap is 8e-5 nats in fp32 but 0.57 in bf16 (numerics, not masking), so a 0.05 abort would
+    # have stopped a correct run.
+    print(f"padding check (diagnostic): max |batched − single| over top-20 tokens = {worst:.4f} nats", flush=True)
     its, comp = all_items(a.max_prompts)
     jobs = [("main", it) for it in its] + [("comprehension", it) for it in comp]
     texts = [tok.apply_chat_template([{"role": "user", "content": it["prompt"]}], tokenize=False, add_generation_prompt=True)
@@ -97,10 +98,18 @@ def main():
     print(f"{a.key}: {len(jobs)} prompts, mean {np.mean(lens):.0f} tokens, layers {layers}/{n_layers}, |A ids|={len(A_ids)} |B ids|={len(B_ids)}", flush=True)
     t0 = time.time()
     for rep in (0, 1):
-        order = sorted(range(len(jobs)), key=lambda i: lens[i]) if rep == 0 else random.Random(1).sample(range(len(jobs)), len(jobs))
-        bs = a.batch_size if rep == 0 else max(1, a.batch_size // 2 + 3)          # different batch composition
-        for s in range(0, len(order), bs):
-            idx = order[s:s + bs]
+        # padding-free batches: group prompts by exact token length; replicate 1 uses a different batch size and a
+        # shuffled order within each length, so batch composition differs between replicates
+        bs = a.batch_size if rep == 0 else max(1, a.batch_size // 2 + 3)
+        rr = random.Random(1)
+        groups = {}
+        for i in range(len(jobs)):
+            groups.setdefault(lens[i], []).append(i)
+        batches = []
+        for L in sorted(groups):
+            g = groups[L] if rep == 0 else rr.sample(groups[L], len(groups[L]))
+            batches += [g[k:k + bs] for k in range(0, len(g), bs)]
+        for s, idx in enumerate(batches):
             enc = tok([texts[i] for i in idx], return_tensors="pt", padding=True, add_special_tokens=False).to(a.device)
             with torch.no_grad():
                 out = model(**enc, output_hidden_states=(rep == 0))
@@ -119,8 +128,9 @@ def main():
                     if acts[L].shape[1] == 0:
                         acts[L] = np.zeros((len(jobs), h.shape[1]), np.float16)
                     acts[L][idx] = h
-            if (s // bs) % 50 == 0:
-                print(f"  rep {rep} {s + len(idx)}/{len(jobs)} {time.time() - t0:.0f}s", flush=True)
+            assert int(enc["attention_mask"].sum()) == enc["attention_mask"].numel(), "padding in a batch"
+            if s % 50 == 0:
+                print(f"  rep {rep} batch {s}/{len(batches)} {time.time() - t0:.0f}s", flush=True)
     import csv
     for phase in ("main", "comprehension"):
         recs = []
