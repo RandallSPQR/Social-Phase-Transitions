@@ -4,131 +4,132 @@
   "repo_type": "dataset",
   "repo_id": "RandallSPQR/social-phase-transitions-llm-cache",
   "revision": "main",
-  "url_template": "https://huggingface.co/datasets/{repo_id}/resolve/{revision}/cache/{file}"
+  "url_template": "https://huggingface.co/datasets/{repo_id}/resolve/{revision}/cache/{file}",
+  "private": true
  },
  "record_schema": {
   "key": "sha256 of request body + replicate index",
   "rep": "replicate index",
   "body": "OpenRouter request body (no headers, no credentials)",
   "t": "unix time",
-  "resp": "compact response: id, provider, model, content, reasoning, finish, first-token top logprobs, usage"
+  "resp": "compact response: provider, model, content, reasoning, finish, first-token top logprobs, usage (OpenRouter generation id stripped)"
  },
  "files": [
   {
    "file": "anthropic__claude-haiku-5.5.jsonl.gz",
-   "bytes": 2028912,
-   "sha256": "6437bd433c2abf8aa2d4704adde47cea144ae21c13bb514e08bf238c1e5c45c0",
+   "bytes": 1453476,
+   "sha256": "57067237084b8cb4c327566d42dd1899ad338773f88d481fd2e18d1ab8c63d3b",
    "records": 24844
   },
   {
    "file": "google__gemini-2.5-flash-lite.jsonl.gz",
-   "bytes": 1201,
-   "sha256": "6232f595888f64fe4ef483b14ed72e99f799d4bff5761e74a788228dd62a0a72",
+   "bytes": 1105,
+   "sha256": "75ec54e01cf782eef80540bc2ea4ca3ccbc4b567118e5188d2ded6b55b63e0b2",
    "records": 4
   },
   {
    "file": "google__gemini-3.1-flash-lite.jsonl.gz",
-   "bytes": 2025414,
-   "sha256": "ded0386964bc10d8a6d6f07c78b9fef405feda7ef6978b595b7eb469f803ab45",
+   "bytes": 1449630,
+   "sha256": "54b3f38a5a25ab69e2d631766e000f6d82dc0dd8b08e2bf8797dd458a5098fab",
    "records": 24844
   },
   {
    "file": "google__gemma-3-27b-it.jsonl.gz",
-   "bytes": 2974,
-   "sha256": "41d4ab23e73d2ac57e044a40c5373b28b5c558102ada5661391422cc1c192bc0",
+   "bytes": 2516,
+   "sha256": "19f03909365a02aa9c79303cad84b2716967511009fe39c4c393b95ff1ba96fa",
    "records": 20
   },
   {
    "file": "google__gemma-4-26b-a4b-it.jsonl.gz",
-   "bytes": 3608319,
-   "sha256": "1abdbf7771a5513dc95e1f921367709c7cd4dbc39c82d38a9d860fdace3b04e9",
+   "bytes": 2917665,
+   "sha256": "7e36e3d42513a7fa36b03e20f10bedbadd2aa32c79fe70280a7c394473bd1026",
    "records": 28558
   },
   {
    "file": "google__gemma-4-31b-it.jsonl.gz",
-   "bytes": 2020144,
-   "sha256": "39a18a2f86589cfe1343f2cac12e21380c81eb7f0530e97aa7b8df6207c1fde7",
+   "bytes": 1589704,
+   "sha256": "4e596383df6e7a475b5f17dd9a7b2332e78eaf5d339ea1845e93caa743c96c5e",
    "records": 17840
   },
   {
    "file": "meta-llama__llama-3.1-8b-instruct.jsonl.gz",
-   "bytes": 2053512,
-   "sha256": "fb35525a704a32e451cfe86108ecd0122e4e7caa1db75e2527e0833debfde3bc",
+   "bytes": 1639189,
+   "sha256": "8d70690e61daeaca4ceaa2c1b8c081ea488556241df40dcfd75700cadd2f0522",
    "records": 16881
   },
   {
    "file": "meta-llama__llama-3.2-3b-instruct.jsonl.gz",
-   "bytes": 3053,
-   "sha256": "2c6c523b6c9d2d7778f4bb746356b1c8b63450e5439d00f6a24d017b85da9df0",
+   "bytes": 2599,
+   "sha256": "366d5d4c8fed3beea1a288b01df82e1335a49cc9cfaa417580cb9ac785bd8b85",
    "records": 20
   },
   {
    "file": "meta-llama__llama-3.3-70b-instruct.jsonl.gz",
-   "bytes": 1940924,
-   "sha256": "79077434ef49f9669c6ed9cb5c974aa712effb202c18a27c5aefc890a9d4cd62",
+   "bytes": 1513461,
+   "sha256": "a46b2d7589d4869f830ccd95dc73403dab89347de96ea79f0fe499ae92335e57",
    "records": 18243
   },
   {
    "file": "mistralai__mistral-large-4-0.jsonl.gz",
-   "bytes": 1762828,
-   "sha256": "0d428f0686db996b52b0f881901196718d5cb1b3c948fd223ad09a1ee2bcc9b7",
+   "bytes": 1415357,
+   "sha256": "7907f707401848fef0b1d80fbfc78a3185395ca4f72bcc2c81fbef97bb6a8592",
    "records": 14327
   },
   {
    "file": "mistralai__mistral-nemo.jsonl.gz",
-   "bytes": 1896096,
-   "sha256": "673266a9fd8584f6df80007a636890d5a9d06e6bea6dd755b7141a194058fe4c",
+   "bytes": 1544520,
+   "sha256": "f5f3fdebdaa0385d66da02a02fee59422e87a7fa9c53ad6db552f40c64777c6d",
    "records": 14320
   },
   {
    "file": "mistralai__mistral-small-3.2-24b-instruct.jsonl.gz",
-   "bytes": 1858175,
-   "sha256": "38702be8f5c84e75bc2789e3bc40a8f8b90cf539c043818361db927cfa2c9790",
+   "bytes": 1504067,
+   "sha256": "dea68253a6cdb071d33d676e6a8be0db9eff0e33da370204e8cd519c3ac5d22d",
    "records": 14271
   },
   {
    "file": "openai__gpt-4o-mini.jsonl.gz",
-   "bytes": 3853193,
-   "sha256": "6748a93ca417c91140124d2ff033d580f73a8ee130fcd2147f7bfbe4ce6518c1",
+   "bytes": 2890533,
+   "sha256": "4b128d63148ba0fc0e7ce04c36f0f0075c55bd873ad5073dcaf77602fd1743f8",
    "records": 41148
   },
   {
    "file": "openai__gpt-6-luna.jsonl.gz",
-   "bytes": 2040170,
-   "sha256": "009fffefe638bf1eef8ce4fcd691cfc8182429f3d6db859114c16df2412362fc",
+   "bytes": 1459512,
+   "sha256": "77e49547ef8a3c02dd29d6cd929d3e08e74f748dfb5ad2215987d017f772a4b9",
    "records": 24844
   },
   {
    "file": "qwen__qwen3-235b-a22b-2507.jsonl.gz",
-   "bytes": 5258,
-   "sha256": "0c728a8dabbb88613c145891cfacec213eaab6ffaf3bf8ca4ccb5a4c9d493f4f",
+   "bytes": 4299,
+   "sha256": "766ce6dd3c2c687c29c966ae8b2d8b945185a1bdfacfb66b10ad642b4beb3e1c",
    "records": 42
   },
   {
    "file": "qwen__qwen3-30b-a3b-instruct-2507.jsonl.gz",
-   "bytes": 5178,
-   "sha256": "73910a0c68bb1ec63ce3dc4b2f79a0ac4066b296ce3ae7d83e107b1a5e918b98",
+   "bytes": 4311,
+   "sha256": "c829c6a4677c040895a668eb04389fe5bf3525214c4303bdaffca74fb26158de",
    "records": 38
   },
   {
    "file": "qwen__qwen3.5-122b-a10b.jsonl.gz",
-   "bytes": 1624770,
-   "sha256": "43c1e1fa3c23c6cc27b1b78b7944e979c14b95c2914110ecdbb8d205b9ff5edd",
+   "bytes": 1280623,
+   "sha256": "c13947a4f9e2afeda19a93e2c5ba5d5ce8b6709df12641f249cdb3e812c3457b",
    "records": 14290
   },
   {
    "file": "qwen__qwen3.5-27b.jsonl.gz",
-   "bytes": 2478,
-   "sha256": "9fd09c875e202ef0fcf60766143ee87017273ddb5b4dde526da5ea87416f9763",
+   "bytes": 2006,
+   "sha256": "fe2309e8e2ecb43cb72338c0e136d9d58da9cb90d583e0f5a7885019d3a3a5d0",
    "records": 20
   },
   {
    "file": "qwen__qwen3.5-9b.jsonl.gz",
-   "bytes": 1905762,
-   "sha256": "e2a7905fe6343e3ac4a2566b8d7d3ce399f83aa73f20874253df1f1caf156812",
+   "bytes": 1512221,
+   "sha256": "6c77bf28b05e0841b0f85edea19c04037f5ed4d0837c2fb433e8cd8b4154de7b",
    "records": 16330
   }
  ],
  "total_records": 270884,
- "total_bytes": 28638361
+ "total_bytes": 22186794
 }

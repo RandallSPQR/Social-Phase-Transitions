@@ -75,7 +75,8 @@ def _compact(resp):
         t0 = content_lp[0]
         first = {"token": t0.get("token"), "logprob": t0.get("logprob"),
                  "top": [[t.get("token"), t.get("logprob")] for t in (t0.get("top_logprobs") or [])]}
-    return {"id": resp.get("id"), "provider": resp.get("provider"), "model": resp.get("model"),
+    # the OpenRouter generation id is account-linked and deliberately NOT stored (owner decision 2026-10-09)
+    return {"provider": resp.get("provider"), "model": resp.get("model"),
             "content": msg.get("content"), "reasoning": msg.get("reasoning"),
             "finish": ch.get("finish_reason"), "first": first, "n_lp_tokens": len(content_lp),
             "usage": resp.get("usage")}

@@ -168,3 +168,22 @@ judgment calls, in time order (2026-10-08).
       |m| + persistence, because excess unsatisfied did not separate the surrogate from the Ising reading.
     - Summary: `results/llm/STAGE2_RESULTS.md`.
     - **STOP:** no Stage 3 call has been made. Awaiting the owner.
+14. **Access check and data privacy (owner request, 2026-10-09).**
+    - **Network:**
+      - `huggingface.co` and its storage hosts (`cas-server.xethub.hf.co`, `cas-bridge.xethub.hf.co`,
+        `cdn-lfs.hf.co`) are now reachable.
+      - `api.runpod.io` (GraphQL) is reachable.
+      - Still denied: `hf.co` (short-link domain, not needed), `rest.runpod.io` and `api.runpod.ai`.
+    - **Credentials:** neither an HF token nor a RunPod API key is present, and the proxy injects
+      credentials only for openrouter.ai.
+    - **The RunPod MCP connector is not active in this session.**
+    - **Account-linked IDs stripped.**
+      - The OpenRouter generation `id` was removed from every cached record: the local raw cache and all 19
+        published snapshots (verified: 0 remaining).
+      - `llm/client.py` no longer stores it.
+      - Cache hits are unaffected, because records are keyed by a hash of the request body.
+    - **Dataset:** `RandallSPQR/social-phase-transitions-llm-cache`, **private**. The upload script creates it
+      private and asserts privacy before uploading.
+    - **Git history:** earlier commits on this branch still contain the IDs (raw JSONL in the first commits,
+      older snapshots). No force-push. The planned squash-merge puts a single clean commit on main; deleting
+      the feature branch afterwards removes the old commits from every ref (owner's choice).
