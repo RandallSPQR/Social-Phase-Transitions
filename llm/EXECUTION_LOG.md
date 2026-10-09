@@ -109,3 +109,36 @@ judgment calls, in time order (2026-10-08).
    - Estimate (`llm/GPU_PLAN.md`): ≈ $3–5 on 1× A100 80GB, ceiling $15.
    - **No pod rented:** awaiting the owner's OK, plus RunPod and Hugging Face access (both blocked in this
      session).
+10. **Step 1c: voter vs logit (exploratory).** `llm/voter.py`, `results/llm/voter_vs_logit.csv`.
+    - Models: A0, A3, signed random-neighbour voter with lapse, mixture M = p·voter + (1−p)·A3, and the
+      first-contact mixture MF = p·copy(first-listed contact) + (1−p)·A3. Compared on held-out CE with the
+      Stage 1 grouped folds.
+    - **First pass (before any simulation):**
+      - **M is never better than A3 held-out, and its p is not identified apart from α.** Llama-70B neutral:
+        p = 0.40 (0.11–0.78) on CoreWeave vs 0.79 (0.71–0.86) on Parasail, for the same weights. A
+        random-neighbour voter is nearly collinear with k-averaging.
+      - **MF improves held-out CE on some endpoints:**
+        - Gemma-31B neutral: 0.261 vs 0.312.
+        - Llama-70B neutral: 0.415 vs 0.430 (CoreWeave) and 0.423 vs 0.439 (Parasail).
+        - GPT-4o-mini with own position hidden: 0.309 vs 0.375.
+        - GPT-6-luna neutral: 0.530 vs 0.547.
+    - **Surrogate rule, fixed before any simulation:** use MF if its held-out CE beats A3 by ≥ 2% relative;
+      otherwise use A3 (p = 0).
+      - Justification: under per-call random listing order (the Stage 3 protocol), copying the first-listed
+        contact IS a random-neighbour voter, so MF's p is the network voter weight.
+      - Cluster-bootstrap draws (B = 100) of A3 and MF are saved per endpoint × arm in
+        `results/llm/fits/surrogate/`.
+    - The rerun with saved draws replaced a first pass that saved only M. That pass was stopped before
+      completion, and its outputs were overwritten. No simulation used it.
+11. **Step 3 (in progress): Stage 2 simulator** `llm/surrogate.py`, driver `llm/stage2.py`.
+    - **Validation:** with Ising rows it reproduces HANDOFF §3. On ER c = 4, ρ = 0, consensus switches on
+      at Tc = 3.915 (|m| = 0.59 at T = 3.0, 0.09 at T = 3.9). At ρ = 0.1, T = 2.0, |m| = 0.64 (handoff:
+      0.62) with reciprocal ties and 0.53 (0.55) at ε = 1.
+    - **Jitter:** fitted coefficients are already jitter-marginal, so per-call noise on top would
+      double-count. The explicit mode de-attenuates (η/κ) and adds N(0, σ²). It is run as a consistency
+      check against the marginal mode.
+    - **Frustration floor** (β = 6 quench, `results/llm/stage2/floor.csv`):
+      - ρ = 0: ≈ 0 (random-regular) and 0.02 (ER; leftover domain walls).
+      - ρ = 0.25 / 0.5: 0.15–0.17.
+    - **Extrapolation:** ER c = 4 has ≈ 11% of nodes with k > 6, outside the fitted k ≤ 6. The
+      random-regular d = 4 control stays inside.

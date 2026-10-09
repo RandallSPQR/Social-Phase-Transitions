@@ -10,8 +10,11 @@ same grouped folds as Stage 1 (10-fold, grouped by neighbour multiset):
   M    mixture: P = p·V + (1−p)·σ(η_A3)
   MF   first-contact mixture: P = p·F + (1−p)·σ(η_A3), F = 1 if the FIRST-LISTED contact pulls toward P
        (order-specific; under random order E[F] = V).
-Also writes, per endpoint × arm, the M point estimate and 200 cluster-bootstrap draws (cells) to
-results/llm/fits/surrogate/<key>.json for the Stage 2 simulator.
+Also writes, per endpoint × arm, point estimates and 100 cluster-bootstrap draws (cells) of A3 and MF to
+results/llm/fits/surrogate/<key>.json for the Stage 2 simulator, plus the surrogate choice (rule fixed before
+any simulation, EXECUTION_LOG step 1c): use MF if its held-out CE beats A3 by >= 2% relative, else A3 (p = 0).
+Under random listing order (Stage 3 protocol) copying the first-listed contact IS a random-neighbour voter, so
+MF's p is the voter weight of the network rule. M is reported but not used: its p is not identified apart from α.
 
   python llm/voter.py            # all endpoints with main-battery CSVs
 """
@@ -101,10 +104,10 @@ def cv(P, D):
     return {m: analysis.ce(D["y"], v, D["w"]) for m, v in pred.items()}
 
 
-def run_endpoint(path, B=200, seed=0):
+def run_endpoint(path, B=100, seed=0):
     key = os.path.basename(path)[:-4]
     d = analysis.load(path)
-    rows, sur = [], {"key": key, "model": "M: p*signed_voter + (1-p)*sigmoid(k^-alpha (b_a Ma - b_r Mr) + Z theta)", "arms": {}}
+    rows, sur = [], {"key": key, "model": "p*copy(first-listed contact) + (1-p)*sigmoid(k^-alpha (b_a Ma - b_r Mr) + Z theta); A3 = p fixed at 0", "arms": {}}
     rng = np.random.default_rng(seed)
     for arm in ARMS:
         da = d[d["arm"] == arm]
@@ -112,26 +115,32 @@ def run_endpoint(path, B=200, seed=0):
         P, st = analysis.prompts(da); P = P[P["perm"] == 0].reset_index(drop=True)
         if len(P) < 20: continue
         D = parts(P)
-        tM = fit_mix(D, "V"); tF = fit_mix(D, "F")
+        tM = fit_mix(D, "V"); tF = fit_mix(D, "F"); tA = fit_mix(D, None, fix_p=0.0); tA[0] = -50.0
         c = cv(P, D)
         row = {"key": key, "arm": arm, "n_prompts": len(P), **{f"cvCE_{m}": v for m, v in c.items()},
                "label_entropy": analysis.ce(D["y"], D["y"], D["w"]),
                "p_M": float(expit(tM[0])), "alpha_M": float(tM[1]), "p_MF": float(expit(tF[0])), "alpha_MF": float(tF[1])}
-        # cluster bootstrap of M (cells) for intervals + Stage 2 draws
+        # cluster bootstrap (cells) of A3 and MF for intervals + Stage 2 draws
         members = analysis.cluster_index(P)
-        draws = []
+        dA, dF = [], []
         for _ in range(B):
             idx = np.concatenate([members[i] for i in rng.integers(0, len(members), len(members))])
-            draws.append(fit_mix(sub(D, idx), "V", x0=tM))
-        draws = np.array(draws)
-        pd_ = expit(draws[:, 0])
-        row.update(p_M_lo=float(np.percentile(pd_, 2.5)), p_M_hi=float(np.percentile(pd_, 97.5)))
+            Db = sub(D, idx)
+            a_ = fit_mix(Db, None, x0=tA, fix_p=0.0); a_[0] = -50.0; dA.append(a_)
+            dF.append(fit_mix(Db, "F", x0=tF))
+        dA, dF = np.array(dA), np.array(dF)
+        pf = expit(dF[:, 0])
+        row.update(p_MF_lo=float(np.percentile(pf, 2.5)), p_MF_hi=float(np.percentile(pf, 97.5)))
+        use_mf = (c["A3"] - c["MF"]) / c["A3"] >= 0.02
+        row["surrogate"] = "MF" if use_mf else "A3"
         names = ["logit_p", "alpha", "b_a", "b_r"] + D["znames"]
-        sur["arms"][arm] = {"names": names, "est": tM.tolist(), "draws": draws.round(5).tolist(),
-                            "repeat_sd": st.get("repeat_sd"), "n_prompts": len(P)}
+        sur["arms"][arm] = {"names": names, "choice": row["surrogate"],
+                            "A3": {"est": tA.tolist(), "draws": dA.round(5).tolist()},
+                            "MF": {"est": tF.tolist(), "draws": dF.round(5).tolist()},
+                            "repeat_sd": st.get("repeat_sd"), "n_prompts": len(P), "cvCE": c}
         rows.append(row)
         print(f"{key:20s} {arm:14s} " + " ".join(f"{m}={v:.4f}" for m, v in c.items()) +
-              f"  p_M={row['p_M']:.2f}[{row['p_M_lo']:.2f},{row['p_M_hi']:.2f}] α_M={row['alpha_M']:.2f}  p_MF={row['p_MF']:.2f}", flush=True)
+              f"  p_M={row['p_M']:.2f} α_M={row['alpha_M']:.2f}  p_MF={row['p_MF']:.2f}[{row['p_MF_lo']:.2f},{row['p_MF_hi']:.2f}] -> {row['surrogate']}", flush=True)
     out = os.path.join(ROOT, "results", "llm", "fits", "surrogate"); os.makedirs(out, exist_ok=True)
     json.dump(sur, open(os.path.join(out, key + ".json"), "w"))
     return rows
@@ -142,8 +151,8 @@ if __name__ == "__main__":
     rows = []
     for p in paths:
         rows += run_endpoint(p)
-    out = os.path.join(ROOT, "results", "llm", "voter_vs_logit.csv")
-    if len(sys.argv) > 1 and os.path.exists(out):
-        old = pd.read_csv(out); old = old[~old.key.isin({r["key"] for r in rows})]
-        rows = old.to_dict("records") + rows
-    pd.DataFrame(rows).to_csv(out, index=False)
+    od = os.path.join(ROOT, "results", "llm", "voter"); os.makedirs(od, exist_ok=True)
+    for k in {r["key"] for r in rows}:          # one file per endpoint (parallel-safe), then re-merge all
+        pd.DataFrame([r for r in rows if r["key"] == k]).to_csv(os.path.join(od, f"{k}.csv"), index=False)
+    allp = sorted(glob.glob(os.path.join(od, "*.csv")))
+    pd.concat([pd.read_csv(p) for p in allp]).to_csv(os.path.join(ROOT, "results", "llm", "voter_vs_logit.csv"), index=False)
