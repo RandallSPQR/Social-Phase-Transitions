@@ -355,3 +355,25 @@ judgment calls, in time order (2026-10-08).
     - So the leftover was small, and the "disk quota exceeded" error in entry 24 most likely came from the
       download's temporary files. The volume has ≈ 38 GB free, which could not hold the 26B weights (≈ 52 GB)
       anyway; the GPU run stays on the container disk.
+
+26. **Stage 3 complete (data only; pre-stated evaluation applied mechanically, no new analysis).**
+    - 70 chains (P1–P5, P2-nc, P4-nc; 5 graphs × 2 replicas × 2,000 updates), 140,000 live updates, $4.95 total
+      (budget stop $12 not reached), no errors, no prompt-check failures. Invalid rate ≤ 0.02% at every point
+      (flag threshold 2%: none flagged); no agent kept its position after 3 invalid draws.
+    - Outputs: `results/llm/stage3/chains/` (every update + states per sweep), `measures_by_graph.csv`,
+      `summary.csv`, `evaluation.csv` / `evaluation.json` (`llm/stage3_evaluate.py`), `run.log`.
+    - **Pre-stated verdict: the surrogate is NOT supported.** It passes both primary measures at 0 of P1–P4
+      (rule: ≥ 3 of 4). The calibration point P5 and both no-contacts arms also miss.
+    - Observed (mean of 5 graphs) vs fitted-surrogate 90% interval, primary measures:
+      - P1 |m| 0.21 [0.24, 0.46], persistence 0.78 [0.66, 0.74];
+      - P2 m 0.56 [0.58, 0.66], persistence 0.60 [0.59, 0.67] (pass);
+      - P3 |m| 0.10 [0.20, 0.37], persistence 0.99 [0.91, 0.95];
+      - P4 m 0.94 [0.87, 0.91], persistence 0.90 [0.75, 0.84];
+      - P5 |m| 0.60 [0.14, 0.24], persistence 0.66 [0.11, 0.20];
+      - P2-nc m 0.15 [0.34, 0.43], persistence 0.80 [0.47, 0.54]; P4-nc m 0.64 [0.52, 0.58], persistence 0.70
+        [0.41, 0.48].
+    - Discrimination: at P1, P2, P4 and P5 the observed primary measures lie outside both the Ising-reading and
+      the fields-only intervals; at P3 |m| lies inside both control intervals and persistence outside the Ising one.
+    - Observed social amplification (P − P-nc): P2 m +0.41, persistence −0.20; P4 m +0.29, persistence +0.20
+      (surrogate predicted P2 +0.23 / +0.13, P4 +0.34 / +0.35).
+    - STOP for the owner's report; no further analysis until the GPU battery is also done.
