@@ -332,3 +332,16 @@ judgment calls, in time order (2026-10-08).
       owner's other burn measured at launch), or as soon as the pod's results tarball appears in the dataset while the pod is
       still up (failed self-removal). It only ever touches the pod it created. Pod code ships as a tarball
       in the private dataset (`code/pod_code_<rev>.tgz`); HF_TOKEN is passed as a pod env variable.
+
+24. **First A100 launch failed on the volume quota; relaunch without the volume.**
+    - Pod `w9m8lg9txkisc5` (A100-SXM4-80GB, EUR-IS-1, owner's volume) ran 17:27–17:31 UTC (≈ $0.12). It started the
+      Gemma-4 26B download into `/workspace/social-phase-transitions/hf` and failed with "Disk quota exceeded"; the
+      script shipped its log to the dataset and the pod removed itself, as designed.
+    - **Cause (my error):** the free-space check used `df` on the network volume, which reports ≈ 494,616 GB free;
+      the volume's real quota is 150 GB and most of it holds the owner's SAE data.
+    - **Leftover on the owner's volume:** our partial download in `/workspace/social-phase-transitions/` (marked by
+      our `.owner` file). It may have used up the remaining quota, which could affect the SAE pod's writes.
+      **Not removed:** deleting anything on the shared volume needs the owner's OK (an attempt to have the next pod
+      remove it was blocked by the session's permission policy). Owner decision pending.
+    - **Fix:** the pod no longer mounts the volume at all (`pod_run.sh`, `runpod_launch.py`); weights go to the
+      200 GB container disk. A100 in any secure data centre. Everything else unchanged.

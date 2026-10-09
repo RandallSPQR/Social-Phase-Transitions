@@ -1,11 +1,11 @@
-"""Wait for an A100 in the owner's network-volume data centre, launch the Amendment 4 pod, and police it.
+"""Wait for an A100 (any secure data centre, no network volume), launch the Amendment 4 pod, and police it.
 
   RUNPOD_API_KEY=... HF_TOKEN=... python llm/runpod_launch.py --code-rev <git sha>     # runs until the pod is gone
   python llm/runpod_launch.py --dry-run                                                  # one poll, never creates
 
-Phase 1 (poll): every --poll s, read A100 80GB stock in EUR-IS-1 (secure cloud). When stock is listed, or every
-  --force-try s regardless, try to create ONE pod (A100 PCIe or SXM, 1 GPU) with the owner's volume mounted at
-  /workspace. A failed create costs nothing.
+Phase 1 (poll): every --poll s, read A100 80GB stock (secure cloud). When stock is listed, or every --force-try s
+  regardless, try to create ONE pod (A100 PCIe or SXM, 1 GPU, 200 GB container disk). A failed create costs nothing.
+  The owner's network volume is not mounted: it is shared and its 150 GB quota is full (first launch, 2026-10-09).
 Phase 2 (watchdog): every --check s, terminate THIS pod (by its id; nothing else is ever touched) if it has run longer
   than --max-hours, or if this pod's estimated spend reaches --max-spend: spend = balance drop since launch minus the
   account's other burn rate measured just before launch (the owner's other pods keep running). Exits when the pod is
@@ -18,7 +18,6 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG = os.path.join(ROOT, "results/llm/logs/runpod_launch.log")
 GQL, REST = "https://api.runpod.io/graphql", "https://rest.runpod.io/v1"
-DC, VOLUME = "EUR-IS-1", "u0isne6ams"
 A100 = ["NVIDIA A100 80GB PCIe", "NVIDIA A100-SXM4-80GB"]
 IMAGE = "runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404"     # the image the owner's A100 pods already use
 NAME = "spt-amendment4-gemma"
@@ -48,7 +47,7 @@ def account():
 
 
 def a100_stock():
-    q = "{ gpuTypes { id lowestPrice(input:{gpuCount:1, dataCenterId:\"%s\", secureCloud:true}) { uninterruptablePrice stockStatus } } }" % DC
+    q = "{ gpuTypes { id lowestPrice(input:{gpuCount:1, secureCloud:true}) { uninterruptablePrice stockStatus } } }"
     return {g["id"]: g["lowestPrice"] for g in gql(q)["gpuTypes"] if g["id"] in A100}
 
 
@@ -67,8 +66,7 @@ def start_cmd(code_rev):
 
 def create(code_rev):
     body = {"name": NAME, "imageName": IMAGE, "gpuTypeIds": A100, "gpuCount": 1, "cloudType": "SECURE",
-            "dataCenterIds": [DC], "networkVolumeId": VOLUME, "volumeMountPath": "/workspace",
-            "containerDiskInGb": 200, "supportPublicIp": False,
+            "containerDiskInGb": 200,          # no network volume: the owner's is shared and full (see pod_run.sh) "supportPublicIp": False,
             "env": {"HF_TOKEN": os.environ["HF_TOKEN"], "PYTHONUNBUFFERED": "1"},
             "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(code_rev)]}
     r = requests.post(f"{REST}/pods", headers=H(), json=body, timeout=60)
@@ -104,7 +102,7 @@ def main():
     if a.dry_run:
         log("dry run: stock", a100_stock(), "account", account()); return
     assert a.code_rev, "--code-rev required"
-    log(f"poller start: A100 80GB in {DC} with volume {VOLUME}; code {a.code_rev}")
+    log(f"poller start: A100 80GB, any secure data centre, no volume; code {a.code_rev}")
     t_start, last_try, created = time.time(), 0.0, None
     while created is None:
         if time.time() - t_start > a.max_wait_hours * 3600:

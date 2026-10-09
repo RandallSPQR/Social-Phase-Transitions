@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 # RunPod bootstrap for Amendment 4 (run inside the pod). Requires: HF_TOKEN (Gemma weights + results upload) and
 # the repo checked out at $REPO (default /root/Social-Phase-Transitions, on the container disk).
-# The owner's network volume (mounted at /workspace) is SHARED with other experiments. This script writes on it
-# only inside its own directory $NS (/workspace/social-phase-transitions, HF cache under $NS/hf), refuses to
-# start if that directory exists without our marker file, and never deletes anything on the volume. If the
-# volume lacks room for the weights, they go to the container disk instead. Self-terminates the pod at the end
+# Writes only to the container disk (no network volume). Self-terminates the pod at the end
 # (success or failure) via runpodctl, so billing stops; it only ever removes its own pod ($RUNPOD_POD_ID).
 set -uo pipefail
 # hard backstop: whole job (both models) must finish within 4 h or the pod terminates (trap below)
@@ -12,24 +9,10 @@ set -uo pipefail
 REPO=${REPO:-/root/Social-Phase-Transitions}; export REPO
 LOG=$REPO/results/llm/logs/pod_$(date +%Y%m%d_%H%M%S).log
 mkdir -p "$(dirname "$LOG")"
-NS=/workspace/social-phase-transitions; MARK=social-phase-transitions-amendment4
-NEED_GB=130   # both Gemma-4 checkpoints (~115 GB) + margin
-if [ -d /workspace ]; then
-  if [ -e "$NS" ] && [ "$(cat "$NS/.owner" 2>/dev/null)" != "$MARK" ]; then
-    echo "ABORT: $NS exists on the shared volume but is not ours; not touching it" | tee -a "$LOG"; exit 2
-  fi
-  have_gb=$(du -s -BG "$NS/hf" 2>/dev/null | cut -f1 | tr -dc 0-9); have_gb=${have_gb:-0}
-  free_gb=$(df -BG --output=avail /workspace | tail -1 | tr -dc 0-9)
-  echo "volume: free ${free_gb} GB, already cached ${have_gb} GB" | tee -a "$LOG"
-  if [ $((free_gb + have_gb)) -ge $NEED_GB ]; then
-    mkdir -p "$NS/hf"; [ -e "$NS/.owner" ] || echo "$MARK" > "$NS/.owner"
-    export HF_HOME=$NS/hf
-  else
-    echo "volume too full for the weights; using container disk" | tee -a "$LOG"; export HF_HOME=/root/hf
-  fi
-else
-  export HF_HOME=/root/hf
-fi
+# The owner's network volume is NOT mounted any more: it is shared and quota-limited (150 GB), df on it is
+# meaningless (~500 PB "free"), and the first launch (2026-10-09) hit its quota with a partial download.
+# Weights go to the container disk.
+export HF_HOME=/root/hf
 echo "HF_HOME=$HF_HOME" | tee -a "$LOG"
 finish() {
   echo "pod finishing (exit $1) $(date)" | tee -a "$LOG"
