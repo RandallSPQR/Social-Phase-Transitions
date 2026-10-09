@@ -119,6 +119,18 @@ lines += ["## Pre-stated evaluation", "",
           f"- **Cost:** P1–P4 total ≈ ${sum(5*2*100*20/1000*PRICE_PER_1K[p[1]] for p in POINTS):.2f} at Stage 1 "
           "per-call cost (≈ $5 with a 50% margin). P5 is a sampling endpoint (one sampled reply per update) and "
           "adds ≈ $0.40."]
-open(os.path.join(ROOT, "llm", "STAGE3_PREDICTIONS.md"), "w").write("\n".join(lines) + "\n")
+MD = os.path.join(ROOT, "llm", "STAGE3_PREDICTIONS.md")
+ADD = "## Pre-data addendum"           # appended by hand before any live call; preserved on regeneration
+tail = ""
+if os.path.exists(MD) and ADD in open(MD).read():
+    tail = "\n" + open(MD).read()[open(MD).read().index(ADD):]
+open(MD, "w").write("\n".join(lines) + "\n" + tail)
 json.dump(pred, open(os.path.join(ROOT, "results/llm/stage2/stage3_predictions.json"), "w"), indent=1)
+# addendum (b): no-contacts control arms for P2 and P4. With no contacts the surrogate update is
+# eta = gamma*s + h_C + h_L*L + h_O*O, which is exactly the fields-only control, so its rows are the prediction.
+nc = [{"id": p["id"] + "-nc", "endpoint": p["endpoint"], "framing": p["framing"], "rho": p["rho"], "graph": "rrg", "N": 100,
+       "contacts_shown": False, "primary": p["primary"], "extrapolation": "k = 0 is outside the fitted k = 1..6 range",
+       **{k.replace("fields_only_", "predicted_"): v for k, v in p.items() if k.startswith("fields_only_")}}
+      for p in pred if p["id"] in ("P2", "P4")]
+json.dump(nc, open(os.path.join(ROOT, "results/llm/stage2/stage3_predictions_nocontacts.json"), "w"), indent=1)
 print("\n".join(lines))

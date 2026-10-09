@@ -120,3 +120,113 @@ For each point, compute the observed mean over the 5 graphs of each measure (rep
 - **These four points use only confirmatory endpoints** (they passed both the comprehension check and the noise gate). The Gemma endpoints await the local bf16 replication (Amendment 4).
 - **ER c = 4 predictions are in the summary file as secondary.** At Stage 3 scale they differ from the random-regular ones by ≤ 0.16 in |m|.
 - **Cost:** P1–P4 total ≈ $3.46 at Stage 1 per-call cost (≈ $5 with a 50% margin). P5 is a sampling endpoint (one sampled reply per update) and adds ≈ $0.40.
+
+## Pre-data addendum (owner instructions 2026-10-09; committed before any Stage 3 live call)
+
+**Scope of Stage 3.** Stage 3 tests whether **inertia, content fields and rival weighting**, as fitted from
+single-shot prompts, predict live network dynamics. It does **not** test non-reciprocity: Stage 2 shows that
+directed tie perceptions (ε) and graph topology change nothing measurable at this scale (N = 100, 20 sweeps).
+The gate-relaxed H4 result stays in the Stage 1 sensitivity section only; the local bf16 Gemma replication
+(Amendment 4) is the deciding evidence for it.
+
+Implementation: `llm/stage3.py` (runner and measures); `llm/test_stage3.py` (checks a, e and a runner test, all
+passing before any live call).
+
+### a) Live prompts are the Stage 1 battery template
+
+- Each live prompt is rendered by `battery.render` itself (instruction v2), with the agent's **current** own
+  position and its contacts' **current** positions, each contact on its own line. Nothing else: no update history,
+  no record of earlier choices, no memory beyond the agent's own current position.
+- Per call, drawn fresh: contact order, letter mapping (which content is A) and option order.
+- **Automated check before every call** (`stage3.check_prompt`; a failing check aborts the chain): the prompt must
+  be byte-identical to the Stage 1 battery prompt for the same cell, except for the order of the contact lines.
+  In neutral framing, mapping 1 is compared with the Stage 1 prompt it equals after relabelling (P↔Q swapped,
+  mapping 0), which is literally in the Stage 1 battery. The test suite also confirms that mutated prompts
+  (changed wording, an added history line, instruction v1, a dropped contact, trailing whitespace) are rejected.
+- `battery.render` gained an optional explicit contact order; all 8,330 Stage 1 battery prompts (5 arms, order subset, comprehension) are byte-identical
+  before and after the change (SHA-256 over the full battery).
+
+### b) No-contacts control arms: P2-nc and P4-nc (extrapolation)
+
+- Same endpoint, framing, agents, graphs, protocol and number of calls (20,000 each) as P2 and P4, but the prompt
+  shows **no contacts**: the template with the contact block (header line, contact lines, blank line) removed.
+  The agent still sees its own current position.
+- **Prediction.** With no contacts, the fitted update is η = γ s + h_C + h_L L + h_O O, which is exactly the
+  fields-only control. Prediction = the fields-only rows above (`results/llm/stage2/stage3_predictions_nocontacts.json`):
+  - **P2-nc** (qwen-9b, political): m 0.39 [0.34, 0.43], persistence 0.51 [0.47, 0.54], flip rate 0.07
+    [0.07, 0.08] (primary: m, persistence).
+  - **P4-nc** (nemo-12b, workplace): m 0.55 [0.52, 0.58], persistence 0.45 [0.41, 0.48], flip rate 0.13
+    [0.12, 0.13] (primary: m, persistence).
+- **Flag: extrapolation.** k = 0 is outside the fitted range (k = 1..6). γ and h_C were estimated with contacts
+  present; a prompt without contacts may change them. The arm passes a measure if the observed mean of 5 graphs
+  lies inside the interval.
+- **Use.** The arm measures the field-driven baseline directly. The social amplification at P2 and P4 is reported
+  as observed(P) − observed(P-nc) for m and persistence, next to the surrogate's predicted difference (P2: m
+  +0.23, persistence +0.13; P4: m +0.34, persistence +0.35). These arms do not change the pre-stated verdict
+  rule for P1–P4.
+
+### c) What a miss would imply
+
+A miss is an observed mean of 5 graphs outside the fitted surrogate's 90% interval.
+
+- **P1** (qwen-122b, neutral, ρ = 0.25; |m|, persistence):
+  - persistence high → live agents are more stubborn than the single-shot γ; low → the fitted inertia does not
+    carry over to repeated decisions;
+  - |m| low with persistence on target → coupling in context is weaker than fitted, or rivals do not attract as
+    the fit says (rival weighting); |m| high → stronger effective coupling or rival attraction than fitted;
+  - near the fields-only or Ising values → the one-shot social response does not drive live dynamics.
+- **P2** (qwen-9b, political, ρ = 0.5; m, persistence):
+  - m low → the content field is weaker in context than fitted, or half-rival ties cancel more of the
+    amplification than the fitted b_r implies. P2-nc separates these: if P2-nc is on target, the field is
+    right and the social part misses;
+  - m of the wrong sign → the content field reverses in live use;
+  - persistence off → inertia mis-estimated (as for P1).
+- **P3** (llama-70b, political, ρ = 0.25; |m|, persistence):
+  - persistence below the interval → stubbornness (γ ≈ 5.6) is partly a one-shot artefact; live agents update
+    more readily than fitted;
+  - |m| inside the fields-only interval → no social alignment on top of the field;
+  - |m| above → rivals repel less, or allies pull more, than fitted.
+- **P4** (nemo-12b, workplace, ρ = 0.25; m, persistence):
+  - m between the fields-only and surrogate intervals → amplification is real but the weak coupling (β ≈ 0.2)
+    is overstated; m at the fields-only value → no social amplification. P4-nc again separates field from
+    coupling;
+  - persistence low → inertia overstated.
+- **P5** (gpt6-luna, neutral, ρ = 0; calibration): a miss points at the protocol rather than at a surrogate
+  (sampled-reply endpoint, Ising-like regime). It does not count toward the verdict but would lower confidence in
+  the whole pipeline and is reported first.
+- **P2-nc / P4-nc:** a miss means the k = 0 extrapolation fails (fields differ without contacts). The observed
+  arm, not the fields-only control, is then the relevant field-only baseline for P2/P4 interpretation; the
+  verdict rule is unchanged.
+
+### d) Invalid replies (resample-on-invalid)
+
+- **Invalid:** for logprob endpoints, no A/B in the first-token top-5 or leak > 5%; for the sampled endpoint
+  (P5), a reply that is not a single A/B letter.
+- An invalid call is re-drawn with fresh per-call randomisation, up to 3 attempts in total (this replaces "repeat
+  once" in the protocol above). If all 3 are invalid the agent keeps its position.
+- Logged per update: attempts, first-attempt invalid, kept-after-invalid. **Invalid rate per point** = share of
+  updates whose first attempt was invalid; any point above **2% is flagged** in the Stage 3 report (all measures
+  still reported).
+
+### e) Ising-baseline regression test
+
+`llm/test_stage3.py` asserts, for all 27 endpoint × framing fits, that the Stage 2 "Ising reading" uses exactly the
+Stage 1 additive A0 β estimate and its bootstrap draws (no inertia, fields, voter step or k-scaling), with anchor
+values from EXECUTION_LOG entry 12 (Llama-70B neutral β = 0.65, Qwen-9B neutral 0.09; the pre-fix values were 6.95
+and 0.51).
+
+### Runner validation (no API calls)
+
+Driving `llm/stage3.py` with a mock LLM that answers with the fitted surrogate's own response function reproduces
+`llm/surrogate.py` (P4, P1 and P4-nc; all |z| < 2 on |m|, persistence, flip rate, unsatisfied ties and |q|). The
+live runner is an independent implementation, so this checks graph handling, per-call randomisation, the letter
+and content mapping and the measures.
+
+### Execution
+
+- Calls are cached under a tag unique to (point, graph, replica, sweep, update, attempt): every chain is
+  reproducible, and an interrupted run resumes at no cost.
+- Graphs and chain seeds are fixed by hash of (point, graph, replica). The no-contacts arms reuse their parent
+  point's graphs.
+- Budget stop at $12 of session spend (expected ≈ $4.3: P1–P4 ≈ $3.5, P5 ≈ $0.4, P2-nc + P4-nc ≈ $0.4).
+- Run in parallel with the GPU Gemma battery. Stop and report after both, before any new analysis.

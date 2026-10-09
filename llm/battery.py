@@ -89,8 +89,9 @@ COMPREHENSION = {
 INSTRUCTION_VERSION = 2
 
 
-def render(framing, counts, s0, mapping, order, perm, instruction=None, question=None):
-    """Return (prompt text, neighbour sequence). order 0: A listed first; 1: B listed first."""
+def render(framing, counts, s0, mapping, order, perm, instruction=None, question=None, seq=None):
+    """Return (prompt text, neighbour sequence). order 0: A listed first; 1: B listed first.
+    seq: explicit neighbour order (Stage 3 live calls draw it fresh per call); default = Stage 1 seeded order."""
     instruction = instruction or INSTRUCTION_VERSION
     F = FRAMINGS[framing]
     let = letters(mapping)
@@ -100,7 +101,9 @@ def render(framing, counts, s0, mapping, order, perm, instruction=None, question
         return "" if F["content"] is None else f" ({F['content'][ckey]})"
     intro = F["intro"].format(X=X, Y=Y, cX=(F["content"] or {}).get(inv[X], ""), cY=(F["content"] or {}).get(inv[Y], ""))
     ident = (framing, counts, s0, mapping, order)
-    seq = neighbour_order(counts, ident, perm)
+    if seq is None:
+        seq = neighbour_order(counts, ident, perm)
+    assert sorted(seq) == sorted(t for t, n in zip(TYPES, counts) for _ in range(n)), "seq must match counts"
     lines = []
     for t in seq:
         who = "An ally" if t[0] == "a" else "A rival"

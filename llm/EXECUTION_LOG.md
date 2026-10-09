@@ -290,3 +290,20 @@ judgment calls, in time order (2026-10-08).
     - **Updated estimate:** RTX PRO 6000 in EUR-IS-1 with the volume, 1.5–2.5 h, **≈ $4–6**; worst case at the 4 h
       limit $9.96, under the $15 ceiling. Details in `llm/GPU_PLAN.md`.
     - Nothing created. **STOP: awaiting the owner's explicit OK.**
+
+22. **Owner approvals (2026-10-09) and the Stage 3 pre-data addendum.**
+    - Approved: Stage 3 on P1–P4 plus P5 (calibration); the GPU battery (~$3–5, ceiling $15, 4 h hard stop,
+      auto-terminate), **on an A100** (the card the owner's other work runs on; wait for one if needed); dataset
+      private; squash-merge to main after the upload and the removal of the snapshots from git.
+    - Framing for all write-ups: Stage 3 tests inertia, content fields and rival weighting, not non-reciprocity.
+      The gate-relaxed H4 result stays in the sensitivity section; local bf16 Gemma decides it.
+    - **Pre-data addendum** appended to `llm/STAGE3_PREDICTIONS.md` and committed before any Stage 3 call: (a)
+      live prompts = Stage 1 template, checked automatically before every call; (b) no-contacts arms P2-nc and
+      P4-nc, prediction = fields-only control, flagged as an extrapolation; (c) what a miss at each point would
+      imply; (d) resample-on-invalid (≤ 3 attempts), invalid rate per point, flag > 2%; (e) Ising-β regression test.
+    - New: `llm/stage3.py`, `llm/test_stage3.py`, `results/llm/stage2/stage3_predictions_nocontacts.json`.
+      `battery.render` takes an optional contact order (Stage 1 battery unchanged: same SHA-256 over all 8,330
+      prompts). `make_predictions.py` now preserves the addendum and writes the no-contacts json; rerunning it
+      leaves the original predictions byte-identical.
+    - `python llm/test_stage3.py`: all checks pass (prompts, Ising β for 27 fits, mock-LLM runner reproduces the
+      simulator with |z| < 2).
