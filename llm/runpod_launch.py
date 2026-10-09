@@ -94,11 +94,14 @@ def terminate(pid, why):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--code-rev"); ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--code-rev"); ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--attach")
     ap.add_argument("--poll", type=int, default=180); ap.add_argument("--force-try", type=int, default=900)
     ap.add_argument("--check", type=int, default=120); ap.add_argument("--max-hours", type=float, default=4.25)
     ap.add_argument("--max-spend", type=float, default=12.0); ap.add_argument("--max-wait-hours", type=float, default=72)
     a = ap.parse_args()
+    if a.attach:          # re-attach the watchdog to a running pod (spend = its own rate x uptime)
+        p = pod(a.attach); import calendar; t0 = calendar.timegm(time.strptime(p["lastStartedAt"][:19], "%Y-%m-%d %H:%M:%S"))
+        return watch(a.attach, t0, float(p["costPerHr"]), a)
     if a.dry_run:
         log("dry run: stock", a100_stock(), "account", account()); return
     assert a.code_rev, "--code-rev required"
@@ -125,6 +128,13 @@ def main():
     open(os.path.join(ROOT, "results/llm/logs/pod_id.txt"), "w").write(pid + "\n")
     log(f"CREATED pod {pid} ({created.get('gpu', {}) or created.get('machine', {})}, ${created.get('costPerHr')}/h); "
         f"baseline balance ${base['clientBalance']:.2f}, other burn ${base['currentSpendPerHr']:.3f}/h")
+    watch(pid, t0, float(created.get("costPerHr") or 1.79), a)
+
+
+def watch(pid, t0, rate, a):
+    """Terminate pod `pid` (only it) on a finished job, > max_hours, or own spend (rate x uptime) > max_spend. The
+    account-balance estimate is not used: billing lags and the owner's other pods start and stop."""
+    log(f"watchdog on pod {pid}: ${rate}/h, started {time.strftime('%H:%M:%S', time.gmtime(t0))} UTC")
     while True:
         time.sleep(a.check)
         try:
@@ -132,18 +142,16 @@ def main():
             if p is None:
                 log(f"pod {pid} is gone (self-terminated or removed); watchdog done"); return
             hrs = (time.time() - t0) / 3600
-            acc = account()
-            spent = (base["clientBalance"] - acc["clientBalance"]) - base["currentSpendPerHr"] * hrs
-            log(f"pod {pid} {p.get('desiredStatus')} {hrs:.2f} h, est. spend ${spent:.2f}")
+            spent = rate * hrs
+            log(f"pod {pid} {p.get('desiredStatus')} {hrs:.2f} h, spend ${spent:.2f}")
             if results_uploaded(pid):
                 terminate(pid, "job finished (results tarball is in the dataset) but the pod is still up")
             elif hrs > a.max_hours:
                 terminate(pid, f"ran {hrs:.2f} h > {a.max_hours} h")
             elif spent > a.max_spend:
-                terminate(pid, f"estimated spend ${spent:.2f} > ${a.max_spend}")
+                terminate(pid, f"spend ${spent:.2f} > ${a.max_spend}")
         except Exception as e:
             log("watchdog error:", repr(e)[:300])
-
 
 if __name__ == "__main__":
     main()
