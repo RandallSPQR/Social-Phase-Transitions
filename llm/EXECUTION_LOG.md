@@ -158,3 +158,13 @@ judgment calls, in time order (2026-10-08).
     - **Fields-only control added** (inertia and fields only, no coupling, no voter step). Workplace
       "consensus" is largely field-driven: fields-only |m| is 0.92 for Gemma-26B, 0.72 for Mistral Large,
       0.54–0.55 for Qwen-122B and Nemo.
+13. **Step 3 complete: Stage 2 surrogate simulations and written Stage 3 predictions.**
+    - `llm/STAGE3_PREDICTIONS.md` and `results/llm/stage2/stage3_predictions.json` were generated from the
+      simulation summaries by `llm/make_predictions.py` and committed before any Stage 3 call.
+    - **Point choice:** made after seeing the Stage 2 simulations and before any live data. The criteria
+      were confirmatory endpoints only, and separation of the fitted surrogate from both controls on
+      pre-stated primary measures.
+    - **P3 correction:** its primary measures were revised before commit, from |m| + excess unsatisfied to
+      |m| + persistence, because excess unsatisfied did not separate the surrogate from the Ising reading.
+    - Summary: `results/llm/STAGE2_RESULTS.md`.
+    - **STOP:** no Stage 3 call has been made. Awaiting the owner.
