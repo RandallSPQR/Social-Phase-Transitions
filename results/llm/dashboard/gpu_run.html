@@ -1,0 +1,219 @@
+<title>Gemma GPU Run Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an instrument panel — status strip, then progress, caps and telemetry in a responsive grid, log at the foot */
+:root {
+  --bg: #f3f5f8; --panel: #ffffff; --fg: #18202e; --muted: #5d6779; --line: #dde2ea; --track: #e7ebf1;
+  --accent: #2c5bc9; --ok: #1f8a5b; --warn: #b7791f; --crit: #c23b32;
+  --display: "Barlow", "Helvetica Neue", Arial, sans-serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10141b; --panel: #171c25; --fg: #e1e6ee; --muted: #8e98aa; --line: #283040; --track: #232a37;
+  --accent: #7d9fff; --ok: #4cc28a; --warn: #e2a64a; --crit: #ff7a6e; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #10141b; --panel: #171c25; --fg: #e1e6ee; --muted: #8e98aa; --line: #283040; --track: #232a37;
+  --accent: #7d9fff; --ok: #4cc28a; --warn: #e2a64a; --crit: #ff7a6e; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--display); font-size: 15px; line-height: 1.45 }
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 20px; padding-block: 20px 40px; display: grid; gap: 16px }
+h1 { font-size: 1.6rem; font-weight: 700; margin: 0; letter-spacing: .01em; text-wrap: balance }
+.sub { color: var(--muted); font-size: .9rem }
+.mono, .num { font-family: var(--mono); font-variant-numeric: tabular-nums }
+.label { text-transform: uppercase; letter-spacing: .08em; font-size: .72rem; font-weight: 600; color: var(--muted) }
+header { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: flex-end; justify-content: space-between }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.pill { font-family: var(--mono); font-size: .78rem; padding: 3px 10px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap }
+.pill.ok { color: var(--ok) } .pill.warn { color: var(--warn) } .pill.crit { color: var(--crit) } .pill.idle { color: var(--muted) }
+.alerts { border: 1px solid var(--crit); color: var(--crit); background: color-mix(in srgb, var(--crit) 8%, var(--panel)); padding: 10px 14px; border-radius: 6px; font-weight: 600 }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 16px; min-width: 0; display: grid; gap: 12px; align-content: start }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) }
+.big { font-size: 2.6rem; font-weight: 700; line-height: 1 }
+.bar { height: 10px; background: var(--track); border-radius: 5px; overflow: hidden; position: relative }
+.bar > i { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 5px; transition: width .6s ease }
+.bar.warn > i { background: var(--warn) } .bar.crit > i { background: var(--crit) } .bar.ok > i { background: var(--ok) }
+.bar .mark { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); opacity: .55 }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: .9rem }
+.kv dt { color: var(--muted) } .kv dd { margin: 0; font-family: var(--mono); font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere }
+.model { display: grid; gap: 6px; padding-block: 8px; border-top: 1px solid var(--line) }
+.model:first-of-type { border-top: 0 }
+.chip { font-family: var(--mono); font-size: .75rem; color: var(--muted) }
+.chip b { color: var(--fg); font-weight: 500 }
+svg.spark { width: 100%; height: 70px; display: block }
+svg.spark .grid { stroke: var(--line); stroke-width: 1 }
+svg.spark .area { fill: color-mix(in srgb, var(--accent) 16%, transparent) }
+svg.spark .ln { fill: none; stroke: var(--accent); stroke-width: 1.6 }
+svg.spark .dot { fill: var(--accent) }
+svg.spark text { fill: var(--muted); font-family: var(--mono); font-size: 10px }
+table { width: 100%; border-collapse: collapse; font-size: .85rem }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line) }
+th { color: var(--muted); font-weight: 600; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em }
+td.num { text-align: right }
+.scroll { overflow-x: auto }
+pre.log { margin: 0; font-family: var(--mono); font-size: .76rem; line-height: 1.5; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 10px; max-height: 340px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere }
+.empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line); border-radius: 6px }
+@media (prefers-reduced-motion: reduce) { .bar > i { transition: none } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="label">Amendment 4 · local bf16 Gemma-4 battery</div>
+      <h1 id="title">Gemma GPU Run Monitor</h1>
+      <div class="sub" id="subtitle">Waiting for the first status from the run…</div>
+    </div>
+    <div class="pills" id="pills"><span class="pill idle">no data yet</span></div>
+  </header>
+
+  <div class="alerts" id="alerts" hidden></div>
+
+  <div id="empty" class="empty">
+    Nothing has arrived yet. Status appears here as soon as the pod sends its first heartbeat (every 90 s) and the session relays it.
+  </div>
+
+  <div id="main" hidden>
+    <div class="grid">
+      <section class="panel" aria-labelledby="h-overall">
+        <div class="label" id="h-overall">Overall progress</div>
+        <div class="row"><span class="big num" id="ov-pct">0%</span><span class="mono" id="ov-eta"></span></div>
+        <div class="bar"><i id="ov-bar" style="width:0%"></i></div>
+        <div id="models"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="h-now">
+        <div class="label" id="h-now">Current step</div>
+        <dl class="kv" id="now"></dl>
+      </section>
+
+      <section class="panel" aria-labelledby="h-caps">
+        <div class="label" id="h-caps">Caps</div>
+        <div class="row"><span>Time</span><span class="mono" id="cap-time"></span></div>
+        <div class="bar" id="cap-time-bar"><i style="width:0%"></i></div>
+        <div class="row"><span>Spend (this pod)</span><span class="mono" id="cap-spend"></span></div>
+        <div class="bar" id="cap-spend-bar"><i style="width:0%"></i></div>
+        <div class="chip">Watchdog stops the pod at the time or spend cap. Marker on the spend bar: your $15 ceiling for the whole GPU stage.</div>
+      </section>
+    </div>
+
+    <div class="grid">
+      <section class="panel" aria-labelledby="h-gpu">
+        <div class="row"><span class="label" id="h-gpu">GPU utilisation</span><span class="mono" id="gpu-now"></span></div>
+        <div id="spark-util"></div>
+        <dl class="kv" id="hw"></dl>
+      </section>
+      <section class="panel" aria-labelledby="h-prog">
+        <div class="row"><span class="label" id="h-prog">Progress over time</span><span class="mono" id="prog-now"></span></div>
+        <div id="spark-prog"></div>
+        <div class="chip" id="hb"></div>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="h-up">
+      <div class="label" id="h-up">Verified uploads (private dataset, runs/&lt;pod&gt;/results)</div>
+      <div class="scroll"><table><thead><tr><th>Output</th><th class="num">Files</th><th class="num">Size</th><th>Verified at (UTC)</th></tr></thead><tbody id="uploads"></tbody></table></div>
+    </section>
+
+    <section class="panel" aria-labelledby="h-log">
+      <div class="row"><span class="label" id="h-log">Pod log (last lines)</span><span class="chip">full log: runs/&lt;pod&gt;/pod.log</span></div>
+      <pre class="log" id="log"></pre>
+    </section>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+let doc = null;
+const fmtMin = s => s == null ? "–" : s >= 3600 ? `${Math.floor(s/3600)} h ${Math.round(s%3600/60)} min` : `${Math.round(s/60)} min`;
+const utc = t => t ? new Date(t*1000).toISOString().slice(11,19) : "–";
+const esc = s => String(s ?? "").replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]));
+
+function spark(el, pts, key, max, fmt) {
+  const W = 300, H = 70, P = 4;
+  const v = pts.filter(p => p[key] != null);
+  if (v.length < 2) { el.innerHTML = '<div class="chip">Collecting points…</div>'; return; }
+  const t0 = v[0].t, t1 = v[v.length-1].t || t0 + 1;
+  const x = t => P + (W - 2*P) * (t - t0) / Math.max(t1 - t0, 1);
+  const y = val => H - P - (H - 2*P) * Math.min(val, max) / max;
+  const d = v.map((p,i) => `${i ? "L" : "M"}${x(p.t).toFixed(1)},${y(p[key]).toFixed(1)}`).join("");
+  const last = v[v.length-1];
+  el.innerHTML = `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="${key} over time">
+    <line class="grid" x1="${P}" x2="${W-P}" y1="${y(max/2)}" y2="${y(max/2)}"/>
+    <path class="area" d="${d}L${x(last.t)},${H-P}L${x(t0)},${H-P}Z"/>
+    <path class="ln" d="${d}"/><circle class="dot" cx="${x(last.t)}" cy="${y(last[key])}" r="3"/>
+    <text x="${W-P}" y="${Math.max(y(max/2)-3, 10)}" text-anchor="end">${fmt(max/2)}</text></svg>`;
+}
+
+function bar(el, frac, cls) {
+  el.className = "bar" + (cls ? " " + cls : "");
+  el.querySelector("i").style.width = (Math.max(0, Math.min(1, frac)) * 100).toFixed(1) + "%";
+}
+
+function render() {
+  if (!doc) return;
+  $("empty").hidden = true; $("main").hidden = false;
+  const age = Date.now()/1000 - doc.updated_at, hbAge = doc.heartbeat?.age_s;
+  const pod = doc.pod || {}, p = doc.progress || {};
+  $("subtitle").textContent = `Run ${doc.run} · pod ${pod.id ?? "–"} · ${pod.gpu_type ?? "GPU pending"} · $${(pod.cost_per_hr ?? 0).toFixed(2)}/h`;
+  const phase = doc.phase || "starting";
+  const stale = age > 300;
+  const done = phase === "done";
+  const pills = [
+    `<span class="pill ${doc.alerts?.length ? "crit" : done ? "ok" : "ok"}">${esc(phase)}${doc.phase_detail ? " · " + esc(doc.phase_detail) : ""}</span>`,
+    `<span class="pill ${pod.status === "RUNNING" ? "ok" : pod.status === "gone" ? (done ? "idle" : "crit") : "idle"}">pod ${esc(pod.status ?? "–")}</span>`,
+    `<span class="pill ${stale && !done ? "warn" : "idle"}">updated ${fmtMin(age)} ago</span>`];
+  $("pills").innerHTML = pills.join("");
+  const al = [...(doc.alerts || [])];
+  if (stale && !done) al.push(`no update from the session relay for ${fmtMin(age)}`);
+  $("alerts").hidden = !al.length; $("alerts").textContent = al.join(" · ");
+
+  const ov = doc.overall_frac ?? 0;
+  $("ov-pct").textContent = Math.round(ov * 100) + "%";
+  $("ov-bar").style.width = (ov * 100).toFixed(1) + "%";
+  $("ov-eta").textContent = p.eta_s != null && p.stage === "forward passes" ? `${esc(p.key)} done in ~${fmtMin(p.eta_s)}` : "";
+  $("models").innerHTML = (doc.models || []).map(m => `
+    <div class="model">
+      <div class="row"><b>${esc(m.key)}</b><span class="mono">${Math.round((m.frac ?? 0) * 100)}%</span></div>
+      <div class="bar ${m.main === "uploaded" ? "ok" : ""}"><i style="width:${((m.frac ?? 0) * 100).toFixed(1)}%"></i></div>
+      <div class="chip">smoke test <b>${esc(m.smoke)}</b> · full run <b>${esc(m.main)}</b></div>
+    </div>`).join("");
+
+  const nowRows = [["Model", p.key], ["Stage", p.stage], ["Replicate", p.rep != null ? `${p.rep + 1} of 2` : null],
+    ["Batch", p.batch != null ? `${p.batch} / ${p.n_batches}` : null], ["Forward-pass batches", p.total ? `${p.done} / ${p.total}` : null],
+    ["Elapsed on this model", p.elapsed_s != null ? fmtMin(p.elapsed_s) : null], ["Prompts", p.n_prompts]];
+  $("now").innerHTML = nowRows.filter(r => r[1] != null).map(([k, v]) => `<dt>${k}</dt><dd>${esc(v)}</dd>`).join("") || "<dt>Stage</dt><dd>setting up</dd>";
+
+  const tf = (pod.uptime_h ?? 0) / (pod.cap_hours || 4.25), sf = (pod.spend ?? 0) / (pod.cap_spend || 12);
+  $("cap-time").textContent = `${(pod.uptime_h ?? 0).toFixed(2)} h of ${pod.cap_hours} h`;
+  $("cap-spend").textContent = `$${(pod.spend ?? 0).toFixed(2)} of $${pod.cap_spend}`;
+  bar($("cap-time-bar"), tf, tf > .85 ? "crit" : tf > .7 ? "warn" : "");
+  bar($("cap-spend-bar"), sf, sf > .85 ? "crit" : sf > .7 ? "warn" : "");
+  const sb = $("cap-spend-bar"); sb.querySelector(".mark")?.remove();
+  const mk = document.createElement("span"); mk.className = "mark"; mk.style.left = Math.min(100, 15 / (pod.cap_spend || 12) * 100) + "%"; sb.appendChild(mk);
+
+  const g = doc.gpu || {};
+  $("gpu-now").textContent = g.util_pct != null ? `${g.util_pct}%` : "–";
+  $("hw").innerHTML = [["Memory", g.mem_used_gb != null ? `${g.mem_used_gb.toFixed(1)} / ${g.mem_total_gb.toFixed(0)} GB` : null],
+    ["Power", g.power_w != null ? `${Math.round(g.power_w)} W` : null],
+    ["Container disk", doc.disk?.used_gb != null ? `${doc.disk.used_gb.toFixed(0)} / ${doc.disk.total_gb.toFixed(0)} GB` : null]]
+    .filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
+  spark($("spark-util"), doc.history || [], "util", 100, v => v + "%");
+  spark($("spark-prog"), doc.history || [], "frac", 1, v => Math.round(v * 100) + "%");
+  $("prog-now").textContent = Math.round(ov * 100) + "%";
+  $("hb").textContent = `Heartbeat #${doc.heartbeat?.beat ?? "–"} · ${hbAge != null ? fmtMin(hbAge) + " old when relayed" : "none yet"} · relayed ${utc(doc.updated_at)} UTC`;
+
+  const ups = Object.entries(doc.uploads || {}).sort((a, b) => a[1].t - b[1].t);
+  $("uploads").innerHTML = ups.length ? ups.map(([k, u]) => `<tr><td class="mono">${esc(k)}</td><td class="num">${u.files}</td><td class="num">${(u.bytes/1e6).toFixed(1)} MB</td><td class="mono">${utc(u.t)}</td></tr>`).join("")
+    : `<tr><td colspan="4" class="chip">No outputs uploaded yet. Each model's results appear here, verified, as soon as it finishes.</td></tr>`;
+  const lg = $("log"); const atBottom = lg.scrollTop + lg.clientHeight >= lg.scrollHeight - 20;
+  lg.textContent = (doc.log_tail || []).join("\n") || "(no log lines yet)";
+  if (atBottom) lg.scrollTop = lg.scrollHeight;
+}
+
+(async () => {
+  const db = await window.claude?.use?.("db");
+  if (!db) { $("empty").textContent = "Live data is unavailable in this view. Open the artifact in claude.ai while signed in."; return; }
+  db.doc("live/current").onSnapshot(s => { if (s.exists) { doc = s.data(); render(); } },
+    e => { $("empty").hidden = false; $("empty").textContent = "Could not read live status: " + (e?.message || e?.code || "unknown error"); });
+  setInterval(render, 15000);        // keeps the 'updated … ago' clock honest between updates
+})();
+</script>

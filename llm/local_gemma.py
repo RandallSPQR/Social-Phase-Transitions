@@ -41,6 +41,14 @@ def letter_ids(tok):
     return A, B
 
 
+def progress(**kw):
+    """Live progress for llm/pod_tracker.py (results/llm/logs/progress.json, atomic write)."""
+    import json
+    p = os.path.join(ROOT, "results", "llm", "logs", "progress.json"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    kw["t"] = time.time()
+    open(p + ".tmp", "w").write(json.dumps(kw)); os.replace(p + ".tmp", p)
+
+
 def parse_top5(top):
     """Stage 1 rule (run_stage1.parse_lp) on [(token_text, logprob)] top-5."""
     pa = sum(math.exp(l) for t, l in top if t.strip() == "A")
@@ -60,6 +68,7 @@ def main():
     a = ap.parse_args()
     import torch
     from transformers import AutoTokenizer, AutoModelForCausalLM
+    progress(key=a.key, stage="loading model", model=a.model_id)
     tok = AutoTokenizer.from_pretrained(a.model_id); tok.padding_side = "left"
     try:
         model = AutoModelForCausalLM.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
@@ -67,6 +76,7 @@ def main():
         from transformers import AutoModelForImageTextToText      # multimodal checkpoints (text-only use)
         model = AutoModelForImageTextToText.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
     model.eval()
+    progress(key=a.key, stage="vocabulary scan", model=a.model_id)
     A_ids, B_ids = letter_ids(tok)
     # padding diagnostic: 4 prompts batched with a long neighbour vs run alone (reported, not used to abort)
     probe = [it["prompt"] for it in list(battery.items("political"))[:4]]
@@ -109,6 +119,12 @@ def main():
         for L in sorted(groups):
             g = groups[L] if rep == 0 else rr.sample(groups[L], len(groups[L]))
             batches += [g[k:k + bs] for k in range(0, len(g), bs)]
+        if rep == 0:
+            bs1 = max(1, a.batch_size // 2 + 3)     # replicate 1's batch count, exactly
+            n_total = len(batches) + sum(-(-len(g) // bs1) for g in groups.values())
+            done_before = 0
+        else:
+            n_total = done_before + len(batches)
         for s, idx in enumerate(batches):
             enc = tok([texts[i] for i in idx], return_tensors="pt", padding=True, add_special_tokens=False).to(a.device)
             with torch.no_grad():
@@ -129,8 +145,13 @@ def main():
                         acts[L] = np.zeros((len(jobs), h.shape[1]), np.float16)
                     acts[L][idx] = h
             assert int(enc["attention_mask"].sum()) == enc["attention_mask"].numel(), "padding in a batch"
+            done = done_before + s + 1; el = time.time() - t0
+            progress(key=a.key, stage="forward passes", model=a.model_id, rep=rep, batch=s + 1, n_batches=len(batches),
+                     done=done, total=n_total, elapsed_s=el, eta_s=el / done * (n_total - done), n_prompts=len(jobs))
             if s % 50 == 0:
                 print(f"  rep {rep} batch {s}/{len(batches)} {time.time() - t0:.0f}s", flush=True)
+        done_before += len(batches)
+    progress(key=a.key, stage="writing outputs", model=a.model_id, done=done_before, total=done_before)
     import csv
     for phase in ("main", "comprehension"):
         recs = []
@@ -152,6 +173,7 @@ def main():
         w = csv.writer(f); w.writerow(["row", "phase", "arm", "question", "counts", "s0", "mapping", "order", "perm", "seq"])
         for i, (ph, it) in enumerate(jobs):
             w.writerow([i, ph, it["arm"], it.get("question", ""), "".join(map(str, it["counts"])), it["s0"], it["mapping"], it["order"], it["perm"], it["seq"]])
+    progress(key=a.key, stage="done", model=a.model_id, done=done_before, total=done_before, elapsed_s=time.time() - t0)
     print(f"done {a.key}: {len(jobs)} prompts x 2 reps in {time.time() - t0:.0f}s", flush=True)
 
 

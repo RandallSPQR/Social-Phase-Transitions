@@ -60,7 +60,7 @@ def start_cmd(code_rev):
     return ("pip install -q huggingface_hub > /root/boot.log 2>&1; "
             f"python -c \"{py}\" >> /root/boot.log 2>&1 && mkdir -p /root/Social-Phase-Transitions && "
             f"tar xzf /root/code/code/pod_code_{code_rev}.tgz -C /root/Social-Phase-Transitions >> /root/boot.log 2>&1 && "
-            "bash /root/Social-Phase-Transitions/llm/pod_run.sh >> /root/boot.log 2>&1; "
+            "bash /root/Social-Phase-Transitions/llm/pod_run.sh 2>&1 | tee -a /root/boot.log; "
             "echo 'job finished; idling until removed' >> /root/boot.log; sleep infinity")
 
 
@@ -81,9 +81,11 @@ def pod(pid):
 
 
 def results_uploaded(pid):
-    from huggingface_hub import HfApi
-    files = HfApi(token=os.environ["HF_TOKEN"]).list_repo_files("RandallSPQR/social-phase-transitions-llm-cache", repo_type="dataset")
-    return f"pod_results/pod_results_{pid}.tgz" in files
+    """True once the pod's heartbeat reports phase 'done' (all outputs uploaded and verified) at least 10 min ago."""
+    from run_relay import hf_status
+    st = hf_status(pid) or {}
+    ph = st.get("phase") or {}
+    return ph.get("phase") == "done" and time.time() - ph.get("t", time.time()) > 600
 
 
 def terminate(pid, why):
@@ -145,7 +147,7 @@ def watch(pid, t0, rate, a):
             spent = rate * hrs
             log(f"pod {pid} {p.get('desiredStatus')} {hrs:.2f} h, spend ${spent:.2f}")
             if results_uploaded(pid):
-                terminate(pid, "job finished (results tarball is in the dataset) but the pod is still up")
+                terminate(pid, "run reported 'done' (all outputs verified) 10+ min ago but the pod is still up")
             elif hrs > a.max_hours:
                 terminate(pid, f"ran {hrs:.2f} h > {a.max_hours} h")
             elif spent > a.max_spend:

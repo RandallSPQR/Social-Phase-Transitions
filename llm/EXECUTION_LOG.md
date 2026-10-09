@@ -391,3 +391,28 @@ judgment calls, in time order (2026-10-08).
     - Not relaunched; reported to the owner. A rerun needs: per-model upload as soon as each model finishes,
       the pod log uploaded every few minutes, and self-removal only after a confirmed upload (otherwise leave it
       for the watchdog, which ends it at the time cap).
+
+28. **Owner: "that was a total waste." Real-time tracking built and tested before any rerun.**
+    - Lesson written into `CLAUDE.md` at the repo root (loaded by every Claude session on this repository): remote
+      or paid jobs stream a heartbeat to durable storage, upload and verify each unit of output as soon as it exists,
+      never destroy the machine before a verified final upload, print to stdout, are visible to the owner while they
+      run, and get an end-to-end test of the whole chain before paying. The owner's global `~/.claude/CLAUDE.md`
+      is not reachable from this cloud container; the same rule was given to the owner to paste there.
+    - **Pod side:** `llm/pod_tracker.py` (heartbeat every 90 s → `runs/<pod>/status.json` + full `pod.log` in the
+      private dataset; per-model upload with re-list and size check; `uploads.json` records what is verified).
+      `llm/local_gemma.py` writes live progress (stage, replicate, batch, ETA). `llm/pod_run.sh` rewritten: smoke
+      and full outputs uploaded per model as soon as each finishes; job deadline 3.6 h; the final upload retries
+      until 30 min past the deadline and cannot be interrupted; the pod removes itself only after a verified upload,
+      otherwise it reports `upload_failed` and stays up for the watchdog. All output also goes to stdout (RunPod
+      console).
+    - **Session side:** `llm/run_relay.py` turns heartbeat + pod state into a dashboard document (alerts: stale
+      heartbeat, pod gone without `done`, upload failure, caps); `llm/runpod_launch.py` treats a run as finished
+      only when the heartbeat says `done`.
+    - **Dashboard:** artifact "Gemma GPU Run Monitor" (progress per model, ETA, caps, GPU and progress over time,
+      verified uploads, log tail), fed from the relay.
+    - **Tests before any spend** (CPU, tiny random Gemma-4 models):
+      - failure path (invalid HF token, failing model): uploads and heartbeats fail, retries continue, phase
+        `upload_failed`, pod NOT removed, no leftover processes. It exposed two bugs, now fixed: the job deadline's
+        TERM aborted the final upload, and the deadline timer was left orphaned.
+      - full path: smoke → upload (verified) → full run → upload (verified) per model → `done`; relay and dashboard
+        follow it live.
