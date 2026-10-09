@@ -1,2 +1,0 @@
-2026-10-09 17:27:16 UTC poller start: A100 80GB in EUR-IS-1 with volume u0isne6ams; code 975453b
-2026-10-09 17:27:18 UTC CREATED pod w9m8lg9txkisc5 ({'dataCenterId': 'EUR-IS-1', 'diskThroughputMBps': 5111, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'NL', 'maxDownloadSpeedMbps': 9307, 'maxUploadSpeedMbps': 70364, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 222060}, $1.79/h); baseline balance $44.55, other burn $1.816/h
