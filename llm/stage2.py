@@ -8,7 +8,8 @@ Each run draws ONE parameter vector from the endpoint's cluster-bootstrap draws 
 the pre-stated rule: first-contact mixture MF if it beats A3 held-out by >= 2%, else A3), a fresh graph and
 fresh dynamics, so the spread of run-level measures is a predictive interval combining fit uncertainty,
 graph disorder and dynamical noise. "ising" rows replace the fitted rule by its naive Ising reading (same
-β, nothing else) for comparison.
+β, nothing else); "fields_only" rows keep inertia and fields but remove all social coupling and the voter step,
+so any consensus they show is field-driven, not social.
 """
 import functools, json, os, sys, itertools
 from concurrent.futures import ProcessPoolExecutor
@@ -32,15 +33,21 @@ def load_fit(key, framing):
     if a is None:
         return None
     ch = a["choice"]
+    # naive Ising reading uses the Stage 1 ADDITIVE fit (A0, no k-scaling): its β and bootstrap draws
+    f0 = json.load(open(os.path.join(ROOT, "results", "llm", "fits", "main", key + ".json")))
+    a0 = {x["arm"]: x for x in f0["arms"]}[FRAME_ARM[framing]]
     return {"names": a["names"], "choice": ch, "est": np.array(a[ch]["est"]), "draws": np.array(a[ch]["draws"]),
-            "sigma": a.get("repeat_sd") or 0.0, "beta_est": 0.5 * (a[ch]["est"][2] + a[ch]["est"][3])}
+            "sigma": a.get("repeat_sd") or 0.0, "beta_A0_draws": np.array(a0["draws"]["beta"]), "beta_A0": a0["coef"]["beta"]["est"]}
 
 
 def param_row(fit, framing, draw, mode):
     v = fit["draws"][draw] if draw is not None else fit["est"]
-    if mode == "ising":
-        return S.ising_row(0.5 * (v[2] + v[3]))
-    return S.params_from_fit(fit["names"], v, framing, sigma=fit["sigma"])
+    if mode == "ising":     # Stage 1 additive β (A0), matching bootstrap draw index modulo its length
+        return S.ising_row(fit["beta_A0_draws"][draw % len(fit["beta_A0_draws"])] if draw is not None else fit["beta_A0"])
+    row = S.params_from_fit(fit["names"], v, framing, sigma=fit["sigma"])
+    if mode == "fields_only":          # control: same inertia and fields, no social coupling, no voter step
+        row[S.P_VOTER] = row[S.B_A] = row[S.B_R] = 0.0
+    return row
 
 
 def one_run(job):
@@ -82,7 +89,7 @@ def jobs_stage3(R=40):
     J = []; s = 0
     for framing in ("neutral", "political", "workplace"):
         pops = available(CONFIRMATORY + GATE_FAILED + SPOT, framing)
-        for pop, mode, kind, rho in itertools.product(pops, ("fitted", "ising"), ("er", "rrg"), (0.0, 0.25, 0.5)):
+        for pop, mode, kind, rho in itertools.product(pops, ("fitted", "ising", "fields_only"), ("er", "rrg"), (0.0, 0.25, 0.5)):
             for r in range(R):
                 s += 1; J.append((pop, framing, mode, kind, 100, rho, 0.0, 10, 10, 10_000_000 + s, False))
     # mixed populations and directed perceptions (neutral)

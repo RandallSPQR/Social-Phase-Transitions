@@ -142,3 +142,19 @@ judgment calls, in time order (2026-10-08).
       - ρ = 0.25 / 0.5: 0.15–0.17.
     - **Extrapolation:** ER c = 4 has ≈ 11% of nodes with k > 6, outside the fitted k ≤ 6. The
       random-regular d = 4 control stays inside.
+12. **Step 3: Stage 2 bug found and fixed before reporting.**
+    - **Bug:** the "naive Ising reading" baseline took β from the surrogate's k-scaled fit (A3/MF), whose
+      coefficients are at the k = 1 scale. For averaging endpoints this inflated β several-fold; for
+      Llama-70B neutral it was 6.95 instead of the Stage 1 additive 0.65. This made the Ising baseline
+      spuriously ordered (|m| 0.88 at N = 100, although T_eff = 2/0.65 = 3.08 is above the RRG d = 4 Bethe
+      Tc = 2.885).
+    - **Fix:** the Ising baseline now uses the Stage 1 additive A0 β and its bootstrap draws. The
+      Stage-3-matched runs were rerun, and the first FSS run (wrong baseline) was stopped and relaunched.
+      Fitted-surrogate and fields-only rows were unaffected.
+    - **Effect:** the apparent Llama-70B neutral contrast (fitted 0.41 vs Ising 0.88) disappears
+      (0.41 vs 0.32). GPT-6-luna now matches its Ising reading (0.16 vs 0.16).
+    - **Explicit-jitter check:** explicit (η/κ + noise) vs marginal agree within chance (5 of 96 contrasts
+      at |z| > 2, about 4.8 expected; `results/llm/stage2/jitter_check_z.csv`).
+    - **Fields-only control added** (inertia and fields only, no coupling, no voter step). Workplace
+      "consensus" is largely field-driven: fields-only |m| is 0.92 for Gemma-26B, 0.72 for Mistral Large,
+      0.54–0.55 for Qwen-122B and Nemo.
