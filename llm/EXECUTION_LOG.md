@@ -437,3 +437,23 @@ judgment calls, in time order (2026-10-08).
       shared network volume) and the weights go to `/workspace/hf`; the heartbeat reports free space at the real
       download target plus `df` of `/`, `/root`, `/workspace`; the download step aborts at once if the target has
       < 130 GB free (tested locally: aborts with 15 GB free).
+
+31. **Amendment 4 GPU battery complete (rerun 3, `e3zan9ygnmqe45`). Data only; no analysis.**
+    - Rerun 2's real cause, confirmed from rerun 3's heartbeat: the pod image presets
+      `HF_HOME=/workspace/.cache/huggingface`, which overrode the `/root/hf` default, so the weights went to RunPod's
+      default 20 GB pod volume. With a 200 GB pod volume the download ran normally (`df` in the heartbeat: `/workspace`
+      200 GB, `/` 50 GB).
+    - A100-SXM4-80GB, 21:37–22:18 UTC (≈ 40 min, ≈ $1.16). Sequence, each step uploaded and verified on finishing:
+      26B download → smoke → full (1,319 batches) → 31B download → smoke → full → final upload of everything →
+      `done` (exit 0) → pod removed itself. The dashboard showed every step live.
+    - Retrieved all 42 files from `runs/e3zan9ygnmqe45/` and checked each size against the dataset (0 mismatches).
+    - In git: `results/llm/stage1/{main,comprehension}/gemma-{26b,31b}-local[-smoke].csv` and the pod log. The
+      activations (≈ 785 MB) stay in the private dataset; `results/llm/activations_manifest.json` lists them.
+    - Integrity checks: per model 12,428 main rows (6,214 prompts × 2 replicates) and 4,232 comprehension rows;
+      no missing P(A); no prompt with first-token leak > 5%. Replicate disagreement (logit of P(A), rep 0 vs rep 1,
+      different batch composition): 26B MoE median 0.50 nats, 99th percentile 4.05; 31B dense median 0.00, 99th
+      percentile 1.00. This is the batch-numerics noise the pre-registered 0.3-nat gate measures; the gate has not
+      been applied (no analysis yet).
+    - **GPU stage total ≈ $7.22** (≈ $5.50 for the lost 3-hour run, $0.12 + $0.18 + $0.21 for the failed launches,
+      $0.05 volume cleanup, $1.16 for this run) of the $15 ceiling.
+    - STOP: both Stage 3 and the GPU battery are done; reporting to the owner before any new analysis.
