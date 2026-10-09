@@ -267,3 +267,26 @@ judgment calls, in time order (2026-10-08).
       created 16:10 UTC, self-stop deadline 2026-10-10 01:40 UTC) and a 150 GB network volume in EUR-IS-1.
       Not touched. It counts toward account spend, so the spend check in entry 19 must use a baseline.
     - Nothing created.
+
+21. **RunPod access confirmed; live prices; shared-volume safety (2026-10-09).**
+    - After the owner allowed it, `api.runpod.io` GraphQL works. Read-only queries only:
+      balance $46.52, spend limit $80, current spend $1.82/h (the owner's SAE calibration pod plus its volume).
+    - **Owner instruction: the `item10-grader` pod is another experiment. Never touch it.** Nothing in this
+      project's tooling refers to it; `pod_run.sh` only removes `$RUNPOD_POD_ID` (its own pod).
+    - **Owner preference: use the network volume `u0isne6ams` (150 GB, EUR-IS-1) for weights, without overwriting
+      anything on it.** The volume is shared with the SAE work, so `llm/pod_run.sh` was changed:
+      - writes only under `/workspace/social-phase-transitions/` (HF cache in `hf/`), marked by an `.owner` file;
+      - aborts if that directory exists without the marker; never deletes anything on the volume;
+      - repo, logs and results tarball moved to the container disk (previously `/workspace/...` paths, including
+        `/workspace/pod_results.tgz` and `/workspace/hf`, which could have collided with existing files);
+      - if the volume has < 130 GB free (minus what is already cached by us), the weights go to the container
+        disk instead. Free space on the volume cannot be read through the API, only from inside a pod.
+      - Tested locally with a fake volume: fresh, rerun, too-full and foreign-directory cases behave as above,
+        and other files on it are untouched. The 4 h hard-limit trap was also tested: results shipping and pod
+        removal still run.
+    - **Live prices** (secure cloud, 1 GPU): A100 80GB $1.79/h, H100 PCIe $2.89/h, H100 SXM $3.99/h. In EUR-IS-1
+      (the volume's data centre) the only ≥ 80 GB GPU in stock is the RTX PRO 6000 Blackwell Server 96GB,
+      $2.49/h, stock "Low". It fits Gemma-4 31B in bf16.
+    - **Updated estimate:** RTX PRO 6000 in EUR-IS-1 with the volume, 1.5–2.5 h, **≈ $4–6**; worst case at the 4 h
+      limit $9.96, under the $15 ceiling. Details in `llm/GPU_PLAN.md`.
+    - Nothing created. **STOP: awaiting the owner's explicit OK.**

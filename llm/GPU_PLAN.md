@@ -20,26 +20,32 @@
 - Vocabulary scan for A/B token ids: ~1 min.
 - Padding check plus 40-prompt smoke test: ~5 min.
 
-**Estimate** (one pod, both models in sequence):
+**Estimate** (one pod, both models in sequence). Live RunPod prices, read 2026-10-09 (EXECUTION_LOG entry 21).
+The owner's network volume `u0isne6ams` (150 GB) is in **EUR-IS-1**, and a pod can only mount it in that data
+centre. The only ≥ 80 GB GPU with stock there is the RTX PRO 6000 Blackwell Server (96 GB, stock "Low").
 
-| GPU (1×, 80 GB) | wall time | list price (RunPod, **unverified, check in console**) | estimate |
-|---|---|---|---|
-| A100 80GB | 1.5–2.5 h | ~$1.5–1.9 / h | **≈ $3–5** |
-| H100 80GB | 1.0–1.5 h | ~$2.7–3.3 / h | **≈ $3–5** |
+| GPU (1×) | where | live price | wall time | estimate |
+|---|---|---|---|---|
+| **RTX PRO 6000 Blackwell Server 96GB** (with volume) | EUR-IS-1 | $2.49/h | 1.5–2.5 h | **≈ $4–6** |
+| A100 80GB (no volume; weights re-downloaded) | elsewhere | $1.79/h secure | 1.5–2.5 h | ≈ $3–5 |
+| H100 PCIe 80GB (no volume) | elsewhere | $2.89/h secure | 1.0–1.5 h | ≈ $3–4.5 |
 
 **Ceiling: $15.** Safeguards:
-- `pod_run.sh` has a 4 h hard limit and per-step timeouts.
-- It self-terminates via `runpodctl remove pod` on success *or* failure.
+- `pod_run.sh` has a 4 h hard limit (tested: the exit trap still ships results and removes the pod) and per-step
+  timeouts. Worst case at 4 h on the RTX PRO 6000: $9.96.
+- It self-terminates via `runpodctl remove pod $RUNPOD_POD_ID` (its own pod only) on success *or* failure.
+- Outside check-in at +4 h 15 min terminates the pod if still present; spend check against the balance
+  baseline net of the owner's other running pod (≈ $1.82/h), stop at $12.
 - Results go to the HF dataset before termination.
-- Network volume: ≥ 150 GB if the weights are not already cached there.
+- **Shared volume:** writes only under `/workspace/social-phase-transitions/` (marker file `.owner`), aborts if
+  that directory exists without the marker, never deletes on the volume, and falls back to the container disk if
+  the volume has < 130 GB free (weights ≈ 115 GB). The repo, logs and results tarball stay on the container disk.
 
-**Recommendation:** 1× A100 80GB (enough memory for 31B bf16 plus batch 16 × ~300 tokens), with H100
-as the fallback.
+**Recommendation:** 1× RTX PRO 6000 Blackwell Server 96GB in EUR-IS-1 with the owner's volume (owner's preferred setup); fall back to an A100 80GB elsewhere without the volume if it is out of stock.
 
 **Prerequisites (status 2026-10-09, EXECUTION_LOG entries 16 and 19):**
 1. huggingface.co access and an HF token: **done** (token works; both Gemma-4 repos readable, not gated).
-2. RunPod access: **still missing** — no RunPod tools loaded, no `RUNPOD_API_KEY`, `api.runpod.ai` unreachable.
-   Prices above are therefore still unverified.
+2. RunPod access: **done** (API key; REST and GraphQL both work; plugin tools not loaded, not needed).
 3. Owner's explicit OK to rent.
 
 **Untested on real Gemma-4:**
