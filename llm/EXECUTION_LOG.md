@@ -235,3 +235,24 @@ judgment calls, in time order (2026-10-08).
       `llm/cache_manifest.py` docstring updated.
     - **Older commits still contain the snapshots** (and, before entry 14, the generation ids). The owner's plan
       is unchanged: squash-merge into main, then optionally delete the feature branches (entry 14).
+
+19. **GPU-stage estimate for the owner. STOP: nothing rented.**
+    - No pod, endpoint, volume or other billable RunPod resource was created.
+    - **Live prices could not be read** (no RunPod tools or key; entry 16). The figures below are the
+      `llm/GPU_PLAN.md` list prices and must be checked in the console before launch.
+    - **Plan:** 1× A100 80GB (fallback H100 80GB), one pod, Gemma-4 26B-A4B then 31B, bf16, 16,660 forward
+      passes per model.
+      - A100 80GB: ~$1.5–1.9/h × 1.5–2.5 h ≈ **$3–5**. H100 80GB: ~$2.7–3.3/h × 1.0–1.5 h ≈ $3–5.
+      - Network volume ≥ 150 GB for the weights: a few cents per hour of use (delete afterwards).
+    - **How the $15 ceiling is enforced:**
+      1. In-pod: `pod_run.sh` has a 4 h hard kill (`sleep 14400`), per-step `timeout`s (30 min smoke,
+         150 min main), and runs `runpodctl remove pod` on success or failure. Worst case at 4 h:
+         A100 ≈ $7.6, H100 ≈ $13.2, both under $15.
+      2. Outside the pod (covers a failed self-termination): when the pod is launched, schedule a session
+         check-in at +4 h 15 min that lists pods and terminates this one if it is still present.
+      3. Spend check: record the RunPod balance before launch, check it at each check-in, and terminate if
+         spend reaches $12 (leaves margin for the volume and billing lag).
+      4. Recommended owner-side backstop: hold no more than ~$15 of prepaid credit on the RunPod account
+         and keep auto-reload off, so the account itself cannot overspend.
+    - **Before launch:** RunPod API access for this session (key + plugin/hosts, entry 16), the pod needs
+      `HF_TOKEN` and a RunPod key for `runpodctl`, and the owner's explicit OK.

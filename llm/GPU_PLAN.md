@@ -36,10 +36,11 @@
 **Recommendation:** 1× A100 80GB (enough memory for 31B bf16 plus batch 16 × ~300 tokens), with H100
 as the fallback.
 
-**Prerequisites still missing in this session:**
-1. RunPod access: no RunPod connector here, and api.runpod.io is blocked by the network policy.
-2. huggingface.co access, also blocked: needed to ship results back and to confirm the Gemma-4 model ids.
-3. An HF token with access to the gated Gemma-4 weights, available on the pod.
+**Prerequisites (status 2026-10-09, EXECUTION_LOG entries 16 and 19):**
+1. huggingface.co access and an HF token: **done** (token works; both Gemma-4 repos readable, not gated).
+2. RunPod access: **still missing** — no RunPod tools loaded, no `RUNPOD_API_KEY`, `api.runpod.ai` unreachable.
+   Prices above are therefore still unverified.
+3. Owner's explicit OK to rent.
 
 **Untested on real Gemma-4:**
 - the model class (the runner tries `AutoModelForCausalLM`, then `AutoModelForImageTextToText`);
