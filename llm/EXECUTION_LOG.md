@@ -100,3 +100,12 @@ judgment calls, in time order (2026-10-08).
    - **Planned dataset id:** `RandallSPQR/social-phase-transitions-llm-cache` (owner to confirm).
    - **Pending:** remove the `.jsonl.gz` snapshots from git (no force-push), then squash-merge into main.
      This only happens after the upload is verified, so the data is never unreachable.
+9. **Step 2: Amendment 4** committed (ee18890) before any GPU work.
+   - Runner `llm/local_gemma.py` and pod script `llm/pod_run.sh` (4 h hard limit, self-termination,
+     results shipped to the HF dataset).
+   - Validated end to end on a tiny random-weight Llama on CPU: batched vs single-prompt logprobs agree to
+     < 1e-6 with 30 pad tokens; replicates agree to ≤ 0.005 nats; the output loads in the Stage 1
+     analysis. A pre-run padding check aborts if this fails on Gemma-4.
+   - Estimate (`llm/GPU_PLAN.md`): ≈ $3–5 on 1× A100 80GB, ceiling $15.
+   - **No pod rented:** awaiting the owner's OK, plus RunPod and Hugging Face access (both blocked in this
+     session).
