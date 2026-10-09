@@ -9,3 +9,4 @@ results/llm/logs/runpod_launch.log
 results/llm/logs/runpod_launch.out
 results/llm/logs/stage3_run.log
 results/llm/logs/live/
+results/llm/logs/relay_*.out
