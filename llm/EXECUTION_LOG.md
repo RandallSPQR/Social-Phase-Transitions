@@ -377,3 +377,17 @@ judgment calls, in time order (2026-10-08).
     - Observed social amplification (P − P-nc): P2 m +0.41, persistence −0.20; P4 m +0.29, persistence +0.20
       (surrogate predicted P2 +0.23 / +0.13, P4 +0.34 / +0.35).
     - STOP for the owner's report; no further analysis until the GPU battery is also done.
+
+27. **GPU Gemma battery (Amendment 4) ran but returned NO results.**
+    - Pod `kwzw7yoclbtlq1` (A100-SXM4-80GB, US-MD-1, $1.79/h, container disk only) ran 17:33–20:38 UTC, 3.08 h,
+      ≈ $5.50. The watchdog never terminated it (no TERMINATE in `results/llm/logs/runpod_launch_final.log`); the
+      pod disappeared on its own between 20:36 and 20:38.
+    - **No results tarball reached the dataset** (`pod_results/pod_results_kwzw7yoclbtlq1.tgz` absent; dataset
+      commits end at 17:41). The container disk is deleted with the pod, so the outputs and the pod log are lost.
+    - Most likely cause: the end-of-job upload failed and `pod_run.sh` removed the pod regardless (design flaw:
+      self-removal was not conditional on a successful upload, and nothing was uploaded before the end). Removal
+      from outside our tooling cannot be excluded. The run also took longer than the 1.5–2.5 h estimate.
+    - GPU spend so far: ≈ $5.50 + $0.12 (first launch) + $0.05 (volume cleanup) ≈ $5.67 of the $15 ceiling.
+    - Not relaunched; reported to the owner. A rerun needs: per-model upload as soon as each model finishes,
+      the pod log uploaded every few minutes, and self-removal only after a confirmed upload (otherwise leave it
+      for the watchdog, which ends it at the time cap).
