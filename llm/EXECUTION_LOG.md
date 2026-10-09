@@ -345,3 +345,13 @@ judgment calls, in time order (2026-10-08).
       remove it was blocked by the session's permission policy). Owner decision pending.
     - **Fix:** the pod no longer mounts the volume at all (`pod_run.sh`, `runpod_launch.py`); weights go to the
       200 GB container disk. A100 in any secure data centre. Everything else unchanged.
+
+25. **Owner-approved cleanup of our leftover directory on the shared volume.**
+    - The owner approved removing `/workspace/social-phase-transitions/`. `llm/runpod_cleanup_volume.py` started pod
+      `lr9trys3tx4vtc` (RTX PRO 6000, EUR-IS-1, ≈ 1 min, ≈ $0.05) with the volume mounted; it removed only that
+      directory after checking our marker, uploaded its log (`cleanup/lr9trys3tx4vtc.log` in the dataset) and
+      removed itself.
+    - Log: volume used 114 GB before; our directory 1.7 GB, marker matched, removed; 112 GB after (of 150 GB).
+    - So the leftover was small, and the "disk quota exceeded" error in entry 24 most likely came from the
+      download's temporary files. The volume has ≈ 38 GB free, which could not hold the 26B weights (≈ 52 GB)
+      anyway; the GPU run stays on the container disk.
