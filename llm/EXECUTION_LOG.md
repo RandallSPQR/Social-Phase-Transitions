@@ -329,5 +329,6 @@ judgment calls, in time order (2026-10-08).
     - **A100 poller** `llm/runpod_launch.py` (owner: A100 only, wait if needed; owner's volume in EUR-IS-1, which
       lists no A100 stock right now). Polls every 3 min, tries a create when stock is listed and every 15 min
       regardless; then polices the pod: terminate at 4.25 h or estimated spend > $12 (balance drop minus the
-      owner's other burn measured at launch). It only ever touches the pod it created. Pod code ships as a tarball
+      owner's other burn measured at launch), or as soon as the pod's results tarball appears in the dataset while the pod is
+      still up (failed self-removal). It only ever touches the pod it created. Pod code ships as a tarball
       in the private dataset (`code/pod_code_<rev>.tgz`); HF_TOKEN is passed as a pod env variable.

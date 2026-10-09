@@ -82,6 +82,12 @@ def pod(pid):
     return None if r.status_code == 404 else r.json()
 
 
+def results_uploaded(pid):
+    from huggingface_hub import HfApi
+    files = HfApi(token=os.environ["HF_TOKEN"]).list_repo_files("RandallSPQR/social-phase-transitions-llm-cache", repo_type="dataset")
+    return f"pod_results/pod_results_{pid}.tgz" in files
+
+
 def terminate(pid, why):
     log(f"TERMINATING pod {pid}: {why}")
     r = requests.delete(f"{REST}/pods/{pid}", headers=H(), timeout=30)
@@ -131,7 +137,9 @@ def main():
             acc = account()
             spent = (base["clientBalance"] - acc["clientBalance"]) - base["currentSpendPerHr"] * hrs
             log(f"pod {pid} {p.get('desiredStatus')} {hrs:.2f} h, est. spend ${spent:.2f}")
-            if hrs > a.max_hours:
+            if results_uploaded(pid):
+                terminate(pid, "job finished (results tarball is in the dataset) but the pod is still up")
+            elif hrs > a.max_hours:
                 terminate(pid, f"ran {hrs:.2f} h > {a.max_hours} h")
             elif spent > a.max_spend:
                 terminate(pid, f"estimated spend ${spent:.2f} > ${a.max_spend}")
