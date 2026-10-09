@@ -17,7 +17,9 @@ JOB_HOURS=${JOB_HOURS:-3.6}        # job deadline; the watchdog's cap (4.25 h) l
 DEADLINE=$(python3 -c "print(int($POD_T_START + float('$JOB_HOURS') * 3600))")
 LOGDIR=$REPO/results/llm/logs; mkdir -p "$LOGDIR"
 LOG=$LOGDIR/pod_${RUN}.log
-export HF_HOME=${HF_HOME:-/root/hf}
+# Weights go to the pod's OWN 200 GB volume at /workspace (created with the pod, deleted with it; never the owner's
+# shared network volume). Rerun 2 showed that writes under /root were capped near 20 GB despite a 200 GB container disk.
+export HF_HOME=${HF_HOME:-$([ -d /workspace ] && echo /workspace/hf || echo /root/hf)}
 # The xet download backend fails on RunPod storage with "Disk quota exceeded" even with ~200 GB free (first launch and
 # the 2026-10-09 21:23 rerun, both at the first weight shard). Use the classic HTTP download path instead.
 export HF_HUB_DISABLE_XET=1

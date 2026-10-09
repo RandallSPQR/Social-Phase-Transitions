@@ -49,11 +49,20 @@ def gpu():
 
 
 def disk():
+    """Free space where the weights actually go (HF_HOME, resolved), plus df of the other relevant mounts."""
+    out = {}
+    hf = os.path.realpath(os.environ.get("HF_HOME", ROOT))
     try:
-        u = shutil.disk_usage("/root" if os.path.isdir("/root") else ROOT)
-        return {"used_gb": u.used / 1e9, "total_gb": u.total / 1e9}
+        u = shutil.disk_usage(hf if os.path.exists(hf) else os.path.dirname(hf))
+        out.update(used_gb=u.used / 1e9, total_gb=u.total / 1e9, free_gb=u.free / 1e9, path=hf)
+    except Exception as e:
+        out["error"] = repr(e)[:100]
+    try:
+        out["df"] = subprocess.run(["df", "-h", "/", "/root", "/workspace", hf], capture_output=True, text=True,
+                                   timeout=20).stdout.strip().splitlines()
     except Exception:
-        return {}
+        pass
+    return out
 
 
 def hf_cache_gb():
@@ -69,6 +78,14 @@ def download(mid, tries=3):
     from huggingface_hub import snapshot_download
     if os.path.isdir(mid):
         print(f"[tracker] local model {mid}", flush=True); return True
+    d = disk()
+    print(f"[tracker] download target {d.get('path')}: {d.get('free_gb', 0):.0f} GB free of {d.get('total_gb', 0):.0f} GB", flush=True)
+    for l in d.get("df", []):
+        print("[tracker] df " + l, flush=True)
+    need = float(os.environ.get("MIN_FREE_GB", 130))
+    if d.get("free_gb", 0) < need and not os.environ.get("SKIP_SPACE_CHECK"):
+        print(f"[tracker] ABORT: {d.get('free_gb', 0):.0f} GB free at {d.get('path')} < {need:.0f} GB needed for the weights", flush=True)
+        return False
     for a in range(1, tries + 1):
         try:
             t = time.time()

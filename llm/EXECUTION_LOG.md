@@ -427,3 +427,13 @@ judgment calls, in time order (2026-10-08).
       GPU stage total ≈ $5.85.
     - Fix: `HF_HUB_DISABLE_XET=1` (classic HTTP download); weights download as their own tracked phase with retries
       (`pod_tracker.py download`), and the heartbeat reports the downloaded GB. Tested locally on a small real model.
+
+30. **Rerun 2 (`225e35mmgqhn3d`): download failed at ≈ 21 GB with "No space left on device"; terminated by us.**
+    - With xet disabled the download got further, then failed at 21.4 GB while the heartbeat's disk reading (taken
+      at `/root`) showed 0.26 GB used of 215 GB: that reading was measuring the wrong filesystem. The pod also had a
+      default 20 GB pod volume at `/workspace`; writes for the weights were evidently capped near 20 GB.
+    - Terminated after ≈ 7 min (≈ $0.21) since every retry would fail the same way. GPU stage total ≈ $6.06.
+    - Fix: the pod gets its own 200 GB pod-local volume at `/workspace` (deleted with the pod; never the owner's
+      shared network volume) and the weights go to `/workspace/hf`; the heartbeat reports free space at the real
+      download target plus `df` of `/`, `/root`, `/workspace`; the download step aborts at once if the target has
+      < 130 GB free (tested locally: aborts with 15 GB free).

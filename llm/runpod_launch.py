@@ -66,7 +66,8 @@ def start_cmd(code_rev):
 
 def create(code_rev):
     body = {"name": NAME, "imageName": IMAGE, "gpuTypeIds": A100, "gpuCount": 1, "cloudType": "SECURE",
-            "containerDiskInGb": 200,          # no network volume: the owner's is shared and full (see pod_run.sh) "supportPublicIp": False,
+            "containerDiskInGb": 50, "volumeInGb": 200, "volumeMountPath": "/workspace",   # pod-local volume for the
+            # weights (deleted with the pod); never the owner's shared network volume "supportPublicIp": False,
             "env": {"HF_TOKEN": os.environ["HF_TOKEN"], "PYTHONUNBUFFERED": "1"},
             "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(code_rev)]}
     r = requests.post(f"{REST}/pods", headers=H(), json=body, timeout=60)
