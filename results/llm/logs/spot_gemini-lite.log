@@ -1,0 +1,26 @@
+gemini-lite [google/gemini-3.1-flash-lite @ google-ai-studio] main: 24840 calls (0 cached)
+  1000/24840  75s  spend $0.0282
+  2000/24840  154s  spend $0.0577
+  3000/24840  231s  spend $0.0885
+  4000/24840  305s  spend $0.1192
+  5000/24840  380s  spend $0.1516
+  6000/24840  453s  spend $0.1841
+  7000/24840  528s  spend $0.2166
+  8000/24840  605s  spend $0.2491
+  9000/24840  679s  spend $0.2878
+  10000/24840  754s  spend $0.3312
+  11000/24840  828s  spend $0.3754
+  12000/24840  905s  spend $0.4205
+  13000/24840  980s  spend $0.4674
+  14000/24840  1062s  spend $0.5143
+  15000/24840  1138s  spend $0.5615
+  16000/24840  1219s  spend $0.6085
+  17000/24840  1299s  spend $0.6570
+  18000/24840  1378s  spend $0.7067
+  19000/24840  1455s  spend $0.7564
+  20000/24840  1536s  spend $0.8063
+  21000/24840  1615s  spend $0.8561
+  22000/24840  1695s  spend $0.9063
+  23000/24840  1772s  spend $0.9563
+  24000/24840  1850s  spend $1.0062
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemini-lite.csv: 24840 rows, 0 errors, new spend $1.0482

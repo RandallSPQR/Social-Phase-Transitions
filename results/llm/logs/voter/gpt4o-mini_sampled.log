@@ -1,0 +1,2 @@
+gpt4o-mini_sampled   neutral_own    A0=0.3829 A3=0.3708 V=0.5879 M=0.3713 MF=0.3621  p_M=0.01 α_M=0.83  p_MF=0.13[0.07,0.21] -> MF
+gpt4o-mini_sampled   political      A0=0.0349 A3=0.0350 V=0.6932 M=0.0352 MF=0.0353  p_M=0.00 α_M=0.75  p_MF=0.00[0.00,0.00] -> A3

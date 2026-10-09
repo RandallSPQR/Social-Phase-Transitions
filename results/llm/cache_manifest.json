@@ -1,0 +1,135 @@
+{
+ "dataset": {
+  "host": "huggingface.co",
+  "repo_type": "dataset",
+  "repo_id": "RandallSPQR/social-phase-transitions-llm-cache",
+  "revision": "main",
+  "url_template": "https://huggingface.co/datasets/{repo_id}/resolve/{revision}/cache/{file}",
+  "private": true
+ },
+ "record_schema": {
+  "key": "sha256 of request body + replicate index",
+  "rep": "replicate index",
+  "body": "OpenRouter request body (no headers, no credentials)",
+  "t": "unix time",
+  "resp": "compact response: provider, model, content, reasoning, finish, first-token top logprobs, usage (OpenRouter generation id stripped)"
+ },
+ "files": [
+  {
+   "file": "anthropic__claude-haiku-5.5.jsonl.gz",
+   "bytes": 1453476,
+   "sha256": "57067237084b8cb4c327566d42dd1899ad338773f88d481fd2e18d1ab8c63d3b",
+   "records": 24844
+  },
+  {
+   "file": "google__gemini-2.5-flash-lite.jsonl.gz",
+   "bytes": 1105,
+   "sha256": "75ec54e01cf782eef80540bc2ea4ca3ccbc4b567118e5188d2ded6b55b63e0b2",
+   "records": 4
+  },
+  {
+   "file": "google__gemini-3.1-flash-lite.jsonl.gz",
+   "bytes": 1449630,
+   "sha256": "54b3f38a5a25ab69e2d631766e000f6d82dc0dd8b08e2bf8797dd458a5098fab",
+   "records": 24844
+  },
+  {
+   "file": "google__gemma-3-27b-it.jsonl.gz",
+   "bytes": 2516,
+   "sha256": "19f03909365a02aa9c79303cad84b2716967511009fe39c4c393b95ff1ba96fa",
+   "records": 20
+  },
+  {
+   "file": "google__gemma-4-26b-a4b-it.jsonl.gz",
+   "bytes": 2917665,
+   "sha256": "7e36e3d42513a7fa36b03e20f10bedbadd2aa32c79fe70280a7c394473bd1026",
+   "records": 28558
+  },
+  {
+   "file": "google__gemma-4-31b-it.jsonl.gz",
+   "bytes": 1589704,
+   "sha256": "4e596383df6e7a475b5f17dd9a7b2332e78eaf5d339ea1845e93caa743c96c5e",
+   "records": 17840
+  },
+  {
+   "file": "meta-llama__llama-3.1-8b-instruct.jsonl.gz",
+   "bytes": 1639189,
+   "sha256": "8d70690e61daeaca4ceaa2c1b8c081ea488556241df40dcfd75700cadd2f0522",
+   "records": 16881
+  },
+  {
+   "file": "meta-llama__llama-3.2-3b-instruct.jsonl.gz",
+   "bytes": 2599,
+   "sha256": "366d5d4c8fed3beea1a288b01df82e1335a49cc9cfaa417580cb9ac785bd8b85",
+   "records": 20
+  },
+  {
+   "file": "meta-llama__llama-3.3-70b-instruct.jsonl.gz",
+   "bytes": 1513461,
+   "sha256": "a46b2d7589d4869f830ccd95dc73403dab89347de96ea79f0fe499ae92335e57",
+   "records": 18243
+  },
+  {
+   "file": "mistralai__mistral-large-4-0.jsonl.gz",
+   "bytes": 1415357,
+   "sha256": "7907f707401848fef0b1d80fbfc78a3185395ca4f72bcc2c81fbef97bb6a8592",
+   "records": 14327
+  },
+  {
+   "file": "mistralai__mistral-nemo.jsonl.gz",
+   "bytes": 1544520,
+   "sha256": "f5f3fdebdaa0385d66da02a02fee59422e87a7fa9c53ad6db552f40c64777c6d",
+   "records": 14320
+  },
+  {
+   "file": "mistralai__mistral-small-3.2-24b-instruct.jsonl.gz",
+   "bytes": 1504067,
+   "sha256": "dea68253a6cdb071d33d676e6a8be0db9eff0e33da370204e8cd519c3ac5d22d",
+   "records": 14271
+  },
+  {
+   "file": "openai__gpt-4o-mini.jsonl.gz",
+   "bytes": 2890533,
+   "sha256": "4b128d63148ba0fc0e7ce04c36f0f0075c55bd873ad5073dcaf77602fd1743f8",
+   "records": 41148
+  },
+  {
+   "file": "openai__gpt-6-luna.jsonl.gz",
+   "bytes": 1459512,
+   "sha256": "77e49547ef8a3c02dd29d6cd929d3e08e74f748dfb5ad2215987d017f772a4b9",
+   "records": 24844
+  },
+  {
+   "file": "qwen__qwen3-235b-a22b-2507.jsonl.gz",
+   "bytes": 4299,
+   "sha256": "766ce6dd3c2c687c29c966ae8b2d8b945185a1bdfacfb66b10ad642b4beb3e1c",
+   "records": 42
+  },
+  {
+   "file": "qwen__qwen3-30b-a3b-instruct-2507.jsonl.gz",
+   "bytes": 4311,
+   "sha256": "c829c6a4677c040895a668eb04389fe5bf3525214c4303bdaffca74fb26158de",
+   "records": 38
+  },
+  {
+   "file": "qwen__qwen3.5-122b-a10b.jsonl.gz",
+   "bytes": 1280623,
+   "sha256": "c13947a4f9e2afeda19a93e2c5ba5d5ce8b6709df12641f249cdb3e812c3457b",
+   "records": 14290
+  },
+  {
+   "file": "qwen__qwen3.5-27b.jsonl.gz",
+   "bytes": 2006,
+   "sha256": "fe2309e8e2ecb43cb72338c0e136d9d58da9cb90d583e0f5a7885019d3a3a5d0",
+   "records": 20
+  },
+  {
+   "file": "qwen__qwen3.5-9b.jsonl.gz",
+   "bytes": 1512221,
+   "sha256": "6c77bf28b05e0841b0f85edea19c04037f5ed4d0837c2fb433e8cd8b4154de7b",
+   "records": 16330
+  }
+ ],
+ "total_records": 270884,
+ "total_bytes": 22186794
+}

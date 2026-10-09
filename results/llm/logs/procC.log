@@ -1,0 +1,101 @@
+18:34:28 spend check: max(cache $0.134, key $0.142) = $0.142  (cap $12.0)
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  95s  spend $0.0172
+  2000/2116  182s  spend $0.0352
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/gemma-26b.csv: 2116 rows, 0 errors, new spend $0.0373
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] main: 12428 calls (0 cached)
+  1000/12428  101s  spend $0.0527
+  2000/12428  217s  spend $0.0673
+  3000/12428  292s  spend $0.0817
+  4000/12428  396s  spend $0.0974
+  5000/12428  481s  spend $0.1170
+  6000/12428  581s  spend $0.1384
+  7000/12428  677s  spend $0.1605
+  8000/12428  797s  spend $0.1805
+  9000/12428  897s  spend $0.2008
+  10000/12428  995s  spend $0.2220
+  11000/12428  1085s  spend $0.2423
+  12000/12428  1204s  spend $0.2595
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-26b.csv: 12428 rows, 0 errors, new spend $0.2671
+18:59:29 done gemma-26b
+18:59:30 spend check: max(cache $2.530, key $0.872) = $2.530  (cap $12.0)
+gemma-31b [google/gemma-4-31b-it @ io-net] comprehension: 2116 calls (0 cached)
+  1000/2116  133s  spend $0.3022
+  2000/2116  269s  spend $0.3404
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/gemma-31b.csv: 2116 rows, 0 errors, new spend $0.3449
+gemma-31b [google/gemma-4-31b-it @ io-net] main: 12428 calls (0 cached)
+  1000/12428  109s  spend $0.3767
+  2000/12428  234s  spend $0.4075
+  3000/12428  340s  spend $0.4375
+  4000/12428  486s  spend $0.4704
+  5000/12428  632s  spend $0.5148
+  6000/12428  749s  spend $0.5646
+  7000/12428  886s  spend $0.6166
+  8000/12428  1022s  spend $0.6624
+  9000/12428  1140s  spend $0.7085
+  10000/12428  1269s  spend $0.7577
+  11000/12428  1414s  spend $0.8043
+  12000/12428  1540s  spend $0.8400
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/gemma-31b.csv: 12428 rows, 0 errors, new spend $0.8563
+19:31:57 done gemma-31b
+19:31:58 spend check: max(cache $3.859, key $1.322) = $3.859  (cap $12.0)
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] comprehension: 2116 calls (0 cached)
+  1000/2116  89s  spend $0.8584
+  2000/2116  174s  spend $0.8607
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/nemo-12b.csv: 2116 rows, 0 errors, new spend $0.8610
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] main: 12428 calls (0 cached)
+  1000/12428  96s  spend $0.8630
+  2000/12428  178s  spend $0.8650
+  3000/12428  261s  spend $0.8669
+  4000/12428  349s  spend $0.8689
+  5000/12428  434s  spend $0.8718
+  6000/12428  520s  spend $0.8751
+  7000/12428  607s  spend $0.8785
+  8000/12428  707s  spend $0.8816
+  9000/12428  794s  spend $0.8847
+  10000/12428  889s  spend $0.8880
+  11000/12428  971s  spend $0.8910
+  12000/12428  1064s  spend $0.8932
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/nemo-12b.csv: 12428 rows, 0 errors, new spend $0.8942
+19:54:09 done nemo-12b
+19:54:11 spend check: max(cache $4.418, key $2.167) = $4.418  (cap $12.0)
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] comprehension: 2116 calls (0 cached)
+  1000/2116  310s  spend $0.9018
+  2000/2116  657s  spend $0.9100
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistral-small.csv: 2116 rows, 0 errors, new spend $0.9109
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 12428 calls (0 cached)
+  1000/12428  319s  spend $0.9181
+  2000/12428  547s  spend $0.9248
+  3000/12428  849s  spend $0.9314
+  4000/12428  1164s  spend $0.9384
+  5000/12428  1539s  spend $0.9484
+  6000/12428  1860s  spend $0.9597
+  7000/12428  2162s  spend $0.9718
+  8000/12428  2494s  spend $0.9823
+  9000/12428  2842s  spend $0.9929
+  10000/12428  3096s  spend $1.0045
+  11000/12428  3404s  spend $1.0150
+  12000/12428  3671s  spend $1.0227
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/mistral-small.csv: 12428 rows, 0 errors, new spend $1.0262
+21:15:23 done mistral-small
+21:15:27 spend check: max(cache $7.559, key $5.628) = $7.559  (cap $12.0)
+mistral-large [mistralai/mistral-large-4-0 @ mistral] comprehension: 2116 calls (0 cached)
+  1000/2116  235s  spend $1.1108
+  2000/2116  402s  spend $1.2031
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/comprehension/mistral-large.csv: 2116 rows, 0 errors, new spend $1.2140
+mistral-large [mistralai/mistral-large-4-0 @ mistral] main: 12428 calls (0 cached)
+  1000/12428  220s  spend $1.2978
+  2000/12428  367s  spend $1.3770
+  3000/12428  516s  spend $1.4545
+  4000/12428  696s  spend $1.5354
+  5000/12428  862s  spend $1.6568
+  6000/12428  1057s  spend $1.7930
+  7000/12428  1236s  spend $1.9369
+  8000/12428  1387s  spend $2.0628
+  9000/12428  1547s  spend $2.1902
+  10000/12428  1707s  spend $2.3263
+  11000/12428  1878s  spend $2.4506
+  12000/12428  2044s  spend $2.5407
+wrote /home/user/Social-Phase-Transitions/results/llm/stage1/main/mistral-large.csv: 12428 rows, 0 errors, new spend $2.5812
+21:58:23 done mistral-large
+21:58:28 final spend: cache $9.545, key $9.557

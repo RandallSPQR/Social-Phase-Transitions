@@ -1,0 +1,12 @@
+key,model,tag,logit_T1,logit_T05,logprobs
+llama-8b,meta-llama/llama-3.1-8b-instruct,coreweave/bf16,"[-4.250000145286322, 1.2500000596046448]","[-4.250000145286322, 1.2500000596046448]",pre
+llama-70b,meta-llama/llama-3.3-70b-instruct,coreweave/fp16,"[8.499999663080313, -15.0]","[8.749999893335842, -15.0]",unclear
+llama-70b-pa,meta-llama/llama-3.3-70b-instruct,parasail/fp8,"[8.999999649982156, -15.0]","[8.999999649982156, -15.0]",pre
+qwen-9b,qwen/qwen3.5-9b,parasail/bf16,"[1.3755884094292665, -0.1200965235494699]","[1.3755884094292665, -0.1200965238388156]",pre
+qwen-122b,qwen/qwen3.5-122b-a10b,alibaba,"[6.875000100000778, -8.00006593896643]","[6.875000100000778, -7.7500333722088826]",unclear
+gemma-26b,google/gemma-4-26b-a4b-it,parasail/bf16,"[9.375000003602096, -13.437499526615646]","[8.937500127852708, -12.812500123576621]",unclear
+gemma-31b,google/gemma-4-31b-it,io-net,"[10.500009654152047, -15.0]","[8.75002170191219, -15.0]",unclear
+nemo-12b,mistralai/mistral-nemo,io-net/fp16,"[-1.624999940395355, 0.7499999701976773]","[-1.6250000149011614, 0.8750000298023224]",pre
+mistral-small,mistralai/mistral-small-3.2-24b-instruct,parasail/bf16,"[-2.1250000447034836, 0.1250000000000002]","[-2.1250000447034836, 0.0]",pre
+mistral-large,mistralai/mistral-large-4-0,mistral,"[11.43749964343903, -15.0]","[8.875000258049132, -15.0]",unclear
+gpt4o-mini,openai/gpt-4o-mini,openai,"[1.7500000727412661, -3.5000001077769687]","[1.7500000727412661, -3.75000010218904]",unclear
