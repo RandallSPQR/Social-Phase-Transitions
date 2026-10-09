@@ -187,3 +187,10 @@ judgment calls, in time order (2026-10-08).
     - **Git history:** earlier commits on this branch still contain the IDs (raw JSONL in the first commits,
       older snapshots). No force-push. The planned squash-merge puts a single clean commit on main; deleting
       the feature branch afterwards removes the old commits from every ref (owner's choice).
+
+15. **RunPod plugin made permanent for this repo (2026-10-09).**
+    - `.claude/settings.json` now declares the official RunPod marketplace (`runpod/runpod-plugins-official` on
+      GitHub, marketplace name `runpod`) and enables `runpod@runpod`. It loads in the next session, not this one.
+    - The file holds no credentials. The plugin's MCP server is hosted at `mcp.getrunpod.io`, and this
+      environment's network policy currently blocks that host (proxy 403). It must be allowed in the environment's
+      network settings before the MCP tools can work from a cloud session.
