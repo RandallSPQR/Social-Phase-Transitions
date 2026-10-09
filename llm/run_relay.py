@@ -76,7 +76,8 @@ def build(run, pod, st, ps, hist, a, t_start):
         "pod": {"id": pod, "status": "gone" if (ps or {}).get("gone") else (ps or {}).get("desiredStatus"),
                 "gpu_type": ((ps or {}).get("machine") or {}).get("gpuTypeId") or g.get("name"),
                 "cost_per_hr": rate, "uptime_h": round(up_h, 3), "spend": round(spend, 2),
-                "cap_hours": a.cap_hours, "cap_spend": a.cap_spend},
+                "cap_hours": a.cap_hours, "cap_spend": a.cap_spend,
+                "stage_prior": a.prior_spend, "stage_total": round(a.prior_spend + spend, 2), "stage_ceiling": 15.0},
         "phase": phase.get("phase"), "phase_detail": phase.get("detail"),
         "progress": {k: prog.get(k) for k in ("key", "stage", "rep", "batch", "n_batches", "done", "total", "eta_s",
                                               "elapsed_s", "n_prompts")},
@@ -93,6 +94,7 @@ def main():
     ap.add_argument("--every", type=int, default=60); ap.add_argument("--emit", type=int, default=180)
     ap.add_argument("--cap-hours", type=float, default=4.25); ap.add_argument("--cap-spend", type=float, default=12.0)
     ap.add_argument("--rate", type=float, default=0.0); ap.add_argument("--once", action="store_true")
+    ap.add_argument("--prior-spend", type=float, default=0.0, help="GPU-stage spend before this run (for the $15 ceiling)")
     a = ap.parse_args()
     out = os.path.join(ROOT, "results/llm/logs/live", f"{a.run}.json"); os.makedirs(os.path.dirname(out), exist_ok=True)
     hist, last_emit, last_key, t_start = [], 0.0, None, None

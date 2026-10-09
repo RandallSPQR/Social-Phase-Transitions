@@ -91,7 +91,9 @@ pre.log { margin: 0; font-family: var(--mono); font-size: .76rem; line-height: 1
         <div class="bar" id="cap-time-bar"><i style="width:0%"></i></div>
         <div class="row"><span>Spend (this pod)</span><span class="mono" id="cap-spend"></span></div>
         <div class="bar" id="cap-spend-bar"><i style="width:0%"></i></div>
-        <div class="chip">Watchdog stops the pod at the time or spend cap. Marker on the spend bar: your $15 ceiling for the whole GPU stage.</div>
+        <div class="row"><span>GPU stage total (incl. earlier runs)</span><span class="mono" id="cap-stage"></span></div>
+        <div class="bar" id="cap-stage-bar"><i style="width:0%"></i></div>
+        <div class="chip">The watchdog stops this pod at its time or spend cap. The stage total counts every GPU run so far against your $15 ceiling.</div>
       </section>
     </div>
 
@@ -187,8 +189,9 @@ function render() {
   $("cap-spend").textContent = `$${(pod.spend ?? 0).toFixed(2)} of $${pod.cap_spend}`;
   bar($("cap-time-bar"), tf, tf > .85 ? "crit" : tf > .7 ? "warn" : "");
   bar($("cap-spend-bar"), sf, sf > .85 ? "crit" : sf > .7 ? "warn" : "");
-  const sb = $("cap-spend-bar"); sb.querySelector(".mark")?.remove();
-  const mk = document.createElement("span"); mk.className = "mark"; mk.style.left = Math.min(100, 15 / (pod.cap_spend || 12) * 100) + "%"; sb.appendChild(mk);
+  const stf = (pod.stage_total ?? pod.spend ?? 0) / (pod.stage_ceiling || 15);
+  $("cap-stage").textContent = `$${(pod.stage_total ?? pod.spend ?? 0).toFixed(2)} of $${pod.stage_ceiling || 15}`;
+  bar($("cap-stage-bar"), stf, stf > .85 ? "crit" : stf > .7 ? "warn" : "");
 
   const g = doc.gpu || {};
   $("gpu-now").textContent = g.util_pct != null ? `${g.util_pct}%` : "–";

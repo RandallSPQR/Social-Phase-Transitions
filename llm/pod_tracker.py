@@ -57,7 +57,8 @@ def disk():
 
 
 def status(run, log):
-    lines = open(log, errors="replace").read().splitlines() if os.path.exists(log) else []
+    raw = open(log, errors="replace").read().replace("\r", "\n").splitlines() if os.path.exists(log) else []
+    lines = [l for l in raw if l.strip() and "%|" not in l and "it/s]" not in l]     # drop progress-bar noise
     return {"run": run, "t": time.time(), "uptime_s": time.time() - T_START, "phase": read_json(PHASE, {}),
             "progress": read_json(PROGRESS, {}), "gpu": gpu(), "disk": disk(),
             "uploads": read_json(UPLOADS, {}), "log_tail": lines[-60:], "log_lines": len(lines)}
