@@ -448,7 +448,7 @@ judgment calls, in time order (2026-10-08).
       `done` (exit 0) → pod removed itself. The dashboard showed every step live.
     - Retrieved all 42 files from `runs/e3zan9ygnmqe45/` and checked each size against the dataset (0 mismatches).
     - In git: `results/llm/stage1/{main,comprehension}/gemma-{26b,31b}-local[-smoke].csv` and the pod log. The
-      activations (≈ 785 MB) stay in the private dataset; `results/llm/activations_manifest.json` lists them.
+      activations (≈ 825 MB) stay in the private dataset; `results/llm/activations_manifest.json` lists them.
     - Integrity checks: per model 12,428 main rows (6,214 prompts × 2 replicates) and 4,232 comprehension rows;
       no missing P(A); no prompt with first-token leak > 5%. Replicate disagreement (logit of P(A), rep 0 vs rep 1,
       different batch composition): 26B MoE median 0.50 nats, 99th percentile 4.05; 31B dense median 0.00, 99th
