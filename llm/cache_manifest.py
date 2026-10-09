@@ -1,5 +1,5 @@
-"""Build results/llm/cache_manifest.json: SHA-256, size and record count of every committed cache snapshot
-(results/llm/cache/*.jsonl.gz), plus the Hugging Face dataset location they are published to.
+"""Build results/llm/cache_manifest.json: SHA-256, size and record count of every local cache snapshot
+(results/llm/cache/*.jsonl.gz), plus the private Hugging Face dataset they are published to (snapshots are not in git).
 Run after llm/snapshot_cache.py.   python llm/cache_manifest.py [--repo OWNER/NAME] [--revision main]"""
 import argparse, glob, gzip, hashlib, json, os
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

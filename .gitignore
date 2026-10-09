@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 .env
 results/llm/cache/*.jsonl
+# cache snapshots live in the private HF dataset (see results/llm/cache_manifest.json, llm/fetch_cache.py)
+results/llm/cache/*.jsonl.gz

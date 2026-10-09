@@ -1,8 +1,9 @@
 """OpenRouter chat-completions client with an append-only on-disk cache.
 
 Every request body (plus an explicit replicate index for repeated sampling) is
-hashed; the compact response is appended to results/llm/cache/<model>.jsonl (git-ignored; the committed
-snapshot is <model>.jsonl.gz, made by llm/snapshot_cache.py, and is restored automatically on first use).
+hashed; the compact response is appended to results/llm/cache/<model>.jsonl (git-ignored). Its gzip
+snapshot <model>.jsonl.gz (made by llm/snapshot_cache.py) lives in the private HF dataset named in
+results/llm/cache_manifest.json, not in git; on first use it is downloaded (needs HF_TOKEN) and restored.
 Reruns with the same body are free. The API key is read from OPENROUTER_API_KEY
 if set (otherwise the session proxy injects auth); it is never printed or stored.
 """
@@ -36,7 +37,18 @@ def _load(model):
         if model in _index:
             return _index[model], _locks[model]
         idx, p = {}, _path(model)
-        if not os.path.exists(p) and os.path.exists(p + ".gz"):   # fresh clone: restore from the committed snapshot
+        if not os.path.exists(p) and not os.path.exists(p + ".gz"):   # fresh clone: snapshot lives on HF, not in git
+            import fetch_cache
+            name = os.path.basename(p) + ".gz"
+            if any(f["file"] == name for f in fetch_cache.manifest()["files"]):
+                try:
+                    bad = fetch_cache.fetch(CACHE_DIR, only={name}, verbose=False)
+                except Exception as e:
+                    bad = repr(e)
+                if bad:   # never fall through to live (paid, non-reproducible) calls for a model we already cached
+                    raise RuntimeError(f"cache snapshot {name} could not be fetched/verified ({bad}); "
+                                       "set HF_TOKEN and run python llm/fetch_cache.py")
+        if not os.path.exists(p) and os.path.exists(p + ".gz"):   # restore the raw cache from its snapshot
             import gzip, shutil
             with gzip.open(p + ".gz", "rb") as fi, open(p, "wb") as fo:
                 shutil.copyfileobj(fi, fo)

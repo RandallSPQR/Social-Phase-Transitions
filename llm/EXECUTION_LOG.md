@@ -194,3 +194,44 @@ judgment calls, in time order (2026-10-08).
     - The file holds no credentials. The plugin's MCP server is hosted at `mcp.getrunpod.io`, and this
       environment's network policy currently blocks that host (proxy 403). It must be allowed in the environment's
       network settings before the MCP tools can work from a cloud session.
+
+16. **Access check (2026-10-09, new session).**
+    - **HF:** `HF_TOKEN` is set (37 characters; value not printed). `huggingface_hub.whoami()` succeeds:
+      user `RandallSPQR`, fine-grained token. The token can read `google/gemma-4-31b-it` and
+      `google/gemma-4-26b-a4b-it` (both exist and are not gated).
+    - **Hosts** (plain GET of `/`, HTTP status):
+      - `huggingface.co` 200, `api.runpod.io` 404, `rest.runpod.io` 301: reachable (404/301 are the services'
+        own replies to a bare `/`).
+      - `mcp.getrunpod.io` 405: reached this time (entry 15 had a proxy 403), but a bare GET is not an MCP call.
+      - `api.runpod.ai`: no HTTP response (status 000). Treated as still blocked.
+      - Follow-up probes (headers, an MCP `initialize` POST, the proxy status page) were refused by this
+        session's own command-approval policy, so the cause for `api.runpod.ai` is not confirmed.
+    - **RunPod plugin:** `.claude/settings.json` still enables `runpod@runpod`, but **no RunPod tools are loaded**
+      in this session (tool search finds none; the account plugin list has none). No RunPod API key is in the
+      environment either. So no read-only RunPod call (pods, GPU types, prices) was possible.
+    - **Owner action needed:** add a RunPod API key as an environment secret (variable `RUNPOD_API_KEY`), allow
+      `api.runpod.ai` in the environment's network settings, and check why the plugin did not load (it may need
+      installing/approving on the account, or the MCP host allowed). Steps 2–3 did not depend on RunPod.
+
+17. **Private dataset upload and round-trip check.**
+    - `python llm/upload_cache_hf.py` uploaded the 19 snapshots + manifest to
+      `RandallSPQR/social-phase-transitions-llm-cache`; its own re-download check PASSED.
+    - Independent check (fresh empty directory, `snapshot_download`, SHA-256 against
+      `results/llm/cache_manifest.json`): **private = True**; files expected 19, present 19, matched 19,
+      mismatched 0, missing 0, extra 0 (top level: `cache/`, `cache_manifest.json`; the remote manifest is
+      byte-identical to the committed one). Records 270,884 = manifest total.
+    - **Records carrying an OpenRouter generation `id`: 0** (checked `resp.id`, top-level `id`, and any `"gen-`
+      string).
+
+18. **Snapshots removed from git (no history rewrite).**
+    - `git rm --cached` on the 19 `results/llm/cache/*.jsonl.gz`; `.gitignore` now ignores them.
+      `results/llm/cache_manifest.json` stays tracked and is the pointer to the dataset.
+    - `llm/client.py`: when a model listed in the manifest has neither a raw cache nor a snapshot (fresh clone),
+      it downloads that snapshot from the dataset and verifies its SHA-256 (needs `HF_TOKEN`). If that fails it
+      **raises** rather than silently re-querying OpenRouter (paid, and not reproducible). Models not in the
+      manifest behave as before. Tested in a scratch copy without the cache: fetch + restore works (4 records),
+      no token gives the error, an unknown model gives an empty cache.
+    - `llm/fetch_cache.py` now exposes `fetch()` (used by the client; deletes files that fail the hash check).
+      `llm/cache_manifest.py` docstring updated.
+    - **Older commits still contain the snapshots** (and, before entry 14, the generation ids). The owner's plan
+      is unchanged: squash-merge into main, then optionally delete the feature branches (entry 14).
