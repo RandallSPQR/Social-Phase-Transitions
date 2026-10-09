@@ -18,6 +18,9 @@ DEADLINE=$(python3 -c "print(int($POD_T_START + float('$JOB_HOURS') * 3600))")
 LOGDIR=$REPO/results/llm/logs; mkdir -p "$LOGDIR"
 LOG=$LOGDIR/pod_${RUN}.log
 export HF_HOME=${HF_HOME:-/root/hf}
+# The xet download backend fails on RunPod storage with "Disk quota exceeded" even with ~200 GB free (first launch and
+# the 2026-10-09 21:23 rerun, both at the first weight shard). Use the classic HTTP download path instead.
+export HF_HUB_DISABLE_XET=1
 DEVICE=${DEVICE:-cuda}
 MODELS=${MODELS:-"google/gemma-4-26b-a4b-it gemma-26b-local;google/gemma-4-31b-it gemma-31b-local"}
 cd "$REPO"
@@ -65,6 +68,9 @@ log "run $RUN; deadline $(date -u -d @$DEADLINE +%H:%M:%S) UTC; device $DEVICE"
 IFS=';' read -ra SPECS <<< "$MODELS"
 for spec in "${SPECS[@]}"; do
   set -- $spec; MID=$1; KEY=$2
+  phase download "$MID"
+  python llm/pod_tracker.py download --run "$RUN" --model "$MID" 2>&1 | tee -a "$LOG"
+  [ "${PIPESTATUS[0]}" = 0 ] || { log "download failed for $MID"; exit 2; }
   phase smoke "$KEY"
   python llm/local_gemma.py --model-id "$MID" --key "${KEY}-smoke" --max-prompts 40 --device "$DEVICE" 2>&1 | tee -a "$LOG"
   [ "${PIPESTATUS[0]}" = 0 ] || { log "smoke test failed for $KEY"; exit 3; }

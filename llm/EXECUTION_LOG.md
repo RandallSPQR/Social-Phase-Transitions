@@ -416,3 +416,14 @@ judgment calls, in time order (2026-10-08).
         TERM aborted the final upload, and the deadline timer was left orphaned.
       - full path: smoke → upload (verified) → full run → upload (verified) per model → `done`; relay and dashboard
         follow it live.
+
+29. **Rerun 1 (`2nt34s8z62hxwt`) failed in 5 min on the weight download; the tracking showed why at once.**
+    - The heartbeat and log reached the dataset; the smoke test failed at the first Gemma-4 26B shard with
+      "Disk quota exceeded" from the xet download backend while the container disk showed 0.26 GB used of 215 GB.
+      The first launch (entry 24) failed with the same xet error on the owner's volume, where our folder held only
+      1.7 GB. So the quota error is the xet backend on RunPod storage, not space. The 3-hour run (entry 27) probably
+      died the same way early on and then hung in its single end-of-run upload (not provable: its log was lost).
+    - The pod uploaded its log (verified), reported `done` (exit 3) and removed itself: ≈ 6 min, ≈ $0.18.
+      GPU stage total ≈ $5.85.
+    - Fix: `HF_HUB_DISABLE_XET=1` (classic HTTP download); weights download as their own tracked phase with retries
+      (`pod_tracker.py download`), and the heartbeat reports the downloaded GB. Tested locally on a small real model.

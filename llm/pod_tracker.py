@@ -56,11 +56,36 @@ def disk():
         return {}
 
 
+def hf_cache_gb():
+    root = os.environ.get("HF_HOME", "")
+    try:
+        return sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(root) for f in fs) / 1e9 if root else None
+    except Exception:
+        return None
+
+
+def download(mid, tries=3):
+    """Fetch a model's weights as its own phase (classic HTTP path; xet is disabled in pod_run.sh)."""
+    from huggingface_hub import snapshot_download
+    if os.path.isdir(mid):
+        print(f"[tracker] local model {mid}", flush=True); return True
+    for a in range(1, tries + 1):
+        try:
+            t = time.time()
+            p = snapshot_download(mid, allow_patterns=["*.json", "*.safetensors", "*.jinja", "tokenizer*"],
+                                  token=os.environ["HF_TOKEN"])
+            gb = sum(os.path.getsize(os.path.join(r, f)) for r, _, fs in os.walk(p) for f in fs) / 1e9
+            print(f"[tracker] DOWNLOADED {mid}: {gb:.1f} GB in {time.time() - t:.0f} s", flush=True); return True
+        except Exception as e:
+            print(f"[tracker] download {mid} attempt {a} failed: {repr(e)[:300]}", flush=True); time.sleep(20)
+    return False
+
+
 def status(run, log):
     raw = open(log, errors="replace").read().replace("\r", "\n").splitlines() if os.path.exists(log) else []
     lines = [l for l in raw if l.strip() and "%|" not in l and "it/s]" not in l]     # drop progress-bar noise
     return {"run": run, "t": time.time(), "uptime_s": time.time() - T_START, "phase": read_json(PHASE, {}),
-            "progress": read_json(PROGRESS, {}), "gpu": gpu(), "disk": disk(),
+            "progress": read_json(PROGRESS, {}), "gpu": gpu(), "disk": {**disk(), "hf_cache_gb": hf_cache_gb()},
             "uploads": read_json(UPLOADS, {}), "log_tail": lines[-60:], "log_lines": len(lines)}
 
 
@@ -119,12 +144,14 @@ def upload(run, key=None, tries=5):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("what", choices=["heartbeat", "upload", "upload-all"])
-    ap.add_argument("--run", required=True); ap.add_argument("--log"); ap.add_argument("--key")
+    ap.add_argument("what", choices=["heartbeat", "upload", "upload-all", "download"])
+    ap.add_argument("--run", required=True); ap.add_argument("--log"); ap.add_argument("--key"); ap.add_argument("--model")
     ap.add_argument("--interval", type=int, default=90)
     a = ap.parse_args()
     os.makedirs(LOGS, exist_ok=True)
     if a.what == "heartbeat":
         heartbeat(a.run, a.log, a.interval)
+    elif a.what == "download":
+        sys.exit(0 if download(a.model) else 1)
     else:
         sys.exit(0 if upload(a.run, a.key if a.what == "upload" else None) else 1)

@@ -160,7 +160,7 @@ function render() {
   const stale = age > 300;
   const done = phase === "done";
   const pills = [
-    `<span class="pill ${doc.alerts?.length ? "crit" : done ? "ok" : "ok"}">${esc(phase)}${doc.phase_detail ? " · " + esc(doc.phase_detail) : ""}</span>`,
+    `<span class="pill ${doc.alerts?.length || (done && !/exit 0\b/.test(doc.phase_detail || "")) ? "crit" : "ok"}">${esc(phase)}${doc.phase_detail ? " · " + esc(doc.phase_detail) : ""}</span>`,
     `<span class="pill ${pod.status === "RUNNING" ? "ok" : pod.status === "gone" ? (done ? "idle" : "crit") : "idle"}">pod ${esc(pod.status ?? "–")}</span>`,
     `<span class="pill ${stale && !done ? "warn" : "idle"}">updated ${fmtMin(age)} ago</span>`];
   $("pills").innerHTML = pills.join("");
@@ -197,6 +197,7 @@ function render() {
   $("gpu-now").textContent = g.util_pct != null ? `${g.util_pct}%` : "–";
   $("hw").innerHTML = [["Memory", g.mem_used_gb != null ? `${g.mem_used_gb.toFixed(1)} / ${g.mem_total_gb.toFixed(0)} GB` : null],
     ["Power", g.power_w != null ? `${Math.round(g.power_w)} W` : null],
+    ["Weights downloaded", doc.disk?.hf_cache_gb != null ? `${doc.disk.hf_cache_gb.toFixed(1)} GB` : null],
     ["Container disk", doc.disk?.used_gb != null ? `${doc.disk.used_gb.toFixed(0)} / ${doc.disk.total_gb.toFixed(0)} GB` : null]]
     .filter(r => r[1]).map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("");
   spark($("spark-util"), doc.history || [], "util", 100, v => v + "%");
