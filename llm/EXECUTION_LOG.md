@@ -256,3 +256,14 @@ judgment calls, in time order (2026-10-08).
          and keep auto-reload off, so the account itself cannot overspend.
     - **Before launch:** RunPod API access for this session (key + plugin/hosts, entry 16), the pod needs
       `HF_TOKEN` and a RunPod key for `runpodctl`, and the owner's explicit OK.
+
+20. **RunPod access re-check (2026-10-09, owner request).**
+    - `RUNPOD_API_KEY` is now set (50 characters; value not printed). The RunPod plugin's MCP tools are still
+      not loaded, so access is via the REST API directly.
+    - `rest.runpod.io` works with the key: read-only `GET /v1/pods` and `GET /v1/networkvolumes` return 200.
+    - `api.runpod.io` (GraphQL: GPU types, live prices, account balance) is now **denied by the egress proxy**
+      (CONNECT rejected). `api.runpod.ai` and `mcp.getrunpod.io` answer.
+    - The account already has one **running pod from another project** (`item10-grader`, 1 GPU, $1.79/h,
+      created 16:10 UTC, self-stop deadline 2026-10-10 01:40 UTC) and a 150 GB network volume in EUR-IS-1.
+      Not touched. It counts toward account spend, so the spend check in entry 19 must use a baseline.
+    - Nothing created.
