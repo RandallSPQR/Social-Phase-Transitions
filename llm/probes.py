@@ -9,7 +9,7 @@ Rows: main battery (all arms, perm 0 and the order subset), from the activation 
   rival_majority side held by the strict majority of rival contacts (M_r = 0 dropped)
   own            the agent's own current position (arms that show it)
 Probe: standardise + L2 logistic regression (C = 1), 10-fold CV grouped by multiset (the counts string), pooled
-held-out AUC, per layer and arm.
+held-out AUC from the decision function (predict_proba saturates to 0/1 off-distribution and ties), per layer and arm.
 Controls: (1) letter-count probe: features = number of 'A' among ally lines, number of 'A' among rival lines, own
 letter is A (same CV); (2) shuffled labels (one permutation, same CV); (3) transfer: trained on neutral_own, tested
 on political (held-out by construction).
@@ -54,7 +54,7 @@ def cv_auc(X, y, groups, folds, seed=0, return_model=False):
     p = np.zeros(len(y))
     for tr, te in GroupKFold(folds).split(X, y, groups):
         m = make_pipeline(StandardScaler(), LogisticRegression(C=1.0, max_iter=3000)).fit(X[tr], y[tr])
-        p[te] = m.predict_proba(X[te])[:, 1]
+        p[te] = m.decision_function(X[te])          # not predict_proba: it saturates to 0/1 and ties
     auc = float(roc_auc_score(y, p))
     if return_model:
         return auc, make_pipeline(StandardScaler(), LogisticRegression(C=1.0, max_iter=3000)).fit(X, y)
@@ -109,7 +109,7 @@ def main():
             Xte, yte = H[main_rows.loc[te, "row"].values], T.loc[te, tgt].astype(int).values
             mdl = make_pipeline(StandardScaler(), LogisticRegression(C=1.0, max_iter=3000)).fit(Xtr, ytr)
             res.append(dict(key=a.key, layer=L, arm="neutral_own->political", target=tgt, n=int(len(yte)),
-                            auc=float(roc_auc_score(yte, mdl.predict_proba(Xte)[:, 1]))))
+                            auc=float(roc_auc_score(yte, mdl.decision_function(Xte)))))
             print(f"{a.key} L{L:02d} transfer neutral_own->political {tgt:15s} AUC {res[-1]['auc']:.3f}", flush=True)
         pd.DataFrame(res).to_csv(part + ".tmp", index=False); os.replace(part + ".tmp", part)
     R = pd.DataFrame(res)
