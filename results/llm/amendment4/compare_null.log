@@ -28,3 +28,13 @@
  "frac_agree_mean": 0.9431034482758619,
  "frac_agree_min": 0.7586206896551724
 }
+{
+ "R": 20,
+ "B": 100,
+ "noise": 0.3,
+ "p_verdict_averages_out": 0.8,
+ "p_frac_agree_ge_0_9": 0.85,
+ "p_slope_ci_contains_1": 0.95,
+ "frac_agree_mean": 0.9431034482758619,
+ "frac_agree_min": 0.7586206896551724
+}
