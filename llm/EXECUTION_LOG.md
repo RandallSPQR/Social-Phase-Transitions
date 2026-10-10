@@ -457,3 +457,32 @@ judgment calls, in time order (2026-10-08).
     - **GPU stage total ≈ $7.22** (≈ $5.50 for the lost 3-hour run, $0.12 + $0.18 + $0.21 for the failed launches,
       $0.05 volume cleanup, $1.16 for this run) of the $15 ceiling.
     - STOP: both Stage 3 and the GPU battery are done; reporting to the owner before any new analysis.
+
+32. **Audit before analysis (owner request, 2026-10-10). No analysis run.**
+    - **Pods:** all six pods this project created (`w9m8lg9txkisc5`, `kwzw7yoclbtlq1`, `lr9trys3tx4vtc`,
+      `2nt34s8z62hxwt`, `225e35mmgqhn3d`, `e3zan9ygnmqe45`) return 404. The account shows only the owner's
+      `item10-grader-2`; current spend rate $1.82/h is that pod alone. No volumes or other resources of ours.
+    - **Data backup gap found and closed:** the 140,012 Stage 3 raw API responses (140,005 live calls including
+      5 invalid-reply re-draws, plus 7 smoke calls) existed only on this container's disk. Snapshots rebuilt
+      (`snapshot_cache.py`, 410,896 records in 19 files), manifest regenerated, uploaded and re-verified by SHA-256
+      (`upload_cache_hf.py`: PASSED); 0 records carry a generation id; dataset still private. Fixed
+      `cache_manifest.py`, which had dropped the `private` flag and still described the stripped `id` field.
+    - **GPU run integrity:** pod log clean (no load warnings, no newly-initialised weights, no errors); downloads
+      51.6 GB and 62.6 GB; every unit uploaded and verified. Outputs cover the Stage 1 battery exactly (6,214 main
+      cells and 2,116 comprehension cells per model, 2 replicates each); git CSVs byte-identical to the dataset.
+      Activations: 6 layers per model, 8,330 rows = index, no non-finite values, no all-zero rows.
+    - **Validity check (not a hypothesis test):** local vs provider P(A) on the same 6,214 prompts: logit
+      correlation 0.987 (26B vs Parasail), 0.993 (26B vs CoreWeave), 0.987 (31B vs Io Net); comprehension accuracy
+      100% local and provider. The local models are the real Gemma-4 models, loaded correctly.
+    - Real-model padding diagnostic: 0.84 nats (26B), 0.38 nats (31B); the original 0.05 abort would have stopped
+      both runs, so the padding-free batching (entry 23) was needed.
+    - **Analysis readiness:**
+      - Ready as is: `analysis.py` (fits, noise gate from the two replicates, top-5 `pA` as pre-registered) and
+        `comprehension.py`; both run end to end on the local CSV format (tested on a copy with randomised P(A)).
+      - Not yet written (pre-registered in Amendment 4): (1) extension of `summarize.py` (local keys in the
+        confirmatory set, Gemma-family H4 local 26B → local 31B, Holm over extended cells, both versions reported);
+        (2) the local-vs-provider paired bootstrap and attenuation test. The existing per-endpoint bootstraps are
+        not paired: they resample each endpoint's own cell set, which differs after leak exclusions, so the
+        comparison needs its own refits on shared resampling indices; (3) the exploratory activation probes.
+      - Deviations to state in the report: padding-free batches instead of left padding (entry 23); activations
+        are from the first replicate (`rep` 0 in the files; the amendment says "replicate 1", meaning the first).

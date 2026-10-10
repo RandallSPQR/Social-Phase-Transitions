@@ -1,12 +1,2 @@
 key,model,tag,n,acc_ally_majority,meanP_ally_majority,worst_k_ally_majority,acc_own,meanP_own,worst_k_own,acc_rival_majority,meanP_rival_majority,worst_k_rival_majority,leak_gt5,passes
-gemma-26b-cw,google/gemma-4-26b-a4b-it,coreweave/bf16,2116,1.0,0.9999,1.0,1.0,1.0,1.0,0.9984,0.9985,0.996,0,True
-gemma-26b,google/gemma-4-26b-a4b-it,parasail/bf16,2116,1.0,0.9997,1.0,1.0,1.0,1.0,1.0,0.9993,1.0,0,True
-gemma-31b,google/gemma-4-31b-it,io-net,2116,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0,True
-gpt4o-mini,openai/gpt-4o-mini,openai,2116,1.0,0.9975,1.0,1.0,1.0,1.0,0.9891,0.9887,0.875,0,True
-llama-70b,meta-llama/llama-3.3-70b-instruct,coreweave/fp16,2116,0.9641,0.9639,0.917,1.0,1.0,1.0,0.9875,0.987,0.981,0,True
-llama-8b,meta-llama/llama-3.1-8b-instruct,coreweave/bf16,2116,0.7781,0.7258,0.375,0.9868,0.9606,0.925,0.7156,0.6525,0.375,0,False
-mistral-large,mistralai/mistral-large-4-0,mistral,2116,0.9844,0.9949,0.971,1.0,1.0,1.0,0.9734,0.9939,0.941,22,True
-mistral-small,mistralai/mistral-small-3.2-24b-instruct,parasail/bf16,2116,0.1812,0.9446,0.125,0.9761,0.9711,0.955,0.1047,0.9148,0.0,1116,False
-nemo-12b,mistralai/mistral-nemo,io-net/fp16,2116,0.9844,0.8807,0.981,1.0,0.9956,1.0,0.9422,0.8555,0.926,0,True
-qwen-122b,qwen/qwen3.5-122b-a10b,alibaba,2115,0.9984,0.9937,0.996,1.0,0.9998,1.0,0.9938,0.9863,0.985,0,True
-qwen-9b,qwen/qwen3.5-9b,parasail/bf16,2116,0.9641,0.8827,0.943,1.0,0.9742,1.0,0.9625,0.8704,0.952,4,True
+synthetic-local,google/gemma-4-31b-it,local/bf16,4232,0.5039,0.5086,0.312,0.5036,0.4977,0.469,0.5047,0.5032,0.482,0,False
