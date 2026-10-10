@@ -17,3 +17,12 @@ gemma-26b-local L10 neutral_own   rival_majority  n= 1248 AUC 0.974  letter-coun
 gemma-26b-local L10 neutral_own   own             n= 1616 AUC 1.000  letter-count 1.000  shuffled 0.520
 gemma-26b-local L10 neutral_noown ally_majority   n=  320 AUC 0.962  letter-count 0.958  shuffled 0.513
 gemma-26b-local L10 neutral_noown rival_majority  n=  320 AUC 0.967  letter-count 0.956  shuffled 0.475
+gemma-26b-local L10 political     ally_majority   n= 1280 AUC 0.960  letter-count 0.957  shuffled 0.476
+gemma-26b-local L10 political     rival_majority  n= 1280 AUC 0.952  letter-count 0.958  shuffled 0.489
+gemma-26b-local L10 political     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.506
+gemma-26b-local L10 workplace     ally_majority   n= 1280 AUC 0.968  letter-count 0.957  shuffled 0.469
+gemma-26b-local L10 workplace     rival_majority  n= 1280 AUC 0.960  letter-count 0.958  shuffled 0.503
+gemma-26b-local L10 workplace     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.519
+gemma-26b-local L10 transfer neutral_own->political ally_majority   AUC 0.703
+gemma-26b-local L10 transfer neutral_own->political rival_majority  AUC 0.836
+gemma-26b-local L10 transfer neutral_own->political own             AUC 0.888
