@@ -1,0 +1,15 @@
+key,layer,arm,target,n,auc,auc_letter_count,auc_shuffled
+gemma-31b-local,10,neutral_own,ally_majority,1248,0.8923765203813281,0.9595249835634451,0.4984308226495726
+gemma-31b-local,10,neutral_own,rival_majority,1248,0.8789678870808679,0.9554158448389217,0.46403347920775806
+gemma-31b-local,10,neutral_own,own,1616,1.0,1.0,0.48816369105970003
+gemma-31b-local,10,neutral_noown,ally_majority,320,0.8718750000000001,0.958203125,0.46570312499999994
+gemma-31b-local,10,neutral_noown,rival_majority,320,0.8833203125000001,0.955546875,0.46914062500000003
+gemma-31b-local,10,political,ally_majority,1280,0.8874560546874999,0.9570703125,0.49210205078124997
+gemma-31b-local,10,political,rival_majority,1280,0.8754711914062501,0.958203125,0.48877685546874994
+gemma-31b-local,10,political,own,1672,1.0,1.0,0.5192818387857421
+gemma-31b-local,10,workplace,ally_majority,1280,0.86895751953125,0.9570703125,0.46909423828124996
+gemma-31b-local,10,workplace,rival_majority,1280,0.8757104492187501,0.958203125,0.48666503906249997
+gemma-31b-local,10,workplace,own,1672,1.0,1.0,0.49627412376090296
+gemma-31b-local,10,neutral_own->political,ally_majority,1280,0.62544677734375,,
+gemma-31b-local,10,neutral_own->political,rival_majority,1280,0.5823022460937499,,
+gemma-31b-local,10,neutral_own->political,own,1672,0.6273608662805339,,
