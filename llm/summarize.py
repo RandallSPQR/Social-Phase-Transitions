@@ -45,15 +45,32 @@ def load(fits_dir):
     return F
 
 
-def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_path=None, out=None, relax_gate=False):
+LOCAL = ["gemma-26b-local", "gemma-31b-local"]                      # PREREG Amendment 4
+LOCAL_H4 = ("gemma-26b-local", "gemma-31b-local")
+
+
+def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_path=None, out=None, relax_gate=False,
+         amendment4=False):
     """relax_gate=True: post-data SENSITIVITY analysis (EXECUTION_LOG step 1a); every endpoint treated as passing
-    the noise gate, primaries used. Outputs carry the suffix _sensitivity_gate_relaxed. Not confirmatory."""
+    the noise gate, primaries used. Outputs carry the suffix _sensitivity_gate_relaxed. Not confirmatory.
+    amendment4=True: PREREG Amendment 4. The confirmatory set is extended to the local bf16 Gemma endpoints that pass
+    comprehension and the noise gate; Holm families are recomputed over all extended cells; in H4 the Gemma family
+    uses the local pair (26B-A4B local -> 31B local), and that pair is also tested in its own right (Holm over the 3
+    framings). Outputs carry the suffix _amendment4; the original Stage 1 outputs are not touched."""
     F = load(fits_dir)
+    if not amendment4:
+        F = {k: v for k, v in F.items() if k not in LOCAL}             # the original analysis never sees them
     comp_path = comp_path or os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")
     comp = pd.read_csv(comp_path).set_index("key") if os.path.exists(comp_path) else pd.DataFrame()
+    if amendment4:
+        cl = pd.read_csv(os.path.join(ROOT, "results", "llm", "comprehension_local.csv")).set_index("key")
+        comp = pd.concat([comp, cl])
     gate = {k: True if relax_gate else not (pooled_sd(a) > NOISE_GATE) for k, a in F.items()}
-    sfx = "_sensitivity_gate_relaxed" if relax_gate else ""
+    sfx = "_sensitivity_gate_relaxed" if relax_gate else ("_amendment4" if amendment4 else "")
     used = {resolve(k, F, gate) for k in WORKHORSES if k not in BACKUP_KEY.values()} - {None}
+    if amendment4:
+        used |= {k for k in LOCAL if k in F and gate.get(k)}
+    h4_pairs = [LOCAL_H4 if amendment4 and p == ("gemma-26b", "gemma-31b") else p for p in H4_PAIRS]
     rows = []
     for key, arms in F.items():
         for arm, r in arms.items():
@@ -92,7 +109,7 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     # H4: one-sided bootstrap test of beta_large > beta_small, per family x framing, comprehension-gated
     h4 = []
     rng = np.random.default_rng(4)
-    for small0, large0 in H4_PAIRS:
+    for small0, large0 in h4_pairs:
         small, large = resolve(small0, F, gate) or small0, resolve(large0, F, gate) or large0
         for arm in CONF_ARMS:
             ok = all(k in F and arm in F[k] for k in (small, large))
@@ -117,10 +134,21 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     n_neu = int(((H4["arm"] == "neutral_own") & H4["significant"].fillna(False)).sum())
     n_testable = int(((H4["arm"] == "neutral_own") & tested).sum())
     verdict = ("supported" if n_neu >= 3 else "not supported") + f" ({n_neu} of {n_testable} testable families significant in neutral; ≥3 of 4 required)"
+    verdicts = {"H4_verdict": verdict}
+    if amendment4:          # Gemma-family H4 in its own right: local pair, Holm over its 3 framings only
+        g = H4[(H4["family_pair"] == f"{LOCAL_H4[0]} -> {LOCAL_H4[1]}")].copy()
+        gt = g["status"] == "tested"
+        g.loc[gt, "holm_gemma_family"] = holm(list(g.loc[gt, "p_one_sided"])) if gt.any() else None
+        H4.loc[g.index, "holm_gemma_family"] = g.get("holm_gemma_family")
+        verdicts["H4_gemma_family_local"] = {r.arm: (r.status if r.status != "tested" else
+                                                     {"beta_26b": r.beta_small, "beta_31b": r.beta_large,
+                                                      "diff_ci": [r.diff_lo, r.diff_hi], "p_one_sided": r.p_one_sided,
+                                                      "holm_within_family": r.holm_gemma_family})
+                                             for r in H4.loc[g.index].itertuples()}
     out = out or os.path.join(ROOT, "results", "llm")
     T.drop(columns=[c for c in T if c.endswith("_mineff")]).to_csv(os.path.join(out, f"stage1_cells{sfx}.csv"), index=False)
     H4.to_csv(os.path.join(out, f"stage1_H4{sfx}.csv"), index=False)
-    json.dump({"H4_verdict": verdict}, open(os.path.join(out, f"stage1_verdicts{sfx}.json"), "w"), indent=1)
+    json.dump(verdicts, open(os.path.join(out, f"stage1_verdicts{sfx}.json"), "w"), indent=1, default=str)
     pd.set_option("display.width", 250)
     show = ["key", "arm", "confirmatory", "beta", "b_a", "b_r", "b_r_minus_b_a", "H1_holm", "gamma", "alpha",
             "H3_pairwise_holm", "H3_pairwise_supported", "H3_cubic_holm", "H3_cubic_supported", "repeat_sd", "excluded_frac"]
@@ -130,4 +158,4 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
 
 
 if __name__ == "__main__":
-    main(relax_gate="--relax-gate" in sys.argv)
+    main(relax_gate="--relax-gate" in sys.argv, amendment4="--amendment4" in sys.argv)

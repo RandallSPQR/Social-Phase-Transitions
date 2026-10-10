@@ -30,8 +30,13 @@ def score(path):
 
 
 if __name__ == "__main__":
-    rows = [score(p) for p in sys.argv[1:]]
-    out = pd.DataFrame(rows)
+    # --out PATH writes elsewhere (tests, amendments). The default path holds the Stage 1 record: it is only
+    # (re)written when no --out is given. 2026-10-10: a synthetic test overwrote it once (EXECUTION_LOG entry 33).
+    args = sys.argv[1:]
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    out.to_csv(os.path.join(root, "results", "llm", "comprehension_summary.csv"), index=False)
-    print(out.to_string(index=False))
+    dest = os.path.join(root, "results", "llm", "comprehension_summary.csv")
+    if "--out" in args:
+        i = args.index("--out"); dest = args[i + 1]; args = args[:i] + args[i + 2:]
+    out = pd.DataFrame([score(p) for p in args])
+    out.to_csv(dest, index=False)
+    print(out.to_string(index=False)); print("->", dest)

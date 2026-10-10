@@ -307,3 +307,224 @@ judgment calls, in time order (2026-10-08).
       leaves the original predictions byte-identical.
     - `python llm/test_stage3.py`: all checks pass (prompts, Ising β for 27 fits, mock-LLM runner reproduces the
       simulator with |z| < 2).
+
+23. **Stage 3 launched; main squash-merged; GPU runner fixed in a dry run; A100 poller.**
+    - **Stage 3 live run started** (`llm/stage3.py run`, 70 chains, budget stop $12) after the addendum commit
+      (de0ff08) and one smoke call per endpoint (tag `stage3-smoke`, not part of the data; all 7 endpoints served
+      by their pinned providers).
+    - **main**: squash of this branch at de0ff08 pushed as 23471e7 (no cache snapshots, no generation ids).
+    - **GPU runner dry run** on tiny random-weight Gemma-4 checkpoints built from the real configs, tokenizer and
+      chat template (`Gemma4ForConditionalGeneration`, MoE and dense variants), CPU, transformers 5.19.0 +
+      torch 2.8.0 (the pod image's torch). Two problems found and fixed before any rental:
+      1. **Pinned transformers.** Gemma-4 needs transformers ≥ 5.5; the pod script asked for ≥ 4.57. Now pinned
+         to the validated 5.19.0.
+      2. **Padding.** The left-padding check failed in bf16 (0.57 nats MoE, 0.15 dense) but passes in fp32
+         (8e-5 nats): bf16 numerics, not a masking bug. With a 0.05 abort it would have stopped a correct run.
+         **Deviation (implementation, pre-data):** the battery now runs in padding-free batches (prompts grouped by
+         exact token length; replicate 1 uses another batch size and a shuffled order within each length), with an
+         assertion that no batch contains padding. The padding check is kept as a reported diagnostic. Nothing
+         else in Amendment 4 changes.
+      - After the fixes both variants run end to end: Stage 1 CSV schema (main + comprehension), activations at 6
+        layers, replicates agree.
+    - **A100 poller** `llm/runpod_launch.py` (owner: A100 only, wait if needed; owner's volume in EUR-IS-1, which
+      lists no A100 stock right now). Polls every 3 min, tries a create when stock is listed and every 15 min
+      regardless; then polices the pod: terminate at 4.25 h or estimated spend > $12 (balance drop minus the
+      owner's other burn measured at launch), or as soon as the pod's results tarball appears in the dataset while the pod is
+      still up (failed self-removal). It only ever touches the pod it created. Pod code ships as a tarball
+      in the private dataset (`code/pod_code_<rev>.tgz`); HF_TOKEN is passed as a pod env variable.
+
+24. **First A100 launch failed on the volume quota; relaunch without the volume.**
+    - Pod `w9m8lg9txkisc5` (A100-SXM4-80GB, EUR-IS-1, owner's volume) ran 17:27–17:31 UTC (≈ $0.12). It started the
+      Gemma-4 26B download into `/workspace/social-phase-transitions/hf` and failed with "Disk quota exceeded"; the
+      script shipped its log to the dataset and the pod removed itself, as designed.
+    - **Cause (my error):** the free-space check used `df` on the network volume, which reports ≈ 494,616 GB free;
+      the volume's real quota is 150 GB and most of it holds the owner's SAE data.
+    - **Leftover on the owner's volume:** our partial download in `/workspace/social-phase-transitions/` (marked by
+      our `.owner` file). It may have used up the remaining quota, which could affect the SAE pod's writes.
+      **Not removed:** deleting anything on the shared volume needs the owner's OK (an attempt to have the next pod
+      remove it was blocked by the session's permission policy). Owner decision pending.
+    - **Fix:** the pod no longer mounts the volume at all (`pod_run.sh`, `runpod_launch.py`); weights go to the
+      200 GB container disk. A100 in any secure data centre. Everything else unchanged.
+
+25. **Owner-approved cleanup of our leftover directory on the shared volume.**
+    - The owner approved removing `/workspace/social-phase-transitions/`. `llm/runpod_cleanup_volume.py` started pod
+      `lr9trys3tx4vtc` (RTX PRO 6000, EUR-IS-1, ≈ 1 min, ≈ $0.05) with the volume mounted; it removed only that
+      directory after checking our marker, uploaded its log (`cleanup/lr9trys3tx4vtc.log` in the dataset) and
+      removed itself.
+    - Log: volume used 114 GB before; our directory 1.7 GB, marker matched, removed; 112 GB after (of 150 GB).
+    - So the leftover was small, and the "disk quota exceeded" error in entry 24 most likely came from the
+      download's temporary files. The volume has ≈ 38 GB free, which could not hold the 26B weights (≈ 52 GB)
+      anyway; the GPU run stays on the container disk.
+
+26. **Stage 3 complete (data only; pre-stated evaluation applied mechanically, no new analysis).**
+    - 70 chains (P1–P5, P2-nc, P4-nc; 5 graphs × 2 replicas × 2,000 updates), 140,000 live updates, $4.95 total
+      (budget stop $12 not reached), no errors, no prompt-check failures. Invalid rate ≤ 0.02% at every point
+      (flag threshold 2%: none flagged); no agent kept its position after 3 invalid draws.
+    - Outputs: `results/llm/stage3/chains/` (every update + states per sweep), `measures_by_graph.csv`,
+      `summary.csv`, `evaluation.csv` / `evaluation.json` (`llm/stage3_evaluate.py`), `run.log`.
+    - **Pre-stated verdict: the surrogate is NOT supported.** It passes both primary measures at 0 of P1–P4
+      (rule: ≥ 3 of 4). The calibration point P5 and both no-contacts arms also miss.
+    - Observed (mean of 5 graphs) vs fitted-surrogate 90% interval, primary measures:
+      - P1 |m| 0.21 [0.24, 0.46], persistence 0.78 [0.66, 0.74];
+      - P2 m 0.56 [0.58, 0.66], persistence 0.60 [0.59, 0.67] (pass);
+      - P3 |m| 0.10 [0.20, 0.37], persistence 0.99 [0.91, 0.95];
+      - P4 m 0.94 [0.87, 0.91], persistence 0.90 [0.75, 0.84];
+      - P5 |m| 0.60 [0.14, 0.24], persistence 0.66 [0.11, 0.20];
+      - P2-nc m 0.15 [0.34, 0.43], persistence 0.80 [0.47, 0.54]; P4-nc m 0.64 [0.52, 0.58], persistence 0.70
+        [0.41, 0.48].
+    - Discrimination: at P1, P2, P4 and P5 the observed primary measures lie outside both the Ising-reading and
+      the fields-only intervals; at P3 |m| lies inside both control intervals and persistence outside the Ising one.
+    - Observed social amplification (P − P-nc): P2 m +0.41, persistence −0.20; P4 m +0.29, persistence +0.20
+      (surrogate predicted P2 +0.23 / +0.13, P4 +0.34 / +0.35).
+    - STOP for the owner's report; no further analysis until the GPU battery is also done.
+
+27. **GPU Gemma battery (Amendment 4) ran but returned NO results.**
+    - Pod `kwzw7yoclbtlq1` (A100-SXM4-80GB, US-MD-1, $1.79/h, container disk only) ran 17:33–20:38 UTC, 3.08 h,
+      ≈ $5.50. The watchdog never terminated it (no TERMINATE in `results/llm/logs/runpod_launch_final.log`); the
+      pod disappeared on its own between 20:36 and 20:38.
+    - **No results tarball reached the dataset** (`pod_results/pod_results_kwzw7yoclbtlq1.tgz` absent; dataset
+      commits end at 17:41). The container disk is deleted with the pod, so the outputs and the pod log are lost.
+    - Most likely cause: the end-of-job upload failed and `pod_run.sh` removed the pod regardless (design flaw:
+      self-removal was not conditional on a successful upload, and nothing was uploaded before the end). Removal
+      from outside our tooling cannot be excluded. The run also took longer than the 1.5–2.5 h estimate.
+    - GPU spend so far: ≈ $5.50 + $0.12 (first launch) + $0.05 (volume cleanup) ≈ $5.67 of the $15 ceiling.
+    - Not relaunched; reported to the owner. A rerun needs: per-model upload as soon as each model finishes,
+      the pod log uploaded every few minutes, and self-removal only after a confirmed upload (otherwise leave it
+      for the watchdog, which ends it at the time cap).
+
+28. **Owner: "that was a total waste." Real-time tracking built and tested before any rerun.**
+    - Lesson written into `CLAUDE.md` at the repo root (loaded by every Claude session on this repository): remote
+      or paid jobs stream a heartbeat to durable storage, upload and verify each unit of output as soon as it exists,
+      never destroy the machine before a verified final upload, print to stdout, are visible to the owner while they
+      run, and get an end-to-end test of the whole chain before paying. The owner's global `~/.claude/CLAUDE.md`
+      is not reachable from this cloud container; the same rule was given to the owner to paste there.
+    - **Pod side:** `llm/pod_tracker.py` (heartbeat every 90 s → `runs/<pod>/status.json` + full `pod.log` in the
+      private dataset; per-model upload with re-list and size check; `uploads.json` records what is verified).
+      `llm/local_gemma.py` writes live progress (stage, replicate, batch, ETA). `llm/pod_run.sh` rewritten: smoke
+      and full outputs uploaded per model as soon as each finishes; job deadline 3.6 h; the final upload retries
+      until 30 min past the deadline and cannot be interrupted; the pod removes itself only after a verified upload,
+      otherwise it reports `upload_failed` and stays up for the watchdog. All output also goes to stdout (RunPod
+      console).
+    - **Session side:** `llm/run_relay.py` turns heartbeat + pod state into a dashboard document (alerts: stale
+      heartbeat, pod gone without `done`, upload failure, caps); `llm/runpod_launch.py` treats a run as finished
+      only when the heartbeat says `done`.
+    - **Dashboard:** artifact "Gemma GPU Run Monitor" (progress per model, ETA, caps, GPU and progress over time,
+      verified uploads, log tail), fed from the relay.
+    - **Tests before any spend** (CPU, tiny random Gemma-4 models):
+      - failure path (invalid HF token, failing model): uploads and heartbeats fail, retries continue, phase
+        `upload_failed`, pod NOT removed, no leftover processes. It exposed two bugs, now fixed: the job deadline's
+        TERM aborted the final upload, and the deadline timer was left orphaned.
+      - full path: smoke → upload (verified) → full run → upload (verified) per model → `done`; relay and dashboard
+        follow it live.
+
+29. **Rerun 1 (`2nt34s8z62hxwt`) failed in 5 min on the weight download; the tracking showed why at once.**
+    - The heartbeat and log reached the dataset; the smoke test failed at the first Gemma-4 26B shard with
+      "Disk quota exceeded" from the xet download backend while the container disk showed 0.26 GB used of 215 GB.
+      The first launch (entry 24) failed with the same xet error on the owner's volume, where our folder held only
+      1.7 GB. So the quota error is the xet backend on RunPod storage, not space. The 3-hour run (entry 27) probably
+      died the same way early on and then hung in its single end-of-run upload (not provable: its log was lost).
+    - The pod uploaded its log (verified), reported `done` (exit 3) and removed itself: ≈ 6 min, ≈ $0.18.
+      GPU stage total ≈ $5.85.
+    - Fix: `HF_HUB_DISABLE_XET=1` (classic HTTP download); weights download as their own tracked phase with retries
+      (`pod_tracker.py download`), and the heartbeat reports the downloaded GB. Tested locally on a small real model.
+
+30. **Rerun 2 (`225e35mmgqhn3d`): download failed at ≈ 21 GB with "No space left on device"; terminated by us.**
+    - With xet disabled the download got further, then failed at 21.4 GB while the heartbeat's disk reading (taken
+      at `/root`) showed 0.26 GB used of 215 GB: that reading was measuring the wrong filesystem. The pod also had a
+      default 20 GB pod volume at `/workspace`; writes for the weights were evidently capped near 20 GB.
+    - Terminated after ≈ 7 min (≈ $0.21) since every retry would fail the same way. GPU stage total ≈ $6.06.
+    - Fix: the pod gets its own 200 GB pod-local volume at `/workspace` (deleted with the pod; never the owner's
+      shared network volume) and the weights go to `/workspace/hf`; the heartbeat reports free space at the real
+      download target plus `df` of `/`, `/root`, `/workspace`; the download step aborts at once if the target has
+      < 130 GB free (tested locally: aborts with 15 GB free).
+
+31. **Amendment 4 GPU battery complete (rerun 3, `e3zan9ygnmqe45`). Data only; no analysis.**
+    - Rerun 2's real cause, confirmed from rerun 3's heartbeat: the pod image presets
+      `HF_HOME=/workspace/.cache/huggingface`, which overrode the `/root/hf` default, so the weights went to RunPod's
+      default 20 GB pod volume. With a 200 GB pod volume the download ran normally (`df` in the heartbeat: `/workspace`
+      200 GB, `/` 50 GB).
+    - A100-SXM4-80GB, 21:37–22:18 UTC (≈ 40 min, ≈ $1.16). Sequence, each step uploaded and verified on finishing:
+      26B download → smoke → full (1,319 batches) → 31B download → smoke → full → final upload of everything →
+      `done` (exit 0) → pod removed itself. The dashboard showed every step live.
+    - Retrieved all 42 files from `runs/e3zan9ygnmqe45/` and checked each size against the dataset (0 mismatches).
+    - In git: `results/llm/stage1/{main,comprehension}/gemma-{26b,31b}-local[-smoke].csv` and the pod log. The
+      activations (≈ 825 MB) stay in the private dataset; `results/llm/activations_manifest.json` lists them.
+    - Integrity checks: per model 12,428 main rows (6,214 prompts × 2 replicates) and 4,232 comprehension rows;
+      no missing P(A); no prompt with first-token leak > 5%. Replicate disagreement (logit of P(A), rep 0 vs rep 1,
+      different batch composition): 26B MoE median 0.50 nats, 99th percentile 4.05; 31B dense median 0.00, 99th
+      percentile 1.00. This is the batch-numerics noise the pre-registered 0.3-nat gate measures; the gate has not
+      been applied (no analysis yet).
+    - **GPU stage total ≈ $7.22** (≈ $5.50 for the lost 3-hour run, $0.12 + $0.18 + $0.21 for the failed launches,
+      $0.05 volume cleanup, $1.16 for this run) of the $15 ceiling.
+    - STOP: both Stage 3 and the GPU battery are done; reporting to the owner before any new analysis.
+
+32. **Audit before analysis (owner request, 2026-10-10). No analysis run.**
+    - **Pods:** all six pods this project created (`w9m8lg9txkisc5`, `kwzw7yoclbtlq1`, `lr9trys3tx4vtc`,
+      `2nt34s8z62hxwt`, `225e35mmgqhn3d`, `e3zan9ygnmqe45`) return 404. The account shows only the owner's
+      `item10-grader-2`; current spend rate $1.82/h is that pod alone. No volumes or other resources of ours.
+    - **Data backup gap found and closed:** the 140,012 Stage 3 raw API responses (140,005 live calls including
+      5 invalid-reply re-draws, plus 7 smoke calls) existed only on this container's disk. Snapshots rebuilt
+      (`snapshot_cache.py`, 410,896 records in 19 files), manifest regenerated, uploaded and re-verified by SHA-256
+      (`upload_cache_hf.py`: PASSED); 0 records carry a generation id; dataset still private. Fixed
+      `cache_manifest.py`, which had dropped the `private` flag and still described the stripped `id` field.
+    - **GPU run integrity:** pod log clean (no load warnings, no newly-initialised weights, no errors); downloads
+      51.6 GB and 62.6 GB; every unit uploaded and verified. Outputs cover the Stage 1 battery exactly (6,214 main
+      cells and 2,116 comprehension cells per model, 2 replicates each); git CSVs byte-identical to the dataset.
+      Activations: 6 layers per model, 8,330 rows = index, no non-finite values, no all-zero rows.
+    - **Validity check (not a hypothesis test):** local vs provider P(A) on the same 6,214 prompts: logit
+      correlation 0.987 (26B vs Parasail), 0.993 (26B vs CoreWeave), 0.987 (31B vs Io Net); comprehension accuracy
+      100% local and provider. The local models are the real Gemma-4 models, loaded correctly.
+    - Real-model padding diagnostic: 0.84 nats (26B), 0.38 nats (31B); the original 0.05 abort would have stopped
+      both runs, so the padding-free batching (entry 23) was needed.
+    - **Analysis readiness:**
+      - Ready as is: `analysis.py` (fits, noise gate from the two replicates, top-5 `pA` as pre-registered) and
+        `comprehension.py`; both run end to end on the local CSV format (tested on a copy with randomised P(A)).
+      - Not yet written (pre-registered in Amendment 4): (1) extension of `summarize.py` (local keys in the
+        confirmatory set, Gemma-family H4 local 26B → local 31B, Holm over extended cells, both versions reported);
+        (2) the local-vs-provider paired bootstrap and attenuation test. The existing per-endpoint bootstraps are
+        not paired: they resample each endpoint's own cell set, which differs after leak exclusions, so the
+        comparison needs its own refits on shared resampling indices; (3) the exploratory activation probes.
+      - Deviations to state in the report: padding-free batches instead of left padding (entry 23); activations
+        are from the first replicate (`rep` 0 in the files; the amendment says "replicate 1", meaning the first).
+
+33. **Amendment 4 analysis code written and tested (2026-10-10); my comprehension-summary mistake fixed.**
+    - **Mistake found and fixed:** yesterday's readiness test ran `comprehension.py` on a synthetic file; that
+      script always wrote `results/llm/comprehension_summary.csv`, so the real 11-endpoint Stage 1 summary was
+      replaced by one synthetic row and committed in 1d713d7 (my `git add -A`). Restored byte-identical from
+      6c40245 (d9f9453). Scan of every results file changed since Stage 1 closed: no other unintended change.
+      `comprehension.py` now takes `--out`; all tests write to scratch.
+    - **`summarize.py --amendment4`:** extended confirmatory set (local endpoints that pass comprehension and the
+      gate), Holm recomputed over all extended cells, H4 Gemma family uses the local pair and is also tested in its
+      own right (Holm over its 3 framings); outputs `_amendment4`. The original mode drops the local fits so it
+      never sees them. Regression: original and gate-relaxed modes reproduce all six committed Stage 1 outputs
+      byte for byte. Logic test with stand-in local fits: gate failed → 12 confirmatory cells, Gemma family
+      'excluded'; gate passed → 18 cells, Gemma family tested, 2 testable H4 families (the amendment's maximum).
+    - **`compare_local.py`** (paired bootstrap + attenuation test, analysis.py's own fitting functions). Known-answer
+      test (`test_compare_local.py`): slope 1.001 [0.994, 1.008] for identical truth, 0.797 [0.791, 0.803] for
+      0.8 × truth; local estimates within 0.03 of truth. Calibration: SD of the provider − local difference over 40
+      independent synthetic replications vs the paired-bootstrap SE: ratios 0.8–1.15 (political), 0.75–1.53
+      (neutral_noown, the smallest arm): roughly calibrated, mild under-coverage on some coefficients in small arms.
+    - **Property of the pre-registered verdict rule:** "≥ 90% of ~31 correlated coefficients agree" can fail when the
+      truth is identical (one null replication: 72% agree). Its null operating characteristic is measured by
+      `compare_local_null.py` and reported with the results; the rule itself is applied unchanged.
+    - **Exploratory probes (`probes.py`)**: known-answer test on synthetic activations (ally side encoded): ally AUC
+      1.00, rival/own 0.47–0.52, shuffled ≈ 0.5. The pre-registered letter-count control is strong by construction
+      (AUC 0.96–1.00 in letter space), a high bar for "decodable above the control".
+    - **Unembedding rows** for A/B fetched by HTTP range from the safetensors shards (`unembed_rows.py`; tied
+      embeddings, `model.language_model.embed_tokens.weight`); sanity: finite, distinct rows for the real letter
+      tokens (ids 236776/236799).
+
+34. **Amendment 4 analysis complete (2026-10-10).** Write-up: `results/llm/AMENDMENT4_RESULTS.md`.
+    - Gate: 31B local passes (0.114); 26B local fails (0.592: the MoE's bf16 output moves with batch composition).
+    - Confirmatory set 12 → 15 cells (31B local). H1 12/15; H3 cubic replicates the two Gemma-31B positives from the
+      gate-relaxed sensitivity analysis (neutral, political) on the clean endpoint; no original H1/H3 verdict
+      changes; re-Holm moves Qwen-122B political H2-content from 0.034 to 0.102. H4 Gemma family not testable
+      (26B fails the gate); overall H4 still not supported.
+    - Local vs provider: all three pairs 76% agreement → pre-registered verdict "jitter biases estimates"; every
+      slope CI contains 1 and κ. Measured null operating characteristic of the rule: 80% "averages out" under
+      identical truth, minimum agreement 76% → disagreements probably real but small (h_L, h_O political, γ).
+    - Probes (exploratory): rival side decodable above the letter-count control in both models (0.986 / 0.976 vs
+      0.955); "represented but not used" present for 26B (|b_r|/b_a 0.07; fit from the gate-failing endpoint),
+      absent for 31B (0.71); rival direction orthogonal to the A−B readout at the last layer.
+    - Process: the chain was killed by a container restart, rebuilt to save per unit, and resumed after a second
+      restart; a probe AUC bug (saturated probabilities) was caught in the output and fixed before results were kept.
