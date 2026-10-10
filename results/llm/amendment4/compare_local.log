@@ -26,3 +26,17 @@
  "n_slope_entries": 21,
  "verdict": "jitter biases estimates"
 }
+{
+ "pair": "gemma-26b (Parasail) vs gemma-26b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9706042219599113,
+ "slope_lo": 0.9104259280488645,
+ "slope_hi": 1.0196798851678988,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.7034063711912343,
+ "kappa": 0.9150468068441989,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
