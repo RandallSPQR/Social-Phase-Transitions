@@ -19,12 +19,18 @@ def main():
     ap.add_argument("--noise", type=float, default=0.3)
     a = ap.parse_args()
     src = os.path.join(C.ROOT, "results/llm/stage1/main/gemma-31b-local.csv")
-    tmp = tempfile.mkdtemp(); out = []
-    for r in range(a.R):
+    tmp = tempfile.mkdtemp()
+    runs_f = os.path.join(C.ROOT, "results/llm/amendment4/compare_rule_null_runs.jsonl")     # appended per run
+    os.makedirs(os.path.dirname(runs_f), exist_ok=True)
+    out = [json.loads(l) for l in open(runs_f)] if os.path.exists(runs_f) else []
+    out = [o for o in out if o.get("B") == a.B and o.get("noise") == a.noise]
+    for r in range(len(out), a.R):
         TC.synth(src, 1.0, a.noise, 1000 + 2 * r).to_csv(os.path.join(tmp, "l.csv"), index=False)
         TC.synth(src, 1.0, a.noise, 1001 + 2 * r).to_csv(os.path.join(tmp, "p.csv"), index=False)
         _, s = C.compare_pair("l", "p", "null", a.B, tmp, tmp, 4, seed=50 + r)
-        out.append(dict(frac_agree=s["frac_agree"], slope_ci_contains_1=s["slope_ci_contains_1"], verdict=s["verdict"]))
+        out.append(dict(run=r, B=a.B, noise=a.noise, frac_agree=s["frac_agree"],
+                        slope_ci_contains_1=s["slope_ci_contains_1"], verdict=s["verdict"]))
+        open(runs_f, "a").write(json.dumps(out[-1]) + "\n")
         print(r, out[-1], flush=True)
     f = np.array([o["frac_agree"] for o in out])
     summ = dict(R=a.R, B=a.B, noise=a.noise, p_verdict_averages_out=float(np.mean([o["verdict"] == "jitter averages out" for o in out])),

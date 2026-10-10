@@ -85,11 +85,30 @@ def provider_sigma(fit_json):
     return float(np.sqrt((n * sd ** 2).sum() / n.sum()))
 
 
-def compare_pair(loc_key, prov_key, label, B, stage1_dir, fits_dir, workers, seed=11):
+def _cached(job, cache):
+    """compare_arm with a per-(pair, arm) cache: results and bootstrap draws are saved the moment they exist, so a
+    restart resumes instead of recomputing (CLAUDE.md: record output as it is produced)."""
+    loc_path, prov_path, arm, B, seed = job
+    if cache:
+        f = os.path.join(cache, f"{os.path.basename(loc_path)[:-4]}__{os.path.basename(prov_path)[:-4]}__{arm}__B{B}.npz")
+        if os.path.exists(f):
+            z = np.load(f, allow_pickle=True)
+            return list(z["rows"]), {n: (z["L_" + n], z["P_" + n]) for n in z["names"]}
+    rows, draws = compare_arm(job)
+    if cache:
+        os.makedirs(cache, exist_ok=True)
+        np.savez(f + ".tmp.npz", rows=np.array(rows, dtype=object), names=np.array(list(draws)),
+                 **{"L_" + n: v[0] for n, v in draws.items()}, **{"P_" + n: v[1] for n, v in draws.items()})
+        os.replace(f + ".tmp.npz", f)
+    return rows, draws
+
+
+def compare_pair(loc_key, prov_key, label, B, stage1_dir, fits_dir, workers, seed=11, cache=None):
     jobs = [(os.path.join(stage1_dir, loc_key + ".csv"), os.path.join(stage1_dir, prov_key + ".csv"), arm, B, seed + i)
             for i, arm in enumerate(ARMS)]
+    from functools import partial
     with ProcessPoolExecutor(workers) as ex:
-        res = list(ex.map(compare_arm, jobs))
+        res = list(ex.map(partial(_cached, cache=cache), jobs))
     rows = [r for rr, _ in res for r in rr]
     T = pd.DataFrame(rows); T.insert(0, "pair", f"{prov_key} ({label}) vs {loc_key}")
     keep = ~T["coef"].isin(EXCLUDE_FROM_SLOPE)
@@ -125,8 +144,10 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     tabs, summs = [], []
     for loc, prov, label in pairs:
-        T, s = compare_pair(loc, prov, label, a.B, a.stage1, a.fits, a.workers)
+        T, s = compare_pair(loc, prov, label, a.B, a.stage1, a.fits, a.workers, cache=os.path.join(a.out, "cache"))
         tabs.append(T); summs.append(s)
+        T.to_csv(os.path.join(a.out, f"local_vs_provider_{prov}.csv"), index=False)             # per pair, at once
+        json.dump(s, open(os.path.join(a.out, f"local_vs_provider_{prov}.json"), "w"), indent=1)
         print(json.dumps(s, indent=1), flush=True)
     pd.concat(tabs).to_csv(os.path.join(a.out, "local_vs_provider_coefficients.csv"), index=False)
     json.dump(summs, open(os.path.join(a.out, "local_vs_provider_summary.json"), "w"), indent=1)

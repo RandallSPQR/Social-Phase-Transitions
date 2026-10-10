@@ -71,9 +71,17 @@ def main():
     main_rows = idx[idx["phase"] == "main"].copy()
     T = targets(main_rows)
     layers = sorted(int(f[6:9]) for f in os.listdir(d) if f.startswith("layer_"))
-    rng = np.random.default_rng(0)
-    res, models = [], {}
+    os.makedirs(a.out, exist_ok=True)
+    part = os.path.join(a.out, f"probes_{a.key}_partial.csv")                  # one block of rows per finished layer
+    done = pd.read_csv(part) if os.path.exists(part) else pd.DataFrame()
+    res, models = (done.to_dict("records") if len(done) else []), {}
     for L in layers:
+        rng = np.random.default_rng(L)                                          # per layer, so resuming is exact
+        last = L == layers[-1]
+        if len(done) and L in set(done["layer"]) and not last:
+            print(f"{a.key} L{L:02d} done earlier (resumed)", flush=True); continue
+        if last and len(done) and L in set(done["layer"]):
+            res = [r for r in res if r["layer"] != L]                          # refit last layer: its model is needed
         H = np.load(os.path.join(d, f"layer_{L:03d}.npy")).astype(np.float32)
         for arm in ARMS:
             sel = main_rows["arm"] == arm
@@ -103,6 +111,7 @@ def main():
             res.append(dict(key=a.key, layer=L, arm="neutral_own->political", target=tgt, n=int(len(yte)),
                             auc=float(roc_auc_score(yte, mdl.predict_proba(Xte)[:, 1]))))
             print(f"{a.key} L{L:02d} transfer neutral_own->political {tgt:15s} AUC {res[-1]['auc']:.3f}", flush=True)
+        pd.DataFrame(res).to_csv(part + ".tmp", index=False); os.replace(part + ".tmp", part)
     R = pd.DataFrame(res)
     # readout alignment and 'represented but not used'
     summary = {"key": a.key, "layers": layers}
