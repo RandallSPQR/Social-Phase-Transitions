@@ -513,3 +513,18 @@ judgment calls, in time order (2026-10-08).
     - **Unembedding rows** for A/B fetched by HTTP range from the safetensors shards (`unembed_rows.py`; tied
       embeddings, `model.language_model.embed_tokens.weight`); sanity: finite, distinct rows for the real letter
       tokens (ids 236776/236799).
+
+34. **Amendment 4 analysis complete (2026-10-10).** Write-up: `results/llm/AMENDMENT4_RESULTS.md`.
+    - Gate: 31B local passes (0.114); 26B local fails (0.592: the MoE's bf16 output moves with batch composition).
+    - Confirmatory set 12 → 15 cells (31B local). H1 12/15; H3 cubic replicates the two Gemma-31B positives from the
+      gate-relaxed sensitivity analysis (neutral, political) on the clean endpoint; no original H1/H3 verdict
+      changes; re-Holm moves Qwen-122B political H2-content from 0.034 to 0.102. H4 Gemma family not testable
+      (26B fails the gate); overall H4 still not supported.
+    - Local vs provider: all three pairs 76% agreement → pre-registered verdict "jitter biases estimates"; every
+      slope CI contains 1 and κ. Measured null operating characteristic of the rule: 80% "averages out" under
+      identical truth, minimum agreement 76% → disagreements probably real but small (h_L, h_O political, γ).
+    - Probes (exploratory): rival side decodable above the letter-count control in both models (0.986 / 0.976 vs
+      0.955); "represented but not used" present for 26B (|b_r|/b_a 0.07; fit from the gate-failing endpoint),
+      absent for 31B (0.71); rival direction orthogonal to the A−B readout at the last layer.
+    - Process: the chain was killed by a container restart, rebuilt to save per unit, and resumed after a second
+      restart; a probe AUC bug (saturated probabilities) was caught in the output and fixed before results were kept.
