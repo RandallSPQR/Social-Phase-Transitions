@@ -1,0 +1,9 @@
+0 {'run': 0, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+1 {'run': 1, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+2 {'run': 2, 'B': 100, 'noise': 0.3, 'frac_agree': 1.0, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+3 {'run': 3, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': False, 'verdict': 'jitter biases estimates'}
+4 {'run': 4, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+5 {'run': 5, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+6 {'run': 6, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+7 {'run': 7, 'B': 100, 'noise': 0.3, 'frac_agree': 0.896551724137931, 'slope_ci_contains_1': True, 'verdict': 'jitter biases estimates'}
+8 {'run': 8, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
