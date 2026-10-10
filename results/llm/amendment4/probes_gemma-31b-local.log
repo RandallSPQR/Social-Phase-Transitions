@@ -21,3 +21,17 @@ gemma-31b-local L20 political     ally_majority   n= 1280 AUC 0.954  letter-coun
 gemma-31b-local L20 political     rival_majority  n= 1280 AUC 0.955  letter-count 0.958  shuffled 0.481
 gemma-31b-local L20 political     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.531
 gemma-31b-local L10 done earlier (resumed)
+gemma-31b-local L20 neutral_own   ally_majority   n= 1248 AUC 0.961  letter-count 0.960  shuffled 0.498
+gemma-31b-local L20 neutral_own   rival_majority  n= 1248 AUC 0.953  letter-count 0.955  shuffled 0.493
+gemma-31b-local L20 neutral_own   own             n= 1616 AUC 1.000  letter-count 1.000  shuffled 0.486
+gemma-31b-local L20 neutral_noown ally_majority   n=  320 AUC 0.925  letter-count 0.958  shuffled 0.512
+gemma-31b-local L20 neutral_noown rival_majority  n=  320 AUC 0.957  letter-count 0.956  shuffled 0.467
+gemma-31b-local L20 political     ally_majority   n= 1280 AUC 0.954  letter-count 0.957  shuffled 0.450
+gemma-31b-local L20 political     rival_majority  n= 1280 AUC 0.955  letter-count 0.958  shuffled 0.481
+gemma-31b-local L20 political     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.531
+gemma-31b-local L20 workplace     ally_majority   n= 1280 AUC 0.950  letter-count 0.957  shuffled 0.494
+gemma-31b-local L20 workplace     rival_majority  n= 1280 AUC 0.967  letter-count 0.958  shuffled 0.505
+gemma-31b-local L20 workplace     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.482
+gemma-31b-local L20 transfer neutral_own->political ally_majority   AUC 0.618
+gemma-31b-local L20 transfer neutral_own->political rival_majority  AUC 0.741
+gemma-31b-local L20 transfer neutral_own->political own             AUC 0.902
