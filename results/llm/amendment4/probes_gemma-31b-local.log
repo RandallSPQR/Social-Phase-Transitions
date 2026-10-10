@@ -85,3 +85,32 @@ gemma-31b-local L60 neutral_noown rival_majority  n=  320 AUC 0.966  letter-coun
 gemma-31b-local L60 political     ally_majority   n= 1280 AUC 0.994  letter-count 0.957  shuffled 0.480
 gemma-31b-local L60 political     rival_majority  n= 1280 AUC 0.974  letter-count 0.958  shuffled 0.477
 gemma-31b-local L60 political     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.479
+gemma-31b-local L60 workplace     ally_majority   n= 1280 AUC 0.995  letter-count 0.957  shuffled 0.449
+gemma-31b-local L60 workplace     rival_majority  n= 1280 AUC 0.967  letter-count 0.958  shuffled 0.494
+gemma-31b-local L60 workplace     own             n= 1672 AUC 1.000  letter-count 1.000  shuffled 0.477
+gemma-31b-local L60 transfer neutral_own->political ally_majority   AUC 0.862
+gemma-31b-local L60 transfer neutral_own->political rival_majority  AUC 0.582
+gemma-31b-local L60 transfer neutral_own->political own             AUC 0.991
+{
+ "key": "gemma-31b-local",
+ "layers": [
+  10,
+  20,
+  30,
+  40,
+  50,
+  60
+ ],
+ "readout_token_ids": {
+  "A": 236776,
+  "B": 236799
+ },
+ "cos_rival_probe_vs_WU_A_minus_B_last_layer": -0.013267106304397978,
+ "rival_neutral_own_best_layer": 50,
+ "rival_best_auc": 0.9859339045036161,
+ "rival_best_auc_letter_count": 0.9554158448389217,
+ "b_a": 1.2967658879874502,
+ "b_r": 0.9271601094693485,
+ "abs_b_r_over_b_a": 0.7149787930559146,
+ "rival_decodable": true
+}
