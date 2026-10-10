@@ -40,3 +40,17 @@
  "n_slope_entries": 21,
  "verdict": "jitter biases estimates"
 }
+{
+ "pair": "gemma-26b-cw (CoreWeave) vs gemma-26b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9751094460669603,
+ "slope_lo": 0.9372768847997242,
+ "slope_hi": 1.0156936795855684,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.35402602614352846,
+ "kappa": 0.9762633502701238,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
