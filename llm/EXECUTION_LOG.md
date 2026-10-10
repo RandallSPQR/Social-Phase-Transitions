@@ -486,3 +486,30 @@ judgment calls, in time order (2026-10-08).
         comparison needs its own refits on shared resampling indices; (3) the exploratory activation probes.
       - Deviations to state in the report: padding-free batches instead of left padding (entry 23); activations
         are from the first replicate (`rep` 0 in the files; the amendment says "replicate 1", meaning the first).
+
+33. **Amendment 4 analysis code written and tested (2026-10-10); my comprehension-summary mistake fixed.**
+    - **Mistake found and fixed:** yesterday's readiness test ran `comprehension.py` on a synthetic file; that
+      script always wrote `results/llm/comprehension_summary.csv`, so the real 11-endpoint Stage 1 summary was
+      replaced by one synthetic row and committed in 1d713d7 (my `git add -A`). Restored byte-identical from
+      6c40245 (d9f9453). Scan of every results file changed since Stage 1 closed: no other unintended change.
+      `comprehension.py` now takes `--out`; all tests write to scratch.
+    - **`summarize.py --amendment4`:** extended confirmatory set (local endpoints that pass comprehension and the
+      gate), Holm recomputed over all extended cells, H4 Gemma family uses the local pair and is also tested in its
+      own right (Holm over its 3 framings); outputs `_amendment4`. The original mode drops the local fits so it
+      never sees them. Regression: original and gate-relaxed modes reproduce all six committed Stage 1 outputs
+      byte for byte. Logic test with stand-in local fits: gate failed → 12 confirmatory cells, Gemma family
+      'excluded'; gate passed → 18 cells, Gemma family tested, 2 testable H4 families (the amendment's maximum).
+    - **`compare_local.py`** (paired bootstrap + attenuation test, analysis.py's own fitting functions). Known-answer
+      test (`test_compare_local.py`): slope 1.001 [0.994, 1.008] for identical truth, 0.797 [0.791, 0.803] for
+      0.8 × truth; local estimates within 0.03 of truth. Calibration: SD of the provider − local difference over 40
+      independent synthetic replications vs the paired-bootstrap SE: ratios 0.8–1.15 (political), 0.75–1.53
+      (neutral_noown, the smallest arm): roughly calibrated, mild under-coverage on some coefficients in small arms.
+    - **Property of the pre-registered verdict rule:** "≥ 90% of ~31 correlated coefficients agree" can fail when the
+      truth is identical (one null replication: 72% agree). Its null operating characteristic is measured by
+      `compare_local_null.py` and reported with the results; the rule itself is applied unchanged.
+    - **Exploratory probes (`probes.py`)**: known-answer test on synthetic activations (ally side encoded): ally AUC
+      1.00, rival/own 0.47–0.52, shuffled ≈ 0.5. The pre-registered letter-count control is strong by construction
+      (AUC 0.96–1.00 in letter space), a high bar for "decodable above the control".
+    - **Unembedding rows** for A/B fetched by HTTP range from the safetensors shards (`unembed_rows.py`; tied
+      embeddings, `model.language_model.embed_tokens.weight`); sanity: finite, distinct rows for the real letter
+      tokens (ids 236776/236799).
