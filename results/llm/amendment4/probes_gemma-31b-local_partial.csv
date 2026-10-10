@@ -27,3 +27,17 @@ gemma-31b-local,20,workplace,own,1672,1.0,1.0,0.48199445983379496
 gemma-31b-local,20,neutral_own->political,ally_majority,1280,0.61788818359375,,
 gemma-31b-local,20,neutral_own->political,rival_majority,1280,0.74125,,
 gemma-31b-local,20,neutral_own->political,own,1672,0.902451866944438,,
+gemma-31b-local,30,neutral_own,ally_majority,1248,0.9943833210059172,0.9595249835634451,0.5106876130013149
+gemma-31b-local,30,neutral_own,rival_majority,1248,0.9851891231097962,0.9554158448389217,0.5043120274490467
+gemma-31b-local,30,neutral_own,own,1616,1.0,1.0,0.5029791809626507
+gemma-31b-local,30,neutral_noown,ally_majority,320,0.98328125,0.958203125,0.45707031249999996
+gemma-31b-local,30,neutral_noown,rival_majority,320,0.9546875,0.955546875,0.4980078125
+gemma-31b-local,30,political,ally_majority,1280,0.9813403320312499,0.9570703125,0.53675537109375
+gemma-31b-local,30,political,rival_majority,1280,0.9717138671875001,0.958203125,0.55147705078125
+gemma-31b-local,30,political,own,1672,1.0,1.0,0.4896923147363842
+gemma-31b-local,30,workplace,ally_majority,1280,0.98548828125,0.9570703125,0.512431640625
+gemma-31b-local,30,workplace,rival_majority,1280,0.9768725585937501,0.958203125,0.516953125
+gemma-31b-local,30,workplace,own,1672,1.0,1.0,0.4983202078706989
+gemma-31b-local,30,neutral_own->political,ally_majority,1280,0.72052490234375,,
+gemma-31b-local,30,neutral_own->political,rival_majority,1280,0.75070556640625,,
+gemma-31b-local,30,neutral_own->political,own,1672,0.940636375082988,,
