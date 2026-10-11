@@ -27,3 +27,6 @@
 {"run": 6, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9974099117591527, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 7, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9946899162456893, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 8, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0036416351031665, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 10, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9931452363412923, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 9, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9962646305639896, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 11, "B": 1000, "noise": 0.3, "frac_agree": 0.8620689655172413, "slope": 0.9955086208522808, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
