@@ -35,3 +35,11 @@ Implementation in this repo: `llm/pod_tracker.py`, `llm/pod_run.sh`, `llm/runpod
 
 `df` on a network volume is meaningless (it reported ~500 PB free on a 150 GB quota). Do not size downloads by `df`
 on network storage.
+
+## Background processes
+
+Start every background job with `llm/bg.sh start NAME CMD...` (own process group, PID file in
+`results/llm/logs/bg/`) and stop it with `llm/bg.sh stop NAME`. Never stop anything with `pkill -f` / `pgrep -f`
+patterns: they match their own and other tools' command lines (this killed the session shell and a monitor on
+2026-10-09/10). Long jobs must save results per unit so a container restart costs at most one unit
+(`llm/run_amendment4.sh` is the pattern).

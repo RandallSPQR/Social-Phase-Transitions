@@ -355,3 +355,38 @@ Phase predictions from Stage 2 are written down before any Stage 3 run.
 - **Cost control.** A GPU-hour and $ estimate goes to the owner, and no pod is rented without the
   owner's OK. Pods self-terminate when the batteries finish. Pod IDs and spend are logged in
   EXECUTION_LOG.
+
+**Amendment 5 (2026-10-11, owner-requested; committed before any run). Rescue rerun of local Gemma-26B at batch size 1.**
+
+- **Why.** In Amendment 4 the local Gemma-26B-A4B (MoE) failed the 0.3-nat gate (pooled repeat SD 0.592) because its
+  bf16 output changed with batch composition; the dense 31B passed (0.114). Batch size 1 with deterministic kernels
+  removes batch composition as a source of variation.
+- **Label: rescue.** The direction of H4 in the Gemma family is already known from the gate-relaxed sensitivity
+  analysis (EXECUTION_LOG entry 6: H4 would be supported in 3 of 3 testable families, Gemma included). Every
+  result that uses this endpoint is reported as a rescue analysis, next to the Amendment 4 results, never in their
+  place.
+- **New endpoint `gemma-26b-local-bs1`.** Same checkpoint (`google/gemma-4-26b-a4b-it`), bf16, HF `transformers`
+  5.19.0, same battery (instruction v2; 5 arms, order subset, comprehension), same chat template, same P(A) rules
+  (top-5 primary, exact full-vocabulary secondary), activations at the same 6 layers.
+  - Batch size 1 for every forward pass in both replicates (no padding, no batching); replicate order differs.
+  - Deterministic kernels: `torch.use_deterministic_algorithms(True)`, `CUBLAS_WORKSPACE_CONFIG=:4096:8`, TF32 off,
+    cuDNN deterministic, fixed seeds.
+  - One A100 80GB pod with the CLAUDE.md tracking chain (heartbeat, per-unit verified uploads, teardown only after a
+    verified upload). Estimate ≈ 40–70 min, ≈ $1.5–2.5; caps 2.5 h / $6; GPU stage total stays under the $15 ceiling.
+- **Gate.** Applied unchanged. At batch size 1 the two replicates are expected to agree exactly, so the gate then
+  measures run-to-run determinism only; this is stated wherever the result is used.
+- **Analyses (all labelled rescue):**
+  1. Comprehension and gate as in Stage 1.
+  2. H1–H5 with the confirmatory set extended by the passing `gemma-26b-local-bs1` cells; Holm recomputed over all
+     extended cells; reported next to the Amendment 4 (15-cell) and original (12-cell) versions.
+  3. H4 Gemma family with the local pair `gemma-26b-local-bs1` → `gemma-31b-local` (one-sided bootstrap, Holm over
+     the 3 framings). The overall H4 rule ("≥ 3 of 4 families") is unchanged; at most 2 families are testable, so the
+     overall verdict cannot become "supported".
+  4. Secondary: local-vs-provider comparison for Parasail 26B and CoreWeave 26B against `gemma-26b-local-bs1`,
+     same method as Amendment 4 item 4.
+- **The batch effect is kept as data.** The batch-composition variation measured in Amendment 4
+  (`gemma-26b-local`: pooled SD 0.592, per arm 0.56–0.65 nats) is recorded as a jitter source for Stage 2: the
+  explicit-jitter mode may use σ = 0.592 for a "batched serving" variant of Gemma-26B. `gemma-26b-local` (batched)
+  stays in the record as run; nothing in Amendment 4 is replaced.
+- **Exploratory:** batched vs batch-size-1 26B, per prompt: the size and structure of the batch effect (which cells
+  move most).
