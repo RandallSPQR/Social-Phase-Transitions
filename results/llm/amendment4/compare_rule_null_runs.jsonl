@@ -44,3 +44,4 @@
 {"run": 23, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9986446698355103, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
 {"run": 24, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9952417812173834, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 25, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9952247029788034, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 26, "B": 1000, "noise": 0.3, "frac_agree": 0.8620689655172413, "slope": 0.9938678618255806, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
