@@ -68,3 +68,13 @@
 {"run": 47, "B": 1000, "noise": 0.3, "frac_agree": 0.8275862068965517, "slope": 1.005645031492607, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
 {"run": 49, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9981503015042041, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
 {"run": 48, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9996644158073473, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 50, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9943964700009985, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 51, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9912881428614279, "slope_ci_contains_1": false, "verdict": "jitter biases estimates"}
+{"run": 52, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9955109624389175, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 53, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9922650934531035, "slope_ci_contains_1": false, "verdict": "jitter biases estimates"}
+{"run": 54, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9914030838039816, "slope_ci_contains_1": false, "verdict": "jitter biases estimates"}
+{"run": 55, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0056037413288474, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 56, "B": 1000, "noise": 0.3, "frac_agree": 0.8275862068965517, "slope": 1.008086834421926, "slope_ci_contains_1": false, "verdict": "jitter biases estimates"}
+{"run": 57, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9995975240591924, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 58, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0058388708478145, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 59, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.002507431396129, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
