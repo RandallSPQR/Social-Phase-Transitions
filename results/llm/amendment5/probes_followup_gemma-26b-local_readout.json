@@ -1,0 +1,29 @@
+{
+ "key": "gemma-26b-local",
+ "layer": 30,
+ "cos_observed": {
+  "rival_majority": -7.598773412305154e-05,
+  "ally_majority": 0.038493242694303334,
+  "own": 0.07775299271959898
+ },
+ "isotropic": {
+  "mean": -0.0002914059656715598,
+  "sd": 0.019016896651764984,
+  "q95_abs": 0.03773411244877993
+ },
+ "shuffled_label": {
+  "mean": -0.0009486547902005317,
+  "sd": 0.014897795410451583,
+  "q95_abs": 0.030454553127255504
+ },
+ "percentile_abs_vs_shuffled": {
+  "rival_majority": 0.01,
+  "ally_majority": 0.99,
+  "own": 1.0
+ },
+ "percentile_abs_vs_isotropic": {
+  "rival_majority": 0.003,
+  "ally_majority": 0.957,
+  "own": 1.0
+ }
+}
