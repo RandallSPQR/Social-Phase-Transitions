@@ -10,3 +10,6 @@ results/llm/logs/runpod_launch.out
 results/llm/logs/stage3_run.log
 results/llm/logs/live/
 results/llm/logs/relay_*.out
+# live background-job logs and PID files (llm/bg.sh); final copies are committed with the results
+results/llm/logs/bg/
+results/llm/logs/pod_id.txt
