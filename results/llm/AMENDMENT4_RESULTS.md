@@ -3,6 +3,14 @@
 Pre-registration: `llm/PREREG.md`, Amendment 4 (committed before any GPU run). Execution record: `llm/EXECUTION_LOG.md`
 entries 23–34. Claims concern these two checkpoints served by HF `transformers` in bf16 on one A100, nothing wider.
 
+> **Revisions (2026-10-11; see `AMENDMENT5_RESULTS.md`).** (1) The local-vs-provider null was recalibrated at B = 1000
+> with 100 replications: the rule says "averages out" in 77% under identical truth and no replication falls as low
+> as 76%; only the Io Net 31B pair is a clean comparison, and its differences are real. Headline: provider choice
+> shifts prompt-format biases (h_L, h_O); social coefficients agree in two of three framings and differ by 7–9% in
+> workplace. (2) Probes: the "26B rival side decodable above the letter-count control" claim does not survive a CI;
+> the "rival direction orthogonal to the readout" statement is uninformative for 31B (all directions sit at
+> baseline) and is withdrawn. (3) The batch-size-1 rescue (Amendment 5) makes the Gemma-family H4 testable.
+
 ## Data
 
 - Endpoints `gemma-26b-local` (`google/gemma-4-26b-a4b-it`, MoE) and `gemma-31b-local` (`google/gemma-4-31b-it`,

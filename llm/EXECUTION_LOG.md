@@ -552,3 +552,24 @@ judgment calls, in time order (2026-10-08).
     - **Local-vs-provider framing check (31B, the clean pair):** format fields agree 7/10 (h_O ×2, h_L ×1
       disagree); social coefficients agree 9/12, the 3 disagreements all in workplace (b_a, b_r, β; 7–9% lower at
       the provider). The proposed headline needs this qualification.
+
+36. **Amendment 5 and follow-ups complete (2026-10-11).** Write-up: `results/llm/AMENDMENT5_RESULTS.md`; revision note
+    added to `AMENDMENT4_RESULTS.md`.
+    - Run `4p4a463q78clp0` (≈ 2 h 28 min, ≈ $4.40): 26B at batch size 1, deterministic; replicates identical; replicate
+      0 checkpointed and uploaded mid-run. GPU stage total ≈ $11.90 of $15.
+    - Rescue results: gate passes (repeat SD 0.000, determinism only); 18 confirmatory cells, no Amendment 4 verdict
+      changes; Gemma-family H4 (26B-bs1 → 31B) significant in all three framings (Holm 0.003); overall H4 still not
+      supported (2 of 2 testable; ≥ 3 of 4 required).
+    - Secondary: Parasail and CoreWeave vs the clean 26B agree at 86% and 83% (vs 76% against the batched 26B).
+    - Batch effect (exploratory): batched vs bs1 RMS 0.86 nats (unbiased, r 0.990, 2.5% majority flips); replicate
+      difference 0.59 understates it. Stage 2 "batched serving" σ ≈ 0.86.
+    - Null recalibrated at B = 1000, 100 replications: rule "averages out" 77% under identical truth; agreement 1st
+      percentile 83%, none ≤ 76% → the Io Net 31B pair's differences are real. Qualified headline: format biases
+      shift; social coefficients agree in 2 of 3 framings, 7–9% lower at the provider in workplace.
+    - Probe follow-ups (exploratory): 26B decodability above the letter-count control does not survive a CI; 31B
+      deconfounded rival signal from layer 30 (AUC up to 0.96); readout cosine uninformative in 31B (all directions at
+      baseline; earlier "orthogonal" statement withdrawn), discriminative in 26B (own 100th, ally 99th, rival 1st
+      percentile).
+    - Process: the first A5 pod was stopped after 8 min when its live ETA showed the run would exceed its deadline;
+      the null check was found oversubscribed (load 20 on 4 cores) and restarted single-threaded (100 replications
+      then took ~1 h); a monitor filter was silent because mawk buffers piped input (fixed with -W interactive).
