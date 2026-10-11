@@ -57,3 +57,14 @@
 {"run": 36, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 1.0025228915522904, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 37, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9973595495668681, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 38, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 1.0021090845195033, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 39, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9990564376970135, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 40, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.000090966858221, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 41, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0038510774237206, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 42, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0038945916518711, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 43, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0007676131354202, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 44, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.003630603902144, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 46, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0010071105481828, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 45, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0024358374755518, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 47, "B": 1000, "noise": 0.3, "frac_agree": 0.8275862068965517, "slope": 1.005645031492607, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 49, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9981503015042041, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 48, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9996644158073473, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
