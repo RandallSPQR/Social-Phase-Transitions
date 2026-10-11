@@ -47,10 +47,12 @@ def load(fits_dir):
 
 LOCAL = ["gemma-26b-local", "gemma-31b-local"]                      # PREREG Amendment 4
 LOCAL_H4 = ("gemma-26b-local", "gemma-31b-local")
+LOCAL_A5 = ["gemma-26b-local-bs1"]                                   # PREREG Amendment 5 (rescue)
+LOCAL_H4_A5 = ("gemma-26b-local-bs1", "gemma-31b-local")
 
 
 def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_path=None, out=None, relax_gate=False,
-         amendment4=False):
+         amendment4=False, amendment5=False):
     """relax_gate=True: post-data SENSITIVITY analysis (EXECUTION_LOG step 1a); every endpoint treated as passing
     the noise gate, primaries used. Outputs carry the suffix _sensitivity_gate_relaxed. Not confirmatory.
     amendment4=True: PREREG Amendment 4. The confirmatory set is extended to the local bf16 Gemma endpoints that pass
@@ -58,6 +60,11 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     uses the local pair (26B-A4B local -> 31B local), and that pair is also tested in its own right (Holm over the 3
     framings). Outputs carry the suffix _amendment4; the original Stage 1 outputs are not touched."""
     F = load(fits_dir)
+    h4_local = LOCAL_H4_A5 if amendment5 else LOCAL_H4
+    if amendment5:                                  # Amendment 5 = Amendment 4 + the rescue endpoint (labelled rescue)
+        amendment4 = True
+    else:
+        F = {k: v for k, v in F.items() if k not in LOCAL_A5}           # A4 / original never see the rescue endpoint
     if not amendment4:
         F = {k: v for k, v in F.items() if k not in LOCAL}             # the original analysis never sees them
     comp_path = comp_path or os.path.join(ROOT, "results", "llm", "comprehension_summary.csv")
@@ -65,12 +72,14 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     if amendment4:
         cl = pd.read_csv(os.path.join(ROOT, "results", "llm", "comprehension_local.csv")).set_index("key")
         comp = pd.concat([comp, cl])
+        if amendment5:
+            comp = pd.concat([comp, pd.read_csv(os.path.join(ROOT, "results", "llm", "comprehension_local_bs1.csv")).set_index("key")])
     gate = {k: True if relax_gate else not (pooled_sd(a) > NOISE_GATE) for k, a in F.items()}
-    sfx = "_sensitivity_gate_relaxed" if relax_gate else ("_amendment4" if amendment4 else "")
+    sfx = "_sensitivity_gate_relaxed" if relax_gate else ("_amendment5_rescue" if amendment5 else ("_amendment4" if amendment4 else ""))
     used = {resolve(k, F, gate) for k in WORKHORSES if k not in BACKUP_KEY.values()} - {None}
     if amendment4:
-        used |= {k for k in LOCAL if k in F and gate.get(k)}
-    h4_pairs = [LOCAL_H4 if amendment4 and p == ("gemma-26b", "gemma-31b") else p for p in H4_PAIRS]
+        used |= {k for k in LOCAL + (LOCAL_A5 if amendment5 else []) if k in F and gate.get(k)}
+    h4_pairs = [h4_local if amendment4 and p == ("gemma-26b", "gemma-31b") else p for p in H4_PAIRS]
     rows = []
     for key, arms in F.items():
         for arm, r in arms.items():
@@ -136,7 +145,7 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
     verdict = ("supported" if n_neu >= 3 else "not supported") + f" ({n_neu} of {n_testable} testable families significant in neutral; ≥3 of 4 required)"
     verdicts = {"H4_verdict": verdict}
     if amendment4:          # Gemma-family H4 in its own right: local pair, Holm over its 3 framings only
-        g = H4[(H4["family_pair"] == f"{LOCAL_H4[0]} -> {LOCAL_H4[1]}")].copy()
+        g = H4[(H4["family_pair"] == f"{h4_local[0]} -> {h4_local[1]}")].copy()
         gt = g["status"] == "tested"
         g.loc[gt, "holm_gemma_family"] = holm(list(g.loc[gt, "p_one_sided"])) if gt.any() else None
         H4.loc[g.index, "holm_gemma_family"] = g.get("holm_gemma_family")
@@ -158,4 +167,5 @@ def main(fits_dir=os.path.join(ROOT, "results", "llm", "fits", "main"), comp_pat
 
 
 if __name__ == "__main__":
-    main(relax_gate="--relax-gate" in sys.argv, amendment4="--amendment4" in sys.argv)
+    main(relax_gate="--relax-gate" in sys.argv, amendment4="--amendment4" in sys.argv,
+         amendment5="--amendment5" in sys.argv)
