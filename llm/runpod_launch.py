@@ -64,11 +64,14 @@ def start_cmd(code_rev):
             "echo 'job finished; idling until removed' >> /root/boot.log; sleep infinity")
 
 
+POD_ENV = {}          # extra pod environment (--pod-env KEY=VALUE), e.g. MODELS, LOCAL_ARGS, JOB_HOURS
+
+
 def create(code_rev):
     body = {"name": NAME, "imageName": IMAGE, "gpuTypeIds": A100, "gpuCount": 1, "cloudType": "SECURE",
             "containerDiskInGb": 50, "volumeInGb": 200, "volumeMountPath": "/workspace",   # pod-local volume for the
             # weights (deleted with the pod); never the owner's shared network volume "supportPublicIp": False,
-            "env": {"HF_TOKEN": os.environ["HF_TOKEN"], "PYTHONUNBUFFERED": "1"},
+            "env": {"HF_TOKEN": os.environ["HF_TOKEN"], "PYTHONUNBUFFERED": "1", **POD_ENV},
             "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(code_rev)]}
     r = requests.post(f"{REST}/pods", headers=H(), json=body, timeout=60)
     if r.status_code >= 300:
@@ -98,10 +101,12 @@ def terminate(pid, why):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code-rev"); ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--attach")
+    ap.add_argument("--pod-env", nargs="*", default=[], help="KEY=VALUE pairs passed to the pod")
     ap.add_argument("--poll", type=int, default=180); ap.add_argument("--force-try", type=int, default=900)
     ap.add_argument("--check", type=int, default=120); ap.add_argument("--max-hours", type=float, default=4.25)
     ap.add_argument("--max-spend", type=float, default=12.0); ap.add_argument("--max-wait-hours", type=float, default=72)
     a = ap.parse_args()
+    POD_ENV.update(kv.split("=", 1) for kv in a.pod_env)
     if a.attach:          # re-attach the watchdog to a running pod (spend = its own rate x uptime)
         p = pod(a.attach); import calendar; t0 = calendar.timegm(time.strptime(p["lastStartedAt"][:19], "%Y-%m-%d %H:%M:%S"))
         return watch(a.attach, t0, float(p["costPerHr"]), a)

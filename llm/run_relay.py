@@ -13,7 +13,7 @@ import requests
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPO_ID = "RandallSPQR/social-phase-transitions-llm-cache"
 REST = "https://rest.runpod.io/v1"
-MODELS = ["gemma-26b-local", "gemma-31b-local"]
+MODELS = ["gemma-26b-local", "gemma-31b-local"]          # default; --models overrides
 
 
 def hf_status(run):
@@ -95,7 +95,10 @@ def main():
     ap.add_argument("--cap-hours", type=float, default=4.25); ap.add_argument("--cap-spend", type=float, default=12.0)
     ap.add_argument("--rate", type=float, default=0.0); ap.add_argument("--once", action="store_true")
     ap.add_argument("--prior-spend", type=float, default=0.0, help="GPU-stage spend before this run (for the $15 ceiling)")
+    ap.add_argument("--models", nargs="+", default=None)
     a = ap.parse_args()
+    if a.models:
+        MODELS[:] = a.models
     out = os.path.join(ROOT, "results/llm/logs/live", f"{a.run}.json"); os.makedirs(os.path.dirname(out), exist_ok=True)
     hist, last_emit, last_key, t_start = [], 0.0, None, None
     while True:

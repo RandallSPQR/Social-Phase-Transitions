@@ -107,8 +107,11 @@ def compare_pair(loc_key, prov_key, label, B, stage1_dir, fits_dir, workers, see
     jobs = [(os.path.join(stage1_dir, loc_key + ".csv"), os.path.join(stage1_dir, prov_key + ".csv"), arm, B, seed + i)
             for i, arm in enumerate(ARMS)]
     from functools import partial
-    with ProcessPoolExecutor(workers) as ex:
-        res = list(ex.map(partial(_cached, cache=cache), jobs))
+    if workers <= 1:                          # sequential (used inside the null check's own worker processes)
+        res = [_cached(j, cache) for j in jobs]
+    else:
+        with ProcessPoolExecutor(workers) as ex:
+            res = list(ex.map(partial(_cached, cache=cache), jobs))
     rows = [r for rr, _ in res for r in rr]
     T = pd.DataFrame(rows); T.insert(0, "pair", f"{prov_key} ({label}) vs {loc_key}")
     keep = ~T["coef"].isin(EXCLUDE_FROM_SLOPE)

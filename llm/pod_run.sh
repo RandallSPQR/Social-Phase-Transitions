@@ -8,7 +8,8 @@
 # End: all outputs uploaded and verified, retrying until the deadline; the pod removes itself ONLY after a verified
 # upload. If uploading never succeeds the pod stays up and the session watchdog ends it at its time cap.
 #
-# Env overrides (local end-to-end tests): RUN, MODELS ("model-id key;..."), DEVICE, MAX_PROMPTS, JOB_HOURS, NO_REMOVE.
+# Env overrides: RUN, MODELS ("model-id key;..."), DEVICE, MAX_PROMPTS, JOB_HOURS, NO_REMOVE, LOCAL_ARGS (extra
+# local_gemma.py flags for every model, e.g. Amendment 5: "--batch-size 1 --rep1-batch-size 1 --deterministic").
 set -uo pipefail
 REPO=${REPO:-/root/Social-Phase-Transitions}; export REPO
 RUN=${RUN:-${RUNPOD_POD_ID:-local-$(date +%s)}}; export RUN
@@ -38,7 +39,7 @@ EOF
 finish() {
   code=$1; trap - EXIT; trap '' TERM             # nothing may interrupt the final uploads
   kill "$TIMER" 2>/dev/null
-  pkill -f "llm/local_gemma.py" 2>/dev/null
+  [ -f "$LOGDIR/local_gemma.pid" ] && kill "$(cat "$LOGDIR/local_gemma.pid")" 2>/dev/null   # by PID, never by pattern
   phase finishing "exit $code"
   ok=0
   while [ "$(date +%s)" -lt $(( DEADLINE + ${FINAL_RETRY_S:-1800} )) ]; do
@@ -74,11 +75,11 @@ for spec in "${SPECS[@]}"; do
   python llm/pod_tracker.py download --run "$RUN" --model "$MID" 2>&1 | tee -a "$LOG"
   [ "${PIPESTATUS[0]}" = 0 ] || { log "download failed for $MID"; exit 2; }
   phase smoke "$KEY"
-  python llm/local_gemma.py --model-id "$MID" --key "${KEY}-smoke" --max-prompts 40 --device "$DEVICE" 2>&1 | tee -a "$LOG"
+  python llm/local_gemma.py --model-id "$MID" --key "${KEY}-smoke" --max-prompts 40 --device "$DEVICE" ${LOCAL_ARGS:-} 2>&1 | tee -a "$LOG"
   [ "${PIPESTATUS[0]}" = 0 ] || { log "smoke test failed for $KEY"; exit 3; }
   python llm/pod_tracker.py upload --run "$RUN" --key "${KEY}-smoke" 2>&1 | tee -a "$LOG"
   phase main "$KEY"
-  python llm/local_gemma.py --model-id "$MID" --key "$KEY" --device "$DEVICE" ${MAX_PROMPTS:+--max-prompts $MAX_PROMPTS} 2>&1 | tee -a "$LOG"
+  python llm/local_gemma.py --model-id "$MID" --key "$KEY" --device "$DEVICE" ${MAX_PROMPTS:+--max-prompts $MAX_PROMPTS} ${LOCAL_ARGS:-} 2>&1 | tee -a "$LOG"
   [ "${PIPESTATUS[0]}" = 0 ] || { log "main run failed for $KEY"; exit 4; }
   phase upload "$KEY"
   python llm/pod_tracker.py upload --run "$RUN" --key "$KEY" 2>&1 | tee -a "$LOG"

@@ -65,8 +65,23 @@ def main():
     ap.add_argument("--batch-size", type=int, default=16); ap.add_argument("--max-prompts", type=int, default=None)
     ap.add_argument("--layer-fracs", default="0.1667,0.3333,0.5,0.6667,0.8333,1.0")
     ap.add_argument("--device", default="cuda")
+    ap.add_argument("--rep1-batch-size", type=int, default=None,
+                    help="replicate 1 batch size (default: batch_size // 2 + 3, a different batch composition)")
+    ap.add_argument("--deterministic", action="store_true",
+                    help="Amendment 5: deterministic kernels, TF32 off, fixed seeds (use with --batch-size 1 --rep1-batch-size 1)")
     a = ap.parse_args()
+    pid_dir = os.path.join(ROOT, "results", "llm", "logs"); os.makedirs(pid_dir, exist_ok=True)
+    open(os.path.join(pid_dir, "local_gemma.pid"), "w").write(str(os.getpid()))   # pod_run.sh stops it by PID
+    if a.deterministic:
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")       # must be set before CUDA initialises
     import torch
+    if a.deterministic:
+        torch.use_deterministic_algorithms(True)
+        torch.backends.cudnn.deterministic = True; torch.backends.cudnn.benchmark = False
+        torch.backends.cuda.matmul.allow_tf32 = False; torch.backends.cudnn.allow_tf32 = False
+        torch.manual_seed(0); random.seed(0); np.random.seed(0)
+        print(f"deterministic mode: batch sizes {a.batch_size}/{a.rep1_batch_size}, "
+              f"CUBLAS_WORKSPACE_CONFIG={os.environ['CUBLAS_WORKSPACE_CONFIG']}", flush=True)
     from transformers import AutoTokenizer, AutoModelForCausalLM
     progress(key=a.key, stage="loading model", model=a.model_id)
     tok = AutoTokenizer.from_pretrained(a.model_id); tok.padding_side = "left"
@@ -110,7 +125,7 @@ def main():
     for rep in (0, 1):
         # padding-free batches: group prompts by exact token length; replicate 1 uses a different batch size and a
         # shuffled order within each length, so batch composition differs between replicates
-        bs = a.batch_size if rep == 0 else max(1, a.batch_size // 2 + 3)
+        bs = a.batch_size if rep == 0 else (a.rep1_batch_size or max(1, a.batch_size // 2 + 3))
         rr = random.Random(1)
         groups = {}
         for i in range(len(jobs)):
@@ -120,7 +135,7 @@ def main():
             g = groups[L] if rep == 0 else rr.sample(groups[L], len(groups[L]))
             batches += [g[k:k + bs] for k in range(0, len(g), bs)]
         if rep == 0:
-            bs1 = max(1, a.batch_size // 2 + 3)     # replicate 1's batch count, exactly
+            bs1 = a.rep1_batch_size or max(1, a.batch_size // 2 + 3)     # replicate 1's batch count, exactly
             n_total = len(batches) + sum(-(-len(g) // bs1) for g in groups.values())
             done_before = 0
         else:
