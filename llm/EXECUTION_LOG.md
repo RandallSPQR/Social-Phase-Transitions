@@ -528,3 +528,27 @@ judgment calls, in time order (2026-10-08).
       absent for 31B (0.71); rival direction orthogonal to the A−B readout at the last layer.
     - Process: the chain was killed by a container restart, rebuilt to save per unit, and resumed after a second
       restart; a probe AUC bug (saturated probabilities) was caught in the output and fixed before results were kept.
+
+35. **Owner's next list (2026-10-11) and Amendment 5.**
+    - **Process:** `llm/bg.sh` (own process group, PID file, stop by PID only; tested: the whole group stops, nothing
+      left over); rule added to CLAUDE.md. The pod runner writes its own PID file and the pod script stops it by
+      PID (no more `pkill -f` there either).
+    - **Amendment 5** committed before any run (7705d12): rescue rerun of local Gemma-26B at batch size 1 with
+      deterministic kernels; summarize `--amendment5` mode (original, gate-relaxed and Amendment 4 outputs
+      reproduce byte for byte). End-to-end CPU test of the exact configuration: replicates identical (max |Δ| 0.0).
+    - **First A5 pod `5407atbbj7bwit` stopped by us after 8 min (≈ $0.25):** the measured batch-size-1 rate (1.86
+      forward passes/s → ≈ 149 min for the main battery, ≈ 2.8 h in all) exceeded the pod's 2.2 h job deadline,
+      and the runner wrote its outputs only at the end, so the run would have been cut off with nothing saved.
+      Caught from the live ETA within 8 minutes. **Deviation from Amendment 5's caps** (my 40–70 min estimate was
+      wrong): job deadline 3.3 h, watchdog 3.5 h / $6.50; worst-case GPU stage total ≈ $13.7, under the owner's
+      $15 ceiling.
+    - **Runner checkpoint added:** replicate 0's outputs (CSVs + activations) are written and uploaded, verified,
+      as soon as replicate 0 finishes (`<key>-rep0`), so a late failure loses at most replicate 1.
+    - **Exploratory cubic analysis (`llm/cubic_31b.py`, Gemma-31B local):** political: T_aaa −0.48 [−0.84, −0.37]
+      dominates (CV gain alone 4.7%; full cubic 2.4%): a saturating ally response; neutral: T_rrr −0.36, T_aar
+      −0.36, T_arr +0.35 (CIs exclude 0), full cubic CV gain 3.0%. A pure majority rule (sign of M_a, M_r) is far
+      worse than linear (held-out CE +21% neutral, +55% political); adding it to the linear model gains ≤ 0.5%.
+      So the cubic effect is mild saturation, not a switch to majority rule.
+    - **Local-vs-provider framing check (31B, the clean pair):** format fields agree 7/10 (h_O ×2, h_L ×1
+      disagree); social coefficients agree 9/12, the 3 disagreements all in workplace (b_a, b_r, β; 7–9% lower at
+      the provider). The proposed headline needs this qualification.

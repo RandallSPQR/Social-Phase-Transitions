@@ -121,6 +121,30 @@ def main():
     rows = [[None, None] for _ in jobs]
     lens = [len(tok(t, add_special_tokens=False).input_ids) for t in texts]
     print(f"{a.key}: {len(jobs)} prompts, mean {np.mean(lens):.0f} tokens, layers {layers}/{n_layers}, |A ids|={len(A_ids)} |B ids|={len(B_ids)}", flush=True)
+    def write_outputs(key, reps):
+        """Write Stage 1 CSVs (main + comprehension) for the given replicates, activations and index under `key`."""
+        import csv
+        for phase in ("main", "comprehension"):
+            recs = []
+            for (ph, it), rr in zip(jobs, rows):
+                if ph != phase: continue
+                base = {k: v for k, v in it.items() if k != "prompt"}
+                base.update(counts="".join(map(str, it["counts"])), key=key, model=a.model_id, tag="local/bf16", temperature=1.0,
+                            served="local-hf-transformers", cost=0.0)
+                for rep in reps:
+                    recs.append({**base, "rep": rep, **rr[rep]})
+            d = os.path.join(ROOT, "results", "llm", "stage1", phase); os.makedirs(d, exist_ok=True)
+            keys = list(dict.fromkeys(k for r in recs for k in r))
+            with open(os.path.join(d, f"{key}.csv"), "w", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(recs)
+        ad = os.path.join(ROOT, "results", "llm", "activations", key); os.makedirs(ad, exist_ok=True)
+        for L in layers:
+            np.save(os.path.join(ad, f"layer_{L:03d}.npy"), acts[L])
+        with open(os.path.join(ad, "index.csv"), "w", newline="") as f:
+            w = csv.writer(f); w.writerow(["row", "phase", "arm", "question", "counts", "s0", "mapping", "order", "perm", "seq"])
+            for i, (ph, it) in enumerate(jobs):
+                w.writerow([i, ph, it["arm"], it.get("question", ""), "".join(map(str, it["counts"])), it["s0"], it["mapping"], it["order"], it["perm"], it["seq"]])
+
     t0 = time.time()
     for rep in (0, 1):
         # padding-free batches: group prompts by exact token length; replicate 1 uses a different batch size and a
@@ -166,28 +190,13 @@ def main():
             if s % 50 == 0:
                 print(f"  rep {rep} batch {s}/{len(batches)} {time.time() - t0:.0f}s", flush=True)
         done_before += len(batches)
+        if rep == 0:     # replicate-0 checkpoint: written and (on a pod) uploaded before replicate 1 starts
+            write_outputs(a.key + "-rep0", (0,))
+            if os.environ.get("RUN"):
+                import pod_tracker
+                pod_tracker.upload(os.environ["RUN"], a.key + "-rep0")
     progress(key=a.key, stage="writing outputs", model=a.model_id, done=done_before, total=done_before)
-    import csv
-    for phase in ("main", "comprehension"):
-        recs = []
-        for (ph, it), rr in zip(jobs, rows):
-            if ph != phase: continue
-            base = {k: v for k, v in it.items() if k != "prompt"}
-            base.update(counts="".join(map(str, it["counts"])), key=a.key, model=a.model_id, tag="local/bf16", temperature=1.0,
-                        served="local-hf-transformers", cost=0.0)
-            for rep in (0, 1):
-                recs.append({**base, "rep": rep, **rr[rep]})
-        d = os.path.join(ROOT, "results", "llm", "stage1", phase); os.makedirs(d, exist_ok=True)
-        keys = list(dict.fromkeys(k for r in recs for k in r))
-        with open(os.path.join(d, f"{a.key}.csv"), "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(recs)
-    ad = os.path.join(ROOT, "results", "llm", "activations", a.key); os.makedirs(ad, exist_ok=True)
-    for L in layers:
-        np.save(os.path.join(ad, f"layer_{L:03d}.npy"), acts[L])
-    with open(os.path.join(ad, "index.csv"), "w", newline="") as f:
-        w = csv.writer(f); w.writerow(["row", "phase", "arm", "question", "counts", "s0", "mapping", "order", "perm", "seq"])
-        for i, (ph, it) in enumerate(jobs):
-            w.writerow([i, ph, it["arm"], it.get("question", ""), "".join(map(str, it["counts"])), it["s0"], it["mapping"], it["order"], it["perm"], it["seq"]])
+    write_outputs(a.key, (0, 1))
     progress(key=a.key, stage="done", model=a.model_id, done=done_before, total=done_before, elapsed_s=time.time() - t0)
     print(f"done {a.key}: {len(jobs)} prompts x 2 reps in {time.time() - t0:.0f}s", flush=True)
 
