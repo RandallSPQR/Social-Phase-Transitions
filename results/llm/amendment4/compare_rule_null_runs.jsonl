@@ -83,3 +83,13 @@
 {"run": 62, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 1.0040846187314239, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
 {"run": 63, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 1.0040669279660692, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 64, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 1.000526175105705, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 65, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0046370738965749, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 66, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0045738958040422, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 67, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0007563274868883, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 68, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9942788433805523, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 69, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9915879277209397, "slope_ci_contains_1": false, "verdict": "jitter biases estimates"}
+{"run": 70, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0059586868718307, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 71, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9967228163165979, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 72, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0002711761078376, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 73, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9982773593063251, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 74, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 0.9988328808336192, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
