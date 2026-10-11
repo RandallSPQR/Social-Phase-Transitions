@@ -33,3 +33,14 @@
 {"run": 12, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9991314403167273, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 13, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9990640424065318, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
 {"run": 14, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.995851638493232, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 16, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0027388222273674, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 15, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9993825191899782, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 17, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 1.0013255288633816, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 18, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.004091120162285, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 19, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0018115073018778, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 20, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 1.0049926336157693, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 21, "B": 1000, "noise": 0.3, "frac_agree": 1.0, "slope": 1.0016762949715834, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 22, "B": 1000, "noise": 0.3, "frac_agree": 0.9655172413793104, "slope": 0.9934617979756076, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 23, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9986446698355103, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
+{"run": 24, "B": 1000, "noise": 0.3, "frac_agree": 0.9310344827586207, "slope": 0.9952417812173834, "slope_ci_contains_1": true, "verdict": "jitter averages out"}
+{"run": 25, "B": 1000, "noise": 0.3, "frac_agree": 0.896551724137931, "slope": 0.9952247029788034, "slope_ci_contains_1": true, "verdict": "jitter biases estimates"}
