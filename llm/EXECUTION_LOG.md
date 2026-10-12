@@ -618,3 +618,14 @@ judgment calls, in time order (2026-10-08).
     - K_avg vs K_live per step: |ΔP| 0.001–0.004 (0.03–0.07 nats) at P1–P4. Collectively K_avg passes 2 of P1–P4
       (misses P1 |m| z −1.8, P3 persistence by 0.0002) and matches K_live's predictions within 0.9 SD. Outcome map:
       K_live fails → no claim; open item is the live-vs-Markov persistence excess.
+
+40. **Residual test 1, heterogeneity (owner request 2026-10-12; plan and predictions committed first, 9c759f7).**
+    Results in `results/llm/RESIDUAL_TEST_RESULTS.md`.
+    - Runner gained `run_tag` for replicates (original chains replay byte-identically; pre-data checks pass); numeric
+      K_avg predictions for the replicate's starts committed with the plan.
+    - a) All 140,005 prompts = deterministic render of (c, s0, mapping, option order, contact order); one request body
+      per point; no agent-specific tokens (prediction confirmed).
+    - b) Pre-stated permutation test significant (Fisher p 0.008 agent, 0.003 position; P1, P4, P4-nc), contrary to
+      the prediction. Post-hoc stratified null (labels shuffled within (c, s0)): only P4-nc remains (p 0.01-0.04).
+    - c) Heterogeneous kernel (τ ≤ 0.11 logit) leaves the persistence excess unchanged (Stouffer +2.84 vs +2.72):
+      heterogeneity does not explain it. Test 2 (paid replicate) awaits approval.
