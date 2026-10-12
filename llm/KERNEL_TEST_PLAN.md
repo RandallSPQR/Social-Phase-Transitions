@@ -82,3 +82,31 @@ live system if this holds at ≥ 3 of P1–P4. P5 and the nc arms are reported, 
   - z_obs = (live observed − K_fixed mean) / K_fixed SD;
   - z_kernel = (K_live sim mean − K_fixed mean) / K_fixed SD.
 - Reported next to each other per point, primary measures first.
+
+## Amendment 1 (owner approval 2026-10-12, before any K_avg call)
+
+- **Approved:** K_avg with both options: 2 replicates per prompt for the logprob endpoints (P1–P4), 30 samples per
+  prompt for P5. Expected ≈ 7,500 calls, ≈ $0.58 at Stage 3 cost per call; hard budget stop $1.50.
+- **Fixed before the calls:**
+  - Contact orders: up to 8 distinct permutations per (c, s0, mapping), drawn without replacement by a seeded RNG
+    (all permutations when fewer than 8 exist).
+  - Prompts are rendered by `stage3.render_live` and verified by `stage3.check_prompt`, i.e. the live template.
+    Bodies are `battery.body`, as in Stage 1 and Stage 3.
+  - Invalid replies (leak > 5%, or not a single letter for P5) are excluded, as in Stage 1.
+  - Per prompt, P(A) is the mean over its replicates or samples. K_avg(c, s0) is the mean over the prompt's
+    presentations of P(choose P); in neutral framing, half from (c, s0) and half from the relabelled
+    (swapped c, −s0) prompts.
+  - Configurations the simulator reaches that never occurred live fall back to the K_fixed battery value.
+  - Uncertainty: logprob endpoints fixed; for P5, each prompt's share is drawn from Beta(1 + x, 1 + n − x) per run.
+  - The nc arms have no K_avg (not in the owner's P1–P5 list).
+- **Execution and record** (repo rule for paid jobs):
+  - Every call is appended to the on-disk cache as it returns (per-unit record; a rerun is free).
+  - Progress and spend are printed to the job log every 250 calls.
+  - An end-to-end run of 10 calls goes first.
+  - The full run is a background job with a PID file (`llm/bg.sh`).
+  - Afterwards the cache snapshots are uploaded to the private HF dataset and verified.
+- **What failure looks like:**
+  - A budget stop shows as "BUDGET STOP" in the log, with partial calls kept in the cache.
+  - An API error stalls the calls without a crash and shows as an error count in the progress line.
+  - A template mismatch aborts before any call.
+  - Missing prompts after the run are listed in the analysis and nothing is imputed.
