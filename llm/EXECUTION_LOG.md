@@ -573,3 +573,21 @@ judgment calls, in time order (2026-10-08).
     - Process: the first A5 pod was stopped after 8 min when its live ETA showed the run would exceed its deadline;
       the null check was found oversubscribed (load 20 on 4 cores) and restarted single-threaded (100 replications
       then took ~1 h); a monitor filter was silent because mawk buffers piped input (fixed with -W interactive).
+
+37. **Stage 3 harness audit (owner request 2026-10-12; plan committed first, 4c3924a).** No rerun, no fix, no API
+    call; results in `results/llm/STAGE3_AUDIT_RESULTS.md`, code `llm/stage3_audit.py`.
+    - B1–B11: all pass with zero mismatches over 140,005 cached calls (prompt text and raw replies recomputed
+      independently; exact replay of all 70 chains from the cache; live measures reproduced to 1e-16 by the
+      simulator's own measurement code; one provider per point, no fallback; 5 invalid replies, all resampled).
+    - A (surrogate mock through the unchanged harness): passes at P1, P3, P4, P5, P2-nc; fails the pre-stated rule at
+      P2 (29/40 repetitions inside, threshold 30) and P4-nc (live-seed run 0.511 vs 0.52). Post-hoc: the simulator on
+      the same 5 graphs matches the mock (paired |Δ| ≤ 0.013, |z| ≤ 2.3) and covers those intervals only 80–86%, so
+      the failures are interval coverage conditional on the graphs, not the harness. Live misses at P1, P3, P4, P5 and
+      the nc arms are 3.6–20 SD from the same-graph surrogate; P2's miss is −1.5/−1.0 SD (consistent with the
+      surrogate on these graphs). Pre-stated verdict unchanged.
+    - C: calibration-in-the-large within ±0.003 everywhere; slopes flagged at P3 (near-0/1 battery probabilities) and
+      P5 (30-sample battery shares). Post-hoc: on calls whose contact order equals the battery's, live pA matches the
+      battery (RMS logit 0.06–0.35); with a different order 0.44–0.97: per-call contact-order effects, absent from the
+      A3 surrogate.
+    - Audit-code bug found before reporting: the invalid-reply CSV kept only the last point's rows; fixed and the log
+      audit rerun.

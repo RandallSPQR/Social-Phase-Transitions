@@ -1,0 +1,247 @@
+{
+ "points": {
+  "P1": {
+   "endpoint": "qwen-122b",
+   "framing_arm": "neutral_own",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.025609401334867044,
+    "b_a": 0.8786676545351024,
+    "b_r": -0.15687190352815025,
+    "gamma": 2.1983309646771914,
+    "h_C": 0.0,
+    "h_L": -0.1417446555025864,
+    "h_O": 0.20978633680139505
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 8.326672684688674e-17
+  },
+  "P2": {
+   "endpoint": "qwen-9b",
+   "framing_arm": "political",
+   "rho": 0.5,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.6249526907751412,
+    "b_a": 0.9310476771152305,
+    "b_r": -0.25972630225699506,
+    "gamma": 2.4067159345220017,
+    "h_C": 0.4808140913227173,
+    "h_L": -0.05964649799919383,
+    "h_O": -0.0006519396369567786
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 5.551115123125783e-17
+  },
+  "P3": {
+   "endpoint": "llama-70b",
+   "framing_arm": "political",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.4179939492661923,
+    "b_a": 2.054373389188017,
+    "b_r": 1.3154307846933753,
+    "gamma": 5.845065722687529,
+    "h_C": -1.2601553168731396,
+    "h_L": 0.19519980704260423,
+    "h_O": 0.024131999091131503
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 1.1102230246251565e-16
+  },
+  "P4": {
+   "endpoint": "nemo-12b",
+   "framing_arm": "workplace",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.6725703485082185,
+    "b_a": 1.2647201098321041,
+    "b_r": -0.03580112988486206,
+    "gamma": 1.8528875379753027,
+    "h_C": 0.7585880686080774,
+    "h_L": 0.10738788503683948,
+    "h_O": -0.6587035951064664
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 1.1102230246251565e-16
+  },
+  "P5": {
+   "endpoint": "gpt6-luna",
+   "framing_arm": "neutral_own",
+   "rho": 0.0,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "MF",
+   "params_point_estimate": {
+    "p_voter": 0.23408104463842092,
+    "alpha": 0.881636642914803,
+    "b_a": 1.4507328201080596,
+    "b_r": 0.6841871953157935,
+    "gamma": 0.597030966389406,
+    "h_C": 0.0,
+    "h_L": -0.1210671861787517,
+    "h_O": 0.8441546651367748
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 9.020562075079397e-17
+  },
+  "P2-nc": {
+   "endpoint": "qwen-9b",
+   "framing_arm": "political",
+   "rho": 0.5,
+   "mode": "fields_only",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 0.0,
+    "alpha": 0.6249526907751412,
+    "b_a": 0.0,
+    "b_r": 0.0,
+    "gamma": 2.4067159345220017,
+    "h_C": 0.4808140913227173,
+    "h_L": -0.05964649799919383,
+    "h_O": -0.0006519396369567786
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 6.938893903907228e-17
+  },
+  "P4-nc": {
+   "endpoint": "nemo-12b",
+   "framing_arm": "workplace",
+   "rho": 0.25,
+   "mode": "fields_only",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 0.0,
+    "alpha": 0.6725703485082185,
+    "b_a": 0.0,
+    "b_r": 0.0,
+    "gamma": 1.8528875379753027,
+    "h_C": 0.7585880686080774,
+    "h_L": 0.10738788503683948,
+    "h_O": -0.6587035951064664
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": false,
+   "stage3_csv_changed_since_predictions_commit": false,
+   "max_abs_diff_interval_recomputed_vs_committed": 5.551115123125783e-17
+  }
+ },
+ "common": {
+  "predictions_commit": "878724e",
+  "per_call_L_O_redrawn": true,
+  "nocontacts_prediction": "fields_only rows (social terms and voter step zeroed) = the k = 0 update"
+ }
+}
