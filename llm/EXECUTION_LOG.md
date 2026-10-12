@@ -606,3 +606,15 @@ judgment calls, in time order (2026-10-08).
     - Amplification: battery vs live kernel per step |ΔP| 0.002–0.010 (0.07–0.36 nats) at P1–P4; A3 vs live 0.2–1.6
       nats → 3–20 SD collectively. Most of the Stage 3 miss is the parametric A3 surrogate, not the battery.
     - K_avg cost estimate: 5,292 calls, ≈ $0.28. Not run; awaiting approval.
+
+39. **Kernel test continued (owner approval 2026-10-12: neighbourhood test first, then K_avg with both options).**
+    - Neighbourhood/concurrency test (free): no dependence of live residuals on the 2-hop state, recently changed
+      contacts or time since the last update; a small same-time-window offset only at Io Net (ICC 0.003); live
+      trajectories visit ordinary configurations. No mechanism for the persistence excess found.
+    - K_avg (amendment 1 committed before calls, f6b1922): 10-call end-to-end test, then 11,992 calls, $0.58, 0 errors,
+      1 invalid; cache snapshots uploaded to the private HF dataset and verified. (Amendment text said ≈ 7,500 calls;
+      the true count is 11,992, same cost.) Two analysis-code bugs fixed before reading (P5 Beta series; fallback
+      metric).
+    - K_avg vs K_live per step: |ΔP| 0.001–0.004 (0.03–0.07 nats) at P1–P4. Collectively K_avg passes 2 of P1–P4
+      (misses P1 |m| z −1.8, P3 persistence by 0.0002) and matches K_live's predictions within 0.9 SD. Outcome map:
+      K_live fails → no claim; open item is the live-vs-Markov persistence excess.

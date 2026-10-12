@@ -97,3 +97,82 @@ Priced at the actual Stage 3 cost per call (`results/llm/kernel_test/K_avg_cost_
 Options that stay under $1:
 - 2 replicates per logprob prompt, for a noise floor: +$0.27.
 - 30 samples per P5 prompt instead of 4, as in Stage 1, since P5 has only 4–12 prompts per configuration: +$0.03.
+
+---
+
+# Update 2026-10-12: neighbourhood test and K_avg
+
+## Neighbourhood and concurrency test (free; post-hoc; `llm/kernel_neighbourhood.py`, `neighbourhood.json`)
+
+Residual of every live update relative to K_live(c, s0):
+
+- **Wider neighbourhood: no dependence.** Slopes on the 2-hop state, the number of contacts that changed since the
+  agent's previous update, and the time since that update: all |slope| ≤ 0.002 per SD, every CI contains 0. The one
+  exception is P2-nc, 2-hop, at +0.0003, which is negligible.
+- **Concurrency: one small effect, at one provider.** Calls served in the same 5 s window share a common offset only
+  at Io Net (Nemo, P4/P4-nc): F = 1.16, permutation p < 0.001, intra-window correlation 0.003, lag-1 correlation of
+  window means 0.10. Alibaba, Parasail and CoreWeave show no effect (p 0.22–0.74). This cannot explain the
+  persistence excess, which also appears at P3, P5 and P2-nc.
+- **Visited configurations: not unusual.** In the measured sweeps, the mean K_live flip probability of the
+  configurations the live trajectories visited is within −1.2 to +1.9 SD of K_live-simulated trajectories.
+- **Conclusion:** no mechanism is found in the logs. The modest persistence excess of the live trajectories over
+  every Markov kernel stays unexplained. The remaining test is the paid one: chains rerun strictly one at a time.
+
+## K_avg (approved; 11,992 calls, $0.58; amendment 1, f6b1922)
+
+- **Run:** 0 errors, 1 invalid reply, every call on its pinned provider; cache uploaded to the private HF dataset and
+  verified.
+- **Corrections to amendment 1's text:** the call count is 11,992, not ≈ 7,500 (the doubled logprob calls were
+  under-counted); the cost matches the estimate.
+- **Analysis bugs fixed before any reading:** the P5 Beta-draw table crashed (an unnamed series); the
+  "updates on fallback" metric used `isclose`, which matches P3's near-0/1 probabilities. Fallback is now tracked
+  explicitly and is 0% at every point: every live configuration was covered.
+
+### Per step: the order-marginalised battery recovers the live kernel
+
+Weighted by live visit frequency:
+
+| point | K_avg vs K_live: \|ΔP\| / \|Δlogit\| (nats) | K_fixed vs K_live: \|ΔP\| / \|Δlogit\| |
+|---|---|---|
+| P1 | 0.004 / 0.05 | 0.010 / 0.22 |
+| P2 | 0.002 / 0.03 | 0.008 / 0.16 |
+| P3 | 0.001 / 0.03 | 0.002 / 0.07 |
+| P4 | 0.003 / 0.07 | 0.008 / 0.36 |
+| P5 | 0.013 / 0.65 | 0.037 / 0.65 |
+
+### Collectively
+
+Pre-registered rule, live graphs and starts, R = 400:
+
+| point | measure | live | K_avg 90% interval | inside | z |
+|---|---|---|---|---|---|
+| P1 | \|m\| | 0.208 | [0.214, 0.396] | no | −1.8 |
+| P1 | persistence | 0.778 | [0.758, 0.816] | yes | −0.5 |
+| P2 | m | 0.561 | [0.505, 0.614] | yes | −0.1 |
+| P2 | persistence | 0.603 | [0.568, 0.641] | yes | −0.1 |
+| P3 | \|m\| | 0.101 | [0.095, 0.127] | yes | −1.0 |
+| P3 | persistence | 0.9908 | [0.974, 0.9906] | no (by 0.0002) | +1.6 |
+| P4 | m | 0.936 | [0.923, 0.951] | yes | −0.2 |
+| P4 | persistence | 0.897 | [0.854, 0.903] | yes | +1.2 |
+| P5 | \|m\| | 0.596 | [0.300, 0.596] | yes | +1.7 |
+| P5 | persistence | 0.660 | [0.396, 0.606] | no | +2.4 |
+
+**K_avg: 2 of P1–P4 (P2, P4) → does not reproduce.** The same count as K_live and K_fixed.
+
+- **K_avg and K_live make the same collective predictions.** At P1–P4, every primary measure's mean differs by at
+  most 0.9 SD of the K_live spread (P5: −0.9 for |m| and −2.35 for persistence).
+- So the order-marginalised one-shot battery predicts the population as well as the empirical live kernel does.
+  Both miss the live realisation in the same places (P1 |m|, P3 persistence), by 1.6–1.8 SD.
+
+## Where this stands on the outcome map
+
+- **K_live fails**, so the first branch governs: no claim until the gap between the live trajectories and any
+  Markov kernel in (c, s0) is explained.
+- Free checks so far (caching, drift, history, lag correlation, neighbourhood, concurrency) find nothing.
+- What the data show, recorded without a headline:
+  1. **The parametric A3 surrogate causes most of the Stage 3 miss:** 0.2–1.6 nats per step, 3–20 SD collectively.
+  2. **The fixed-order battery is close per step and is amplified only modestly** (≤ 3.4 SD, at P3).
+  3. **The order-marginalised battery reproduces the live kernel per step (≤ 0.004 in P at P1–P4)** and makes the
+     same collective predictions as the empirical live kernel.
+  4. **What remains is a small persistence excess of the live runs over every Markov kernel, with no identified
+     cause.**

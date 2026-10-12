@@ -65,9 +65,9 @@
   },
   {
    "file": "meta-llama__llama-3.3-70b-instruct.jsonl.gz",
-   "bytes": 3188233,
-   "sha256": "a5242f5c7278d6dd490b29dbbd0fd75ddc5688e71756ec51f887c5eaadcec6b4",
-   "records": 38244
+   "bytes": 3390844,
+   "sha256": "e7a97b7bf5ce1dd7ad9569b0c1b98a76f20d5c943964930d7ef03e7b2b4628a3",
+   "records": 40964
   },
   {
    "file": "mistralai__mistral-large-4-0.jsonl.gz",
@@ -77,9 +77,9 @@
   },
   {
    "file": "mistralai__mistral-nemo.jsonl.gz",
-   "bytes": 5746384,
-   "sha256": "31ca3c6165906c255079ad9ac8ad3de314d55a24426d0c1ac30ffcf39972e845",
-   "records": 54323
+   "bytes": 6046296,
+   "sha256": "3d8f8c717fd857ab731e172d7f7d129f97c121a9e4b38ac45a2695736a78c2c1",
+   "records": 57075
   },
   {
    "file": "mistralai__mistral-small-3.2-24b-instruct.jsonl.gz",
@@ -95,9 +95,9 @@
   },
   {
    "file": "openai__gpt-6-luna.jsonl.gz",
-   "bytes": 2635005,
-   "sha256": "cab24c4f6c71e2ced929bb820ad6b6a22fc343be0769396a3bdf99126828fac2",
-   "records": 44845
+   "bytes": 2743568,
+   "sha256": "363fb9ae87042e071ef9e865d6faa1d38650ddc823d12fb1b844b1712b711b24",
+   "records": 46765
   },
   {
    "file": "qwen__qwen3-235b-a22b-2507.jsonl.gz",
@@ -113,9 +113,9 @@
   },
   {
    "file": "qwen__qwen3.5-122b-a10b.jsonl.gz",
-   "bytes": 3450407,
-   "sha256": "54fa725f0fd3cd2240850547bcf56f2578315e7be834418aae0cb682846c633b",
-   "records": 34291
+   "bytes": 3600110,
+   "sha256": "d85a9f107d750261ff62594ad1769a7e18cbc7a3a0bdf84fb2f3eababa81ca69",
+   "records": 35819
   },
   {
    "file": "qwen__qwen3.5-27b.jsonl.gz",
@@ -125,11 +125,11 @@
   },
   {
    "file": "qwen__qwen3.5-9b.jsonl.gz",
-   "bytes": 5959932,
-   "sha256": "53a992b956639b09ebdf2752eba69221c02f07acbb682bcb0d92259f5c11a605",
-   "records": 56336
+   "bytes": 6292560,
+   "sha256": "06bb887156cf40e3a8e8655269f2871a5aa6df1a84eba7ab1ab718431a246690",
+   "records": 59408
   }
  ],
- "total_records": 410896,
- "total_bytes": 35856418
+ "total_records": 422888,
+ "total_bytes": 36949835
 }
