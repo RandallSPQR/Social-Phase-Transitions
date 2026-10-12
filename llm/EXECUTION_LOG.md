@@ -591,3 +591,18 @@ judgment calls, in time order (2026-10-08).
       A3 surrogate.
     - Audit-code bug found before reporting: the invalid-reply CSV kept only the last point's rows; fixed and the log
       audit rerun.
+
+38. **Three-kernel test, K_fixed and K_live (owner request 2026-10-12; plan and outcome map committed first, fe65958).**
+    No API calls. Results in `results/llm/KERNEL_TEST_RESULTS.md`; code `llm/kernel_test.py`.
+    - Table-lookup simulator = `surrogate.run` with only the update rule replaced; self-test vs `surrogate.run` passes.
+      The self-test caught a bug in the new code before any result (nc arms looked up unseen configurations); fixed.
+    - Pre-registered verdicts (P1–P4 passing): K_fixed (battery kernel) 2, K_fixed-A3 1, K_live 2 at n0 = 5, 20 and 100
+      → **K_live fails** → outcome-map branch "not Markov in configuration; investigate hidden state before claiming
+      anything". No claim made.
+    - Post-hoc investigation: K_live estimator unbiased in a known-answer test; no per-step hidden state (time
+      inhomogeneity, history dependence, lag-1 correlation all ≈ 0 within ±0.002–0.01; identical-prompt repeat noise
+      at Stage 1 level; no wall-clock drift). Live persistence nonetheless sits 1.6–2.3 SD above K_live at 5 of 7 points
+      (flip rate below at 7 of 7). Unresolved.
+    - Amplification: battery vs live kernel per step |ΔP| 0.002–0.010 (0.07–0.36 nats) at P1–P4; A3 vs live 0.2–1.6
+      nats → 3–20 SD collectively. Most of the Stage 3 miss is the parametric A3 surrogate, not the battery.
+    - K_avg cost estimate: 5,292 calls, ≈ $0.28. Not run; awaiting approval.
