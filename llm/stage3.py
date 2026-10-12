@@ -89,13 +89,24 @@ def check_prompt(prompt, framing, counts, s0, mapping, order, contacts=True):
 
 
 # ---------------------------------------------------------------- one chain
-def chain(pid, g, r, budget=None, call=None):
+def chain_rng(pid, g, r, run_tag=""):
+    """Per-chain RNG (start, agent draws, presentation). run_tag "" = the original Stage 3 run; a replicate uses its
+    own tag, so its starts and per-call randomisation are fresh while the graphs stay the same."""
+    return random.Random(_seed("stage3-chain", pid, g, r) if not run_tag else _seed("stage3-chain", run_tag, pid, g, r))
+
+
+def initial_state(pid, g, r, run_tag=""):
+    rng = chain_rng(pid, g, r, run_tag)
+    return np.array([1 if rng.random() < 0.5 else -1 for _ in range(N)], np.int64)
+
+
+def chain(pid, g, r, budget=None, call=None, run_tag=""):
     """Run (or replay from cache) one replica. Returns (updates DataFrame, states array [N_WARM+N_MEAS+1, N])."""
     key, framing, rho, contacts = POINTS[pid]
     model, tag, mode, roff, _ = E[key]
     call = call or (lambda b, rep: client.chat(b, rep=rep, budget_usd=budget))
     ip, nb, tie = graph(pid, g)
-    rng = random.Random(_seed("stage3-chain", pid, g, r))
+    rng = chain_rng(pid, g, r, run_tag)
     s = np.array([1 if rng.random() < 0.5 else -1 for _ in range(N)], np.int64)
     states, rows = [s.copy()], []
     for t in range(N_WARM + N_MEAS):
@@ -112,7 +123,7 @@ def chain(pid, g, r, budget=None, call=None):
                 prompt = render_live(framing, counts, s0, mapping, order, seq, contacts)
                 check_prompt(prompt, framing, counts, s0, mapping, order, contacts)
                 b = battery.body(model, tag, prompt, mode, roff, 1.0)
-                rec = call(b, f"stage3:{pid}:{g}:{r}:{t}:{u}:{att}")
+                rec = call(b, f"stage3{'-' + run_tag if run_tag else ''}:{pid}:{g}:{r}:{t}:{u}:{att}")
                 resp = rec["resp"]
                 if mode == "lp":
                     p = parse_lp(resp.get("first")); pA, leak = p["pA"], p["leak"]

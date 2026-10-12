@@ -191,13 +191,13 @@ def a3_kernel(row, k, rho):
 
 
 # ---------------------------------------------------------------- simulate one kernel
-def simulate(pid, table_fn, R, salt):
+def simulate(pid, table_fn, R, salt, starts=None):
     """table_fn(run, graph) -> table. Returns DataFrame of R mean-of-5 rows."""
     key, framing, rho, contacts = stage3.POINTS[pid]
     fl = pd.read_csv(os.path.join(ROOT, "results/llm/stage2/floor.csv"))
     floor = fl[(fl.graph == "rrg") & (fl.N == stage3.N)].groupby("rho").unsat_floor.mean().loc[rho]
     G = [stage3.graph(pid, g) for g in range(stage3.N_GRAPHS)]
-    S0 = [live_starts(pid, g) for g in range(stage3.N_GRAPHS)]
+    S0 = starts if starts is not None else [live_starts(pid, g) for g in range(stage3.N_GRAPHS)]
     f = sim(); rows = []
     for run in range(R):
         per = []
