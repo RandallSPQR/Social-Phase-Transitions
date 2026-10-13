@@ -184,3 +184,16 @@ fresh realisation.
   raw cache is never rewritten while the run is live.
 - Background job with a PID file. Self check-ins restart it if the container drops it.
 - **The primary analysis runs once, after all chains finish.**
+
+### Amendment 1, addendum: nc reference predictions (k = 0 K_avg battery, 32 calls, run 2026-10-13 before any replicate chain)
+
+Primary nc reference, simulated on the replicate's graphs and starts (R = 400; `results/llm/replicate/predictions.json`,
+`k_avg_nc_calls.csv`):
+
+| arm | m | persistence | flip rate |
+|---|---|---|---|
+| P2-nc | 0.186 [0.145, 0.228] | 0.770 [0.746, 0.796] | 0.024 [0.022, 0.027] |
+| P4-nc | 0.604 [0.572, 0.636] | 0.639 [0.611, 0.668] | 0.051 [0.047, 0.055] |
+
+**Runner:** `llm/stage3_replicate.py`. It was proved end to end in mock mode, with no API calls: 70 chains, 5
+streams, sentinels, heartbeats, an HF upload verified 148/148 files, and a restart that skips finished chains.
