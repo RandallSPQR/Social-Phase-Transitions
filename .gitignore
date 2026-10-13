@@ -13,3 +13,7 @@ results/llm/logs/relay_*.out
 # live background-job logs and PID files (llm/bg.sh); final copies are committed with the results
 results/llm/logs/bg/
 results/llm/logs/pod_id.txt
+
+# option B replicate: gzip copies of the live cache made for HF uploads (cache lives on HF, not in git); mock-run output
+results/llm/stage3_rep1/upload/
+results/llm/stage3_rep1_mock/
