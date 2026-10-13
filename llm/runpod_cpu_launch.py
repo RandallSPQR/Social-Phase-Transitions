@@ -57,7 +57,7 @@ def start_cmd(sha):
 def launch(a):
     sha = bundle()
     body = {"name": NAME, "imageName": IMAGE, "computeType": "CPU", "cpuFlavorIds": ["cpu3g"], "vcpuCount": 2,
-            "containerDiskInGb": 30, "cloudType": "SECURE",
+            "containerDiskInGb": 20, "cloudType": "SECURE",
             "env": {"HF_TOKEN": "{{ RUNPOD_SECRET_%s }}" % a.hf_secret, "OPENROUTER_API_KEY": "{{ RUNPOD_SECRET_%s }}" % a.or_secret,
                     "PYTHONUNBUFFERED": "1", "JOB_HOURS": a.job_hours, **({"E2E_TEST": "1"} if a.e2e else {})},
             "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(sha)]}
