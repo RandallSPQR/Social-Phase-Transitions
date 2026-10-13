@@ -20,3 +20,6 @@ results/llm/stage3_rep1_mock/
 # option B replicate outputs change every few minutes while the run is live; their durable record during the run is the
 # 15-min verified upload to the private HF dataset (runs/stage3-rep1/). Final outputs are committed once, with git add -f.
 results/llm/stage3_rep1/
+results/llm/amplification/locate/
+results/llm/amplification/locate2/
+results/llm/amplification/perturb/
