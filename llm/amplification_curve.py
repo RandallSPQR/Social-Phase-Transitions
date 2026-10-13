@@ -199,7 +199,7 @@ def graphs(pid, N):
 def job(args):
     """One unit = (stage, protocol, point, N, T): every setting, R runs each, common random numbers across settings."""
     stage, proto, pid, N, T, R = args
-    path = os.path.join(OUT, stage, proto, f"{pid}_N{N}_T{T:.4f}.parquet")
+    path = os.path.join(OUT, stage, proto, f"{pid}_N{N}_T{T:.4f}.csv.gz")
     if os.path.exists(path):
         return path
     calls = _calls(); G = graphs(pid, N)
@@ -219,8 +219,8 @@ def job(args):
     df = pd.DataFrame(rows); df["eps"] = df.setting.map(eps); df["filled_share"] = float(w[filled].sum())
     df["point"], df["N"], df["T"], df["proto"] = pid, N, T, proto
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    df.to_parquet(path + ".tmp", index=False); os.replace(path + ".tmp", path)
-    np.save(path.replace(".parquet", "_visits.npy"), vis)
+    df.to_csv(path + ".tmp", index=False, compression="gzip"); os.replace(path + ".tmp", path)
+    np.save(path.replace(".csv.gz", "_visits.npy"), vis)
     return path
 
 
@@ -250,7 +250,7 @@ def crossing(Ts, ua, ub):
 
 def locate(R):
     run_jobs([("locate", "eq", p, N, T, R) for p in PTS for N in NS for T in COARSE])
-    D = pd.concat([pd.read_parquet(os.path.join(OUT, "locate", "eq", f"{p}_N{N}_T{T:.4f}.parquet")) for p in PTS for N in NS for T in COARSE])
+    D = pd.concat([pd.read_csv(os.path.join(OUT, "locate", "eq", f"{p}_N{N}_T{T:.4f}.csv.gz")) for p in PTS for N in NS for T in COARSE])
     out = {}
     rng = np.random.default_rng(seed("amp-binder-boot"))
     for p in PTS:
