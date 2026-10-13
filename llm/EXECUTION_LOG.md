@@ -755,3 +755,9 @@ judgment calls, in time order (2026-10-08).
     Stage A2 first start: a stage-name check (`stage == "locate"`) let A2 units simulate every perturbation as well
     (about 30× slower). It was stopped after 4 units at T ≤ 0.25, and those files were deleted unread. The check is now
     `startswith("locate")`, and A2 was restarted from scratch.
+
+56. **Amplification stage A2 (amendment 1), base kernels only.** P1 T_c = 1.93 (95% CI 1.92–1.96) from the
+    U(400)–U(1600) crossing. Checks agree: U(100)–U(400) at 2.02, scaled-m² crossing at 2.02. Below T ≈ 0.65 the
+    dynamics are frozen (N = 1,600: hot start |m| 0.07–0.45, cold start 0.99), not a disordered phase. P2 and P4 show
+    no crossing in [1, 3]. Stage B: W = M = 500 (hot/cold gap ≤ 0.017 on the band), R = 400; band 1.21–3.10, plus the
+    coarse points outside it and T = 1. The Stage 3 temperature is T/T_c ≈ 0.52, deep in the ordered phase.
