@@ -679,3 +679,11 @@ judgment calls, in time order (2026-10-08).
     lost (at most ~9 min of calls, a few cents). It is not part of the replicate: the next run redoes those chain steps
     from the last HF state with the same prompts (deterministic per-chain RNG), so no data are biased. Pod cost of both
     tests ≈ $0.05. A third test pod follows before the full launch.
+
+47. **Correction to entry 46, and the end-to-end test (2026-10-13).** Test pod `4np9j3upf9p17c`'s data were NOT lost:
+    its final-upload retry loop failed 7 times while the token was read-only, then verified 16/16 files at 04:06:25 UTC
+    once the owner made the token writable; I terminated it at 04:06:27, 2 s after that verification (its start record
+    is in interruptions.jsonl). Test pod `ts8ufqgcra5s7i` (04:06:43-04:18 UTC) then proved the whole pod chain:
+    secrets resolved (reported by length only), restore from HF, resumed run, heartbeat upload verified 16/16, chain
+    P3 g0 r1 saved, deadline stop, final upload verified 18/18 on the first attempt, then self-removal (pod gone, 404).
+    Replicate spend so far ≈ $0.97 (API) + ≈ $0.07 (test pods). Full pod launched next (JOB_HOURS 40).
