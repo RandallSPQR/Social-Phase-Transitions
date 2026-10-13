@@ -696,3 +696,10 @@ judgment calls, in time order (2026-10-08).
     most the calls between the 07:20:52 upload and the end (≈ 2 min); those chain steps are redone from the HF state.
     Chain P2 g4 r1 was saved on the pod after the last upload, so it is redone in full. Relaunched from HF at the
     09:2x check-in; the new start record in interruptions.jsonl lists the chains mid-run.
+
+49. **Replicate interruption 5 (pod `cetayr8gsy6xcf` terminated externally ~12:24 UTC).** Same signature as entry 48:
+    healthy to the end (last heartbeat 12:16:35, 62/70 chains, API $5.16, RSS 1.9 GB of 8 GB, uploads verified; boot log
+    ends 12:24:04 mid-run without the runner's exit line), then REST 404. **Both pods lived ≈ 3 h** (04:19:01-07:22,
+    09:25:10-12:24): consistent with an external 3-hour lifetime limit on pods (not in this project's code: the pod only
+    removes itself after a finished run, and check-ins terminate only at 44 h / $8 / verified finish). Owner confirms
+    it was not them. Relaunched immediately; 8 chains remain (~1 h), inside the 3-h window.
