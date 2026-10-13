@@ -635,3 +635,10 @@ judgment calls, in time order (2026-10-08).
     ignore that a repeated prompt selects on the earlier choice (stay in 97-100% of pairs). Selection-corrected:
     excess -0.001 to +0.003 (two marginal at logprob points = draw luck). Pre-stated re-simulation: the biased excess
     overshoots (persistence Stouffer -13.4); the corrected one leaves +1.74. No mechanism → option B with sentinels.
+
+42. **Option B replicate launched (2026-10-13 00:46 UTC).** Runner `llm/stage3_replicate.py` proved end to end in mock
+    mode (70 chains, 5 streams, sentinels, HF upload verified 148/148, restart skips finished chains). The k = 0 K_avg
+    battery (32 calls, $0.0003) ran first and the nc predictions were committed before any chain (93bd950). Live job
+    `rep1`: 5 streams, one call in flight per endpoint, sentinels every 5 min, heartbeats + verified HF uploads every
+    15 min to runs/stage3-rep1/, $7 cap. The pre-registered analysis code (`llm/stage3_replicate_analyse.py`) is
+    committed before the run finishes and was tested on the mock output only. Self check-ins scheduled.
