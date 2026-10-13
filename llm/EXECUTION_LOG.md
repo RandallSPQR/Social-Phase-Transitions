@@ -740,3 +740,8 @@ judgment calls, in time order (2026-10-08).
     earlier host's byte-identical request (valid, older by up to ~3 h); 6,656 orphaned calls ($0.27). Combined
     persistence effect: original +0.0116 [+0.0033, +0.0200], replicate −0.0051 [−0.0135, +0.0033], pooled +0.0033
     [−0.0026, +0.0093]; between-run heterogeneity Q = 7.6 (p 0.006).
+
+54. **Amplification curve: plan committed before any run (`llm/AMPLIFICATION_PLAN.md`, owner spec).** Temperature axis
+    (per-prompt logits / T on K_avg; 1/T rule assumed for Qwen-122B and Nemo-12B), N = 100/400/1600 random-regular
+    d = 4, T_c from the Binder crossing; synthetic and real error-shape perturbations; amplification = |Δ| / per-step
+    nats with bootstrap CIs; decisive test H1 (N-growth at T_c) + H2 (beyond the controls P2, P4). Simulation only.
