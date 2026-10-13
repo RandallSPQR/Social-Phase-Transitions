@@ -183,3 +183,53 @@ applies.**
 - Remaining caveat: per-point collective misses still occur at about the rate seen originally (2 of 4 points), in both
   directions. This fits small per-step errors (|ΔP| ≈ 0.003) being amplified collectively, as measured in
   `KERNEL_TEST_RESULTS.md`, and not a systematic persistence bias.
+
+
+## Replay audit of the replicate (plan: `llm/REPLAY_AUDIT_PLAN.md`, f06db97; code `llm/replicate_replay_audit.py`)
+
+All 70 chains were replayed by the unchanged harness on each chain's recorded graph, with a cache-only lookup by the
+exact request key. No request was sent.
+
+| check | result | evidence |
+|---|---|---|
+| R1 | PASS | 0 cache misses over 140003 replayed calls |
+| R2 | PASS | 70/70 chains reproduce log, pA and states exactly |
+| R3 | PASS | 70/70 chains with exactly 2,000 updates, complete (sweep, step), 21 states |
+| R4 | PASS | 23 resume points in 17 chains, all consecutive (non-consecutive 0); re-drawn keys 0; 730 replies in 5 chains reused from an earlier host's identical request |
+| R5 | PASS | provider mismatches 0, pin violations 0 |
+| R6 | PASS | calls used = 2,000 + resamples in every chain: True; P1 inv 0 res 0 kept 0; P2 inv 1 res 1 kept 0; P2-nc inv 2 res 2 kept 0; P3 inv 0 res 0 kept 0; P4 inv 0 res 0 kept 0; P4-nc inv 0 res 0 kept 0; P5 inv 0 res 0 kept 0 |
+| R7 | PASS | configurations recomputed on the recorded graph match the log in every update (part of R2) |
+
+- **Resume points** (`replay_audit/boundaries.csv`): 23 in 17 chains, every one consecutive in (sweep, step). No
+  request key appears twice in the cache, so no update was re-drawn. RNG continuity holds: one unbroken seeded RNG per
+  chain reproduces every chain exactly across its boundaries.
+- **Reused replies:** 730 replies in 5 chains (the first chain of each stream) came from an earlier host's
+  byte-identical request.
+  - Mechanism: a pod redoing a chain on its own graph rendered, at that step, the same prompt and tag that an earlier
+    host had sent, so the same request key matched the cached reply.
+  - Each reply is a genuine reply to that exact request and was used once. Those calls are up to ≈ 3 h older than the
+    rest of their chain.
+- **Orphaned records:** 6,656 cached replicate calls ($0.27) are used by no final chain. They are the session
+  container's calls on the original graphs, before the pods redid those chains.
+- **Verdict:** audit PASS.
+
+## Combined effect size of the persistence excess (original run + replicate; `persistence_effect_combined.json`)
+
+Effect = observed persistence − K_avg reference mean on that run's actual graphs and starts; fixed-effect inverse-
+variance pooling over P1–P4, P2-nc, P4-nc. The original nc arms were re-referenced to the k = 0 K_avg battery,
+simulated on the original graphs.
+
+| | raw effect [95% CI] (persistence units) | standardised mean z [95% CI] | pre-registered verdict |
+|---|---|---|---|
+| original run | +0.0116 [+0.0033, +0.0200] (z +2.73) | +1.17 [+0.37, +1.97] | K_live fails (2 of P1–P4) |
+| replicate | -0.0051 [-0.0135, +0.0033] (z -1.18) | -0.17 [-0.97, +0.63] | excess does not repeat (Stouffer Z = −0.42) |
+| pooled (fixed effect) | +0.0033 [-0.0026, +0.0093] (z +1.11) | +0.50 [-0.07, +1.06] | — |
+
+- **The runs are heterogeneous:** Cochran's Q = 7.6 (df 1, p = 0.006).
+  - A fixed-effect pooled estimate is therefore a weak summary.
+  - The excess (≈ +0.012) is present in the original run, largest at P4-nc (z +3.2), and absent in the replicate.
+- **Asymmetry rule:** the replicate both removed our own concurrency and was a fresh realisation. The disagreement
+  between the runs leans towards concurrency rather than realisation noise, but this is post hoc and the two are not
+  separable.
+- **P5** (not counted): +0.157 (z +2.4) original, +0.091 (z +1.6) replicate.
+- **P3 |q|** stays marked invalid: its graph-0 replicas ran on different graphs.

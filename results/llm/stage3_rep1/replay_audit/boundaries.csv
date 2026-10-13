@@ -1,0 +1,24 @@
+chain,before,after,host_before,host_after,consecutive,time_gap_min
+P1:0:0,sweep 3 step 88 att 1,sweep 3 step 89 att 1,4np9j3upf9p17c,ts8ufqgcra5s7i,True,8.8
+P1:0:0,sweep 10 step 60 att 1,sweep 10 step 61 att 1,ts8ufqgcra5s7i,ojaz7c51i59doy,True,3.5
+P1:3:0,sweep 12 step 53 att 1,sweep 12 step 54 att 1,ojaz7c51i59doy,cetayr8gsy6xcf,True,127.4
+P2:0:0,sweep 6 step 11 att 1,sweep 6 step 12 att 1,4np9j3upf9p17c,ts8ufqgcra5s7i,True,8.8
+P2:0:0,sweep 14 step 23 att 1,sweep 14 step 24 att 1,session-container,ojaz7c51i59doy,True,174.9
+P2:4:1,sweep 19 step 26 att 1,sweep 19 step 27 att 1,ojaz7c51i59doy,cetayr8gsy6xcf,True,127.2
+P3:0:0,sweep 11 step 87 att 1,sweep 11 step 88 att 1,session-container,session-container,True,16.6
+P3:0:0,sweep 17 step 49 att 1,sweep 17 step 50 att 1,session-container,session-container,True,0.4
+P3:0:1,sweep 9 step 46 att 1,sweep 9 step 47 att 1,4np9j3upf9p17c,ts8ufqgcra5s7i,True,8.7
+P3:1:0,sweep 10 step 76 att 1,sweep 10 step 77 att 1,ts8ufqgcra5s7i,ojaz7c51i59doy,True,3.5
+P4:0:0,sweep 6 step 21 att 1,sweep 6 step 22 att 1,4np9j3upf9p17c,ts8ufqgcra5s7i,True,8.8
+P4:0:0,sweep 18 step 27 att 1,sweep 18 step 28 att 1,ts8ufqgcra5s7i,ojaz7c51i59doy,True,3.5
+P5:0:0,sweep 0 step 2 att 1,sweep 0 step 3 att 1,session-container,4np9j3upf9p17c,True,178.1
+P5:0:0,sweep 4 step 14 att 1,sweep 4 step 15 att 1,4np9j3upf9p17c,ts8ufqgcra5s7i,True,9.0
+P5:0:0,sweep 10 step 2 att 1,sweep 10 step 3 att 1,ts8ufqgcra5s7i,ojaz7c51i59doy,True,3.7
+P5:2:0,sweep 13 step 47 att 1,sweep 13 step 48 att 1,ojaz7c51i59doy,cetayr8gsy6xcf,True,127.5
+P5:4:0,sweep 7 step 31 att 1,sweep 7 step 32 att 1,cetayr8gsy6xcf,xfwih37n1gc1zo,True,90.7
+P5:4:1,sweep 5 step 0 att 1,sweep 5 step 1 att 1,xfwih37n1gc1zo,awuyv140v54lxv,True,43.2
+P2-nc:3:1,sweep 17 step 78 att 1,sweep 17 step 79 att 1,cetayr8gsy6xcf,xfwih37n1gc1zo,True,90.2
+P2-nc:4:1,sweep 0 step 18 att 1,sweep 0 step 19 att 1,xfwih37n1gc1zo,awuyv140v54lxv,True,46.1
+P4-nc:0:0,sweep 4 step 8 att 1,sweep 4 step 9 att 1,ojaz7c51i59doy,cetayr8gsy6xcf,True,127.2
+P4-nc:3:1,sweep 13 step 98 att 1,sweep 13 step 99 att 1,cetayr8gsy6xcf,xfwih37n1gc1zo,True,90.1
+P4-nc:4:1,sweep 13 step 63 att 1,sweep 13 step 64 att 1,xfwih37n1gc1zo,awuyv140v54lxv,True,42.9

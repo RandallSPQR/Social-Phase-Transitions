@@ -733,3 +733,10 @@ judgment calls, in time order (2026-10-08).
     correlation null. Per-step kernel unchanged vs the original run. Map: excess does not repeat → narrowed headline,
     read as "realisation noise or our own concurrency; not separable" (asymmetry rule). Prevention: networkx pinned in the
     pod, graph-fingerprint assertion in `stage3.graph`, rule added to CLAUDE.md.
+
+53. **Replay audit of the replicate: PASS (plan f06db97).** 70/70 chains replayed exactly on their recorded graphs from the
+    cache (0 misses over 140,003 calls; logs, pA and states identical; 2,000 updates each; providers pinned; 3 resamples,
+    0 kept). 23 resume points, all consecutive, no re-drawn requests. 730 replies in 5 chains were reused from an
+    earlier host's byte-identical request (valid, older by up to ~3 h); 6,656 orphaned calls ($0.27). Combined
+    persistence effect: original +0.0116 [+0.0033, +0.0200], replicate −0.0051 [−0.0135, +0.0033], pooled +0.0033
+    [−0.0026, +0.0093]; between-run heterogeneity Q = 7.6 (p 0.006).
