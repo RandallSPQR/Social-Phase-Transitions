@@ -703,3 +703,12 @@ judgment calls, in time order (2026-10-08).
     09:25:10-12:24): consistent with an external 3-hour lifetime limit on pods (not in this project's code: the pod only
     removes itself after a finished run, and check-ins terminate only at 44 h / $8 / verified finish). Owner confirms
     it was not them. Relaunched immediately; 8 chains remain (~1 h), inside the 3-h window.
+
+50. **Replicate interruption 6: runner bug on a provider rate limit (pod `xfwih37n1gc1zo`, 13:43-14:30 UTC).** At
+    ~14:30 Parasail returned "qwen/qwen3.5-9b is temporarily rate-limited upstream" (HTTP 429) beyond the client's
+    retries. The runner (my code) then (a) stopped ALL streams on one stream's error and (b) reported "done" because
+    every stream had finished, so the pod made its verified final upload (14:30:24) and removed itself with 67/70
+    chains (P2-nc g4 r1, P4-nc g4 r1, P5 g4 r1 incomplete). No data lost. Fixed: a failing chain waits 120 s and resumes
+    from the cache (up to 30 times) while the other streams continue; only the budget stop halts all; "done" = every
+    chain saved. Tested locally in mock mode with an injected 429. This pod lived 47 min, so the ~3-h pattern
+    (entries 48-49) did not apply. Relaunched for the last 3 chains.

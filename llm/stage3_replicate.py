@@ -23,6 +23,7 @@ from run_stage1 import parse_lp, parse_sample
 TAG = "rep1"
 STREAMS = [("alibaba", ["P1"]), ("parasail", ["P2", "P2-nc"]), ("coreweave", ["P3"]), ("ionet", ["P4", "P4-nc"]), ("openai", ["P5"])]
 BUDGET = 7.0
+CHAIN_RETRIES, RETRY_WAIT_S = 30, int(os.environ.get("RETRY_WAIT_S", "120"))   # ~1 h of patience per chain
 
 
 class Cfg:
@@ -66,7 +67,13 @@ def sentinel_prompts(pid):
 
 
 # ---------------------------------------------------------------- mock agent (no API)
+_FAILED = set()
+
+
 def mock_call(body, rep):
+    f = os.environ.get("MOCK_FAIL_ONCE")
+    if f and rep.startswith(f) and f not in _FAILED:
+        _FAILED.add(f); raise RuntimeError("mock upstream 429 (test)")
     rng = random.Random(stage3._seed("rep-mock", rep))
     if body.get("max_tokens") == 1:
         pa = min(max(rng.random(), 1e-6), 1 - 1e-6)
@@ -190,7 +197,20 @@ class Run:
                             continue
                         with self.lock:
                             st["current"] = f"{pid} g{g} r{r}"
-                        df, states = stage3.chain(pid, g, r, call=wrapped, run_tag=TAG)
+                        for attempt in range(1, CHAIN_RETRIES + 1):   # transient provider errors (e.g. upstream 429):
+                            try:                                       # wait and resume the chain from the cache;
+                                df, states = stage3.chain(pid, g, r, call=wrapped, run_tag=TAG)   # other streams go on
+                                break
+                            except client.BudgetExceeded:
+                                raise
+                            except Exception as e:
+                                with self.lock:
+                                    st["errors"] += 1
+                                print(f"[{name}] chain {pid} g{g} r{r} error (attempt {attempt}/{CHAIN_RETRIES}), retry in "
+                                      f"{RETRY_WAIT_S} s: {repr(e)[:300]}", flush=True)
+                                if attempt == CHAIN_RETRIES:
+                                    raise
+                                time.sleep(RETRY_WAIT_S)
                         os.makedirs(d, exist_ok=True)
                         df.to_csv(os.path.join(d, f"g{g}_r{r}.csv.gz"), index=False)
                         np.save(os.path.join(d, f"g{g}_r{r}_states.npy"), states.astype(np.int8))
@@ -203,7 +223,7 @@ class Run:
         except Exception:
             with self.lock:
                 st["errors"] += 1
-            print(f"[{name}] STREAM ERROR\n{traceback.format_exc()}", flush=True); self.stop.set()
+            print(f"[{name}] STREAM ERROR (this stream ends; others continue)\n{traceback.format_exc()}", flush=True)
         with self.lock:
             st["finished"] = True; st["current"] = None
         # keep sentinels going until every stream has finished its chains
@@ -223,7 +243,9 @@ class Run:
             left = (v["chains_total"] - v["chains_done"]) * 2000
             v["eta_h"] = round(left / rate / 3600, 2) if rate > 0 and left > 0 else 0.0
         return dict(run=TAG, mock=self.cfg.mock, t=time.time(), elapsed_h=round(el / 3600, 3), spend_usd=round(self.spend(), 4),
-                    budget_usd=BUDGET, streams=s, stopped=self.stop.is_set(), done=all(v["finished"] for v in s.values()))
+                    budget_usd=BUDGET, streams=s, stopped=self.stop.is_set(),
+                    done=all(v["chains_done"] >= v["chains_total"] for v in s.values()),   # done = every chain saved
+                    streams_finished=all(v["finished"] for v in s.values()))
 
     def heartbeat(self, final=False):
         st = self.status()
