@@ -649,3 +649,10 @@ judgment calls, in time order (2026-10-08).
     0 OOM kills), so the run did not cause it, but its footprint was cut anyway: `CLIENT_SLIM=1` keeps only replies in
     the in-memory cache index (1.6 → 1.1 GB at load); heartbeats now report RSS and peak RSS. Resumed from the cache
     (finished calls replay free; sentinel rounds continue from the same t0, leaving a gap in the drift trace).
+
+44. **Replicate halted: the session container is reclaimed when the session goes idle (2026-10-13).** Second
+    interruption at 01:29:20 UTC, about 1–2 min after the session's turn ended; the first (00:59:20) also followed the
+    end of a turn. Container uptime reset both times; no memory limit or OOM involved. Background jobs therefore do not
+    survive this environment between turns, so a 27-h run cannot be hosted here. Progress kept (local cache, uploaded
+    and verified to HF runs/stage3-rep1/): 1 of 70 chains complete, ≈ 9,400 chain calls and the sentinel rounds so far,
+    $0.39. Self check-in cancelled; awaiting the owner's choice of host.
