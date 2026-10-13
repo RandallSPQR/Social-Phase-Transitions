@@ -687,3 +687,12 @@ judgment calls, in time order (2026-10-08).
     secrets resolved (reported by length only), restore from HF, resumed run, heartbeat upload verified 16/16, chain
     P3 g0 r1 saved, deadline stop, final upload verified 18/18 on the first attempt, then self-removal (pod gone, 404).
     Replicate spend so far ≈ $0.97 (API) + ≈ $0.07 (test pods). Full pod launched next (JOB_HOURS 40).
+
+48. **Replicate interruption 4 (pod `ojaz7c51i59doy` disappeared, 2026-10-13 ~07:22 UTC).** The pod ran 04:19:34-~07:22 UTC
+    healthy (last heartbeat 07:20:52: 35+ chains, API $4.53, RSS 1.6 GB of 8 GB, every upload verified; boot log ends
+    07:22 without an error). At the 09:23 check-in the pod no longer existed (REST 404 = terminated, not stopped). It
+    did not remove itself (that requires a finished run; status said not done) and the 06:52 check-in did not
+    terminate it (no cap near). Cause unknown: terminated outside this project's code (RunPod host or manual). Lost: at
+    most the calls between the 07:20:52 upload and the end (≈ 2 min); those chain steps are redone from the HF state.
+    Chain P2 g4 r1 was saved on the pod after the last upload, so it is redone in full. Relaunched from HF at the
+    09:2x check-in; the new start record in interruptions.jsonl lists the chains mid-run.
