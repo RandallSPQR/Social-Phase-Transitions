@@ -129,3 +129,33 @@ Ink: no gridlines, no boxes, range frames, direct labels, a single accent colour
 Any change to the above is logged in `llm/EXECUTION_LOG.md` as a deviation before the affected result is looked at.
 Compute is about 2 CPU-hours on this container (benchmark: 3 / 11 / 25 ms per equilibrium run at N = 100 / 400 /
 1600). If the container is reclaimed, the run resumes per unit.
+
+## Amendment 1 (2026-10-13, after stage A, before any perturbation run): locating T_c
+
+**What stage A showed.** These are base kernels only, from `locate.json`.
+- P1 has |m| > 0.5 only for T ≈ 0.8–1.6. It is disordered both above that band and below it.
+- **The "first ascending crossing" rule in the code picked a spurious crossing.** It returned T = 0.36, where the
+  N = 400 and 1,600 Binder values are negative and noisy. That is not the order–disorder transition. The plan text
+  did not anticipate more than one crossing.
+- **N = 1,600 is not equilibrated in 200 sweeps.** U(1600) < U(400) throughout the ordered band, so the U(400)–U(1600)
+  curves do not cross cleanly at the upper edge either.
+- No perturbation has been simulated.
+
+**Stage A2.** Base kernels only; it decides T_c and the protocol length before stage B.
+- **Grid:** 13 geometric points over T ∈ [1.0, 3.0], which brackets the upper (order → disorder) edge. Plus the coarse
+  points T ≤ 0.8, with hot and cold starts only (see the next item).
+- **Starts:** two per run, random 50/50 (hot) and all +1 (cold). Runs are 1,000 warm-up + 1,000 measured sweeps,
+  R = 100 per start, for N = 100, 400 and 1,600.
+- **Equilibrated at T** means hot and cold mean |m| agree within 0.02 at N = 1,600.
+  - On the coarse low-T points, hot/cold disagreement marks **frozen (non-ergodic) dynamics**, not a disordered
+    phase. That region is reported as such and does not count as a transition.
+- **T_c** is the U(400)–U(1600) crossing (hot starts) inside [1.0, 3.0].
+  - If there is more than one, take the crossing nearest the T of the steepest drop of U(1600) (max |ΔU / Δlog T|).
+  - The U(100)–U(400) crossing and the scaled-m² crossing (N^½·⟨m²⟩, the mean-field scaling on random-regular
+    graphs) are reported as checks.
+  - 95% CI from 200 run-bootstraps.
+  - If there is no crossing in [1.0, 3.0], the test cannot be run as specified (unchanged from §2).
+- **Stage B protocol length:** the shortest W = M ∈ {200, 500, 1000} at which hot and cold |m| at N = 1,600 agree
+  within 0.02 at every T of the stage B fine band. R = 400 if W ≤ 500, else R = 200.
+- **Everything else in §3–§7 is unchanged:** the fine band [T_c/1.6, 1.6·T_c], the coarse points outside it, T = 1,
+  the perturbations, the measures, and H1/H2. The low-T frozen region is "away from T_c" for expectation (ii).

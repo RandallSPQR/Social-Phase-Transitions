@@ -745,3 +745,10 @@ judgment calls, in time order (2026-10-08).
     (per-prompt logits / T on K_avg; 1/T rule assumed for Qwen-122B and Nemo-12B), N = 100/400/1600 random-regular
     d = 4, T_c from the Binder crossing; synthetic and real error-shape perturbations; amplification = |Δ| / per-step
     nats with bootstrap CIs; decisive test H1 (N-growth at T_c) + H2 (beyond the controls P2, P4). Simulation only.
+
+55. **Amplification stage A → Amendment 1 (deviation, before any perturbation run).** Base kernels: P1 is ordered only
+    for T ≈ 0.8–1.6 (disordered above; disordered or frozen below). The mechanical first-crossing rule returned
+    T = 0.36, a spurious crossing in the frozen region. N = 1,600 is not equilibrated in 200 sweeps. Stage A2
+    (hot/cold starts, 1,000 + 1,000 sweeps, fine grid [1, 3]) now locates T_c at the order → disorder edge and fixes
+    the stage B protocol length by an equilibration rule. Stage A had also failed once on a missing parquet engine;
+    units are now stored as csv.gz.
