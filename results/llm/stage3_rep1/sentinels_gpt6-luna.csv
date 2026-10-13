@@ -1,0 +1,16 @@
+endpoint,sentinel,name,round,sample,t,pA,provider,cost
+gpt6-luna,0,near_half,0,0,1791852714.1417613,0.0,OpenAI,1.47e-05
+gpt6-luna,0,near_half,0,1,1791852715.0547817,0.0,OpenAI,1.47e-05
+gpt6-luna,0,near_half,0,2,1791852715.9660583,0.0,OpenAI,1.47e-05
+gpt6-luna,0,near_half,0,3,1791852719.4924781,0.0,OpenAI,1.47e-05
+gpt6-luna,0,near_half,0,4,1791852720.341302,1.0,OpenAI,1.47e-05
+gpt6-luna,1,typical_1,0,0,1791852721.3811994,0.0,OpenAI,1.47e-05
+gpt6-luna,1,typical_1,0,1,1791852722.3896608,1.0,OpenAI,1.47e-05
+gpt6-luna,1,typical_1,0,2,1791852723.2266526,0.0,OpenAI,1.47e-05
+gpt6-luna,1,typical_1,0,3,1791852724.143548,0.0,OpenAI,1.47e-05
+gpt6-luna,1,typical_1,0,4,1791852724.9946032,0.0,OpenAI,1.47e-05
+gpt6-luna,2,typical_2,0,0,1791852725.918982,0.0,OpenAI,1.47e-05
+gpt6-luna,2,typical_2,0,1,1791852726.7916305,0.0,OpenAI,1.47e-05
+gpt6-luna,2,typical_2,0,2,1791852727.7256136,0.0,OpenAI,1.77e-05
+gpt6-luna,2,typical_2,0,3,1791852728.621568,0.0,OpenAI,1.47e-05
+gpt6-luna,2,typical_2,0,4,1791852729.4091117,0.0,OpenAI,1.47e-05

@@ -1,0 +1,4 @@
+endpoint,sentinel,name,round,sample,t,pA,provider,cost
+nemo-12b,0,near_half,0,0,1791852712.799958,0.4378234991142019,Io Net,2.47536e-06
+nemo-12b,1,typical_1,0,0,1791852713.827406,0.994088931707431,Io Net,2.52504e-06
+nemo-12b,2,typical_2,0,0,1791852714.3960962,0.9984021542095791,Io Net,2.1564e-06
