@@ -101,3 +101,86 @@ mean 1.8–2.4 s by endpoint):
   - Progress goes to stdout and the job log; budget stop at $7.
   - Background job with a PID file.
   - The container is ephemeral: a restart costs at most the calls in flight, and the run resumes from the cache.
+
+## Amendment 1 (owner decision 2026-10-13, before any paid call): option B, power, sentinels, identical-request test
+
+### 1. Power of option B
+
+- Original effect size: persistence z of the original live data against K_avg (P1 −0.50, P2 −0.13, P3 +1.62, P4
+  +1.17) and against K_live for the nc arms (P2-nc +1.67, P4-nc +2.32). Pooled Stouffer Z = **2.51**.
+- If the replicate's true effect equals this, its Z ~ N(2.51, 1): **power to reach Z ≥ 1.645 is 0.81**.
+- At 75% and 50% of that effect: 0.59 and 0.35.
+- The original estimate is selected (we are testing it because it looked large), so the true power is probably
+  below 0.81.
+- For reference, option C would have had 0.55 / 0.38 / 0.22.
+
+### 2. Interpretation asymmetry (added to the map)
+
+Option B changes two things at once: it removes our own concurrency (one call in flight per endpoint), and it is a
+fresh realisation.
+- **Excess repeats (Z ≥ 1.645)** → a real anomaly: not realisation noise, and not caused by our concurrency.
+- **Excess vanishes** → "realisation noise **or** our own concurrency; not separable". It is never reported as noise
+  alone.
+
+### 3. Provider-drift sentinels
+
+- Per endpoint, 3 fixed prompts, issued every 5 minutes for the whole run, interleaved in that endpoint's single
+  stream (so still one call in flight per endpoint). Endpoints whose chains finish early keep issuing sentinels
+  until the last stream ends.
+  - One prompt from the K_avg battery whose measured P(A) is closest to 0.5 for the endpoint's framing.
+  - Two prompts from the two most frequent live configurations, with fixed presentations.
+  - Logprob endpoints: 1 call per sentinel. P5 (sampled): 5 samples per sentinel.
+- Cache tags `sentinel-rep1:<endpoint>:<prompt>:<round>:<sample>`. Expected ≈ 8,700 calls (≈ 6% extra, not 1%; with
+  5-minute rounds over ≈ 27 h), ≈ $0.28.
+- **Pre-registered analysis:**
+  - Drift trace per endpoint: logit P(A) of each sentinel over time (P5: share A per round). The drift statistic is
+    the per-round mean logit deviation from the sentinel's whole-run mean, signed toward position P, plus the
+    variance of rounds over the measurement noise.
+  - Correlation test: per replicate chain (each occupies a contiguous time window in its stream), the mean sentinel
+    drift during the chain vs that chain's persistence and signed m (oriented to the field).
+  - Spearman per endpoint, combined over endpoints by Fisher's z; two-sided p < 0.05.
+  - Mechanism hypothesis: slow provider-side drift acts as a time-varying shared field.
+- Monitored during the run for operational health only. No interim look at the primary test.
+
+### 4. Identical-request dependence test (free; run before any paid call)
+
+- **How each live choice was produced:**
+  - Logprob endpoints (P1–P4, P2-nc, P4-nc): the provider returns the first-token top-5 logprobs, and the provider's
+    sampled token is not used. The choice is a **local draw**, letter A if `rng.random() < pA`. `rng` is the chain's
+    Python `random.Random` (Mersenne Twister), seeded by SHA-256 of ("stage3-chain", point, graph, replica). The same
+    stream also draws the updating agent and the per-call presentation.
+  - P5 (sampled endpoint): the choice is the **provider-sampled reply** (T = 1, max 8 tokens), parsed to one letter;
+    no local draw.
+- **Pairs:** within each chain, every call whose full prompt text exactly repeats an earlier call by the same agent,
+  paired with that agent's most recent identical call. The agreement is the same letter.
+- **Expected agreement under independence:**
+  - (i) the owner's: P² + (1 − P)², with P = K_live for that configuration, expressed in the prompt's letter space;
+  - (ii) the prompt-level: P1·P2 + (1 − P1)(1 − P2). Logprob endpoints use the two calls' own returned P(A). P5 uses
+    P(A) of that exact prompt text, estimated from all other live calls with the same text (both calls of the pair
+    left out).
+  - (i) is biased upward in agreement-deficit terms, i.e. it makes (i)-excess easier to find, because repeated full
+    prompts share their presentation, and E[p² + (1 − p)²] ≥ P̄² + (1 − P̄)². (ii) is the exact test, and is
+    primary.
+- **Test:** observed − expected agreement per point, chain-cluster bootstrap 95% CI (1,000 draws). Excess = the CI
+  under (ii) lies above 0 at a point.
+- **If excess:** re-simulate K_live with a repeat rule. When an agent's current prompt equals its previous one, its
+  choice repeats the earlier choice with the measured excess probability, otherwise it is drawn from the kernel.
+  Check whether this reproduces the persistence excess (Stouffer over P1–P4 + nc vs the homogeneous K_live sims).
+- **Outcome map (owner's):**
+  - excess agreement that reproduces the persistence excess → mechanism found (non-independent sampling on repeated
+    requests), and the replicate becomes confirmatory;
+  - no excess → run option B with sentinels as approved, with drift the leading remaining hypothesis.
+- **Prediction:** no excess at the logprob endpoints, because their draws are local and seeded independently of the
+  reply. P5 is the only point where provider-side sampling could carry dependence.
+
+### 5. Execution of option B
+
+- One stream per endpoint (Alibaba P1; Parasail P2 then P2-nc; CoreWeave P3; Io Net P4 then P4-nc; OpenAI P5), each
+  strictly sequential.
+- The k = 0 K_avg battery (32 calls) runs first, and its predictions for the nc arms are committed before any chain.
+- $7 budget stop. Resumable: per-call cache, and a chain file is saved when the chain ends.
+- Every 15 min: `status.json` (calls, spend, ETA per stream, sentinel health) and gzip copies of the five cache files
+  are uploaded to the private HF dataset under `runs/stage3-rep1/` and verified by a remote listing with sizes. The
+  raw cache is never rewritten while the run is live.
+- Background job with a PID file. Self check-ins restart it if the container drops it.
+- **The primary analysis runs once, after all chains finish.**
