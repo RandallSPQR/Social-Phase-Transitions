@@ -670,3 +670,12 @@ judgment calls, in time order (2026-10-08).
     the run state from HF runs/stage3-rep1/ and resumes. Sentinel drift is analysed within continuous segments only
     (analysis amended before any result); the primary persistence test uses the resumed cache as pre-registered.
     Mock-run files deleted from HF and locally (owner OK).
+
+46. **Replicate pod attempts (2026-10-13).** Test pod `tdq1s9av3qnema` (03:27-03:39 UTC) idled after boot with no
+    visible output, because the boot step logged to a file only. The boot was rewritten (stdout + boot-log heartbeat to
+    HF, secret presence by length) and tested locally end to end. Test pod `4np9j3upf9p17c` (03:49 UTC to its
+    termination on the owner's OK) ran but could not write to HF: the `HF_TOKEN` secret was read-only. The owner
+    replaced it with a write token. Whatever that pod collected in its ≤ 9-min test window was never uploaded and is
+    lost (at most ~9 min of calls, a few cents). It is not part of the replicate: the next run redoes those chain steps
+    from the last HF state with the same prompts (deterministic per-chain RNG), so no data are biased. Pod cost of both
+    tests ≈ $0.05. A third test pod follows before the full launch.
