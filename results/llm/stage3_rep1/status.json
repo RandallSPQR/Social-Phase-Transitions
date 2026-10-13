@@ -1,9 +1,9 @@
 {
  "run": "rep1",
  "mock": false,
- "t": 1791852683.6662817,
- "elapsed_h": 0.0,
- "spend_usd": 0.0003,
+ "t": 1791854388.378434,
+ "elapsed_h": 0.474,
+ "spend_usd": 0.3395,
  "budget_usd": 7.0,
  "streams": {
   "alibaba": {

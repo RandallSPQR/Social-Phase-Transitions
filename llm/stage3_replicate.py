@@ -13,7 +13,7 @@ counted from the cache records of this run, so it survives restarts).
 --mock: no API calls (a surrogate-mock agent answers), short intervals, output and HF path suffixed "-mock"; used to
 prove the whole chain (streams, sentinels, heartbeat, upload + verify, resume) before paying.
 """
-import argparse, gzip, json, math, os, random, sys, threading, time, traceback
+import argparse, gzip, json, math, os, random, shutil, sys, threading, time, traceback
 import numpy as np, pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import battery, client, stage3, kernel_test as K
@@ -228,9 +228,12 @@ class Run:
                     with gzip.open(os.path.join(up, os.path.basename(p) + ".gz"), "wb", compresslevel=6) as fo:
                         fo.write(b)
         files = {os.path.join(up, f): f"{self.cfg.hf_path}/cache/{f}" for f in os.listdir(up) if f.endswith(".gz")}
-        for f in os.listdir(self.cfg.out):
-            if f.endswith((".csv", ".json", ".txt")):
-                files[os.path.join(self.cfg.out, f)] = f"{self.cfg.hf_path}/{f}"
+        snap = os.path.join(up, "snap"); os.makedirs(snap, exist_ok=True)
+        with self.lock:                            # snapshot files the streams append to, so upload == verified size
+            for f in os.listdir(self.cfg.out):
+                if f.endswith((".csv", ".json", ".txt")):
+                    shutil.copyfile(os.path.join(self.cfg.out, f), os.path.join(snap, f))
+                    files[os.path.join(snap, f)] = f"{self.cfg.hf_path}/{f}"
         cd = os.path.join(self.cfg.out, "chains")
         for root, _, fs in os.walk(cd):
             for f in fs:
