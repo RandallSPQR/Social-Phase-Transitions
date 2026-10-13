@@ -201,7 +201,9 @@ class Run:
     def heartbeat(self, final=False):
         st = self.status()
         json.dump(st, open(os.path.join(self.cfg.out, "status.json"), "w"), indent=1)
-        print("HEARTBEAT " + json.dumps({k: st[k] for k in ("elapsed_h", "spend_usd", "done", "stopped")}) + " "
+        st["rss_mb"] = int(next(l.split()[1] for l in open("/proc/self/status") if l.startswith("VmRSS"))) // 1024
+        import resource; st["peak_rss_mb"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss // 1024
+        print("HEARTBEAT " + json.dumps({k: st[k] for k in ("elapsed_h", "spend_usd", "done", "stopped", "rss_mb", "peak_rss_mb")}) + " "
               + " | ".join(f"{n}: {v['chains_done']}/{v['chains_total']} ch, {v['calls']} calls, eta {v['eta_h']} h, sent {v['last_sentinel']}"
                            for n, v in st["streams"].items()), flush=True)
         try:

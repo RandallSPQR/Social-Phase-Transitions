@@ -642,3 +642,10 @@ judgment calls, in time order (2026-10-08).
     `rep1`: 5 streams, one call in flight per endpoint, sentinels every 5 min, heartbeats + verified HF uploads every
     15 min to runs/stage3-rep1/, $7 cap. The pre-registered analysis code (`llm/stage3_replicate_analyse.py`) is
     committed before the run finishes and was tested on the mock output only. Self check-ins scheduled.
+
+43. **Replicate interrupted by a container restart (2026-10-13 ~00:59 UTC); resumed 01:2x UTC.** The owner's app crashed
+    ("memory overload") and the session container restarted; the `rep1` process died 13 min into the run (last cache
+    write 00:59:20, ~3,400 chain calls done, all cached). No memory limit inside the container (cgroup peak 2.6 GB,
+    0 OOM kills), so the run did not cause it, but its footprint was cut anyway: `CLIENT_SLIM=1` keeps only replies in
+    the in-memory cache index (1.6 → 1.1 GB at load); heartbeats now report RSS and peak RSS. Resumed from the cache
+    (finished calls replay free; sentinel rounds continue from the same t0, leaving a gap in the drift trace).
