@@ -104,3 +104,82 @@ Test 2 has not been started. Cost options are in the plan.
 - **Outcome map → "no excess"**: option B runs with sentinels as approved, with provider drift as the leading
   remaining hypothesis. Realisation noise in the original local draws contributes part of the excess at P4 and
   P2-nc; the replicate's fresh draws address that.
+
+
+## Test 2: fresh live replicate (option B) — RESULT
+
+Run 2026-10-13 00:51–16:00 UTC. 70/70 chains plus drift sentinels (≈ 100 rounds per endpoint). API $5.29 of the $7
+stop; pod time ≈ $0.9. Execution record: EXECUTION_LOG entries 42–51.
+- Six interruptions, all logged with chains mid-run and resumed from the cache; drift is analysed within the 9
+  continuous segments: two session-container reclaims, two pods terminated externally after ≈ 3 h each, one runner
+  bug on a Parasail rate limit, and my own restart.
+
+**Deviation: graphs.** The pods built their random-regular graphs with networkx 3.3, preinstalled in the PyTorch image;
+my unpinned `pip install networkx` kept it. This session builds them with 3.7. Same generator and seeds, different
+graphs and tie signs.
+- Verified against every logged configuration: 69/70 replicate chains ran on the networkx-3.3 graphs; P3 g0 r0 ran on
+  the original graphs.
+- The replicate therefore ran on 5 other graphs per point drawn from the same ensemble, not on the original 5.
+- The pre-registered analysis (`analysis.json`; persistence Z = −0.48) predicted and measured on the wrong graphs. It
+  produced an artefact: excess unsatisfied ties 3.6–8.9 SD "too high", which is how the mismatch was found.
+- The mechanical reanalysis (`llm/stage3_replicate_reanalyse.py`, committed before it was run) uses the same kernel
+  tables, the same starts and the same rules, simulated and measured on the actual graphs (`reanalysis.json`). It is
+  the result reported below.
+- Graph-independent results stand as computed: the sentinels and the per-step kernel.
+- Prevention: networkx pinned in the pod, and `stage3.graph` now asserts the committed fingerprint of each original
+  graph (`results/llm/stage3/graph_hashes.json`).
+
+**Primary (pre-registered rule): Stouffer Z = -0.42 (one-sided p = 0.66); the excess does
+NOT repeat** (threshold 1.645).
+- Per-arm persistence z: P1 +1.24, P2 -0.95, P3 -1.80, P4 +1.67, P2-nc -0.97, P4-nc -0.20.
+- Flip-rate Stouffer +0.61.
+- Before the correction (wrong graphs) Z was −0.48, so the reading does not depend on the deviation.
+
+**Repeat-or-move:**
+- P1 |m| is no longer below its interval: z +1.53, high side.
+- P3 persistence is no longer above its interval: z -1.80, now just below.
+- Both original misses moved; neither repeated.
+
+**Per point** (observed mean of 5 [K_avg 90% interval on the actual graphs]; primary pass = both primary measures inside):
+
+| point | \|m\| | m | persistence | flip rate | excess unsat. | primary |
+|---|---|---|---|---|---|---|
+| P1 | 0.443 [0.282, 0.459] | -0.114 [-0.128, 0.103] | 0.819 [0.772, 0.824] | 0.026 [0.024, 0.031] | 0.120 [0.120, 0.142] **out** | pass |
+| P2 | 0.555 [0.531, 0.629] | 0.555 [0.531, 0.629] | 0.599 [0.585, 0.648] | 0.066 [0.054, 0.064] **out** | 0.292 [0.283, 0.308] | pass |
+| P3 | 0.181 [0.156, 0.189] | -0.101 [-0.112, -0.078] | 0.967 [0.968, 0.986] **out** | 0.003 [0.001, 0.002] **out** | 0.261 [0.252, 0.263] | miss |
+| P4 | 0.959 [0.923, 0.949] **out** | 0.959 [0.923, 0.949] **out** | 0.904 [0.855, 0.903] **out** | 0.021 [0.024, 0.032] **out** | 0.088 [0.089, 0.098] **out** | miss |
+| P5 | 0.293 [0.257, 0.542] | -0.157 [-0.200, 0.206] | 0.572 [0.385, 0.575] | 0.108 [0.102, 0.165] | 0.246 [0.201, 0.293] | pass |
+| P2-nc | 0.165 [0.150, 0.233] | 0.165 [0.143, 0.231] | 0.756 [0.747, 0.794] | 0.026 [0.022, 0.027] | 0.356 [0.333, 0.364] | pass |
+| P4-nc | 0.606 [0.572, 0.635] | 0.606 [0.572, 0.635] | 0.637 [0.615, 0.667] | 0.050 [0.047, 0.055] | 0.248 [0.234, 0.265] | pass |
+
+- P1–P4 pass 2 of 4 again (P3 persistence misses by 0.001, P4 m by 0.010). The misses fall on different points and in
+  different directions from the original run.
+- P3 |q| is not reported: its graph-0 replicas ran on different graphs, so their overlap is undefined.
+
+**Sentinels (pre-registered, graph-independent).**
+- Drift–chain correlation: persistence Z = -0.36 (p = 0.72), m Z = +0.65 (p = 0.51). No support for "slow
+  provider drift acts as a shared field".
+- Round-to-round variance over the Stage 1 repeat noise: qwen-122b 25.1 (lag-1 +0.32), llama-70b
+  6.2, qwen-9b 0.54, nemo-12b 1.05, gpt6-luna 0.90.
+- Alibaba and CoreWeave answer more variably over hours than within the Stage 1 repeats, but that drift does not track
+  the collective measures.
+
+**Per-step kernel, replicate vs original run** (descriptive, not pre-registered; graph-independent): weighted |ΔP|
+0.001–0.003 at P1–P4, 0.006 at P5. The agents' per-step behaviour did not change between the runs.
+
+## Interpretation (pre-registered map + asymmetry rule)
+
+| test | result |
+|---|---|
+| 1. Heterogeneity explains the excess | no |
+| 2. Excess repeats in the replicate | no (Z = -0.42) |
+
+**Map row "excess doesn't repeat" → the original persistence misses were realisation noise; the narrowed headline
+applies.**
+- Asymmetry rule (amendment 1): option B also removed our own concurrency, so the reading is "realisation noise
+  **or** our own concurrency; not separable". It is not reported as noise alone.
+- Narrowed headline: trait summaries (the parametric A3 surrogate) fail; full conditional tables marginalised over the
+  presentation details the agent is sensitive to (K_avg) work.
+- Remaining caveat: per-point collective misses still occur at about the rate seen originally (2 of 4 points), in both
+  directions. This fits small per-step errors (|ΔP| ≈ 0.003) being amplified collectively, as measured in
+  `KERNEL_TEST_RESULTS.md`, and not a systematic persistence bias.

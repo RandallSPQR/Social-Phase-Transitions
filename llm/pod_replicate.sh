@@ -17,7 +17,7 @@ log() { echo "[$(date -u +%FT%TZ)] $*" | tee -a "$LOG"; }
 : "${HF_TOKEN:?HF_TOKEN secret missing}" "${OPENROUTER_API_KEY:?OPENROUTER_API_KEY secret missing}"
 JOB_HOURS=${JOB_HOURS:-40}
 log "pod ${RUNPOD_POD_ID:-?} starting; installing deps"
-pip install -q numpy pandas scipy numba networkx requests huggingface_hub >> "$LOG" 2>&1
+pip install -q "networkx==3.7" numpy pandas scipy numba requests huggingface_hub   # networkx pinned: graphs depend on its version (entry 51) >> "$LOG" 2>&1
 log "restoring run state from HF runs/stage3-rep1/"
 python - <<'EOF' 2>&1 | tee -a "$LOG"
 import gzip, os, shutil, sys

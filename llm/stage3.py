@@ -43,11 +43,22 @@ def _seed(*parts):
     return int(hashlib.sha256("|".join(map(str, parts)).encode()).hexdigest()[:15], 16)
 
 
-def graph(pid, g):
-    """Graph g of a point. No-contacts arms reuse their parent point's graphs (same agents)."""
+GRAPH_HASHES = os.path.join(OUT, "graph_hashes.json")
+
+
+def graph(pid, g, check=True):
+    """Graph g of a point. No-contacts arms reuse their parent point's graphs (same agents).
+    The graph comes from networkx.random_regular_graph, which builds DIFFERENT graphs from the same seed across
+    networkx versions (3.3 vs 3.7: EXECUTION_LOG entry 51). check=True asserts the committed fingerprint of the
+    original Stage 3 graph, so a mismatched environment fails loudly instead of silently running other graphs."""
     base = pid.split("-")[0]
     rho = POINTS[base][2]
-    return S.make_graph(N, rho, 0.0, np.random.default_rng(_seed("stage3-graph", base, g)), "rrg", d=D)
+    ip, nb, tie = S.make_graph(N, rho, 0.0, np.random.default_rng(_seed("stage3-graph", base, g)), "rrg", d=D)
+    if check and os.path.exists(GRAPH_HASHES):
+        h = hashlib.sha256(np.concatenate([ip, nb, tie]).astype(np.int64).tobytes()).hexdigest()[:16]
+        want = json.load(open(GRAPH_HASHES)).get(f"{base}:{g}")
+        assert want is None or h == want, f"graph {base}:{g} differs from the original Stage 3 graph (networkx version?)"
+    return ip, nb, tie
 
 
 # ---------------------------------------------------------------- prompts

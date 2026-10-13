@@ -726,3 +726,10 @@ judgment calls, in time order (2026-10-08).
     committed before running it: same kernel tables, starts and rules, simulated and measured on the actual graphs. (The
     v1 numbers had been seen; the reanalysis has no free choices.) Prevention: pin dependencies in the pod and assert a
     graph hash at start (next commit).
+
+52. **Replicate result (reanalysis on the actual graphs, `results/llm/stage3_rep1/reanalysis.json`).** Persistence
+    Stouffer Z = -0.42 (p 0.66): the excess does NOT repeat; both original misses moved (P1 |m| now high, P3
+    persistence now slightly low). Excess-unsatisfied artefact gone on the correct graphs. Sentinel drift-chain
+    correlation null. Per-step kernel unchanged vs the original run. Map: excess does not repeat → narrowed headline,
+    read as "realisation noise or our own concurrency; not separable" (asymmetry rule). Prevention: networkx pinned in the
+    pod, graph-fingerprint assertion in `stage3.graph`, rule added to CLAUDE.md.

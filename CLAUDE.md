@@ -43,3 +43,16 @@ Start every background job with `llm/bg.sh start NAME CMD...` (own process group
 patterns: they match their own and other tools' command lines (this killed the session shell and a monitor on
 2026-10-09/10). Long jobs must save results per unit so a container restart costs at most one unit
 (`llm/run_amendment4.sh` is the pattern).
+
+## Reproducible environments on remote hosts
+
+Failure on record (2026-10-13, `llm/EXECUTION_LOG.md` entry 51): the Stage 3 replicate ran on different graphs than
+pre-registered because the pod image had networkx 3.3 preinstalled while this session uses 3.7, and an unpinned
+`pip install networkx` kept the old version; `random_regular_graph` builds different graphs from the same seed across
+versions. Found only through an implausible secondary measure after the run.
+
+- Pin every library that generates experimental structure (graphs, seeds, samplers) to the exact local version in
+  any remote job, and assert a committed fingerprint of the generated structure (e.g. `stage3.graph` checks
+  `results/llm/stage3/graph_hashes.json`) before the first paid call.
+- The end-to-end test of a remote job must compare a few generated objects with the local ones, not just that the
+  job runs.
