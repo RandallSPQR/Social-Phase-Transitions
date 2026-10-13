@@ -146,9 +146,10 @@ def marks(ax, Tc, ylo):
 
 
 def fig1(loc):
-    plt = style(); T = loc["coarse"]
+    plt = style(); T = loc["fine"]
     fig, axs = plt.subplots(1, 3, figsize=(10, 3.4), sharey=True)
     for ax, p in zip(axs, A.PTS):
+        ax.set_ylim(-0.05, 0.7)
         for N in A.NS:
             u = loc[p]["binder"][str(N)]
             ax.plot(T, u, color=NCOL[N], marker="o", ms=2.5)
@@ -159,8 +160,8 @@ def fig1(loc):
         ax.axvline(1.0, color="#999", lw=0.6, ls=":"); ax.set_xlabel("temperature T (logits ÷ T)")
     axs[0].set_ylabel("Binder cumulant U")
     head(fig, "Binder cumulants of the three kernels across temperature",
-         "Crossing of the N = 400 and 1,600 curves locates T_c; dotted line = Stage 3 temperature (T = 1)",
-         f"K_avg tables with per-prompt logits divided by T; random-regular d = 4; 200 warm-up + 200 measured sweeps; R = 200 runs per point. Source: results/llm/amplification/locate.json")
+         "Crossing of the N = 400 and 1,600 curves locates T_c (order → disorder edge); dotted line = Stage 3 temperature (T = 1)",
+         f"K_avg tables with per-prompt logits divided by T; random-regular d = 4; random start, 1,000 warm-up + 1,000 measured sweeps; R = 100 runs per point (plan amendment 1). Source: results/llm/amplification/locate2.json")
     fig.savefig(os.path.join(OUT, "fig1_binder.png")); plt.close(fig)
 
 
@@ -240,12 +241,12 @@ def fig4(D, X="abs_m"):
 
 
 def main():
-    loc = json.load(open(os.path.join(OUT, "locate.json"))); Tc = loc["P1"]["Tc"]
+    loc = json.load(open(os.path.join(OUT, "locate2.json"))); Tc = loc["P1"]["Tc"]   # amendment 1: stage A2
     D, draws = load(); D.to_csv(os.path.join(OUT, "amplification.csv"), index=False)
     Gd = growth(D, draws); Gd.to_csv(os.path.join(OUT, "growth.csv"), index=False)
     v = verdict(D, Gd, draws, Tc); v["Tc_P1_ci"] = loc["P1"]["Tc_ci"]; v["T1_over_Tc"] = 1.0 / Tc
-    # equilibration check at T*, N = 1600 is in amplification_equil (computed from the base runs' halves is not stored;
-    # reported via the Stage 3 vs equilibrium protocol comparison instead)
+    v["equilibration"] = {k: loc[k] for k in loc if k.startswith("hotcold_gap") or k == "stageB"}
+    v["frozen_low_T"] = {p: loc[p]["frozen_low_T"] for p in A.PTS}
     pl = D[(D["T"] == 1.0) & D["shape"].isin(REAL) & (D["size"] == 1.0)][["proto", "point", "N", "shape", "measure", "eps", "delta", "A", "A_lo", "A_hi", "A_sd_units", "filled_share"]]
     pl.to_csv(os.path.join(OUT, "placement.csv"), index=False)
     json.dump(v, open(os.path.join(OUT, "verdict.json"), "w"), indent=1, default=float)

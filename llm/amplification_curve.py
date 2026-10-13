@@ -21,8 +21,11 @@ OUT = os.path.join(K.ROOT, "results", "llm", "amplification")
 PTS = ["P1", "P2", "P4"]                     # P1 test point; P2, P4 controls
 NS = [100, 400, 1600]
 N_GRAPHS = 5
-W_EQ, M_EQ, PERS_WIN = 200, 200, 10         # equilibrium protocol: warm-up, measured sweeps, persistence window
+W_EQ, M_EQ, PERS_WIN = 200, 200, 10         # equilibrium protocol as first planned; amendment 1 sets EQ_LEN from stage A2
+EQ_LEN = W_EQ
+FINE_A2 = [round(x, 4) for x in np.geomspace(1.0, 3.0, 13)]
 COARSE = [round(x, 4) for x in np.geomspace(0.2, 5.0, 15)]
+LOW_A2 = [t for t in COARSE if t <= 0.8]
 DELTAS = [0.01, 0.03, 0.1, 0.2, 0.5]
 LAMBDAS = [0.25, 0.5, 1.0]
 N_NOISE = 3
@@ -134,7 +137,7 @@ def settings(pid, T, calls, stage):
 
 # ---------------------------------------------------------------- simulator
 @njit(cache=True)
-def sim_eq(ip, nb, tie, L, sd, n_warm, n_meas, pwin):
+def sim_eq(ip, nb, tie, L, sd, n_warm, n_meas, pwin, cold=False):
     """One replica, random 50/50 start, random-sequential updates with P(+1) = sigma(L[config]).
     Returns (mean |m|, mean m^2, mean m^4, persistence over the first pwin measured sweeps, flip rate), visit counts.
     The same seed gives the same site sequence, start and uniforms for every kernel (common random numbers)."""
@@ -143,7 +146,7 @@ def sim_eq(ip, nb, tie, L, sd, n_warm, n_meas, pwin):
     P = 1.0 / (1.0 + np.exp(-L))
     s = np.empty(N, np.int64)
     for i in range(N):
-        s[i] = 1 if np.random.random() < 0.5 else -1
+        s[i] = 1 if (cold or np.random.random() < 0.5) else -1
     ref = s.copy(); vis = np.zeros(L.shape[0]); a = np.zeros(5); nfl = 0.0; nup = 0.0
     for t in range(n_warm + n_meas):
         for _u in range(N):
@@ -198,19 +201,25 @@ def graphs(pid, N):
 
 def job(args):
     """One unit = (stage, protocol, point, N, T): every setting, R runs each, common random numbers across settings."""
-    stage, proto, pid, N, T, R = args
+    stage, proto, pid, N, T, R = args[:6]
     path = os.path.join(OUT, stage, proto, f"{pid}_N{N}_T{T:.4f}.csv.gz")
+    cold = False
+    if proto.startswith("eqW"):                  # amendment 1: "eqW<W>h" / "eqW<W>c" = W + W sweeps, hot / cold start
+        nw = nm = int(proto[3:-1]); pw = PERS_WIN; cold = proto[-1] == "c"
+    elif proto == "eq":
+        nw, nm, pw = EQ_LEN, EQ_LEN, PERS_WIN
+    else:
+        nw, nm, pw = stage3.N_WARM, stage3.N_MEAS, stage3.N_MEAS
     if os.path.exists(path):
         return path
     calls = _calls(); G = graphs(pid, N)
-    nw, nm, pw = (W_EQ, M_EQ, PERS_WIN) if proto == "eq" else (stage3.N_WARM, stage3.N_MEAS, stage3.N_MEAS)
     sets, filled = settings(pid, T, calls, stage)
     rows, vis = [], np.zeros(K.NT)
     for name, (L, dL) in sets.items():
         Lc = np.clip(L, -CLIP, CLIP)
         for r in range(R):
             ip, nb, tie = G[r % N_GRAPHS]
-            res, v = sim_eq(ip, nb, tie, Lc, seed("amp-run", proto, pid, N, T, r), nw, nm, pw)
+            res, v = sim_eq(ip, nb, tie, Lc, seed("amp-run", proto, pid, N, T, r), nw, nm, pw, cold)
             rows.append(dict(setting=name, run=r, graph=r % N_GRAPHS, **dict(zip(MEAS, res))))
             if name == "base":
                 vis += v
@@ -224,9 +233,9 @@ def job(args):
     return path
 
 
-def run_jobs(jobs, procs=4):
+def run_jobs(jobs, procs=4, initializer=None, initargs=()):
     t0 = time.time()
-    with Pool(procs) as p:
+    with Pool(procs, initializer=initializer, initargs=initargs) as p:
         for i, path in enumerate(p.imap_unordered(job, jobs), 1):
             print(f"[{time.time() - t0:7.0f}s] {i}/{len(jobs)} {os.path.basename(path)}", flush=True)
 
@@ -275,6 +284,67 @@ def locate(R):
     return out
 
 
+def _load(stage, proto, p, N, T):
+    return pd.read_csv(os.path.join(OUT, stage, proto, f"{p}_N{N}_T{T:.4f}.csv.gz"))
+
+
+def locate2(R=100):
+    """Amendment 1, stage A2."""
+    TS = sorted(set(FINE_A2 + LOW_A2))
+    run_jobs([("locate2", f"eqW1000{h}", p, N, T, R) for N in sorted(NS, reverse=True) for p in PTS for T in TS for h in "hc"])
+    rng = np.random.default_rng(seed("amp-binder-boot2")); out = {"fine": FINE_A2, "low": LOW_A2}
+    for p in PTS:
+        D = {(N, T, h): _load("locate2", f"eqW1000{h}", p, N, T) for N in NS for T in TS for h in "hc"}
+        U = {N: [binder(D[(N, T, "h")]) for T in FINE_A2] for N in NS}
+        sm = {N: [math.sqrt(N) * D[(N, T, "h")].m2.mean() for T in FINE_A2] for N in NS}
+        hotcold = {f"{N}:{T}": [float(D[(N, T, "h")].abs_m.mean()), float(D[(N, T, "c")].abs_m.mean())] for N in NS for T in TS}
+
+        def pick(u400, u1600):
+            xs = []
+            d = np.asarray(u400) - np.asarray(u1600)
+            for j in range(len(FINE_A2) - 1):
+                if d[j] == 0 or d[j] * d[j + 1] < 0:
+                    xs.append(crossing(FINE_A2[j:j + 2], u400[j:j + 2], u1600[j:j + 2]))
+            if not xs:
+                return None
+            sl = np.abs(np.diff(u1600) / np.diff(np.log(FINE_A2))); j = int(np.argmax(sl))
+            tst = math.sqrt(FINE_A2[j] * FINE_A2[j + 1])
+            return min(xs, key=lambda x: abs(math.log(x / tst)))
+        tc = pick(U[400], U[1600])
+        boots = []
+        for _ in range(200):
+            Ub = {N: [binder(D[(N, T, "h")].iloc[rng.integers(R, size=R)]) for T in FINE_A2] for N in (400, 1600)}
+            boots.append(pick(Ub[400], Ub[1600]))
+        ok = [b for b in boots if b is not None]
+        out[p] = dict(binder={str(N): [float(x) for x in U[N]] for N in NS}, scaled_m2={str(N): [float(x) for x in sm[N]] for N in NS},
+                      Tc=tc, Tc_ci=[float(np.percentile(ok, 2.5)), float(np.percentile(ok, 97.5))] if len(ok) > 20 else None,
+                      boot_share_crossing=len(ok) / len(boots), check_100_400=crossing(FINE_A2, U[100], U[400]),
+                      check_scaled_m2_400_1600=crossing(FINE_A2, sm[400], sm[1600]), hot_cold_abs_m=hotcold,
+                      frozen_low_T=[T for T in LOW_A2 if abs(hotcold[f"1600:{T}"][0] - hotcold[f"1600:{T}"][1]) > 0.02])
+        print(p, json.dumps({k: v for k, v in out[p].items() if k not in ("binder", "scaled_m2", "hot_cold_abs_m")}), flush=True)
+    json.dump(out, open(os.path.join(OUT, "locate2.json"), "w"), indent=1)
+    # stage B protocol length: shortest W in {200, 500, 1000} with hot/cold |m| within 0.02 at N = 1600 on the fine band
+    tc = out["P1"]["Tc"]
+    if tc is None:
+        print("NO T_c: test cannot be run as specified"); return out
+    band = [round(x, 4) for x in np.geomspace(tc / 1.6, tc * 1.6, 9)]
+    choice = None
+    for W in (200, 500):
+        run_jobs([("locate2", f"eqW{W}{h}", "P1", 1600, T, R) for T in band for h in "hc"])
+        gaps = [abs(_load("locate2", f"eqW{W}h", "P1", 1600, T).abs_m.mean() - _load("locate2", f"eqW{W}c", "P1", 1600, T).abs_m.mean()) for T in band]
+        out[f"hotcold_gap_W{W}"] = dict(zip(map(str, band), map(float, gaps)))
+        print("W", W, "max hot/cold gap", max(gaps), flush=True)
+        if max(gaps) <= 0.02:
+            choice = W; break
+    if choice is None:
+        out["hotcold_gap_W1000"] = {str(T): abs(out["P1"]["hot_cold_abs_m"].get(f"1600:{T}", [np.nan, np.nan])[0] - out["P1"]["hot_cold_abs_m"].get(f"1600:{T}", [np.nan, np.nan])[1]) for T in band}
+        choice = 1000
+    out["stageB"] = dict(Tc=tc, band=band, W=choice, R=400 if choice <= 500 else 200)
+    json.dump(out, open(os.path.join(OUT, "locate2.json"), "w"), indent=1)
+    print("stage B:", out["stageB"])
+    return out
+
+
 def final_grid(Tc):
     """Plan section 3: 9 geometric points over [Tc/1.6, 1.6 Tc], plus the coarse points outside that band, plus T = 1."""
     fine = [round(x, 4) for x in np.geomspace(Tc / 1.6, Tc * 1.6, 9)] if Tc else []
@@ -282,13 +352,23 @@ def final_grid(Tc):
     return sorted(set(fine + [t for t in COARSE if not lo <= t <= hi] + [1.0]))
 
 
-def run(R):
-    loc = json.load(open(os.path.join(OUT, "locate.json")))
-    grid = final_grid(loc["P1"]["Tc"])
-    json.dump(dict(grid=grid, Tc_P1=loc["P1"]["Tc"]), open(os.path.join(OUT, "grid.json"), "w"), indent=1)
+def run(R=None):
+    global EQ_LEN
+    loc = json.load(open(os.path.join(OUT, "locate2.json")))["stageB"]
+    EQ_LEN = loc["W"]; R = R or loc["R"]
+    grid = final_grid(loc["Tc"])
+    json.dump(dict(grid=grid, Tc_P1=loc["Tc"], W=EQ_LEN, R=R), open(os.path.join(OUT, "grid.json"), "w"), indent=1)
     jobs = [("perturb", proto, p, N, T, R) for proto in ("eq", "s3") for N in sorted(NS, reverse=True) for p in PTS for T in grid]
-    run_jobs(jobs)
+    run_jobs(jobs, initializer=_set_len, initargs=(EQ_LEN,))
+    for p in PTS:
+        for N in NS:
+            graphs(p, N)
     json.dump(GRAPH_FP, open(os.path.join(OUT, "graph_fingerprints.json"), "w"), indent=1)
+
+
+def _set_len(W):
+    global EQ_LEN
+    EQ_LEN = W
 
 
 def bench():
@@ -306,7 +386,9 @@ if __name__ == "__main__":
         bench()
     elif a.cmd == "locate":
         locate(a.R or 200)
+    elif a.cmd == "locate2":
+        locate2(a.R or 100)
     elif a.cmd == "run":
-        run(a.R or 400)
+        run(a.R)
     elif a.cmd == "analyse":
         import amplification_analyse; amplification_analyse.main()
