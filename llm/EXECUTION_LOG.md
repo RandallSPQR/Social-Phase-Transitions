@@ -712,3 +712,17 @@ judgment calls, in time order (2026-10-08).
     from the cache (up to 30 times) while the other streams continue; only the budget stop halts all; "done" = every
     chain saved. Tested locally in mock mode with an injected 429. This pod lived 47 min, so the ~3-h pattern
     (entries 48-49) did not apply. Relaunched for the last 3 chains.
+
+51. **Replicate finished (70/70, 16:00 UTC) — and a graph mismatch found before reporting (DEVIATION).** The pre-registered
+    analysis ran first (`results/llm/stage3_rep1/analysis.json`: persistence Stouffer Z = -0.48) but excess unsatisfied
+    ties sat 3.6-8.9 SD above prediction at P1-P4. Tracing it: the pods built their random-regular graphs with
+    networkx 3.3 (preinstalled in the PyTorch image; the unpinned `pip install networkx` left it), this session with
+    networkx 3.7 — same generator and seeds, different graphs and tie signs. Verified against every logged configuration:
+    69/70 replicate chains ran on the networkx-3.3 graphs, P3 g0 r0 (finished in the session container) on the original
+    3.7 graphs. So the replicate ran on 5 OTHER graphs per point from the same ensemble, not the original 5, and the
+    pre-registered analysis predicted and measured on the wrong graphs. Graph-independent results stand (sentinel drift
+    test; per-step kernel replicate vs original |ΔP| ≤ 0.003). Both graph sets saved as files
+    (`results/llm/stage3_rep1/graphs/`, with `chain_graph.json`). Reanalysis `llm/stage3_replicate_reanalyse.py` written and
+    committed before running it: same kernel tables, starts and rules, simulated and measured on the actual graphs. (The
+    v1 numbers had been seen; the reanalysis has no free choices.) Prevention: pin dependencies in the pod and assert a
+    graph hash at start (next commit).
