@@ -135,14 +135,20 @@ LABEL = {"P1": "P1  Qwen-122B (test)", "P2": "P2  Qwen-9B (control)", "P4": "P4 
 SHL = {"stay": "stay-bias", "majority": "majority-shift", "noise": "random noise", "fixed": "K_fixed − K_avg", "a3": "A3 − K_avg"}
 
 
-def head(fig, title, sub, note):
-    fig.text(0.01, 1.04, title, fontsize=16, color="#111", ha="left", va="bottom")
-    fig.text(0.01, 1.005, sub, fontsize=11, color="#666", ha="left", va="bottom")
+def head(fig, title, sub, note, y=(1.07, 1.02)):
+    fig.text(0.01, y[0], title, fontsize=16, color="#111", ha="left", va="bottom")
+    fig.text(0.01, y[1], sub, fontsize=10.5, color="#666", ha="left", va="bottom")
     fig.text(0.01, -0.03, note, fontsize=8, color="#999", ha="left", va="top", family="sans-serif")
 
 
+def tticks(ax):
+    from matplotlib.ticker import FixedLocator, NullLocator, FuncFormatter
+    ax.xaxis.set_major_locator(FixedLocator([0.2, 0.5, 1, 2, 5])); ax.xaxis.set_minor_locator(NullLocator())
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x:g}"))
+
+
 def marks(ax, Tc, ylo):
-    ax.axvline(Tc, color=ACC, lw=0.6, alpha=0.5); ax.axvline(1.0, color="#999", lw=0.6, ls=":")
+    ax.axvline(Tc, color=ACC, lw=0.6, alpha=0.5); ax.axvline(1.0, color="#999", lw=0.6, ls=":"); tticks(ax)
 
 
 def fig1(loc):
@@ -154,7 +160,7 @@ def fig1(loc):
             u = loc[p]["binder"][str(N)]
             ax.plot(T, u, color=NCOL[N], marker="o", ms=2.5)
             ax.annotate(f"N={N}", (T[-1], u[-1]), xytext=(4, 0), textcoords="offset points", fontsize=8, color=NCOL[N], va="center")
-        ax.set_xscale("log"); ax.set_title(LABEL[p], loc="left", fontsize=10, color="#333")
+        ax.set_xscale("log"); tticks(ax); ax.set_title(LABEL[p], loc="left", fontsize=10, color="#333")
         if loc[p]["Tc"]:
             ax.axvline(loc[p]["Tc"], color=ACC, lw=0.6); ax.annotate(f"T_c ≈ {loc[p]['Tc']:.2f}", (loc[p]["Tc"], 0.62), xytext=(4, 0), textcoords="offset points", fontsize=8, color=ACC, style="italic")
         ax.axvline(1.0, color="#999", lw=0.6, ls=":"); ax.set_xlabel("temperature T (logits ÷ T)")
@@ -167,7 +173,7 @@ def fig1(loc):
 
 def fig2(D, Tc, X="abs_m"):
     plt = style(); shapes = [("stay", 0.1), ("majority", 0.1), ("noise", 0.1), ("fixed", 1.0), ("a3", 1.0)]
-    fig, axs = plt.subplots(len(shapes), 3, figsize=(10, 11), sharex=True, sharey="row")
+    fig, axs = plt.subplots(len(shapes), 3, figsize=(10, 9.5), sharex=True, sharey=True)
     for i, (sh, sz) in enumerate(shapes):
         for j, p in enumerate(A.PTS):
             ax = axs[i, j]
@@ -177,9 +183,11 @@ def fig2(D, Tc, X="abs_m"):
                     continue
                 c = (ACC if N == 1600 else NCOL[N]) if p == "P1" else NCOL[N]
                 ax.plot(g["T"], g.A, color=c); ax.fill_between(g["T"], g.A_lo, g.A_hi, color=c, alpha=0.12, lw=0)
-                if j == 2:
-                    ax.annotate(f"N={N}", (g["T"].iloc[-1], g.A.iloc[-1]), xytext=(4, 0), textcoords="offset points", fontsize=7, color=NCOL[N], va="center")
-            ax.set_xscale("log"); ax.set_yscale("log"); marks(ax, Tc, None)
+                if i == 0 and j == 0:
+                    k = g.A.values.argmax()
+                    ax.annotate(f"N = {N:,}", (g["T"].iloc[k], g.A.iloc[k]), xytext=(6, {100: -22, 400: -10, 1600: 4}[N]), textcoords="offset points",
+                                fontsize=7.5, color=c, va="center")
+            ax.set_xscale("log"); ax.set_yscale("log"); ax.set_ylim(1e-3, 5); marks(ax, Tc, None)
             if i == 0:
                 ax.set_title(LABEL[p], loc="left", fontsize=10, color="#333")
             if j == 0:
@@ -188,7 +196,8 @@ def fig2(D, Tc, X="abs_m"):
         ax.set_xlabel("temperature T")
     head(fig, f"Amplification of per-step error into {'|m|' if X == 'abs_m' else 'persistence'}, by temperature and size",
          "A = |Δ collective| / per-step error (nats); red vertical = P1's T_c, dotted = Stage 3 (T = 1); bands = 95% bootstrap CI",
-         "Equilibrium protocol (200 + 200 sweeps), R = 400 paired runs per setting (common random numbers), 5 graphs per N. Source: results/llm/amplification/amplification.csv")
+         "Equilibrium protocol (500 + 500 sweeps, plan amendment 1), R = 400 paired runs per setting (common random numbers), 5 graphs per N. Source: results/llm/amplification/amplification.csv", y=(0.955, 0.935))
+    fig.subplots_adjust(top=0.91)
     fig.savefig(os.path.join(OUT, f"fig2_amplification_{X}.png")); plt.close(fig)
 
 
@@ -202,11 +211,11 @@ def fig3(Gd, Tc, X="abs_m"):
             ax.plot(g["T"], g.G, color=c); ax.fill_between(g["T"], g.G_lo, g.G_hi, color=c, alpha=0.12, lw=0)
             ax.annotate(p, (g["T"].iloc[-1], g.G.iloc[-1]), xytext=(3, 0), textcoords="offset points", fontsize=8, color=c, va="center")
         ax.axhline(1, color="#ccc", lw=0.6); ax.axhline(2, color="#ccc", lw=0.6, ls="--")
-        ax.set_xscale("log"); ax.set_yscale("log"); marks(ax, Tc, None)
+        ax.set_xscale("log"); ax.set_yscale("log"); ax.set_ylim(0.03, 100); marks(ax, Tc, None)
         ax.set_title(SHL[sh], loc="left", fontsize=10, color="#333"); ax.set_xlabel("T")
     axs[0].set_ylabel("G = A(N=1,600) / A(N=100)")
     head(fig, "Growth of amplification with system size, by temperature",
-         "G > 1: amplification grows with N. Solid grey = 1, dashed = 2 (the 'bounded' expectation); red vertical = P1's T_c",
+         "G > 1: amplification grows with N. Solid grey = 1, dashed = 2 (the 'bounded' expectation); red vertical = P1's T_c; y clipped to 0.03–100",
          "|m|, equilibrium protocol; δ = 0.1 nats (synthetic) or λ = 1 (real shapes); bands = 95% bootstrap CI. Source: results/llm/amplification/growth.csv")
     fig.savefig(os.path.join(OUT, f"fig3_growth_{X}.png")); plt.close(fig)
 
@@ -231,7 +240,7 @@ def fig4(D, X="abs_m"):
             if i == 0:
                 ax.set_title(LABEL[p], loc="left", fontsize=10, color="#333")
             if j == 0:
-                ax.set_ylabel(("Stage 3 protocol (10 + 10)" if proto == "s3" else "equilibrium (200 + 200)") + f"\n|Δ {'|m|' if X == 'abs_m' else 'persistence'}|", fontsize=9)
+                ax.set_ylabel(("Stage 3 protocol (10 + 10)" if proto == "s3" else "equilibrium (500 + 500)") + f"\n|Δ {'|m|' if X == 'abs_m' else 'persistence'}|", fontsize=9)
             if i == 1:
                 ax.set_xlabel("per-step error ε (nats)")
     head(fig, "Where the real evaluation errors fall at the Stage 3 temperature (T = 1)",

@@ -761,3 +761,12 @@ judgment calls, in time order (2026-10-08).
     dynamics are frozen (N = 1,600: hot start |m| 0.07–0.45, cold start 0.99), not a disordered phase. P2 and P4 show
     no crossing in [1, 3]. Stage B: W = M = 500 (hot/cold gap ≤ 0.017 on the band), R = 400; band 1.21–3.10, plus the
     coarse points outside it and T = 1. The Stage 3 temperature is T/T_c ≈ 0.52, deep in the ordered phase.
+
+57. **Amplification curve, stage B and analysis (`results/llm/AMPLIFICATION_RESULTS.md`).** 360 units, 4.9 h CPU.
+    Pre-registered verdict: **refuted on H2** for both |m| and persistence. H1 (N-growth at T_c = 1.93) holds for all
+    three synthetic shapes (|m| G = 3.0, 3.4, 5.5, all CIs > 1). H2 fails because the majority-shift ratio against
+    P2 is uninformative: P2's amplification ≈ 0 at T*, so its G has CI 0.9–68. Stay-bias and noise beat both controls
+    3–5×. Expectations: (i) peak at T_c holds; (ii) and (iii) fail (symmetry-breaking noise above T_c; freezing edge
+    at T ≈ 0.6–0.8; near-zero denominators in the controls); (v) K_fixed shape grows at T_c (G 2.5), A3 does not;
+    (vi) linear response holds. Stage 3 sits at T/T_c ≈ 0.52, where the same errors move |m| about 40× less than at
+    T_c with N = 1,600.
