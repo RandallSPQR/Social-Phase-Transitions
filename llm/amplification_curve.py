@@ -121,7 +121,7 @@ def settings(pid, T, calls, stage):
     """name -> (logit table of the perturbed kernel, delta logit). Base first."""
     base, filled = kavg_T(pid, T, calls); Lb = lg(np.nan_to_num(base, nan=0.5))
     out = {"base": (Lb, np.zeros(K.NT))}
-    if stage == "locate":
+    if stage.startswith("locate"):            # stages A and A2: base kernel only
         return out, filled
     for d in DELTAS:
         out[f"stay:{d}"] = (Lb + d * stay_sign(), d * stay_sign())

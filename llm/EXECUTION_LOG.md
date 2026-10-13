@@ -752,3 +752,6 @@ judgment calls, in time order (2026-10-08).
     (hot/cold starts, 1,000 + 1,000 sweeps, fine grid [1, 3]) now locates T_c at the order → disorder edge and fixes
     the stage B protocol length by an equilibration rule. Stage A had also failed once on a missing parquet engine;
     units are now stored as csv.gz.
+    Stage A2 first start: a stage-name check (`stage == "locate"`) let A2 units simulate every perturbation as well
+    (about 30× slower). It was stopped after 4 units at T ≤ 0.25, and those files were deleted unread. The check is now
+    `startswith("locate")`, and A2 was restarted from scratch.
