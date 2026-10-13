@@ -87,9 +87,36 @@ class Run:
                                  sentinel_rounds=0, last_sentinel=None, finished=False) for name, pts in STREAMS}
         self.prior_spend = self.spend_from_cache()
         self.stop = threading.Event()
-        self.sent = {pts[0]: sentinel_prompts(pts[0]) for _, pts in STREAMS}
-        json.dump({p: [{k: v for k, v in s.items()} for s in S] for p, S in self.sent.items()},
-                  open(os.path.join(cfg.out, "sentinel_prompts.json"), "w"), indent=1)
+        sp = os.path.join(cfg.out, "sentinel_prompts.json")
+        if os.path.exists(sp):                     # a resumed run (any host) reuses the exact sentinel prompts
+            self.sent = json.load(open(sp))
+        else:
+            self.sent = {pts[0]: sentinel_prompts(pts[0]) for _, pts in STREAMS}
+            json.dump(self.sent, open(sp, "w"), indent=1)
+        self.log_start()
+
+    def log_start(self):
+        """Interruption record: every (re)start appends host, pod id, chains saved and chains with cached calls but no
+        saved file (mid-run when the previous segment ended). Segment ends are read from cache timestamps."""
+        saved, partial = [], []
+        for _, pts in STREAMS:
+            for pid in pts:
+                for g in range(stage3.N_GRAPHS):
+                    for r in (0, 1):
+                        (saved if os.path.exists(os.path.join(self.cfg.out, "chains", pid, f"g{g}_r{r}_states.npy")) else partial).append(f"{pid}:{g}:{r}")
+        started = set()
+        if not self.cfg.mock:
+            for _, pts in STREAMS:
+                p = client._path(E[stage3.POINTS[pts[0]][0]][0])
+                if os.path.exists(p):
+                    for l in open(p):
+                        if '"rep":"stage3-rep1:' in l:
+                            started.add(":".join(l.split('"rep":"stage3-rep1:')[1].split(":")[:3]))
+        rec = dict(event="start", t=time.time(), utc=time.strftime("%FT%TZ", time.gmtime()), host=os.uname().nodename,
+                   pod=os.environ.get("RUNPOD_POD_ID"), chains_saved=len(saved), chains_midrun=sorted(set(partial) & started))
+        with open(os.path.join(self.cfg.out, "interruptions.jsonl"), "a") as f:
+            f.write(json.dumps(rec) + "\n")
+        print("RUN_START " + json.dumps(rec), flush=True)
 
     def spend_from_cache(self):
         if self.cfg.mock:
@@ -212,6 +239,8 @@ class Run:
             print("UPLOAD FAILED (run continues; next heartbeat retries):", repr(e)[:300], flush=True)
 
     def upload(self, st):
+        if os.environ.get("NO_UPLOAD") == "1":     # local tests only
+            print("UPLOAD skipped (NO_UPLOAD=1)", flush=True); return
         from huggingface_hub import HfApi
         import fetch_cache
         api = HfApi(token=os.environ["HF_TOKEN"])
@@ -231,7 +260,7 @@ class Run:
         snap = os.path.join(up, "snap"); os.makedirs(snap, exist_ok=True)
         with self.lock:                            # snapshot files the streams append to, so upload == verified size
             for f in os.listdir(self.cfg.out):
-                if f.endswith((".csv", ".json", ".txt")):
+                if f.endswith((".csv", ".json", ".jsonl", ".txt")):
                     shutil.copyfile(os.path.join(self.cfg.out, f), os.path.join(snap, f))
                     files[os.path.join(snap, f)] = f"{self.cfg.hf_path}/{f}"
         cd = os.path.join(self.cfg.out, "chains")

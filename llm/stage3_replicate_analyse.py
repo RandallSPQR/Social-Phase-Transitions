@@ -68,6 +68,15 @@ def main(mock):
                                  P3_persistence_z=pp["P3"]["persistence"]["z"])
     # ---- sentinels
     sp = json.load(open(os.path.join(out, "sentinel_prompts.json")))
+    ip = os.path.join(out, "interruptions.jsonl")
+    starts = np.array(sorted(json.loads(l)["t"] for l in open(ip))) if os.path.exists(ip) else np.array([0.0])
+
+    def lag1_within(tr):
+        """Lag-1 autocorrelation of the round series using only consecutive rounds inside the same segment."""
+        tr = tr.sort_values("round"); a, b = [], []
+        for _, s_ in tr.groupby("segment"):
+            v = s_.drift.values; a += list(v[:-1]); b += list(v[1:])
+        return float(np.corrcoef(a, b)[0, 1]) if len(a) > 2 else None
     drift_rows, sent = [], {}
     for name, pts in SR.STREAMS:
         pid = pts[0]; key = stage3.POINTS[pid][0]; mode = E[key][2]
@@ -83,14 +92,18 @@ def main(mock):
         else:
             S["y"] = np.where(S.mapping == 0, S.pA, 1 - S.pA); noise = None
         g = S.groupby(["sentinel", "round"]).agg(y=("y", "mean"), t=("t", "mean"), n=("y", "size")).reset_index()
-        g["dev"] = g.y - g.groupby("sentinel").y.transform("mean")
-        tr = g.groupby("round").agg(drift=("dev", "mean"), t=("t", "mean")).reset_index(); tr["endpoint"] = key
+        # owner instruction 2026-10-13: drift only within continuous segments (run interrupted by host restarts);
+        # segment = last (re)start at or before the round, from interruptions.jsonl
+        g["segment"] = np.searchsorted(starts, g.t.values, side="right") - 1
+        g["dev"] = g.y - g.groupby(["sentinel", "segment"]).y.transform("mean")
+        tr = g.groupby("round").agg(drift=("dev", "mean"), t=("t", "mean"), segment=("segment", "first")).reset_index(); tr["endpoint"] = key
         drift_rows.append(tr)
         if mode != "lp":
             pbar = g.groupby("sentinel").y.transform("mean"); noise = float((pbar * (1 - pbar) / g.n).mean())
         rv = g.groupby("sentinel").dev.var(ddof=1)
         sent[key] = dict(rounds=int(tr["round"].nunique()), var_round_over_noise=float(rv.mean() / noise) if noise else None,
-                         lag1_autocorr=float(tr.drift.autocorr(1)) if len(tr) > 2 else None)
+                         segments=int(tr.segment.nunique()),
+                         lag1_autocorr=lag1_within(tr))
     D = pd.concat(drift_rows) if drift_rows else pd.DataFrame()
     D.to_csv(os.path.join(out, "drift_trace.csv"), index=False)
     # chain time windows from the cache (first/last call of each chain) and mean drift inside

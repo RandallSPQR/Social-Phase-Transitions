@@ -656,3 +656,17 @@ judgment calls, in time order (2026-10-08).
     survive this environment between turns, so a 27-h run cannot be hosted here. Progress kept (local cache, uploaded
     and verified to HF runs/stage3-rep1/): 1 of 70 chains complete, ≈ 9,400 chain calls and the sentinel rounds so far,
     $0.39. Self check-in cancelled; awaiting the owner's choice of host.
+
+45. **Interruption record for the replicate (owner instruction 2026-10-13: log every interruption).** Correction to
+    entry 42: the run started 00:51:21 UTC (not 00:46). Segments so far, from the job log and cache timestamps (also in
+    `results/llm/stage3_rep1/interruptions.jsonl`, uploaded with every heartbeat; each future (re)start appends itself):
+    - segment 1: 00:51:21-00:59:20 UTC (session container reclaimed). Mid-run at the end: P1, P2, P3, P4, P5 (graph 0,
+      replica 0 each).
+    - segment 2: 01:15:28-01:19:45 UTC (stopped by me to fix the upload verifier). Mid-run: the same five chains.
+    - segment 3: 01:19:45-01:29:20 UTC (container reclaimed). Saved by then: P3 g0 r0. Mid-run: P1 g0 r0, P2 g0 r0,
+      P3 g0 r1, P4 g0 r0, P5 g0 r0.
+    The run moves to a RunPod CPU pod (owner decision): `llm/pod_replicate.sh` + `llm/runpod_cpu_launch.py`; the pod gets
+    only references to the owner's two RunPod secrets (HF token, dedicated OpenRouter key with a $10 cap); it restores
+    the run state from HF runs/stage3-rep1/ and resumes. Sentinel drift is analysed within continuous segments only
+    (analysis amended before any result); the primary persistence test uses the resumed cache as pre-registered.
+    Mock-run files deleted from HF and locally (owner OK).
