@@ -63,3 +63,44 @@ Test 1 reads "no". The remaining branches depend on test 2:
 - excess does not repeat → the original misses were realisation noise, and the narrowed headline applies.
 
 Test 2 has not been started. Cost options are in the plan.
+
+## Identical-request dependence test (amendment 1 §4; free; run before any paid call)
+
+**How each live choice was produced.**
+- Logprob endpoints (P1–P4, P2-nc, P4-nc): the provider returns the first-token top-5 logprobs, and the provider's
+  sampled token is ignored. The choice is a local draw, A if `rng.random() < pA`, with the chain's Python
+  `random.Random` (Mersenne Twister) seeded by SHA-256 of ("stage3-chain", point, graph, replica).
+- P5: the provider-sampled reply (T = 1), parsed to one letter.
+
+**Result** (`llm/residual_identical_requests.py`, `results/llm/residual/identical_requests.json`). Repeat pairs:
+2,622–15,017 per point.
+
+| point | pairs | earlier choice was "stay" | excess (ii), pre-stated [95% CI] | excess (iii), selection-corrected [95% CI] |
+|---|---|---|---|---|
+| P1 | 4,559 | 99.2% | +0.0055 [−0.0002, 0.0105] | −0.0000 [−0.0042, 0.0040] |
+| P2 | 2,622 | 98.5% | **+0.0223 [0.0128, 0.0310]** | −0.0009 [−0.0067, 0.0049] |
+| P3 | 5,400 | 100% | +0.0001 [−0.0004, 0.0007] | −0.0002 [−0.0008, 0.0004] |
+| P4 | 6,759 | 99.2% | **+0.0054 [0.0018, 0.0089]** | +0.0026 [0.0004, 0.0046] |
+| P5 | 7,684 | 96.9% | +0.0012 [−0.0033, 0.0056] | −0.0010 [−0.0048, 0.0025] |
+| P2-nc | 15,017 | 99.7% | **+0.0225 [0.0199, 0.0257]** | +0.0024 [0.0005, 0.0044] |
+| P4-nc | 14,308 | 98.1% | **+0.0237 [0.0188, 0.0281]** | +0.0014 [−0.0020, 0.0046] |
+
+- **The pre-stated expectations (i) and (ii) are biased.** A pair exists only if the agent's whole prompt repeats,
+  including its own position, which almost always means its earlier choice was "stay" (97–100% above). The pair is
+  therefore selected on the earlier choice.
+  - Under independence the later call agrees with probability P_later(earlier letter), i.e. its probability of
+    staying, not P1·P2 + (1 − P1)(1 − P2).
+  - (iii) conditions on the observed earlier choice and is the valid test. The correction is post-hoc and labelled.
+- **Selection-corrected, there is no dependence.** Excess is between −0.001 and +0.001 at five points. P4 and P2-nc
+  show +0.0026 and +0.0024. Both are logprob endpoints, where the agreement comes from local, independently seeded
+  draws, so this is luck in the realised draws, not a provider mechanism. It matches the realised-flip deficit
+  against the calls' own probabilities found earlier (`neighbourhood.json`, N3).
+- **Re-simulation** (pre-stated trigger fired under (ii); `llm/residual_repeat_rule.py`). Generous rule: when an
+  agent's configuration and own position repeat after a stay, P(stay) rises by the measured excess.
+  - With the biased (ii) excess the rule overshoots wildly: live-vs-sim persistence Stouffer −13.4, flip rate +24.5.
+    So the (ii) excess is incompatible with the data.
+  - With the corrected (iii) excess: persistence Stouffer +1.74 (homogeneous +2.72), flip rate −0.90. It does not
+    reproduce the excess (still ≥ 1.645), and the part it absorbs is draw luck at two logprob points.
+- **Outcome map → "no excess"**: option B runs with sentinels as approved, with provider drift as the leading
+  remaining hypothesis. Realisation noise in the original local draws contributes part of the excess at P4 and
+  P2-nc; the replicate's fresh draws address that.

@@ -629,3 +629,9 @@ judgment calls, in time order (2026-10-08).
       the prediction. Post-hoc stratified null (labels shuffled within (c, s0)): only P4-nc remains (p 0.01-0.04).
     - c) Heterogeneous kernel (τ ≤ 0.11 logit) leaves the persistence excess unchanged (Stouffer +2.84 vs +2.72):
       heterogeneity does not explain it. Test 2 (paid replicate) awaits approval.
+
+41. **Residual plan amendment 1 (option B approved; power 0.81; asymmetry; sentinels) and the identical-request test
+    (free, before any paid call).** Pre-stated expectations showed "excess" agreement at P2, P4, P2-nc, P4-nc, but they
+    ignore that a repeated prompt selects on the earlier choice (stay in 97-100% of pairs). Selection-corrected:
+    excess -0.001 to +0.003 (two marginal at logprob points = draw luck). Pre-stated re-simulation: the biased excess
+    overshoots (persistence Stouffer -13.4); the corrected one leaves +1.74. No mechanism → option B with sentinels.
