@@ -44,14 +44,30 @@ def bundle():
     return sha
 
 
-def start_cmd(sha):
-    py = ("from huggingface_hub import hf_hub_download as d; import os; "
-          "print(d('RandallSPQR/social-phase-transitions-llm-cache', 'code/pod_code_%s.tgz', repo_type='dataset', "
-          "local_dir='/root/code', token=os.environ['HF_TOKEN']))" % sha)
-    return ("pip install -q huggingface_hub > /root/boot.log 2>&1; "
-            f"python -c \"{py}\" >> /root/boot.log 2>&1 && mkdir -p /root/Social-Phase-Transitions && "
-            f"tar xzf /root/code/code/pod_code_{sha}.tgz -C /root/Social-Phase-Transitions >> /root/boot.log 2>&1 && "
-            "bash /root/Social-Phase-Transitions/llm/pod_replicate.sh 2>&1 | tee -a /root/boot.log; sleep infinity")
+def start_cmd(sha, boot="/root"):
+    """Pod boot. All output goes to stdout (RunPod Logs tab) and $BOOT/boot.log; a boot heartbeat uploads that log to
+    runs/stage3-rep1/boot_<pod>.log every 60 s, so a failure before the runner starts still leaves a record. Secrets
+    are reported by length only (and whether the {{ RUNPOD_SECRET_ }} reference was left unresolved), never by value."""
+    repo = "RandallSPQR/social-phase-transitions-llm-cache"
+    chk = ("import os\nfor k in ('HF_TOKEN','OPENROUTER_API_KEY'):\n v=os.environ.get(k,'')\n"
+           " print('[boot] secret', k, 'len', len(v), 'UNRESOLVED' if v.startswith('{{') else ('MISSING' if not v else 'ok'), flush=True)")
+    up = ("import os,time\nfrom huggingface_hub import HfApi\n"
+          "HfApi(token=os.environ['HF_TOKEN']).upload_file(path_or_fileobj=os.environ['BOOT']+'/boot.log', path_in_repo="
+          "'runs/stage3-rep1/boot_'+os.environ.get('RUNPOD_POD_ID','local')+'.log', repo_id='%s', repo_type='dataset', "
+          "commit_message='boot log')" % repo)
+    dl = ("import os\nfrom huggingface_hub import hf_hub_download as d\n"
+          "print(d('%s', 'code/pod_code_%s.tgz', repo_type='dataset', local_dir=os.environ['BOOT']+'/code', "
+          "token=os.environ['HF_TOKEN']), flush=True)" % (repo, sha))
+    import base64
+    py = lambda code: "python3 -c \"$(echo %s | base64 -d)\"" % base64.b64encode(code.encode()).decode()
+    return (f"export BOOT={boot}; mkdir -p $BOOT; exec > >(tee -a $BOOT/boot.log) 2>&1; "
+            "echo \"[boot] $(date -u +%FT%TZ) pod ${RUNPOD_POD_ID:-local}\"; "
+            + py(chk) + "; pip install -q huggingface_hub 2>&1 | tail -2; "
+            "( while true; do " + py(up) + " > /dev/null 2>&1 || echo '[boot] boot-log upload failed'; sleep 60; done ) & "
+            + py(dl) + f" && mkdir -p $BOOT/Social-Phase-Transitions && "
+            f"tar xzf $BOOT/code/code/pod_code_{sha}.tgz -C $BOOT/Social-Phase-Transitions && echo '[boot] code ready' && "
+            "REPO=$BOOT/Social-Phase-Transitions bash $BOOT/Social-Phase-Transitions/llm/pod_replicate.sh; "
+            "echo \"[boot] $(date -u +%FT%TZ) boot sequence ended; idling until removed\"; ${BOOT_EXIT:+exit 0}; sleep infinity")
 
 
 def launch(a):

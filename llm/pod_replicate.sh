@@ -27,6 +27,8 @@ api = HfApi(token=os.environ["HF_TOKEN"]); repo = fetch_cache.manifest()["datase
 files = [x.path for x in api.list_repo_tree(repo, repo_type="dataset", path_in_repo="runs/stage3-rep1", recursive=True) if hasattr(x, "size")]
 out = "results/llm/stage3_rep1"; tmp = "/root/restore"
 for f in files:
+    if os.path.basename(f).startswith("boot_"):     # boot logs are records, not run state
+        continue
     p = hf_hub_download(repo, f, repo_type="dataset", local_dir=tmp, token=os.environ["HF_TOKEN"])
     rel = f[len("runs/stage3-rep1/"):]
     if rel.startswith("cache/"):
