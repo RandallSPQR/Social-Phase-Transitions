@@ -785,3 +785,14 @@ judgment calls, in time order (2026-10-08).
     fallback is GPT-4o-mini. Gemini 3.1 Flash-Lite joins the confirmatory set; GPT-6-luna is now exploratory. Rule A
     is the worst-case (max) control comparison. API estimate ≈ $4.0, hard stop $6. The owner OK'd proceeding to
     Steps 1–2.
+
+60. **Confirmatory phase, Step 1 (in progress) and amendment 2 (deviation).**
+    - 1/T checks have run for Qwen-122B and Nemo-12B ($0.08; results at stop point 2).
+    - GPT-6-luna refuses `temperature` under require_parameters (404), so 1/T is unverifiable: exploratory, labelled.
+      Gemini accepts temperature. Neither returns logprobs.
+    - Candidate probe: the account's OpenRouter guardrail (data policy) removes the first-party `deepseek` provider, so
+      candidates 1 and 3 errored on every call and were not probed.
+    - Amendment 2: the pin rule now runs over reachable providers (re-pins streamlake/fp8 and gmicloud/fp8), decided
+      before any data from those providers.
+    - Candidate 2 failed honestly (repeat SD 0.446).
+    - The API job was stopped by PID (`bg.sh stop`) and restarted; all calls are cached.

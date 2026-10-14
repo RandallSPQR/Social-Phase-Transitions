@@ -71,5 +71,22 @@
    "rt": 0
   },
   "accepted": true
+ },
+ "luna_logprob_probe": {
+  "calls": 2,
+  "errors": 2,
+  "share_logprobs_ab": 0.0,
+  "cost": 0.0
+ },
+ "luna_temp_probe": {
+  "0.5": {
+   "ok": false,
+   "error": "openai/gpt-6-luna rep=confirm-tprobe:luna:0.5: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404,\"metadata\":{\"routing_funnel\":[{\"step\":\"Init"
+  },
+  "1.5": {
+   "ok": false,
+   "error": "openai/gpt-6-luna rep=confirm-tprobe:luna:1.5: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404,\"metadata\":{\"routing_funnel\":[{\"step\":\"Init"
+  },
+  "accepted": false
  }
 }

@@ -148,6 +148,8 @@ def lp_logprob_probe(ep, prompts, budget, tag):
                          provider=rec["resp"].get("provider")))
     d = pd.DataFrame(rows)
     out = dict(calls=len(d), errors=int(d.get("err", pd.Series(dtype=str)).notna().sum()) if "err" in d else 0)
+    if out["errors"]:
+        out["first_error"] = str(d.err.dropna().iloc[0])
     ok = d[d.get("has_ab", pd.Series(False, index=d.index)).fillna(False).astype(bool)] if "has_ab" in d else d.iloc[0:0]
     out["share_logprobs_ab"] = float(len(ok) / max(len(d), 1))
     if len(ok):
@@ -290,6 +292,18 @@ def kavg(ep, budget, tag, reps):
 
 
 # ---------------------------------------------------------------- candidate loop
+FIRST = {"deepseek": "deepseek", "openai": "openai"}
+RANK = {"bf16": 0, "fp16": 0, "fp8": 1, "unknown": 2, None: 2, "fp4": 3}
+
+
+def repin(c, blocked):
+    """Amendment 1 pin rule over the endpoints listing logprobs + temperature, minus providers this account's
+    OpenRouter guardrails remove (amendment 2)."""
+    eps = [e for e in c["endpoints"] if e["logprobs"] and e["temperature"] and e["tag"] not in blocked]
+    if not eps:
+        return None
+    fp = [e for e in eps if e["tag"] == FIRST.get(c["id"].split("/")[0])]
+    return (fp[0] if fp else sorted(eps, key=lambda e: (RANK.get(e["quant"], 2), e["prompt"], e["tag"]))[0])["tag"]
 def select_model(budget):
     path = os.path.join(OUT, "selection.json")
     sel = json.load(open(path)) if os.path.exists(path) else {"tried": []}
@@ -304,13 +318,20 @@ def select_model(budget):
             continue
         if probe_spent >= PROBE_BUDGET:
             log("probe budget exhausted"); break
-        e = next(x for x in c["endpoints"] if x["tag"] == c["pin"])
-        ep = dict(name=f"cand{i}", key=c["id"], model=c["id"], tag=c["pin"], mode="lp", roff=bool(e["reasoning"]), extra={})
+        pin = repin(c, sel.setdefault("guardrail_blocked", {}).get(c["id"], []))
+        if pin is None:
+            t = dict(rank=i, id=c["id"], passes=False, error="no reachable endpoint after guardrail exclusions"); sel["tried"].append(t); continue
+        e = next(x for x in c["endpoints"] if x["tag"] == pin)
+        ep = dict(name=f"cand{i}", key=c["id"], model=c["id"], tag=pin, mode="lp", roff=bool(e["reasoning"]), extra={})
         prompts = kavg_prompts("confirm-lp").assign(h=lambda x: x.prompt.map(sha)).sort_values("h").prompt.head(20).tolist()
-        t = dict(rank=i, id=c["id"], pin=c["pin"], reasoning_param=bool(e["reasoning"]))
+        t = dict(rank=i, id=c["id"], pin=pin, pin_rule_original=c["pin"], reasoning_param=bool(e["reasoning"]))
         try:
             a, _ = lp_logprob_probe(ep, prompts, budget, f"cand{i}")
             t["lp"] = {k: v for k, v in a.items() if k != "meanP"}; t["cost"] = a["cost"]
+            if a["errors"] == a["calls"] and "Filter by Guardrails removed" in a.get("first_error", "") and pin in a["first_error"].split("Filter by Guardrails removed")[1].split(";")[0]:
+                sel["guardrail_blocked"].setdefault(c["id"], []).append(pin)            # amendment 2: re-pin, probe again
+                log("guardrail blocks", c["id"], pin, "-> re-pin"); json.dump(sel, open(path, "w"), indent=1, default=str)
+                return select_model(budget)
             pass_a = (a["share_logprobs_ab"] >= 0.95 and a.get("repeat_sd") is not None and a["repeat_sd"] <= 0.3
                       and a.get("mean_leak", 1) < 0.05 and (not e["reasoning"] or a.get("reasoning_tokens_max", 1) == 0))
             t["pass_a"] = bool(pass_a)

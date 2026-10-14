@@ -416,3 +416,30 @@ The plan text is unchanged in effect, but stated explicitly:
 4. the Gemma pod;
 5. Step 3 simulations;
 6. **stop point 2.**
+
+## Amendment 2 (2026-10-14, deviation during the candidate probe; before any data from the re-pinned providers)
+
+**What happened:**
+- Candidates 1 (`deepseek/deepseek-v4.1-flash`) and 3 (`deepseek/deepseek-v4-pro-0813`) are pinned by the A1.2 rule to
+  the first-party `deepseek` provider.
+- Every call returned HTTP 404: "Filter by Guardrails removed deepseek (Paid model training violation (account
+  settings))". The account's OpenRouter data policy excludes that provider, so the models were never probed.
+- Nothing about either model was observed.
+
+**Change:**
+- The A1.2 pin rule is applied over the endpoints **this account can reach**. A provider removed by the account's
+  guardrails is excluded, and the same rule picks the next endpoint.
+- Detection is mechanical: every probe call returns 404 and the routing message names the pinned tag under "Filter
+  by Guardrails removed".
+- Re-pins:
+  - candidate 1 → `streamlake/fp8`;
+  - candidate 3 → `gmicloud/fp8`.
+- The table order is unchanged, so candidate 1 is probed first.
+- Candidate 2 (`deepseek-v4-flash-vision-exp`, `gmicloud/fp8`) was really probed and **failed** criterion (a):
+  repeat SD 0.446 nats > 0.3. That result stands.
+
+**Also recorded:**
+- GPT-6-luna's temperature probe was refused: "No endpoints found that can handle the requested parameters". Its
+  temperature is not accepted, so criterion 4 fails. Per §1 it stays exploratory, and its T axis is labelled as a
+  defined, unverified rescaling.
+- Gemini accepted temperature.
