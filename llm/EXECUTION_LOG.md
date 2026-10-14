@@ -864,3 +864,7 @@ judgment calls, in time order (2026-10-08).
     - Step 5: finite-time effect.
     - Exploratory: luna Rule A 3/3 on a flat curve. Gemma start-dependence persists at T ≈ 2.0–2.3; a 0.1-nat error
       changes the basin in 24–51% of pairs vs 43–60% for seed noise alone.
+
+68. **Write-up: `results/llm/REPORT.md` (preprint-style draft) and cache backup.** The raw API cache of the
+    confirmatory phase was snapshotted, the manifest regenerated, and both uploaded to the private HF dataset;
+    remote verification by re-download passed. Sourcing notes for items still to verify are in REPORT Appendix E.

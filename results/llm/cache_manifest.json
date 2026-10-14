@@ -22,6 +22,54 @@
    "records": 24844
   },
   {
+   "file": "deepseek__deepseek-chat-v3-0324.jsonl.gz",
+   "bytes": 5180,
+   "sha256": "d3e8f4a08ae5badfd79788516fa3fb3da8499744532b04e6f7d0ef5f9eac55f4",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-chat-v3.1.jsonl.gz",
+   "bytes": 5273,
+   "sha256": "ebc07a33172e14101e448d341113b23214b7ed223bc4a6326edb90765ff3c558",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4-flash-0731.jsonl.gz",
+   "bytes": 5188,
+   "sha256": "11dd523ea030ed00a7856ff7bd615f0fc8cb5070d6ede9963b683e10c6b4b1fc",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4-flash-vision-exp.jsonl.gz",
+   "bytes": 5393,
+   "sha256": "6217fa400877605bc2099842257757bda278550f2671a8f8a612cea2b954b1a8",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4-flash.jsonl.gz",
+   "bytes": 5487,
+   "sha256": "801ccb8efe5cd64d5b384d8263bfd7b4347bd3c94121ec6fcc4a1a4d0746945c",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4-pro-0813.jsonl.gz",
+   "bytes": 5001,
+   "sha256": "c83198d6484a916f787437a81eea100790627a8c05b16b9661fde381ba4ae232",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4-pro.jsonl.gz",
+   "bytes": 5459,
+   "sha256": "ec9b436b1202ebee6d4663078c100b61411d84830b00ec546e3a2b295f003801",
+   "records": 40
+  },
+  {
+   "file": "deepseek__deepseek-v4.1-flash.jsonl.gz",
+   "bytes": 5282,
+   "sha256": "ab29c3e3a9171729506d419239ed8dfda1050bd98e552a65abc1a319b261f3c4",
+   "records": 40
+  },
+  {
    "file": "google__gemini-2.5-flash-lite.jsonl.gz",
    "bytes": 1105,
    "sha256": "75ec54e01cf782eef80540bc2ea4ca3ccbc4b567118e5188d2ded6b55b63e0b2",
@@ -29,9 +77,9 @@
   },
   {
    "file": "google__gemini-3.1-flash-lite.jsonl.gz",
-   "bytes": 1449630,
-   "sha256": "54b3f38a5a25ab69e2d631766e000f6d82dc0dd8b08e2bf8797dd458a5098fab",
-   "records": 24844
+   "bytes": 5019165,
+   "sha256": "b2f792f2d99bd3d57be9c64a5717e85f55a0c574097c5f664338de32d3af22b8",
+   "records": 88406
   },
   {
    "file": "google__gemma-3-27b-it.jsonl.gz",
@@ -53,21 +101,27 @@
   },
   {
    "file": "meta-llama__llama-3.1-8b-instruct.jsonl.gz",
-   "bytes": 1639189,
-   "sha256": "8d70690e61daeaca4ceaa2c1b8c081ea488556241df40dcfd75700cadd2f0522",
-   "records": 16881
+   "bytes": 1895026,
+   "sha256": "60691334226bd1b020bd6cdd3851334c0fd6b617a9daba8360976129b1336720",
+   "records": 19437
   },
   {
    "file": "meta-llama__llama-3.2-3b-instruct.jsonl.gz",
-   "bytes": 2599,
-   "sha256": "366d5d4c8fed3beea1a288b01df82e1335a49cc9cfaa417580cb9ac785bd8b85",
-   "records": 20
+   "bytes": 30762,
+   "sha256": "dda17f4c71bcbe7870ffa4cba1a0d68c32ebe602850fec665e99b6692d2f0f42",
+   "records": 460
   },
   {
    "file": "meta-llama__llama-3.3-70b-instruct.jsonl.gz",
-   "bytes": 3390844,
-   "sha256": "e7a97b7bf5ce1dd7ad9569b0c1b98a76f20d5c943964930d7ef03e7b2b4628a3",
-   "records": 40964
+   "bytes": 5182266,
+   "sha256": "54165a670f73aa6db196e91704c667e9728038834156880ea41914a2643a4806",
+   "records": 62332
+  },
+  {
+   "file": "meta-llama__llama-4-maverick.jsonl.gz",
+   "bytes": 5206,
+   "sha256": "4ede3edf0095db2ef39a9bb3d107e59be4a50fc2c2a85dc47f85080a92081e45",
+   "records": 40
   },
   {
    "file": "mistralai__mistral-large-4-0.jsonl.gz",
@@ -77,9 +131,9 @@
   },
   {
    "file": "mistralai__mistral-nemo.jsonl.gz",
-   "bytes": 6046296,
-   "sha256": "3d8f8c717fd857ab731e172d7f7d129f97c121a9e4b38ac45a2695736a78c2c1",
-   "records": 57075
+   "bytes": 10185578,
+   "sha256": "89e64cee1b76e864bec3120b8ff3c5ab8b45953ee0ea09c282587fa5a94e662f",
+   "records": 100932
   },
   {
    "file": "mistralai__mistral-small-3.2-24b-instruct.jsonl.gz",
@@ -88,16 +142,34 @@
    "records": 14271
   },
   {
+   "file": "openai__gpt-4o-2024-08-06.jsonl.gz",
+   "bytes": 5347,
+   "sha256": "e37e8c406699cc87cd60aad9c7572c669d58e1c7c12eda2100ec76b70b0c505a",
+   "records": 40
+  },
+  {
+   "file": "openai__gpt-4o-2024-11-20.jsonl.gz",
+   "bytes": 5183,
+   "sha256": "fddc18397f75b7db88d066120b009cb6e91863c7c189383eaf0e62d4d8c30010",
+   "records": 40
+  },
+  {
+   "file": "openai__gpt-4o-mini-2024-07-18.jsonl.gz",
+   "bytes": 27652,
+   "sha256": "5de486102df926335b2415cb1b6c6ca65a4eef06284c875803c8fbe46609630c",
+   "records": 440
+  },
+  {
    "file": "openai__gpt-4o-mini.jsonl.gz",
-   "bytes": 2890533,
-   "sha256": "4b128d63148ba0fc0e7ce04c36f0f0075c55bd873ad5073dcaf77602fd1743f8",
-   "records": 41148
+   "bytes": 3338935,
+   "sha256": "6e6d5b558ad6db1db57dba65cf795b297331a21f3eb8c37cc6c71a0423120f67",
+   "records": 47240
   },
   {
    "file": "openai__gpt-6-luna.jsonl.gz",
-   "bytes": 2743568,
-   "sha256": "363fb9ae87042e071ef9e865d6faa1d38650ddc823d12fb1b844b1712b711b24",
-   "records": 46765
+   "bytes": 7431646,
+   "sha256": "6fd3726656aa2a6b0b795e2c13027d020832aae38d93dfd20bc4096b6d89c451",
+   "records": 128625
   },
   {
    "file": "qwen__qwen3-235b-a22b-2507.jsonl.gz",
@@ -113,9 +185,9 @@
   },
   {
    "file": "qwen__qwen3.5-122b-a10b.jsonl.gz",
-   "bytes": 3600110,
-   "sha256": "d85a9f107d750261ff62594ad1769a7e18cbc7a3a0bdf84fb2f3eababa81ca69",
-   "records": 35819
+   "bytes": 6059160,
+   "sha256": "402d76985bf3d5510276f7794da8e32da7b8986122aa085ac90be050433ea87f",
+   "records": 59649
   },
   {
    "file": "qwen__qwen3.5-27b.jsonl.gz",
@@ -125,11 +197,11 @@
   },
   {
    "file": "qwen__qwen3.5-9b.jsonl.gz",
-   "bytes": 6292560,
-   "sha256": "06bb887156cf40e3a8e8655269f2871a5aa6df1a84eba7ab1ab718431a246690",
-   "records": 59408
+   "bytes": 10380559,
+   "sha256": "d0b4a9f8daa10a4dea81d4d9fa01c09da1e6eb0de6d20d7e245747f3b3d67790",
+   "records": 101497
   }
  ],
- "total_records": 422888,
- "total_bytes": 36949835
+ "total_records": 709422,
+ "total_bytes": 58503254
 }
