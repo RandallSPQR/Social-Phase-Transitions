@@ -796,3 +796,24 @@ judgment calls, in time order (2026-10-08).
       before any data from those providers.
     - Candidate 2 failed honestly (repeat SD 0.446).
     - The API job was stopped by PID (`bg.sh stop`) and restarted; all calls are cached.
+
+61. **Confirmatory phase: selection, P1 T_c, Gemma end-to-end test.**
+    - **Logprob model selected:** `openai/gpt-4o-mini` (rank 20, pinned `openai`). Repeat SD 0.296, leak 0,
+      κ 0.89 [0.48, 1.28], comprehension 99–100%.
+      - Ranks 1–17 failed (a): repeat SD 0.35–0.98 for DeepSeek and Llama-4; 400 errors for v3.2 (invalid params) and
+        R1; gpt-oss makes reasoning mandatory; gpt-4o variants failed.
+      - Rank 16 (Llama-3.2-3B) failed (b): κ −0.16.
+      - Rank 18 (Llama-3.1-8B) passed (a) and (b) but failed comprehension (ally 0.78, rival 0.72).
+      - Rank 19, `gpt-4o-mini-2024-07-18`, is the same weights on the same provider. It failed (b) with κ 0.12
+        [−0.22, 0.43]. So the (b) test is noisy at 5 prompts × 40 samples; flagged for stop point 2.
+      - Probe spend ≈ $0.08.
+    - **Gemini comprehension passes** (1.0 / 1.0 / 0.998).
+    - **P1 fresh:** T_c = 2.01 [1.96, 2.07]; checks 1.92 and 1.99; frozen below T ≈ 0.63; Step 4 uses W = 500,
+      R = 400.
+    - **Gemma pod end-to-end test passed** (CPU, tiny random Gemma-4 from the real config, full pipeline):
+      - heartbeat working;
+      - 5 units uploaded and verified, with HF downloads byte-identical to the local files;
+      - final upload verified and phase `done`, no removal (`NO_REMOVE`);
+      - fingerprint gate failure path tested earlier: random weights stop at exit 6;
+      - replicate identity bit-exact on CPU.
+      - The test outputs were deleted locally before the real run.
