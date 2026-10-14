@@ -186,7 +186,7 @@ def fig_kymographs(runs, order, plt):
 
 
 def fig_twins(twins, stats, order, plt):
-    fig = plt.figure(figsize=(14, 7)); gs = fig.add_gridspec(4, 6, height_ratios=[1, 4, 1, 4], hspace=0.4, wspace=0.08)
+    fig = plt.figure(figsize=(14, 7.6)); gs = fig.add_gridspec(4, 6, height_ratios=[1, 4, 1, 4], hspace=0.6, wspace=0.08)
     for i, m in enumerate(("P1", "gemini")):
         j = stats[("display", m)]
         for k, T in enumerate(temps(m)):
@@ -194,7 +194,7 @@ def fig_twins(twins, stats, order, plt):
             for h, (st, lab) in enumerate(((a, "A: table"), (b, "B: table + 0.1-nat error"))):
                 axm = fig.add_subplot(gs[2 * i, 2 * k + h]); ax = fig.add_subplot(gs[2 * i + 1, 2 * k + h])
                 s = stats[(m, round(T, 4))]; tl = {0.8: "0.8·T_c", 1.0: "T_c", 1.25: "1.25·T_c"}[round(T / tc(m), 2)]
-                kymo(ax, axm, st, order, plt, title=(f"{tl}   A: table" if h == 0 else f"B: + 0.1-nat error   ({s['different']}/{s['n']} pairs end differently)"))
+                kymo(ax, axm, st, order, plt, title=(f"{tl}\nA: table" if h == 0 else f"{s['different']}/{s['n']} pairs end differently\nB: + 0.1-nat error"))
                 if 2 * k + h == 0:
                     ax.set_ylabel(NAME[m], fontsize=9, color="#333")
                 ax.set_xticks([] if i == 0 else [0, 500, 1000])
