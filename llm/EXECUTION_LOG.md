@@ -817,3 +817,13 @@ judgment calls, in time order (2026-10-08).
       - fingerprint gate failure path tested earlier: random weights stop at exit 6;
       - replicate identity bit-exact on CPU.
       - The test outputs were deleted locally before the real run.
+
+62. **Gemma pod yor638ho767zok stopped at the fingerprint gate (smoke run). No K_avg data was produced.**
+    - Weights downloaded in 276 s. On the 5 smoke prompts, RMS |Δ logit| vs Amendment 4 = 0.335.
+      - 4 of 5 prompts are saturated at ±6 and identical.
+      - One differs by 0.75 nats: P(A) 0.119 at batch size 1 vs 0.064 batched.
+    - Exit 3, then final upload verified (24 files), then the pod removed itself. Spend ≈ $0.25. The safety chain
+      worked as designed.
+    - **Gate formula mismatch found after the gate fired.** The plan says "within the 0.3-nat gate". The PREREG gate
+      is RMS|y₁ − y₂|/√2, but the code omitted the /√2. In the PREREG form the smoke value is 0.237, which passes.
+    - Not relaunched; the owner is asked first. The gate fired, and correcting it after the fact needs their OK.
