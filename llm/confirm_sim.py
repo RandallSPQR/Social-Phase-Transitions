@@ -18,14 +18,16 @@ OUT = os.path.join(ROOT, "results", "llm", "confirm", "sim")
 CDIR = os.path.join(ROOT, "results", "llm", "confirm")
 NS = [100, 400, 1600]
 COARSE = [round(x, 4) for x in np.geomspace(0.2, 5.0, 15)]
-RHO = {"P1": 0.25, "P2": 0.5, "P4": 0.25, "gemma": 0.25, "gemini": 0.25, "selected": 0.25, "luna": 0.25}
+RHO = {"gemma_exact": 0.25, "P1": 0.25, "P2": 0.5, "P4": 0.25, "gemma": 0.25, "gemini": 0.25, "selected": 0.25, "luna": 0.25}
 seed = A.seed
 
 
 # ---------------------------------------------------------------- kernels
 def _calls(model):
-    if model == "gemma":
+    if model in ("gemma", "gemma_exact"):           # gemma_exact: exact full-vocabulary P(A) (censoring sensitivity)
         d = pd.concat([pd.read_csv(os.path.join(CDIR, "gemma", f"kavg_rep{r}.csv"), dtype={"counts": str, "seq": str}).assign(rep=r) for r in (0, 1)])
+        if model == "gemma_exact":
+            d["pA"] = d.pA_exact
         d["valid"] = d.pA.notna() & (d.leak <= stage3.LEAK_MAX); return d, "lp"
     tag = {"gemini": "gemini", "luna": "luna", "selected": "selected"}[model]
     d = pd.read_csv(os.path.join(CDIR, f"kavg_{tag}.csv"), dtype={"counts": str, "seq": str})
