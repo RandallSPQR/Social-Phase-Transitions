@@ -24,8 +24,8 @@
   }
  },
  "spend": {
-  "usd": 0.08015725439999558,
-  "calls": 4002
+  "usd": 0.0,
+  "calls": 0
  },
  "temp_nemo-12b": {
   "0.5": {
@@ -54,6 +54,7 @@
  "gemini_logprob_probe": {
   "calls": 2,
   "errors": 2,
+  "first_error": "google/gemini-3.1-flash-lite rep=confirm-probe:gemini-lpprobe:0:0: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, vis",
   "share_logprobs_ab": 0.0,
   "cost": 0.0
  },
@@ -75,6 +76,7 @@
  "luna_logprob_probe": {
   "calls": 2,
   "errors": 2,
+  "first_error": "openai/gpt-6-luna rep=confirm-probe:luna-lpprobe:0:0: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://o",
   "share_logprobs_ab": 0.0,
   "cost": 0.0
  },
