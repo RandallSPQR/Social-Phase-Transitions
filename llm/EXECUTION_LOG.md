@@ -827,3 +827,7 @@ judgment calls, in time order (2026-10-08).
     - **Gate formula mismatch found after the gate fired.** The plan says "within the 0.3-nat gate". The PREREG gate
       is RMS|y₁ − y₂|/√2, but the code omitted the /√2. In the PREREG form the smoke value is 0.237, which passes.
     - Not relaunched; the owner is asked first. The gate fired, and correcting it after the fact needs their OK.
+
+63. **Owner decision: relaunch Gemma with the PREREG gate form.** The fingerprint gate is now RMS|Δy|/√2 ≤ 0.3, the
+    PREREG §4 definition the plan cited, with the same 20 prompts. Labelled as an implementation fix found after the
+    gate fired.

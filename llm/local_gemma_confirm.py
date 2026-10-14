@@ -114,8 +114,9 @@ def main():
     ref = list(csv.DictReader(open(os.path.join(D, "fingerprint_ref.csv"))))
     fp = unit("fingerprint", ref, lambda it: lp_row(it["prompt"]))
     y = lambda p: max(-6, min(6, math.log(p / (1 - p))))
-    rms = math.sqrt(np.mean([(y(float(r["pA"])) - y(float(r["pA_ref"]))) ** 2 for r in fp]))
-    print(f"FINGERPRINT rms |Δ logit| vs Amendment 4 = {rms:.4f} nats (gate {a.fp_gate})", flush=True)
+    # PREREG §4 gate form: RMS over prompts of |y1 - y2| / sqrt(2) (owner decision 2026-10-14, EXECUTION_LOG 63)
+    rms = math.sqrt(np.mean([(y(float(r["pA"])) - y(float(r["pA_ref"]))) ** 2 for r in fp])) / math.sqrt(2)
+    print(f"FINGERPRINT RMS|Δ logit|/√2 vs Amendment 4 = {rms:.4f} nats (gate {a.fp_gate})", flush=True)
     json.dump(dict(rms=rms, gate=a.fp_gate, passes=rms <= a.fp_gate), open(os.path.join(D, "fingerprint_result.json"), "w"))
     if rms > a.fp_gate:
         print("FINGERPRINT FAILED: environment differs from Amendment 4; stopping", flush=True); sys.exit(6)
