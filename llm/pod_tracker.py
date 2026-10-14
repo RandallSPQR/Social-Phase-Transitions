@@ -123,8 +123,13 @@ def heartbeat(run, log, interval):
 
 
 def files_for(key=None):
-    pats = ["results/llm/stage1/*/{k}.csv", "results/llm/activations/{k}/*"] if key else \
-           ["results/llm/stage1/*/*.csv", "results/llm/activations/*/*", "results/llm/logs/*"]
+    if key == "gemma-confirm-ALL":                         # final upload of the confirmatory Gemma pod
+        pats = ["results/llm/confirm/gemma/*", "results/llm/logs/*"]
+    elif key and key.startswith("gemma-confirm-"):          # confirmatory phase units (llm/local_gemma_confirm.py)
+        pats = ["results/llm/confirm/gemma/%s.csv" % key[len("gemma-confirm-"):], "results/llm/confirm/gemma/*.json"]
+    else:
+        pats = ["results/llm/stage1/*/{k}.csv", "results/llm/activations/{k}/*"] if key else \
+               ["results/llm/stage1/*/*.csv", "results/llm/activations/*/*", "results/llm/logs/*", "results/llm/confirm/gemma/*"]
     out = []
     for p in pats:
         out += [f for f in glob.glob(os.path.join(ROOT, p.format(k=key))) if os.path.isfile(f)]

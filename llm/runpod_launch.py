@@ -51,7 +51,7 @@ def a100_stock():
     return {g["id"]: g["lowestPrice"] for g in gql(q)["gpuTypes"] if g["id"] in A100}
 
 
-def start_cmd(code_rev):
+def start_cmd(code_rev, script="llm/pod_run.sh"):
     """Pod boot: fetch the code tarball from the private HF dataset, run pod_run.sh, then idle (never exit: an exited
     container would be restarted by RunPod and restart the job)."""
     py = ("from huggingface_hub import hf_hub_download as d; import os; "
@@ -60,19 +60,23 @@ def start_cmd(code_rev):
     return ("pip install -q huggingface_hub > /root/boot.log 2>&1; "
             f"python -c \"{py}\" >> /root/boot.log 2>&1 && mkdir -p /root/Social-Phase-Transitions && "
             f"tar xzf /root/code/code/pod_code_{code_rev}.tgz -C /root/Social-Phase-Transitions >> /root/boot.log 2>&1 && "
-            "bash /root/Social-Phase-Transitions/llm/pod_run.sh 2>&1 | tee -a /root/boot.log; "
+            f"bash /root/Social-Phase-Transitions/{script} 2>&1 | tee -a /root/boot.log; "
             "echo 'job finished; idling until removed' >> /root/boot.log; sleep infinity")
 
 
 POD_ENV = {}          # extra pod environment (--pod-env KEY=VALUE), e.g. MODELS, LOCAL_ARGS, JOB_HOURS
 
 
+SCRIPT, HF_SECRET = "llm/pod_run.sh", False
+
+
 def create(code_rev):
+    hf = "{{ RUNPOD_SECRET_HF_TOKEN }}" if HF_SECRET else os.environ["HF_TOKEN"]
     body = {"name": NAME, "imageName": IMAGE, "gpuTypeIds": A100, "gpuCount": 1, "cloudType": "SECURE",
             "containerDiskInGb": 50, "volumeInGb": 200, "volumeMountPath": "/workspace",   # pod-local volume for the
             # weights (deleted with the pod); never the owner's shared network volume "supportPublicIp": False,
-            "env": {"HF_TOKEN": os.environ["HF_TOKEN"], "PYTHONUNBUFFERED": "1", **POD_ENV},
-            "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(code_rev)]}
+            "env": {"HF_TOKEN": hf, "PYTHONUNBUFFERED": "1", **POD_ENV},
+            "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd(code_rev, SCRIPT)]}
     r = requests.post(f"{REST}/pods", headers=H(), json=body, timeout=60)
     if r.status_code >= 300:
         return None, f"http {r.status_code}: {r.text[:300]}"
@@ -102,11 +106,18 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--code-rev"); ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--attach")
     ap.add_argument("--pod-env", nargs="*", default=[], help="KEY=VALUE pairs passed to the pod")
+    ap.add_argument("--script", default="llm/pod_run.sh", help="pod job script (confirmatory phase: llm/pod_confirm_gemma.sh)")
+    ap.add_argument("--name", default=None); ap.add_argument("--hf-secret", action="store_true",
+                    help="pass HF_TOKEN as the owner's RunPod secret reference instead of this session's token")
     ap.add_argument("--poll", type=int, default=180); ap.add_argument("--force-try", type=int, default=900)
     ap.add_argument("--check", type=int, default=120); ap.add_argument("--max-hours", type=float, default=4.25)
     ap.add_argument("--max-spend", type=float, default=12.0); ap.add_argument("--max-wait-hours", type=float, default=72)
     a = ap.parse_args()
     POD_ENV.update(kv.split("=", 1) for kv in a.pod_env)
+    global SCRIPT, HF_SECRET, NAME
+    SCRIPT, HF_SECRET = a.script, a.hf_secret
+    if a.name:
+        NAME = a.name
     if a.attach:          # re-attach the watchdog to a running pod (spend = its own rate x uptime)
         p = pod(a.attach); import calendar; t0 = calendar.timegm(time.strptime(p["lastStartedAt"][:19], "%Y-%m-%d %H:%M:%S"))
         return watch(a.attach, t0, float(p["costPerHr"]), a)
