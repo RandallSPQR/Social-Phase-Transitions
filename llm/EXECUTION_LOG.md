@@ -854,3 +854,13 @@ judgment calls, in time order (2026-10-08).
     - GPT-4o-mini is added as a real-model negative control. Gemma-31B gets exploratory run-length and
       outcome-sensitivity checks.
     - Decision-noise labels and the headline framing are fixed.
+
+67. **Confirmatory Steps 4–5 and amendment 3 results (`results/llm/AMPLIFICATION_CONFIRM_RESULTS.md`).**
+    - **Rule A passes 3/3 synthetic shapes for both confirmatory models** (P1: D 0.15, 0.79, 2.03; Gemini: 1.20,
+      1.03, 1.17). P1 stay-bias is close: CI lower bound 0.09.
+    - Rule B: P1 2/3 (stay fails), Gemini 3/3. Rule C: all pass.
+    - P1's real fixed-order battery error grows with N at T_c (G 1.73).
+    - GPT-4o-mini control: below the floor everywhere for |m|. Persistence shows no upward growth (some decrease).
+    - Step 5: finite-time effect.
+    - Exploratory: luna Rule A 3/3 on a flat curve. Gemma start-dependence persists at T ≈ 2.0–2.3; a 0.1-nat error
+      changes the basin in 24–51% of pairs vs 43–60% for seed noise alone.
