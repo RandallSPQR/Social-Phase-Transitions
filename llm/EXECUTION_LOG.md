@@ -879,3 +879,13 @@ judgment calls, in time order (2026-10-08).
     - **Not applied as requested:** "Stage 1 rival weights argue against frustration". For Gemma-31B neutral, b_r 0.93
       (71% of b_a) is compatible with frustration, and γ 0.08 is not significant. The report states these facts instead.
     - New figure `figures/substack/m_distribution.png`, with settings committed before rendering.
+
+70. **Gemma mechanism test (exploratory; plan committed first; `results/llm/GEMMA_MECHANISM_RESULTS.md`).**
+    - Pre-stated reading: "both knockouts remove it; no single mechanism".
+    - The rival knockout orders the population (|m| 0.77); the additive knockout disorders it (|m| 0.09). Each changes
+      the phase rather than isolating a mechanism.
+    - Original kernel: start-dependence persists at 4× only at T = 2.0 (gap 0.27 → 0.18); at 2.16 and 2.34 it decays
+      (to 0.13 and 0.07).
+    - Replica overlap shows no frozen state (identical-start |q| ≈ independent-start |q|). Unsatisfied ties are
+      0.04–0.06 above the floor.
+    - The REPORT §8 Gemma bullet was updated.

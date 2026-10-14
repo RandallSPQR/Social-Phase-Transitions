@@ -591,7 +591,14 @@ decision-noise range. **Two** do not [`results/llm/AMPLIFICATION_CONFIRM_STOP2.m
       weight (b_r 0.93 [0.79, 1.11] vs b_a 1.30). With 25% rival ties that is compatible with frustration.
     - Its inertia is small and not significant: γ = 0.08 [−0.15, 0.32] (`results/llm/stage1_cells_amendment4.csv`,
       `gemma-31b-local`, `neutral_own`).
-    - Frustration, inertia and the saturating (cubic) response found in Amendment 4 remain untested candidates.
+    - **Exploratory mechanism test** [`results/llm/GEMMA_MECHANISM_RESULTS.md`; plan committed first]:
+      - Removing rivals' influence makes the population order strongly (|m| 0.77). Replacing the table by its
+        additive projection makes it disordered (|m| 0.09). Either way start-dependence disappears, so under the
+        pre-stated reading no single mechanism is identified.
+      - Replica overlaps show no frozen microscopic state.
+      - The regime reads as slow, start-dependent relaxation near an ordering boundary, which depends jointly on rival
+        repulsion and the non-additive response.
+      - Inertia was not knocked out.
   - Cold starts decay from all-up to |m| ≈ 0.44; hot starts stay near 0.05.
   - The result is unchanged with exact full-vocabulary P(A).
   - **Exploratory run-length check:** start-dependence persists at T ≈ 2.0–2.3 even at 4× run length, and dissolves
