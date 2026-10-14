@@ -868,3 +868,14 @@ judgment calls, in time order (2026-10-08).
 68. **Write-up: `results/llm/REPORT.md` (preprint-style draft) and cache backup.** The raw API cache of the
     confirmatory phase was snapshotted, the manifest regenerated, and both uploaded to the private HF dataset;
     remote verification by re-download passed. Sourcing notes for items still to verify are in REPORT Appendix E.
+
+69. **Report fixes (owner, 2026-10-15) and the m-distribution figure.**
+    - REPORT: the "40×" comparison is replaced by same-N comparisons (N = 100: 16× per run, 56× per nat; N = 1,600:
+      the T = 1 effect is indistinguishable from 0, so at least about 75× per nat). A correction note was added to
+      `AMPLIFICATION_RESULTS.md`.
+    - Gemma is now described as "frozen, start-dependent; mechanism not identified".
+    - The Qwen-9B 1/T pass was added. Brock–Durlauf, Manski and Kirman were cited, and a References section added.
+    - Claim 5 wording changed; claims confirmed by the owner.
+    - **Not applied as requested:** "Stage 1 rival weights argue against frustration". For Gemma-31B neutral, b_r 0.93
+      (71% of b_a) is compatible with frustration, and γ 0.08 is not significant. The report states these facts instead.
+    - New figure `figures/substack/m_distribution.png`, with settings committed before rendering.

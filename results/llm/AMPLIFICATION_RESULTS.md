@@ -73,6 +73,14 @@ At T = 1, P1 is deep in the ordered phase and amplification of |m| is small.
 The same K_fixed error shape at T_c (ε = 0.13) moves |m| by +0.07 at N = 100 and by **+0.17 at N = 1,600**. That is
 about 40× the T = 1 effect per run, and about 140× per nat.
 
+> **Correction (2026-10-15).** The "40×" and "140×" figures compared N = 1,600 at T_c with N = 100 at T = 1, so they
+> mixed the temperature effect with N-dependence. At the same N:
+> - N = 100: +0.068 vs +0.004 per run (about 16×), and 0.50 vs 0.009 per nat (about 56×);
+> - N = 1,600: +0.169 vs −0.002, where the T = 1 effect is indistinguishable from zero; per nat 1.27 vs 0.004
+>   [0.000, 0.017], so at least about 75×.
+>
+> Source: `amplification.csv`, equilibrium protocol, `fixed`, λ = 1.
+
 At T = 1, the controls' real errors are of a similar or larger size per nat. For example, P2's A3 gives A = 0.27, and
 P4's A3 gives Δ|m| = −0.044. In P1 at T = 1, persistence carries more of the effect than |m| does: K_fixed gives
 +0.03 and A3 gives −0.08 (Stage 3 protocol, N = 100).

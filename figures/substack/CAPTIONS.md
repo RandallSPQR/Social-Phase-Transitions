@@ -59,3 +59,18 @@ Spectral-embedding layout (Laplacian eigenvectors 2–3, fixed), faint edges, sw
 | `network_selected` | GPT-4o-mini at T = 2 (no tipping point) |
 | `network_gemma` | Gemma-4 31B at T = 2, random start (no tipping point) |
 | `twins_P1`, `twins_gemini` | twin runs at T_c, side by side; the median-divergence pair |
+
+## m_distribution.png
+
+*How lopsided does each population get?*
+- Distribution of m (share holding A minus share holding B) over sweeps 501–1,000, pooled over the 50 seed pairs. These
+  are run A of the twin setting: the same network, seeds and tables. Script `llm/substack_mdist.py`, settings committed
+  before rendering. Each panel has its own vertical scale.
+- **Qwen and Gemini, below T_c:** two separate peaks, so each run picks a side.
+  - Mean |m|: Qwen 0.74 (100% of values have |m| > 0.5); Gemini 0.56 (77%).
+- **At T_c:** one broad peak spanning both sides; mean |m| 0.18 (Qwen) and 0.21 (Gemini).
+- **At 1.25·T_c:** a narrow peak at an even split.
+- **GPT-4o-mini:** a narrow peak at an even split at every T (mean |m| 0.07–0.11).
+- **Gemma:** the random start (solid) and the all-A start (dashed) give different distributions at T = 1 and 2 (mean
+  |m| 0.11 vs 0.38 at T = 1). They come together by T = 3 (0.20 vs 0.20).
+- Numbers: `m_distribution.json`.

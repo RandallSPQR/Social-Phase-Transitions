@@ -63,8 +63,8 @@ the models, binary task and graphs tested.
    - Under a corrected rule tested on fresh simulations, amplification at T_c exceeds the worst-case control by
      0.15–2.03 |m| per nat for 3 of 3 synthetic error shapes in both confirmatory models with a transition.
    - The original pre-registered version of this test was refuted, for a stated technical reason.
-5. **Whether a population has a tipping point is model-dependent.** Only 2 of 4 confirmatory models order at any
-   decision-noise level in the swept range. This is a property of the population, not readable from single-agent
+5. **Whether a population has a tipping point is model-dependent.** Only 2 of 4 confirmatory models have an
+   order–disorder transition in the swept decision-noise range. This is a property of the population, not readable from single-agent
    statistics.
 
 Amplification results are simulation-based: empirical kernels are run under a 1/T decision-noise rescaling that is
@@ -97,6 +97,13 @@ These results are **motivation only**:
 **The question this report addresses.** If LLM agents are wired into a signed network, do they behave like the spins
 this theory assumes? Where they do not, which differences matter for collective outcomes?
 
+**Relation to discrete-choice models of social interaction.** The agent update rule studied here is a logit
+discrete-choice model with a social term: the probability of choosing a position depends on the choices of an
+agent's contacts. That is the framework of Brock and Durlauf (2001), whose mean-field analysis already predicts
+multiple equilibria and tipping. Inferring such social effects from aggregate outcomes runs into Manski's (1993)
+reflection problem. Here we sidestep it by measuring each agent's response function directly, with the
+contacts' positions under experimental control.
+
 The practical stake is evaluation. Most evaluations measure one agent's response to a fixed prompt. If collective
 behaviour depends on details that single-agent summaries drop, and if small per-step differences are amplified near
 tipping points, then single-agent evaluation can mislead about what a population will do.
@@ -105,7 +112,7 @@ tipping points, then single-agent evaluation can mislead about what a population
 
 ## 2. Symmetric baseline and asymmetry sweep (known physics, reproduced)
 
-**Model.** The baseline is the Viana–Bray ±J Ising model on Erdős–Rényi graphs (`HANDOFF.md` §2):
+**Model.** The baseline is the Viana–Bray (1985) ±J Ising model on Erdős–Rényi graphs (`HANDOFF.md` §2):
 - mean degree c, a fraction ρ of negative ties, heat-bath dynamics at noise T;
 - analytic cavity lines: consensus at c(1 − 2ρ) tanh(1/T) = 1, glass at c tanh²(1/T) = 1.
 
@@ -127,7 +134,7 @@ is the probability that the reverse direction of a tie is redrawn independently.
   with no size dependence across N = 1k–4k.
 - **Consensus (ρ = 0.1, T = 2.0):** |m| goes only from 0.62 to 0.55 as ε goes 0 → 1.
 
-Frozen camps melt quickly under non-reciprocity. This is consistent with Crisanti and Sompolinsky's result for dense
+Frozen camps melt quickly under non-reciprocity. This is consistent with Crisanti and Sompolinsky's (1987) result for dense
 asymmetric spin glasses and is **not new physics**. We report it only to establish that the simulator reproduces known
 results.
 
@@ -215,6 +222,16 @@ The confirmatory analysis was not changed.
 **Temperature.** The pre-registered 1/T verification on GPT-4o-mini **failed**: χ² rejects at T = 0.5 and 1.5, while
 the slopes match 1/T (EXECUTION_LOG entry 1). Reference-logit jitter explains most but not all of the misfit.
 
+The same check on **Qwen3.5-9B passed** at both temperatures [`results/llm/temperature_verify_qwen-9b.json`; EXECUTION_LOG
+entry 7]:
+
+| T | slope [95% CI] | expected | χ² p |
+|---|---|---|---|
+| 0.5 | 2.22 [1.87, 2.61] | 2.0 | 0.13 |
+| 1.5 | 0.68 [0.45, 0.93] | 0.67 | 0.57 |
+
+At T = 1.5, 99 of 1,000 samples were invalid. The 1/T rule describes the choice conditional on a valid reply.
+
 **Exploratory annex** (probes on Gemma activations; cannot alter H1–H5).
 - Rival-majority information is decodable from 31B activations: deconfounded AUC up to 0.96 at layers 30–60.
 - It is also used: |b_r|/b_a = 0.71.
@@ -231,7 +248,8 @@ Five differences from Ising spins [`STAGE1_RESULTS.md`, "How LLM agents differ f
 3. **Several models average their neighbours** (α ≈ 1), which induces non-reciprocity on heterogeneous-degree graphs.
 4. **Letter, order and content fields are present.**
 5. **Contact order matters strongly.** In neutral framing, Llama-70B's logit SD across permutations of the same cell
-   is 2.95 nats, a voter-like primacy effect.
+   is 2.95 nats, a voter-like primacy effect. Copying one randomly met contact is the recruitment dynamics of
+   Kirman (1993).
 
 Item 5 turns out to matter in Stage 3.
 
@@ -242,7 +260,8 @@ Item 5 turns out to matter in Stage 3.
 ### 4.1 Stage 2: surrogate predictions [`results/llm/STAGE2_RESULTS.md`]
 
 **Surrogate.** Each fitted response function was plugged into a simulator: the A3 logit with k^(−α) scaling, inertia γ,
-content field h_C, and a voter step where it beat the logit held-out. The simulator reproduces the Viana–Bray results
+content field h_C, and a first-contact voter step (copying one contact, as in Kirman 1993) where it beat the logit
+held-out. The simulator reproduces the Viana–Bray results
 with Ising agents.
 
 **Findings (surrogates only):**
@@ -462,7 +481,21 @@ Two pre-stated expectations also failed:
 | fixed-order battery (K_fixed) | 0.48 nats | +0.004 |
 | trait summary (A3) | 1.71 nats | −0.034 |
 
-The same K_fixed shape at T_c moves |m| by +0.17 at N = 1,600: about 40× the T = 1 effect per run.
+The same K_fixed error shape compared at the **same N**, at T = 1 and at T_c [`results/llm/amplification/amplification.csv`,
+equilibrium protocol, rows `fixed`, λ = 1]:
+
+| N | Δ\|m\| at T = 1 | Δ\|m\| at T_c | per nat at T = 1 [95% CI] | per nat at T_c [95% CI] |
+|---|---|---|---|---|
+| 100 | +0.004 | +0.068 | 0.009 [0.006, 0.011] | 0.50 [0.43, 0.57] |
+| 1,600 | −0.002 | +0.169 | 0.004 [0.000, 0.017] | 1.27 [1.20, 1.34] |
+
+- **At N = 100:** the effect per run is about 16× larger at T_c, and about 56× per nat. The per-step error is smaller at
+  T_c because the logits are divided by T.
+- **At N = 1,600:** the T = 1 effect is indistinguishable from zero. The per-nat ratio is at least about 75×, using the
+  upper CI bound at T = 1.
+
+An earlier draft said "about 40×". That figure compared +0.17 at N = 1,600 with +0.004 at N = 100, so it mixed the
+temperature effect with N-dependence.
 
 Figures: `results/llm/amplification/fig1_binder.png`, `fig2_amplification_abs_m.png`, `fig3_growth_abs_m.png`,
 `fig4_placement_abs_m.png`.
@@ -551,8 +584,14 @@ decision-noise range. **Two** do not [`results/llm/AMPLIFICATION_CONFIRM_STOP2.m
 
 - **GPT-4o-mini never orders.** The highest Binder cumulant at N = 1,600 is 0.47, at T = 0.2 (the rule needs ≥ 0.5),
   and |m| ≤ 0.22. Hot and cold starts agree everywhere.
-- **Gemma-31B is frustrated and glassy.** Hot and cold starts disagree at every T ≤ 3.16, so the rule marks that region
-  as frozen.
+- **Gemma-31B is frozen and start-dependent.** Hot and cold starts disagree at every T ≤ 3.16, so the rule marks that
+  region as frozen.
+  - **The mechanism is not identified.**
+    - Stage 1 does not settle it. In the neutral framing simulated here, Gemma-31B's rivals repel at 71% of ally
+      weight (b_r 0.93 [0.79, 1.11] vs b_a 1.30). With 25% rival ties that is compatible with frustration.
+    - Its inertia is small and not significant: γ = 0.08 [−0.15, 0.32] (`results/llm/stage1_cells_amendment4.csv`,
+      `gemma-31b-local`, `neutral_own`).
+    - Frustration, inertia and the saturating (cubic) response found in Amendment 4 remain untested candidates.
   - Cold starts decay from all-up to |m| ≈ 0.44; hot starts stay near 0.05.
   - The result is unchanged with exact full-vocabulary P(A).
   - **Exploratory run-length check:** start-dependence persists at T ≈ 2.0–2.3 even at 4× run length, and dissolves
@@ -604,6 +643,10 @@ collective effect of the real evaluation errors there (+0.004 in |m|).
 ## 10. Implications for evaluation and governance
 
 These statements stay within the claims above.
+
+Framed in Brock and Durlauf's (2001) terms, each model supplies a social logit choice rule. The collective
+equilibria, including whether multiple equilibria (a tipping point) exist at all, are a property of that rule on the
+network, not of any single response.
 
 1. **Per-agent trait summaries are not enough to predict what a population of agents will do.** In this study a fitted
    trait model of each agent mispredicted live populations by 3–20 SD. A table conditioned on the full input
@@ -700,15 +743,33 @@ account billing.
 
 ## Appendix E. Sourcing notes (items to verify before submission)
 
-1. **Claims list.** The request referred to "claims 1–5 below" without listing them. The five claims in the Abstract
-   are my synthesis of the committed results; please confirm or replace them.
-2. **External literature.** Viana–Bray (1985) and Crisanti–Sompolinsky (1987) are cited from `HANDOFF.md` and general
-   knowledge. Full bibliographic entries still need to be added and checked, as does Kline & Santos (2012), cited in
-   PREREG Amendment 1. The five September 2026 proofs are identified only by their PDF titles in `papers/`.
+1. **Claims list.** The five claims in the Abstract were confirmed by the owner (2026-10-15).
+2. **External literature.** Full entries are in the References section. They were written from knowledge, not checked
+   against the publications in this session, so verify volume and page numbers before submission. The five September
+   2026 proofs are identified only by their PDF titles in `papers/`.
 3. **Cost total.** The total is a sum of per-phase figures. GPU figures are estimated as rate × uptime.
 4. **Cache manifest.** It was regenerated on 2026-10-14 to include this phase's API calls. The upload is verified by
    re-download; see the commit that accompanies this report.
 5. **Stage 2 claims** are quoted from `STAGE2_RESULTS.md` without re-running anything.
 6. **Probe findings** are exploratory and their revisions are quoted. No probe result supports a claim here.
-7. **Figures** are reused from the committed figure files listed in each section. No new figure was made for this
-   report.
+7. **Figures** are reused from the committed figure files listed in each section. The Substack set in
+   `figures/substack/` (simulated from the measured tables; see its `CAPTIONS.md`) was made afterwards and is not cited
+   in the analysis.
+
+## References
+
+- Brock, W. A., & Durlauf, S. N. (2001). Discrete choice with social interactions. *Review of Economic Studies*, 68(2),
+  235–260.
+- Crisanti, A., & Sompolinsky, H. (1987). Dynamics of spin systems with randomly asymmetric bonds: Langevin dynamics
+  and a spherical model. *Physical Review A*, 36(10), 4922–4939.
+- Kirman, A. (1993). Ants, rationality, and recruitment. *Quarterly Journal of Economics*, 108(1), 137–156.
+- Kline, P., & Santos, A. (2012). A score based approach to wild bootstrap inference. *Journal of Econometric Methods*,
+  1(1), 23–41.
+- Manski, C. F. (1993). Identification of endogenous social effects: The reflection problem. *Review of Economic
+  Studies*, 60(3), 531–542.
+- Viana, L., & Bray, A. J. (1985). Phase diagrams for dilute spin glasses. *Journal of Physics C: Solid State Physics*,
+  18(15), 3037–3051.
+- Five unrefereed proofs released in September 2026 (motivation only), PDFs in `papers/`: Rokhlin's multiple mixing
+  problem for one transformation; the Mézard–Parisi formula for diluted spin glasses; no percolation at criticality on
+  quasi-transitive graphs; critical bond and site percolation on the cubic lattice; nonuniqueness of percolation on
+  nonamenable quasi-transitive graphs.
