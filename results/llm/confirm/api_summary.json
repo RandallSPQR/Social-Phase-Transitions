@@ -24,7 +24,52 @@
   }
  },
  "spend": {
-  "usd": 0.07727199999999738,
-  "calls": 2000
+  "usd": 0.08015725439999558,
+  "calls": 4002
+ },
+ "temp_nemo-12b": {
+  "0.5": {
+   "slope": 1.7880512879498125,
+   "slope_lo": 1.3738227954887448,
+   "slope_hi": 2.3072084871016147,
+   "expected": 2.0,
+   "chi2": 43.07452779895625,
+   "df": 20,
+   "p_chi2": 0.001998460789162204,
+   "n_invalid": 0,
+   "passes": false
+  },
+  "1.5": {
+   "slope": 0.5358159281552497,
+   "slope_lo": 0.22124545750741614,
+   "slope_hi": 0.8634059736351342,
+   "expected": 0.6666666666666666,
+   "chi2": 22.830124675603233,
+   "df": 20,
+   "p_chi2": 0.2972125835130923,
+   "n_invalid": 92,
+   "passes": true
+  }
+ },
+ "gemini_logprob_probe": {
+  "calls": 2,
+  "errors": 2,
+  "share_logprobs_ab": 0.0,
+  "cost": 0.0
+ },
+ "gemini_temp_probe": {
+  "0.5": {
+   "ok": true,
+   "content": "B",
+   "provider": "Google AI Studio",
+   "rt": 0
+  },
+  "1.5": {
+   "ok": true,
+   "content": "B",
+   "provider": "Google AI Studio",
+   "rt": 0
+  },
+  "accepted": true
  }
 }
