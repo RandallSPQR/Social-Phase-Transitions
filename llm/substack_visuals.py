@@ -150,7 +150,6 @@ def kymo(ax, axm, st, order, plt, title=None, tmax=SWEEPS):
     m = np.abs(st.mean(1))[:tmax + 1]
     axm.plot(np.arange(len(m)), m, color="#333", lw=0.8); axm.set_ylim(0, 1); axm.set_xlim(0, tmax)
     axm.set_xticks([]); axm.set_yticks([0, 1]); axm.spines["bottom"].set_visible(False)
-    axm.annotate(f"{m[-1]:.2f}", (tmax, m[-1]), xytext=(3, 0), textcoords="offset points", fontsize=7, color="#333", va="center")
     if title:
         axm.set_title(title, loc="left", fontsize=8.5, color="#333", pad=2)
 
@@ -170,13 +169,13 @@ def fig_kymographs(runs, order, plt):
     for i, (m, start) in enumerate(rows):
         for k, T in enumerate(temps(m)):
             axm = fig.add_subplot(gs[2 * i, k]); ax = fig.add_subplot(gs[2 * i + 1, k])
-            lab = (f"T = {T / tc(m):.2g}·T_c ({T:.2f})" if m in ("P1", "gemini") else f"T = {T:.0f}")
+            lab = (({0.8: "T = 0.8·T_c", 1.0: "T = T_c", 1.25: "T = 1.25·T_c"}[round(T / tc(m), 2)] + f" ({T:.2f})") if m in ("P1", "gemini") else f"T = {T:.0f}")
             kymo(ax, axm, runs[(m, round(T, 4), start)], order, plt, title=lab)
             if k == 0:
                 ax.set_ylabel(f"{NAME[m]}" + (f"\n{start} start" if m == "gemma" else ""), fontsize=9, color="#333")
             if i < len(rows) - 1:
                 ax.set_xticks([])
-            else:
+            elif k == 1:
                 ax.set_xlabel("time (sweeps; one sweep = every agent updates once on average)")
     head(fig, "Who holds which position, over time, in four simulated populations",
          "Each row of pixels is one agent (blue = A, orange = B); thin line above each panel = |m(t)|, the size of the majority", y=(0.915, 0.903))
@@ -187,23 +186,20 @@ def fig_kymographs(runs, order, plt):
 
 
 def fig_twins(twins, stats, order, plt):
-    fig = plt.figure(figsize=(12, 7)); gs = fig.add_gridspec(4, 6, height_ratios=[1, 4, 1, 4], hspace=0.4, wspace=0.08)
+    fig = plt.figure(figsize=(14, 7)); gs = fig.add_gridspec(4, 6, height_ratios=[1, 4, 1, 4], hspace=0.4, wspace=0.08)
     for i, m in enumerate(("P1", "gemini")):
         j = stats[("display", m)]
         for k, T in enumerate(temps(m)):
             a, b = twins[(m, round(T, 4), j)]
             for h, (st, lab) in enumerate(((a, "A: table"), (b, "B: table + 0.1-nat error"))):
                 axm = fig.add_subplot(gs[2 * i, 2 * k + h]); ax = fig.add_subplot(gs[2 * i + 1, 2 * k + h])
-                s = stats[(m, round(T, 4))]
-                kymo(ax, axm, st, order, plt, title=(f"{T / tc(m):.2g}·T_c  {lab}" if h == 0 else lab))
+                s = stats[(m, round(T, 4))]; tl = {0.8: "0.8·T_c", 1.0: "T_c", 1.25: "1.25·T_c"}[round(T / tc(m), 2)]
+                kymo(ax, axm, st, order, plt, title=(f"{tl}   A: table" if h == 0 else f"B: + 0.1-nat error   ({s['different']}/{s['n']} pairs end differently)"))
                 if 2 * k + h == 0:
                     ax.set_ylabel(NAME[m], fontsize=9, color="#333")
-                if h == 1:
-                    ax.annotate(f"different end state in {s['different']}/{s['n']} pairs", (0.98, -0.12), xycoords="axes fraction", ha="right",
-                                fontsize=7.5, color="#333", style="italic")
                 ax.set_xticks([] if i == 0 else [0, 500, 1000])
-    head(fig, "Identical twins, one with a tiny error: the gap grows at the tipping point",
-         "Same network, same start, same random draws; run B's agents lean 0.1 nats more toward their contacts' side", y=(0.95, 0.925))
+    head(fig, "Identical twins, one with a tiny error",
+         "Same network, same start, same random draws; run B's agents lean 0.1 nats more toward their contacts' side. Counts over 50 seed pairs per T", y=(0.95, 0.925))
     foot(fig, CAPTION + " Agents ordered by the Fiedler vector. The pair shown is the median-divergence pair at T_c (rank 25 of 50, rule fixed before rendering), "
          "used in every panel of that model; the counts are over all 50 seed pairs at each T.", y=0.05)
     fig.savefig(os.path.join(OUT, "twins_kymographs.png"), dpi=150); plt.close(fig)
