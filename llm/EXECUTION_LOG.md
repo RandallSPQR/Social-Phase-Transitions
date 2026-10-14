@@ -831,3 +831,12 @@ judgment calls, in time order (2026-10-08).
 63. **Owner decision: relaunch Gemma with the PREREG gate form.** The fingerprint gate is now RMS|Δy|/√2 ≤ 0.3, the
     PREREG §4 definition the plan cited, with the same 20 prompts. Labelled as an implementation fix found after the
     gate fired.
+
+64. **Gemma pod cdv1fk7k3updln: complete.** It ran 0.37 h, about $0.66; total GPU spend in this phase is about $0.91.
+    - Fingerprint RMS|Δ|/√2 = 0.234 on 20 prompts: passed.
+    - K_avg replicates are bit-identical (max |ΔP| = 0).
+    - Comprehension 100% on all three question types.
+    - Invalid replies 0% at T = 1.0, 0.15% at T = 1.5, 15.3% at T = 2.0. Exact first-token leak 0, 0.2% and 13.5%.
+    - On 210 of 768 K_avg prompts one letter is outside the top 5 (censored under the Stage 1 top-5 rule). The exact
+      full-vocabulary P(A) is recorded and is used for a T_c sensitivity check.
+    - The pod self-removed after a verified final upload.
