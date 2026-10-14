@@ -848,3 +848,9 @@ judgment calls, in time order (2026-10-08).
     - **T_c:** P1 2.01 [1.96, 2.07], Gemini 1.83 [1.81, 1.86], GPT-6-luna 0.49 (exploratory). GPT-4o-mini and Gemma:
       no transition in the swept range (Gemma glassy, frozen up to T ≈ 3.2).
     - Spend: API $3.33, GPU $0.91. Step 4 is not run; waiting for the owner.
+
+66. **Confirm plan amendment 3 (owner, before any Step 4/5 run).**
+    - Confirmatory set: P1 + Gemini. GPT-6-luna exploratory.
+    - GPT-4o-mini is added as a real-model negative control. Gemma-31B gets exploratory run-length and
+      outcome-sensitivity checks.
+    - Decision-noise labels and the headline framing are fixed.

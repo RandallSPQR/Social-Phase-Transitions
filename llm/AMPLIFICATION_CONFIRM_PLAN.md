@@ -443,3 +443,61 @@ The plan text is unchanged in effect, but stated explicitly:
   temperature is not accepted, so criterion 4 fails. Per §1 it stays exploratory, and its T axis is labelled as a
   defined, unverified rescaling.
 - Gemini accepted temperature.
+
+## Amendment 3 (2026-10-14, owner, after stop point 2, before any Step 4/5 run)
+
+**A3.1 Run set.**
+- **Confirmatory:** P1 (fresh; T_c 2.01) and Gemini 3.1 Flash-Lite (T_c 1.83).
+- **Exploratory:** GPT-6-luna (T_c 0.49).
+- GPT-4o-mini and Gemma-31B have no transition in the swept range. That is their result.
+- Run lengths per the §4 rule: P1 and Gemini W = M = 500 with R = 400; luna W = M = 1,000 with R = 200.
+- Controls P2 and P4 use the test model's W and R at its T_c.
+- Seeds use salt `confirm-step4`; graphs are the fresh `confirm-graph` set.
+
+**A3.2 GPT-4o-mini as a real-model negative control** (secondary, pre-data).
+- **Runs:**
+  - the same synthetic perturbations (stay, majority, noise × 3, δ = 0.1);
+  - on the union of the P1 and Gemini Step 4 bands (26 T values);
+  - at N = 1,600 and N = 100 at every band point;
+  - W = 500, R = 400, its own fresh graphs (ρ = 0.25).
+- **Prediction:**
+  - wherever amplification is ≥ 0.10 at both N, the N-growth CI includes 1;
+  - if amplification is never above the floor, report **"below floor everywhere"**.
+- **Bounded over T:** reported descriptively as max_T A(1600) / median_T A(1600) and whether any T exceeds the floor.
+- It is reported alongside P2 and P4. A Rule A–style difference (test model − GPT-4o-mini at the test model's T_c) is
+  reported as secondary and is not part of the verdict.
+
+**A3.3 Gemma-31B, exploratory** (labelled; not confirmatory).
+- **(a) Run-length check:**
+  - 7 geometric T over [2.0, 3.2];
+  - hot and cold starts at W = M = 1,000, 2,000 and 4,000 (1×, 2×, 4× the Step 3 length);
+  - N = 100, 400, 1,600; R = 50.
+  - Report the hot/cold |m| gap vs length. Start-dependence "persists" if the N = 1,600 gap at 4× is > 0.02 at some T
+    and not below half its 1× value.
+- **(b) Outcome sensitivity:**
+  - 7 T values as in (a), plus T = 1.0; N = 100, 400, 1,600; R = 200; W = 1,000 with the basin read from the last 100
+    sweeps.
+  - For each pair, run base and perturbed from the identical random start with common random numbers.
+  - **Basin** = sign of the mean signed m over those last 100 sweeps; |mean m| < 0.05 counts as "undecided".
+  - **Outcome-change rate** = share of pairs whose basin differs, for each shape (stay, majority, noise k = 0) at
+    δ = 0.1.
+  - Reference: the same identical start with a different dynamics seed and no perturbation (the intrinsic
+    unpredictability).
+  - Wilson 95% CIs; reported vs N.
+
+**A3.4 Labels.**
+- These results carry the label **"defined decision-noise rescaling, not verified sampling temperature"** (1/T fails
+  at T = 0.5 beyond reference noise):
+  - Step 5 (T 0.5–0.9);
+  - luna's T_c and Step 4 band;
+  - P2/P4 controls at luna's T_c;
+  - GPT-4o-mini's low-T range.
+- Also stated:
+  - Qwen-122B's narrow slope miss at T = 1.5 (CI 0.68–1.08 vs 0.67);
+  - GPT-4o-mini's borderline selection (its dated alias failed the temperature probe).
+
+**A3.5 Headline framing** for the write-up: whether a population has a tipping point at all is model-dependent (2 of
+4 confirmatory models), and is only knowable at the population level.
+
+**Unchanged:** Rules A (worst-case control, margin 0.10), B (N-growth only where A ≥ 0.10 at both N) and C (peak
+within ±10% of T_c); predictions §5; Step 5 rule §6.
