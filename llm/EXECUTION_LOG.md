@@ -840,3 +840,11 @@ judgment calls, in time order (2026-10-08).
     - On 210 of 768 K_avg prompts one letter is outside the top 5 (censored under the Stage 1 top-5 rule). The exact
       full-vocabulary P(A) is recorded and is used for a T_c sensitivity check.
     - The pod self-removed after a verified final upload.
+
+65. **Confirmatory phase, stop point 2 (`results/llm/AMPLIFICATION_CONFIRM_STOP2.md`).**
+    - **1/T:** fails as pre-registered for Qwen-122B, Nemo-12B and GPT-4o-mini. The misfit is at T = 0.5 (beyond
+      reference noise); T = 1.5 fits within noise. Gemini passes (κ 1.13). GPT-6-luna refuses temperature.
+    - **Comprehension:** all pass. Gemma replicates are bit-identical.
+    - **T_c:** P1 2.01 [1.96, 2.07], Gemini 1.83 [1.81, 1.86], GPT-6-luna 0.49 (exploratory). GPT-4o-mini and Gemma:
+      no transition in the swept range (Gemma glassy, frozen up to T ≈ 3.2).
+    - Spend: API $3.33, GPU $0.91. Step 4 is not run; waiting for the owner.
