@@ -1,7 +1,7 @@
 # Confirmatory amplification test (corrected rule): results, Steps 4–5
 
 Plan: `llm/AMPLIFICATION_CONFIRM_PLAN.md` (76aad78) + amendments 1–3. Runners and analysis were committed before the
-results existed: `llm/confirm_step45.py` (a2-runner commit) and `llm/confirm_analyse.py`. Steps 1–3:
+results existed: `llm/confirm_step45.py` (1a573e5) and `llm/confirm_analyse.py` (e97cff0). Steps 1–3:
 `results/llm/AMPLIFICATION_CONFIRM_STOP2.md`.
 
 **The Stage B verdict stays "refuted".**
