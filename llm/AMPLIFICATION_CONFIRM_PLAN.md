@@ -285,3 +285,134 @@ wait for the owner's OK before Step 4.
   1. after this commit (owner OK for spend);
   2. after Steps 1–3;
   3. after Steps 4–5: the full report, verdicts first, post-hoc readings separated.
+
+## Amendment 1 (2026-10-14, owner, pre-data): a confirmatory logprob model from OpenAI/Meta/DeepSeek; Gemini added; luna exploratory
+
+Committed before any probe, API call or run of this phase.
+
+### A1.1 Confirmatory set
+
+**P1 (fresh), Gemma-31B (local), Gemini 3.1 Flash-Lite, and the model selected in A1.2.** GPT-6-luna is
+**exploratory only**: its steps run as planned, but its results are labelled exploratory and none is a confirmatory
+verdict.
+
+**Gemini 3.1 Flash-Lite** (`google/gemini-3.1-flash-lite`, pinned `google-ai-studio` as in Stage 1, reasoning off):
+- Handled like the luna procedures:
+  - temperature probe with `require_parameters` (§2.3);
+  - sampled 1/T check (§2.3: κ model, 100/50/50 samples);
+  - K_avg at **50 samples per prompt**;
+  - sampled comprehension (10 per prompt).
+- `top_p: 1` is set explicitly for every Gemini call in this phase, so sampling is not truncated; the catalogue
+  lists `top_p` for it. Stage 1 used the provider default; this new data uses top_p = 1.
+- Stage 2 regime at T = 1 (neutral, random-regular, fitted): recorded in the stop point 2 report.
+
+### A1.2 Selection rule for the OpenAI/Meta/DeepSeek logprob model (fixed now)
+
+**Candidates:** every OpenRouter model whose id starts with `openai/`, `meta-llama/` or `deepseek/`, and that:
+- lists both `logprobs` and `temperature`;
+- has text-only output (audio/image-output models are excluded);
+- is not a `:batch` variant (asynchronous).
+
+Anthropic is excluded. Catalogue snapshot: `results/llm/catalog/confirm_candidates_2026-10-14.json`.
+
+**Order:** newest first by OpenRouter `created`, fixed in this table.
+
+**Pinned provider per model** (a fixed rule, applied before any probe), among the model's endpoints listing
+`logprobs` and `temperature`:
+1. the first-party provider if present (`deepseek` for DeepSeek models, `openai` for OpenAI models);
+2. otherwise the highest declared precision (bf16/fp16, then fp8, then unknown, then fp4);
+3. then the lowest prompt price;
+4. then the alphabetical tag.
+
+`allow_fallbacks: false`, `require_parameters: true` (lp mode). Per-call cost is estimated at 250 prompt tokens and
+1 output token.
+
+| # | model | created | pinned provider | est. $/lp call |
+|---|---|---|---|---|
+| 1 | `deepseek/deepseek-v4.1-flash` | 2026-09-10 | `deepseek` (unknown) | $3.81e-05 |
+| 2 | `deepseek/deepseek-v4-flash-vision-exp` | 2026-08-21 | `gmicloud/fp8` (fp8) | $1.11e-04 |
+| 3 | `deepseek/deepseek-v4-pro-0813` | 2026-08-12 | `deepseek` (unknown) | $1.67e-04 |
+| 4 | `deepseek/deepseek-v4-flash-0731` | 2026-07-31 | `coreweave/fp8` (fp8) | $3.28e-05 |
+| 5 | `deepseek/deepseek-v4-pro` | 2026-04-24 | `parasail/fp8` (fp8) | $1.16e-04 |
+| 6 | `deepseek/deepseek-v4-flash` | 2026-04-24 | `streamlake/fp8` (fp8) | $2.08e-05 |
+| 7 | `deepseek/deepseek-v3.2` | 2025-12-01 | `atlas-cloud/fp8` (fp8) | $6.54e-05 |
+| 8 | `deepseek/deepseek-chat-v3.1` | 2025-08-21 | `coreweave/fp8` (fp8) | $1.39e-04 |
+| 9 | `openai/gpt-oss-120b` | 2025-08-05 | `akashml/bf16` (bf16) | $7.69e-06 |
+| 10 | `openai/gpt-oss-20b` | 2025-08-05 | `dekallm/bf16` (bf16) | $7.39e-06 |
+| 11 | `deepseek/deepseek-r1-0528` | 2025-05-28 | `streamlake` (unknown) | $1.45e-04 |
+| 12 | `meta-llama/llama-4-maverick` | 2025-04-05 | `parasail/fp8` (fp8) | $8.85e-05 |
+| 13 | `deepseek/deepseek-chat-v3-0324` | 2025-03-24 | `gmicloud/fp8` (fp8) | $7.36e-05 |
+| 14 | `meta-llama/llama-3.3-70b-instruct` | 2024-12-06 | `novita/bf16` (bf16) | $3.42e-05 |
+| 15 | `openai/gpt-4o-2024-11-20` | 2024-11-20 | `openai` (unknown) | $6.35e-04 |
+| 16 | `meta-llama/llama-3.2-3b-instruct` | 2024-09-25 | `parasail/bf16` (bf16) | $1.28e-05 |
+| 17 | `openai/gpt-4o-2024-08-06` | 2024-08-06 | `openai` (unknown) | $6.35e-04 |
+| 18 | `meta-llama/llama-3.1-8b-instruct` | 2024-07-23 | `coreweave/bf16` (bf16) | $5.52e-05 |
+| 19 | `openai/gpt-4o-mini-2024-07-18` | 2024-07-18 | `openai` (unknown) | $3.81e-05 |
+| 20 | `openai/gpt-4o-mini` | 2024-07-18 | `openai` (unknown) | $3.81e-05 |
+| 21 | `openai/gpt-4o-2024-05-13` | 2024-05-13 | `openai` (unknown) | $1.27e-03 |
+| 22 | `openai/gpt-4o` | 2024-05-13 | `openai` (unknown) | $6.35e-04 |
+| 23 | `openai/gpt-4-turbo` | 2024-04-09 | `openai` (unknown) | $2.53e-03 |
+| 24 | `openai/gpt-3.5-turbo-0613` | 2024-01-25 | `azure` (unknown) | $2.52e-04 |
+| 25 | `openai/gpt-3.5-turbo-instruct` | 2023-09-28 | `openai` (unknown) | $3.77e-04 |
+| 26 | `openai/gpt-3.5-turbo-16k` | 2023-08-28 | `openai` (unknown) | $7.54e-04 |
+| 27 | `openai/gpt-4` | 2023-05-28 | `openai` (unknown) | $7.56e-03 |
+| 28 | `openai/gpt-3.5-turbo` | 2023-05-28 | `openai` (unknown) | $1.27e-04 |
+
+**Probe** (on the pinned provider only, reasoning disabled via `reasoning: {enabled: false}` when the model accepts it):
+- **Prompts:** the first 20 prompts, in SHA-256 order of their text, of this phase's K_avg prompt set (§3; neutral,
+  ρ = 0.25).
+- **(a) Logprobs, 2 repeats per prompt** (lp mode, T = 1, max_tokens 1, top_logprobs 5). It passes if all hold:
+  - logprobs are returned with an A/B token among the top 5 on ≥ 95% of calls;
+  - repeat SD (RMS over prompts of |y₁ − y₂|/√2, y = clipped logit P(A), the PREREG §4 definition) is
+    **≤ 0.3 nats**;
+  - mean leak mass (top-5 mass on non-A/B tokens) is **< 5%**;
+  - reported reasoning tokens are 0 when the model has a reasoning parameter (disable-able).
+- **(b) Temperature honoured:**
+  - The 5 probe prompts whose mean P(A) is closest to 0.5 get 40 samples each at T = 0.5 and at T = 1.5
+    (sample mode, max_tokens 8).
+  - Fit P_T = σ(ℓ_i · T^(−κ)), with ℓ_i fixed at the logprob logit.
+  - Passes if κ's 95% profile-likelihood CI excludes 0.
+- **Pick:** the first model in the table that passes (a) and (b), and then also passes comprehension (§3; a
+  validity prerequisite, not social behaviour).
+  - If it fails comprehension, move to the next model in the table.
+  - Social behaviour is never a criterion, and transition existence is not a criterion.
+- **Probe budget:** $2.00 cumulative. Each probe is about 440 calls, so for example candidate 1 costs about $0.02 and
+  candidate 27 about $3.3.
+  - Probing stops at the first pass.
+  - If the budget is exhausted, or the table is exhausted without a pass: **fall back to GPT-4o-mini** (`openai`),
+    with K_avg repeat-averaged (≥ 2 repeats per prompt), and its noise-gate failure stated wherever it is used.
+- **The selected model** gets the full design:
+  - the §2.1 1/T check (logprob-based, 2,000 samples);
+  - K_avg in lp mode with **2 repeats per prompt** (averaged), 768 prompts;
+  - comprehension in lp mode;
+  - T sweep and corrected rules.
+  - It is added to `endpoints.py` under the key `confirm-lp`.
+
+### A1.3 Rule A as a worst-case control comparison
+
+The plan text is unchanged in effect, but stated explicitly:
+- D = A_model(T_c, 1600) − **max**(A_P2, A_P4) at the same (T, N).
+- The max is taken inside each bootstrap resample.
+- **Pass iff D ≥ 0.10 |m| per nat and the 95% CI of D excludes 0.** This is identical to "beats both controls by the
+  margin".
+
+### A1.4 Updated costs
+
+| item | calls | est. cost |
+|---|---|---|
+| 1/T checks, Qwen-122B + Nemo-12B (§2.1) | 4,080 | $0.09 |
+| GPT-6-luna (exploratory): probes, 1/T check, K_avg (50/prompt), comprehension | ~63,600 | $0.95 |
+| Gemini 3.1 Flash-Lite at ~$4.2e-5/call: probe, 1/T check, K_avg (50/prompt), comprehension | ~63,600 | $2.67 |
+| Candidate probes (typically 1–3 candidates; capped) | ~440 each | $0.02–0.30 (cap $2.00) |
+| Selected logprob model: 1/T check, K_avg 768 × 2, comprehension 2,116, at ~$4e-5/call for candidate 1 | ~5,700 | ~$0.25 |
+| **API total** | | **≈ $4.0 expected; hard stop $6.00** (probe sub-cap $2.00 included) |
+| Gemma-31B pod (unchanged) | ≈ 1–1.5 h | $1.8–2.7 (cap $5 / 4 h) |
+| Simulations | ≈ 4–5 CPU-h | $0 |
+
+**Order of work:**
+1. API checks (probes first);
+2. the candidate probe loop;
+3. K_avg and comprehension per model;
+4. the Gemma pod;
+5. Step 3 simulations;
+6. **stop point 2.**

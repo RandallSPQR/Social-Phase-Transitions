@@ -778,3 +778,10 @@ judgment calls, in time order (2026-10-08).
     deterministic) and GPT-6-luna (sampled 50 per prompt). Flagged: luna's catalogue lists no temperature parameter,
     so the 1/T check may fail; the rule for that case is fixed in the plan. Estimated API ≈ $1.05 (cap $3); GPU
     ≈ $1.8–2.7 (cap $5 / 4 h). Waiting for the owner's OK before any spend.
+
+59. **Confirmatory plan, amendment 1 (owner, pre-data).** Adds a logprob model from OpenAI/Meta/DeepSeek. The selection
+    rule is frozen: a candidate table of 28 models (newest first, from the 2026-10-14 catalogue snapshot), a pin rule,
+    and probe criteria (logprobs returned, temperature honoured, repeat SD ≤ 0.3, leak < 5%). Probe budget $2; the
+    fallback is GPT-4o-mini. Gemini 3.1 Flash-Lite joins the confirmatory set; GPT-6-luna is now exploratory. Rule A
+    is the worst-case (max) control comparison. API estimate ≈ $4.0, hard stop $6. The owner OK'd proceeding to
+    Steps 1–2.
