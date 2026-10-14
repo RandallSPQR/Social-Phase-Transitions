@@ -23,3 +23,13 @@ results/llm/stage3_rep1/
 results/llm/amplification/locate/
 results/llm/amplification/locate2/
 results/llm/amplification/perturb/
+results/llm/confirm/sim/
+results/llm/confirm/gemma/*.csv
+!results/llm/confirm/gemma/prompts_kavg.csv
+!results/llm/confirm/gemma/fingerprint_ref.csv
+results/llm/confirm/gemma/*.json
+results/llm/logs/local_gemma.pid
+results/llm/logs/phase.json
+results/llm/logs/progress.json
+results/llm/logs/uploads.json
+results/llm/logs/pod_e2e-*.log
