@@ -770,3 +770,11 @@ judgment calls, in time order (2026-10-08).
     at T ≈ 0.6–0.8; near-zero denominators in the controls); (v) K_fixed shape grows at T_c (G 2.5), A3 does not;
     (vi) linear response holds. Stage 3 sits at T/T_c ≈ 0.52, where the same errors move |m| about 40× less than at
     T_c with N = 1,600.
+
+58. **Confirmatory amplification phase: plan committed before any run or API call (`llm/AMPLIFICATION_CONFIRM_PLAN.md`).**
+    The Stage B verdict stays "refuted" (cause: the control ratio is ill-defined when the control's amplification is
+    ≈ 0). Corrected rule: absolute difference vs each control ≥ 0.10 |m| per nat, with CI > 0. N-growth is tested
+    only where A ≥ 0.10. Peak within ±10% of T_c. Fresh seeds and graphs. New models: Gemma-31B local (bs1,
+    deterministic) and GPT-6-luna (sampled 50 per prompt). Flagged: luna's catalogue lists no temperature parameter,
+    so the 1/T check may fail; the rule for that case is fixed in the plan. Estimated API ≈ $1.05 (cap $3); GPU
+    ≈ $1.8–2.7 (cap $5 / 4 h). Waiting for the owner's OK before any spend.
