@@ -3,8 +3,8 @@
 One command reruns every analysis of the paper from the recorded model responses and checks the result:
 
 ```bash
-make replicate-fast        # about RT_FAST on 4 cores
-make replicate             # about RT_FULL on 4 cores (recomputes every simulation unit)
+make replicate-fast        # about 55 min on 4 cores
+make replicate             # about 16-17 h on 4 cores (estimate; recomputes every simulation unit)
 ```
 
 Both modes run the same pipeline:
@@ -57,12 +57,14 @@ Until the dataset is public, set `HF_TOKEN` to a token with read access.
 
 ## Modes, runtime and hardware
 
-Measured on 4 vCPU (x86-64), 15 GB RAM, Linux, in the Docker image (log: `replication/logs/`):
+Reference machine: 4 vCPU (x86-64), 15 GB RAM, Linux, running the Docker image. The fast-mode figures are measured
+in the clean run recorded in `replication/logs/`. The full-mode figures are estimated from the original runs' logs
+(`llm/EXECUTION_LOG.md`, `logs/val.log`, `logs/asym.log`); a measured full run is still to be recorded.
 
-| mode | what runs | wall time | peak RAM | download |
-|---|---|---|---|---|
-| fast | every analysis; spot checks recompute 2–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | RT_FAST | RAM_FAST | 200 MB |
-| full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 100-replicate null distribution of Amendment 4, and the exploratory probes | RT_FULL | RAM_FULL | 1 GB |
+| mode | what runs | wall time | peak memory (largest process) | download | free disk |
+|---|---|---|---|---|---|
+| fast | every analysis; spot checks recompute 1–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | about 55 min (52 min of steps + 3 min download and verification) | 4.6 GB | 200 MB | 3 GB |
+| full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 14 Amendment 4–5 bootstrap caches, the 100-replicate null distribution of Amendment 4, and the exploratory probes | about 16–17 h (estimate): baseline sweeps 3.7 h (the validation sweep uses 2 processes), amplification Stage B 5.5 h, confirmatory Steps 4–5 2.8 h, bootstrap caches and null distribution 2.5 h, the rest as in fast mode | about 5 GB (estimate) | 1 GB | 4 GB |
 
 Per-step times are in the generated report and in the table below.
 
@@ -98,8 +100,25 @@ All result paths without a prefix are under `results/llm/`.
 | figure | — | — | the PNG is valid and each pixel dimension is within 2% of the committed one. Figures are saved with a tight bounding box, so installed fonts move the size by a few pixels (up to 18 px, under 1%, between the authoring machine and the clean container); bytes are not compared |
 | media | — | — | the MP4/GIF exists and is non-empty |
 
-Strings must match exactly. The exceptions are keys that record where or when a file was written (`source`, `path`,
-`time`…) and values that are absolute paths. Separately, 53 headline numbers are read from the regenerated files and
+Strings must match exactly. Order is ignored (profile `rows`) only for the two logs written in completion order: the
+K_avg call log and the Stage 3 audit's mock runs.
+
+### What is not compared, and why
+
+A short list of fields cannot be reproduced from the recorded data, by construction. Each is named in
+`replication/compare.py` with its reason, and nothing else is skipped:
+
+| field | where | why it cannot be reproduced |
+|---|---|---|
+| `source`, `path`, `time`, … and absolute-path values | fit JSONs, logs | where or when a file was written |
+| `gif_bytes` | `figures/substack/twins_stats.json` | encoded size depends on the ffmpeg build |
+| `spend` | `results/llm/confirm/api_summary.json` | the original run's live API spend; a replay from the cache spends $0 |
+| `error`, `first_error` (string values only) | `results/llm/confirm/api_summary.json` | live error text of probes that failed in the original run (for example "http 404"). Failed calls were never cached, so the replay reports "not in cache". The probe outcomes are compared |
+| `stage1_records_with_same_body_signature` | `results/llm/stage3_audit/logs_checks.json` | counts the records in the cache at the time of the audit; later phases added records of the same format. The check itself (`body_differs_from_battery_body` = 0) is compared |
+| `predictions_commit`, `*_changed_since_predictions_commit` | `results/llm/stage3_audit/B11_surrogate.json` | read from the git history, which archives and the Docker image do not carry; recompute in a git clone with `python llm/stage3_audit.py surrogate` |
+
+JSON fields present only in a regenerated file (added by a later version of the producing script) are listed in the
+record but not counted as differences; every committed field must be reproduced. Separately, 53 headline numbers are read from the regenerated files and
 must equal the values printed in the paper at the paper's rounding.
 
 ## What is regenerated, and what is an input

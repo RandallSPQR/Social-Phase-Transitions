@@ -693,7 +693,7 @@ Code is released under Apache-2.0 and data under CC BY 4.0 (`LICENSES.md`).
 - the GPU and CPU pod outputs and logs;
 - the per-unit outputs of the long simulations.
 
-**Replication.** `make replicate-fast` (about RT_FAST on 4 cores) and `make replicate` (about RT_FULL; recomputes every
+**Replication.** `make replicate-fast` (about 55 min on 4 cores) and `make replicate` (about 16–17 h; recomputes every
 simulation unit) reproduce every analysis and figure in this paper from that dataset, with no API keys and no GPU:
 - every downloaded file is checked against its committed SHA-256;
 - every regenerated result is compared with the committed one within stated tolerances;

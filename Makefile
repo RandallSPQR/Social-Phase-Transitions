@@ -5,11 +5,11 @@ IMAGE ?= spt-replication
 
 .PHONY: replicate replicate-fast report env docker-build docker-replicate docker-replicate-fast clean-replication
 
-## full mode: recompute every simulation unit (about 15 h on 4 cores), then everything fast mode does
+## full mode: recompute every simulation unit (about 16-17 h on 4 cores, estimated), then everything fast mode does
 replicate:
 	$(PY) replication/replicate.py --mode full
 
-## fast mode: fetch the verified simulation units, rerun every analysis, recompute a sample of units (about 1 h)
+## fast mode: fetch the verified simulation units, rerun every analysis, recompute a sample of units (about 55 min)
 replicate-fast:
 	$(PY) replication/replicate.py --mode fast
 

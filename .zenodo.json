@@ -1,7 +1,7 @@
 {
   "title": "Do LLM agents behave like spins? Response functions, live networks and amplification near tipping points (code, data and replication package)",
   "upload_type": "software",
-  "description": "<p>Code, committed results, pre-registrations and the replication package for the study. <code>make replicate-fast</code> (about 1 h on 4 cores) and <code>make replicate</code> (about 15 h) reproduce every analysis and figure from the cached model responses, with no API keys and no GPU, and print a pass/fail table per claim. The response cache, pod outputs and simulation units are in the Hugging Face dataset RandallSPQR/social-phase-transitions-llm-cache (CC BY 4.0). Code: Apache-2.0. See replication/README.md.</p>",
+  "description": "<p>Code, committed results, pre-registrations and the replication package for the study. <code>make replicate-fast</code> (about 55 min on 4 cores) and <code>make replicate</code> (about 16-17 h) reproduce every analysis and figure from the cached model responses, with no API keys and no GPU, and print a pass/fail table per claim. The response cache, pod outputs and simulation units are in the Hugging Face dataset RandallSPQR/social-phase-transitions-llm-cache (CC BY 4.0). Code: Apache-2.0. See replication/README.md.</p>",
   "creators": [
     {"name": "Bennington, Randall", "affiliation": "", "orcid": ""}
   ],
