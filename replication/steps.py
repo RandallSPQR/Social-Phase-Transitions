@@ -130,6 +130,7 @@ STEPS = [
          clean=["results/llm/stage3/chains/*/*_states.npy"], claims=["C2"]),
     step("s3.audit", "Stage 3 harness audit (logs, mock surrogate through the harness, same-graph diagnostic, order)",
          [f"{LLM}stage3_audit.py logs", f"{LLM}stage3_audit.py mock --reps 40 --workers 4",
+          f"{LLM}stage3_audit.py mock --reps 160 --points P1 P3 --workers 4",   # P1, P3 at 160 (STAGE3_AUDIT_RESULTS.md)
           f"{LLM}stage3_audit.py mock-summary", f"{LLM}stage3_audit.py sim-diag", f"{LLM}stage3_audit.py surrogate",
           f"{LLM}stage3_audit.py report", f"{LLM}stage3_audit_order.py"],
          compare=[("results/llm/stage3_audit/*.json", "exact"), ("results/llm/stage3_audit/*.csv", "exact"),

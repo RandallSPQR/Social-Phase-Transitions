@@ -23,7 +23,11 @@ PROFILES = {"exact": (1e-12, 1e-12), "fit": (1e-6, 1e-9), "print4": (0.0, 6e-5)}
 IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "timestamp", "generated", "generated_utc",
                "git", "commit", "elapsed", "elapsed_s", "runtime", "runtime_s", "wall", "wall_s", "host", "date",
                "written", "seconds",
-               "gif_bytes"}   # encoded media sizes depend on the ffmpeg build
+               "gif_bytes",   # encoded media sizes depend on the ffmpeg build
+               # Stage 3 audit B6: number of records in the response cache with the same body signature. It counts the
+               # cache as it was when the audit ran; later phases added records of the same format, so it cannot be
+               # reproduced from today's cache. The check itself (body_differs_from_battery_body = 0) is compared.
+               "stage1_records_with_same_body_signature"}
 
 
 def _num(x):
