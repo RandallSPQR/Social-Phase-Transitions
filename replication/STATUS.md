@@ -27,46 +27,21 @@ work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; packa
 - **Paper and REPORT:** §4.1 now states that the asymmetry values are the N = 4,000 rows. The paper's data-availability
   section describes the package.
 
-## In progress: full-mode clean run
+## Full-mode clean run: interrupted (host restart), needs an owner decision
 
-- **Started:** 2026-10-15 04:54 UTC, as background job `cleanfull` (started with `llm/bg.sh`).
-  - Docker container: `spt-clean-full`, image `spt-replication:full`.
-  - Image source: `git archive` of the HEAD at launch, which postdates 263f046.
-- **Files:**
-  - Console log: `results/llm/logs/bg/cleanfull.log`. It is gitignored and lives in this container only.
-  - Run outputs: `/tmp/claude-0/-home-user-Social-Phase-Transitions/5795bb49-dc99-5be4-b8bc-cb86c6f28a64/scratchpad/cleanfull/out/`,
-    holding `records.json`, `logs/`, `reference/` and `regenerated/`.
-  - Launch script: `.../scratchpad/cleanfull/run_full.sh`.
-- **Status at 13:34 UTC:**
-  - Every step up to and including `s1.amendments` passes, including the 14 bootstrap caches recomputed in 79.5 min.
-  - `base.sim` is marked FAIL only because of a comparator bug: pickled `data/asym/asym.npy`. The data are
-    bit-identical, checked by hand, and the comparator is fixed in commit "pickled object .npy arrays". The running
-    container has the old comparator, so run `--recompare` after it ends.
-  - `s1.null` (100 replicates, about 12.5–15 min each) was at 20/100 and should finish around 09:30 UTC on
-    2026-10-16. Its first 12 replicates are identical to the committed ones.
-  - After that, about 10 more hours (Stage B 5.5 h, Steps 4–5 2.8 h, probes, etc.): **expected end around 17–20 UTC
-    on 2026-10-16**.
-- **How to check:**
-  - `grep -E "PASS|FAIL|^exit" results/llm/logs/bg/cleanfull.log | tail`
-  - `docker exec spt-clean-full bash -c 'wc -l < results/llm/amendment4/compare_rule_null_runs.jsonl'`
-  - `docker ps`
-  - `df -h /`: about 5.7 GB free at 13:34.
-- **Scheduled check-in:** `send_later` trigger `trig_01WJaZBd9592c2GUFJgRzyp3`, fires 2026-10-15 17:35 UTC. It
-  re-checks, fixes any failure, re-arms every 4 h, and finishes the job when the run exits.
-- **When it exits:**
-  1. From the repository root, recompute with the current compare code:
-     `python replication/replicate.py --recompare` pointed at that out dir. The driver uses `replication/out/` under
-     the repository root, so copy `records.json`, `env.json`, `reference/` and `regenerated/` from the scratch out dir
-     into `replication/out/` first, or run inside a copy.
-  2. Save the record to `replication/logs/clean_run_full_2026-10-15/`, in the same layout as the fast record:
-     driver.log, REPORT.md, report.json, records.json, env.json, `steps/*.log`, run script, and a README. Scan it for
-     secrets and shorten scratch paths to `<scratch>`.
-  3. Replace the full-mode estimates in `replication/README.md` (Modes table, top lines), `Makefile`, `.zenodo.json`
-     and `paper/paper.md` (currently "about 37 h; 16 h with `--skip s1.null`") with the measured times.
-  4. Add a line to EXECUTION_LOG entry 73. Commit, push, report to the owner, and delete the remaining check-in
-     trigger.
-- **If the session or container was reclaimed:** the run is lost. Report how far it got (the last records) and offer
-  to relaunch: `run_full.sh`, or with `--skip s1.null` (about 16 h). Never restart without telling the owner.
+- **What happened:** the run started 04:54 UTC on 2026-10-15. The cloud host restarted between about 13:40 and 17:35
+  UTC, after the session went idle; uptime was 0 at the 17:35 check-in. Docker and the run were lost.
+- **What survived:** 8 of 25 steps finished, all PASS. That includes `base.sim`, bit-identical, recomputed with the
+  fixed comparator. `s1.null` had finished 20 of 100 replicates, all equal to the committed ones. Record:
+  `replication/logs/clean_run_full_2026-10-15_partial/`.
+- **Not relaunched:** the owner decides. Options:
+  1. Relaunch the whole full mode: about 37 h, dominated by `s1.null` at about 21 h.
+  2. Relaunch with `--skip s1.null`: about 16 h.
+  3. Run only the unmeasured steps with `--only …`: about 13 h.
+
+  Any long run needs the session kept active (the host is reclaimed when idle) or a machine the owner controls.
+- **To relaunch:** see `replication/logs/clean_run_full_2026-10-15_partial/run_full.sh`. First start dockerd with
+  `llm/bg.sh start dockerd dockerd`. Rebuild the image, which may need a retry on Docker Hub 429s.
 
 ## Open decisions for the owner (reported; not acted on)
 

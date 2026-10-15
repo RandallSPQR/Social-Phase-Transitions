@@ -949,3 +949,10 @@ judgment calls, in time order (2026-10-08).
     - **Prepared, not published:** licences (Apache-2.0 for code, CC BY 4.0 for data), `CITATION.cff`,
       `.zenodo.json`, the HF dataset card and the release checklist.
     - **Full mode:** a clean-room run was started; its log is to follow.
+    - **Full-mode clean run (addendum, 2026-10-15 17:35 UTC):** interrupted by a restart of the cloud host between
+      about 13:40 and 17:35 UTC, after the session went idle.
+      - **Survived:** 8 of 25 steps finished, all PASS. The baseline sweeps (153.7 min) and the 14 bootstrap caches
+        (79.5 min) were recomputed from scratch and are bit-identical. The Amendment 4 null distribution had finished
+        20 of 100 replicates, all equal to the committed runs.
+      - **Record:** `replication/logs/clean_run_full_2026-10-15_partial/`.
+      - **Not relaunched:** the owner decides; options in `replication/STATUS.md`.

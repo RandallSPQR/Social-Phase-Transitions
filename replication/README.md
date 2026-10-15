@@ -58,13 +58,14 @@ Until the dataset is public, set `HF_TOKEN` to a token with read access.
 ## Modes, runtime and hardware
 
 Reference machine: 4 vCPU (x86-64), 15 GB RAM, Linux, running the Docker image. The fast-mode figures are measured
-in the clean run recorded in `replication/logs/`. The full-mode figures are estimated from the original runs' logs
-(`llm/EXECUTION_LOG.md`, `logs/val.log`, `logs/asym.log`); a measured full run is still to be recorded.
+in the clean run recorded in `replication/logs/`. The full-mode figures are partly measured in an interrupted clean full run
+(`replication/logs/clean_run_full_2026-10-15_partial/`: 8 steps, all passing) and otherwise estimated from the
+original runs' logs (`llm/EXECUTION_LOG.md`, `logs/val.log`, `logs/asym.log`).
 
 | mode | what runs | wall time | peak memory (largest process) | download | free disk |
 |---|---|---|---|---|---|
 | fast | every analysis; spot checks recompute 1–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | 55 min (measured: 54.6 min from container start to exit, of which 25 s download and verification) | 4.6 GB | 200 MB | 3 GB |
-| full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 14 Amendment 4–5 bootstrap caches, the 100-replicate null distribution of Amendment 4, and the exploratory probes | about 37 h (partly measured, see below): baseline sweeps 2.6 h (measured; the validation sweep uses 2 processes), bootstrap caches 1.3 h (measured), Amendment 4 null distribution about 21 h (measured at 12.5 min per replicate × 100), amplification Stage B 5.5 h, confirmatory Steps 4–5 2.8 h, the rest as in fast mode. `PY=… make replicate ARGS="--skip s1.null"` leaves out the null distribution (the step that dominates) | about 5 GB (estimate) | 1 GB | 4 GB |
+| full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 14 Amendment 4–5 bootstrap caches, the 100-replicate null distribution of Amendment 4, and the exploratory probes | about 37 h (partly measured, see below): baseline sweeps 2.6 h (measured; the validation sweep uses 2 processes), bootstrap caches 1.3 h (measured), Amendment 4 null distribution about 21 h (12.5–15 min per replicate measured over 20 of 100), amplification Stage B 5.5 h, confirmatory Steps 4–5 2.8 h, the rest as in fast mode. `PY=… make replicate ARGS="--skip s1.null"` leaves out the null distribution (the step that dominates) | about 5 GB (estimate) | 1 GB | 4 GB |
 
 Per-step times are in the generated report and in the table below.
 
