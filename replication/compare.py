@@ -7,8 +7,9 @@ Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeri
   rows    exact, but row order ignored (call logs written in thread-completion order): both tables are sorted on every
           column before comparison
   boot    per-column               bootstrap CI bounds whose generator state depends on an unrecorded call order
-  figure  file exists, is a non-empty image, and has the reference's pixel size (bytes are not compared: fonts,
-          codecs and library versions change them without changing the content)
+  figure  file exists, is a valid PNG, and each pixel dimension is within 2% of the committed one. Bytes are not
+          compared: figures are saved with a tight bounding box, so the installed fonts move the size by a few pixels
+          (measured: up to 18 px, under 1%, between this machine and the clean container) without changing content
   media   file exists and is non-empty (MP4/GIF)
   text    the file exists and is non-empty (logs, Markdown tables)
 
@@ -166,7 +167,7 @@ def compare_file(ref, new, profile, col_tol=None):
         return dict(ok=False, n=0, bad=1, worst=None, probs=["empty file"], profile=profile)
     if profile == "figure":
         a, b = png_size(ref), png_size(new)
-        ok = b is not None and a == b
+        ok = a is not None and b is not None and all(abs(x - y) <= 0.02 * x for x, y in zip(a, b))
         return dict(ok=ok, n=1, bad=0 if ok else 1, worst=None, profile=profile,
                     probs=[] if ok else [f"image size {a} vs {b}"])
     if profile in ("media", "text"):

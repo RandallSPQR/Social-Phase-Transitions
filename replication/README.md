@@ -21,13 +21,15 @@ Both modes run the same pipeline:
 6. **Print a pass/fail table per claim.** It is also written to `replication/out/REPORT.md` (with `report.json`,
    per-step logs in `replication/out/logs/`, and a record of every compared file).
 
-The exit status is 0 only if every claim that ran passes.
+The exit status is 0 only if every claim that ran passes. Every regenerated file that was compared is also kept in
+`replication/out/regenerated/` next to the committed copies in `replication/out/reference/`, so any comparison can
+be inspected or redone (`python replication/replicate.py --recompare`) after a Docker run has exited.
 
 ## Two tiers of replication
 
 | tier | what it reproduces | needs | expected agreement |
 |---|---|---|---|
-| **1. Exact reproduction from the cache** (`make replicate`, `make replicate-fast`) | every analysis, table, verdict and figure, from the recorded responses | Python 3.13 with `replication/requirements.lock`, or Docker; about 1 GB of disk; internet access to huggingface.co | bit-identical numbers on the pinned environment (tolerances below) |
+| **1. Exact reproduction from the cache** (`make replicate`, `make replicate-fast`) | every analysis, table, verdict and figure, from the recorded responses | Python 3.13 with `replication/requirements.lock`, or Docker; about 3 GB of free disk (fast) or 4 GB (full); internet access to huggingface.co | bit-identical numbers on the pinned environment (tolerances below) |
 | **2. Re-collection** (new API calls and GPU runs) | the data themselves | an OpenRouter API key with the providers pinned as in `llm/endpoints.py`; an A100-class GPU for the self-hosted Gemma-4 runs; about $37 at 2026-10 prices (paper Appendix C) | **not identical.** Providers change serving stacks, quantisation and batching over time (paper §4.2 measured batch effects of 0.86 nats RMS), sampled replies are random, and some model versions may be retired. Expect agreement in distribution, not in digits |
 
 ## Quick start
@@ -93,7 +95,7 @@ All result paths without a prefix are under `results/llm/`.
 | exact | 1e-12 | 1e-12 | simulations, tables, kernels, verdicts (deterministic code, seeded per unit by hashing) |
 | fit | 1e-6 | 1e-9 | iterative optimiser outputs (Stage 1 fits, local-vs-provider comparisons, probes) |
 | boot | 0 | 0.05 | bootstrap CI bounds of the six baseline crossings only (point estimates: 6e-5, i.e. the 4 printed decimals) |
-| figure | — | — | the PNG exists and has the committed pixel size (bytes are not compared: fonts and library builds change them without changing content) |
+| figure | — | — | the PNG is valid and each pixel dimension is within 2% of the committed one. Figures are saved with a tight bounding box, so installed fonts move the size by a few pixels (up to 18 px, under 1%, between the authoring machine and the clean container); bytes are not compared |
 | media | — | — | the MP4/GIF exists and is non-empty |
 
 Strings must match exactly. The exceptions are keys that record where or when a file was written (`source`, `path`,

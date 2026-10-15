@@ -5,6 +5,7 @@ the committed results -> pass/fail table per claim.
   python replication/replicate.py --mode full          # make replicate
   python replication/replicate.py --mode fast --only s1.fits k.avg   # selected steps (dependencies are not resolved)
   python replication/replicate.py --report-only        # rebuild the report from the last run's records
+  python replication/replicate.py --recompare          # redo every comparison from replication/out/{reference,regenerated}
 
 No API key and no GPU are used. llm/client.py runs with SPT_OFFLINE=1, so any request missing from the cache raises
 instead of calling the API. Outputs go to replication/out/: one log per step (logs/), the reference copies of the
@@ -23,6 +24,7 @@ OUT = os.path.join(ROOT, "replication", "out")
 REF = os.path.join(OUT, "reference")
 LOGS = os.path.join(OUT, "logs")
 RECORDS = os.path.join(OUT, "records.json")
+REGEN = os.path.join(OUT, "regenerated")   # copies of every regenerated file that was compared (kept for auditing)
 
 
 def say(*a):
@@ -154,6 +156,34 @@ def ffmpeg_on_path(env):
     return env
 
 
+def compare_step(st, base):
+    """Compare every reference file of a step with its counterpart under `base` (the repository, or REGEN)."""
+    cmp = []
+    for c in st["compare"]:
+        pat, prof = c[0], c[1]
+        tol = c[2] if len(c) > 2 else None
+        for refp in sorted(glob.glob(os.path.join(REF, pat), recursive=True)):
+            newp = os.path.join(base, os.path.relpath(refp, REF))
+            try:
+                r = compare.compare_file(refp, newp, prof, tol)
+            except Exception as e:   # a file the comparator cannot read is a failed comparison, not a crash
+                r = dict(ok=False, n=0, bad=1, worst=None, probs=[f"comparison error: {type(e).__name__}: {e}"[:200]],
+                         profile=prof)
+            cmp.append(dict(file=os.path.relpath(refp, REF), **r))
+    return cmp
+
+
+def recompare(records):
+    """Redo the comparisons of every recorded step from replication/out/regenerated (no step is rerun)."""
+    by = {s["id"]: s for s in S.STEPS}
+    for sid, r in records.items():
+        if sid in by:
+            r["compared"] = compare_step(by[sid], REGEN)
+            r["ok"] = r["exit"] == 0 and all(c["ok"] for c in r["compared"]) and all(x["ok"] for x in r["spot"])
+    json.dump(records, open(RECORDS, "w"), indent=1)
+    return records
+
+
 def run_step(st, mode, records):
     os.makedirs(LOGS, exist_ok=True)
     log = os.path.join(LOGS, st["id"] + ".log")
@@ -170,18 +200,13 @@ def run_step(st, mode, records):
             if p.returncode:
                 rc = p.returncode; f.write(f"!! exit {rc}\n"); break
     dt = time.time() - t0
-    cmp = []
-    for c in st["compare"]:
-        pat, prof = c[0], c[1]
-        tol = c[2] if len(c) > 2 else None
-        for refp in sorted(glob.glob(os.path.join(REF, pat), recursive=True)):
+    for c in st["compare"]:   # keep the regenerated files next to the reference copies
+        for refp in sorted(glob.glob(os.path.join(REF, c[0]), recursive=True)):
             newp = os.path.join(ROOT, os.path.relpath(refp, REF))
-            try:
-                r = compare.compare_file(refp, newp, prof, tol)
-            except Exception as e:   # a file the comparator cannot read is a failed comparison, not a crash
-                r = dict(ok=False, n=0, bad=1, worst=None, probs=[f"comparison error: {type(e).__name__}: {e}"[:200]],
-                         profile=prof)
-            cmp.append(dict(file=rel(newp), **r))
+            if os.path.exists(newp):
+                q = os.path.join(REGEN, os.path.relpath(refp, REF)); os.makedirs(os.path.dirname(q), exist_ok=True)
+                shutil.copy2(newp, q)
+    cmp = compare_step(st, ROOT)
     spots = spot_check(held)
     ok = rc == 0 and all(c["ok"] for c in cmp) and all(s["ok"] for s in spots)
     peak_mb = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1024   # largest child process so far (Linux: KiB)
@@ -205,11 +230,16 @@ def main():
     ap.add_argument("--only", nargs="*", default=None)
     ap.add_argument("--skip-fetch", action="store_true")
     ap.add_argument("--report-only", action="store_true")
+    ap.add_argument("--recompare", action="store_true")
     a = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     import claims
-    if a.report_only:
-        return claims.report(json.load(open(RECORDS)), a.mode, json.load(open(os.path.join(OUT, "env.json"))))
+    if a.report_only or a.recompare:
+        rec = json.load(open(RECORDS))
+        if a.recompare:
+            rec = recompare(rec)
+        sys.exit(claims.report(rec, next(iter(rec.values()))["mode"] if rec else a.mode,
+                               json.load(open(os.path.join(OUT, "env.json")))))
     info, hard = check_env()
     json.dump(info, open(os.path.join(OUT, "env.json"), "w"), indent=1)
     say(f"python {info['python']} on {info['platform']}, {info['cpus']} CPUs; mode {a.mode}")
