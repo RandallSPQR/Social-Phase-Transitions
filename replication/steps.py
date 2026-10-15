@@ -77,7 +77,8 @@ STEPS = [
                   ("results/llm/bridge_comparison.csv", "fit")],
          claims=["C1"]),
     step("s1.temperature", "Stage 1: 1/T temperature checks (re-materialised from the cache) and diagnostic",
-         [f"{LLM}temp_check.py semantics", f"{LLM}temp_check.py verify", f"{LLM}temp_check.py verify qwen-9b",
+         [f"{LLM}temp_check.py semantics llama-8b llama-70b llama-70b-pa qwen-9b qwen-122b gemma-26b gemma-31b nemo-12b "
+          "mistral-small mistral-large gpt4o-mini", f"{LLM}temp_check.py verify", f"{LLM}temp_check.py verify qwen-9b",
           f"{LLM}temp_check.py verify qwen-122b", f"{LLM}temp_check.py verify nemo-12b", f"{LLM}temp_diag.py"],
          compare=[("results/llm/temperature_*.csv", "exact"), ("results/llm/temperature_verify*.json", "fit")],
          claims=["C1", "C4"]),
