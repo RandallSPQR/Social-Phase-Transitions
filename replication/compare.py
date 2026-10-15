@@ -4,6 +4,8 @@ Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeri
   exact   rtol 1e-12, atol 1e-12   deterministic code on the pinned environment (simulations, fits, tables)
   fit     rtol 1e-6,  atol 1e-9    iterative optimisers whose last digits may move with BLAS thread scheduling
   print4  rtol 0,     atol 6e-5    values that were transcribed at 4 decimals
+  rows    exact, but row order ignored (call logs written in thread-completion order): both tables are sorted on every
+          column before comparison
   boot    per-column               bootstrap CI bounds whose generator state depends on an unrecorded call order
   figure  file exists, is a non-empty image, and has the reference's pixel size (bytes are not compared: fonts,
           codecs and library versions change them without changing the content)
@@ -98,9 +100,13 @@ def read_table(path):
     return pd.read_csv(path, compression=comp, keep_default_na=False, na_values=["", "nan", "NaN"], low_memory=False)
 
 
-def compare_csv(ref_path, new_path, rtol, atol, col_tol=None):
+def compare_csv(ref_path, new_path, rtol, atol, col_tol=None, unordered=False):
     a, b = read_table(ref_path), read_table(new_path)
     st = {"n": 0, "bad": 0, "worst": 0.0, "probs": []}
+    if unordered and list(a.columns) == list(b.columns):
+        key = lambda d: pd.Series(["\x1f".join(map(repr, r)) for r in d.itertuples(index=False)])
+        a = a.iloc[key(a).argsort(kind="stable")].reset_index(drop=True)
+        b = b.iloc[key(b).argsort(kind="stable")].reset_index(drop=True)
     if list(a.columns) != list(b.columns):
         miss = [c for c in a.columns if c not in b.columns]
         if miss:
@@ -165,7 +171,7 @@ def compare_file(ref, new, profile, col_tol=None):
         return dict(ok=True, n=1, bad=0, worst=None, probs=[], profile=profile)
     rtol, atol = PROFILES.get(profile, PROFILES["exact"])
     if new.endswith((".csv", ".csv.gz")):
-        st = compare_csv(ref, new, rtol, atol, col_tol)
+        st = compare_csv(ref, new, rtol, atol, col_tol, unordered=profile == "rows")
     elif new.endswith(".json"):
         st = compare_json(json.load(open(ref)), json.load(open(new)), rtol, atol)
     elif new.endswith(".jsonl"):
