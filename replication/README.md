@@ -27,10 +27,41 @@ be inspected or redone (`python replication/replicate.py --recompare`) after a D
 
 ## Two tiers of replication
 
-| tier | what it reproduces | needs | expected agreement |
-|---|---|---|---|
-| **1. Exact reproduction from the cache** (`make replicate`, `make replicate-fast`) | every analysis, table, verdict and figure, from the recorded responses | Python 3.13 with `replication/requirements.lock`, or Docker; about 3 GB of free disk (fast) or 4 GB (full); internet access to huggingface.co | bit-identical numbers on the pinned environment (tolerances below) |
-| **2. Re-collection** (new API calls and GPU runs) | the data themselves | an OpenRouter API key with the providers pinned as in `llm/endpoints.py`; an A100-class GPU for the self-hosted Gemma-4 runs; about $37 at 2026-10 prices (paper Appendix C) | **not identical.** Providers change serving stacks, quantisation and batching over time (paper §4.2 measured batch effects of 0.86 nats RMS), sampled replies are random, and some model versions may be retired. Expect agreement in distribution, not in digits |
+**Tier 1: bit-identical recomputation from the cached responses.** This is what `make replicate` and
+`make replicate-fast` do.
+- **What it covers:** every model response the study used is replayed from the recorded cache. Every analysis,
+  simulation, table, verdict and figure is recomputed from those responses.
+- **Agreement:** on the pinned environment the numbers are bit-identical to the committed results. Profile `exact`
+  is equality; the documented exceptions are listed under Tolerances below.
+- **Requirements:** no API key and no GPU. Python 3.13 with `replication/requirements.lock`, or Docker; about 3 GB of
+  free disk (fast) or 4 GB (full); access to huggingface.co.
+- **What it establishes:** the code and the recorded data produce the paper's numbers. It says nothing about what the
+  models would answer today.
+
+**Tier 2: live re-query.** This means new API calls and new GPU runs, which is a re-collection of the data. It needs
+an OpenRouter key with the providers pinned as in `llm/endpoints.py`, an A100-class GPU for the self-hosted Gemma-4
+runs, and about $37 at 2026-10 prices (paper Appendix C).
+
+**Tier 2 is not expected to be identical,** even with the same prompts, models and providers. The study measured why:
+
+| source of difference | measured | where |
+|---|---|---|
+| Repeat noise of a hosted endpoint: SD of the logit between two identical requests (gate: ≤ 0.3 nats) | 0.034 (Qwen-122B, Alibaba) and 0.037 (Qwen-9B) to 0.088 (Llama-70B) and 0.137 (Nemo); 0.296 (GPT-4o-mini); endpoints that failed the gate: 0.304 (Gemma-31B, Io Net), 0.354 and 0.703 (Gemma-26B on CoreWeave and Parasail), 0.35–0.98 (DeepSeek v4.x on fp8 providers) | `results/llm/STAGE1_RESULTS.md`; `results/llm/AMPLIFICATION_CONFIRM_STOP2.md` |
+| Provider jitter: the same model on different providers or over time | provider choice shifts the letter and order fields; social coefficients agree with local serving in two of three framings and differ by 7–9% in the third. Reference-logit jitter of about 0.25 nats explains most of the GPT-4o-mini temperature misfit. Over hours, Alibaba and CoreWeave answers vary more than within the Stage 1 repeats (round-to-round variance up to 25× the repeat noise, Qwen-122B) | `results/llm/AMENDMENT4_RESULTS.md`, `AMENDMENT5_RESULTS.md`, `STAGE1_RESULTS.md`, `RESIDUAL_TEST_RESULTS.md` |
+| Batch nondeterminism of a mixture-of-experts model (Gemma-4 26B, bf16) | batched serving moves single answers by an RMS of 0.86 nats relative to batch size 1 and flips 2.5% of majority answers; batched local replicates fail the repeat gate (0.592) | `results/llm/AMENDMENT4_RESULTS.md`, `AMENDMENT5_RESULTS.md` |
+| **Deterministic reference: local bf16 Gemma-4** | the dense 31B served locally passes the gate at 0.114. The 26B at batch size 1 with deterministic kernels gives identical replicates (max \|ΔP(A)\| = 0.0). The confirmatory Gemma-31B runs were bit-identical across replicates and matched the Amendment 4 fingerprint (0.234 under the pre-registered gate) | `results/llm/AMENDMENT4_RESULTS.md`, `AMENDMENT5_RESULTS.md`, `AMPLIFICATION_CONFIRM_STOP2.md` |
+
+What to expect from Tier 2:
+- **Sampled replies** are random draws, so their frequencies differ by binomial noise.
+- **Hosted logprob endpoints** differ by at least their repeat noise, and by more when the provider has changed its
+  serving stack, quantisation or batching since 2026-10.
+- **Retired models** cannot be re-queried at all.
+- **Only the self-hosted Gemma-4 runs** (bf16, batch size 1, deterministic kernels, same weights) can be expected to
+  reproduce exactly.
+
+Agreement is to be judged in distribution, for example the per-step kernel. Between the original live run (2026-10-09) and the
+replicate four days later (2026-10-13) it moved by only |ΔP| 0.001–0.003 at P1–P4 (`RESIDUAL_TEST_RESULTS.md`). Agreement in digits
+is not expected.
 
 ## Quick start
 
@@ -67,6 +98,12 @@ original runs' logs (`llm/EXECUTION_LOG.md`, `logs/val.log`, `logs/asym.log`).
 | fast | every analysis; spot checks recompute 1–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | 55 min (measured: 54.6 min from container start to exit, of which 25 s download and verification) | 4.6 GB | 200 MB | 3 GB |
 | full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 14 Amendment 4–5 bootstrap caches, the 100-replicate null distribution of Amendment 4, and the exploratory probes | about 37 h (partly measured, see below): baseline sweeps 2.6 h (measured; the validation sweep uses 2 processes), bootstrap caches 1.3 h (measured), Amendment 4 null distribution about 21 h (12.5–15 min per replicate measured over 20 of 100), amplification Stage B 5.5 h, confirmatory Steps 4–5 2.8 h, the rest as in fast mode. `PY=… make replicate ARGS="--skip s1.null"` leaves out the null distribution (the step that dominates) | about 5 GB (estimate) | 1 GB | 4 GB |
 
+**Amendment 4 null distribution (100 replicates at B = 1000).** Checked on 20 of the 100 replicates, all 20 identical
+to the committed ones. Fast mode does not recompute it. The clean full run recomputed replicates 0–19 before the host
+restarted, and all 20 equal the committed runs (agreement, slope and verdict; `steps/s1.null.log` in
+`replication/logs/clean_run_full_2026-10-15_partial/`; the first 12 were also compared field by field). Replicates
+20–99 have not been recomputed. A full run recomputes all 100 (about 21 h on 4 cores).
+
 Per-step times are in the generated report and in the table below.
 
 ## Claims map
@@ -95,11 +132,25 @@ All result paths without a prefix are under `results/llm/`.
 
 | profile | rtol | atol | used for |
 |---|---|---|---|
-| exact | 1e-12 | 1e-12 | simulations, tables, kernels, verdicts (deterministic code, seeded per unit by hashing) |
+| exact | 0 | 0 | simulations, tables, kernels, verdicts: values must be bit-identical (deterministic code, seeded per unit by hashing) |
+| ulp | ≤ 4 ulp | | `results/asymmetry_sweep.csv` only. It was transcribed by hand from `data/asym/asym.npy`; the transcription script was not kept, so its summation order is unknown and a few means differ in the last bit (largest difference 4e-20) |
 | fit | 1e-6 | 1e-9 | iterative optimiser outputs (Stage 1 fits, local-vs-provider comparisons, probes) |
 | boot | 0 | 0.05 | bootstrap CI bounds of the six baseline crossings only (point estimates: 6e-5, i.e. the 4 printed decimals) |
 | figure | — | — | the PNG is valid and each pixel dimension is within 2% of the committed one. Figures are saved with a tight bounding box, so installed fonts move the size by a few pixels (up to 18 px, under 1%, between the authoring machine and the clean container); bytes are not compared |
 | media | — | — | the MP4/GIF exists and is non-empty |
+
+CSV files are parsed with `float_precision="round_trip"`: pandas' default parser can map two values one ulp apart to
+the same double, which would hide last-bit differences.
+
+**Comparator canary** (`replication/canary.py`, step `qc.canary`, first in every run). It checks that the comparator
+rejects the smallest corruptions:
+- one flipped byte inside a float of a `base.sim` array;
+- a raw byte flip in that file;
+- a one-ulp change of one value in a CSV result (`k_avg_amplification.csv`) and in a JSON result (Rule A's D in
+  `step4.json`).
+
+Unmodified copies must pass. Building it found the two weaknesses fixed above: a 1e-12 tolerance in `exact`, and the
+default CSV parser. Both clean runs were re-checked under the strict comparator and pass.
 
 Strings must match exactly. Order is ignored (profile `rows`) only for the two logs written in completion order: the
 K_avg call log and the Stage 3 audit's mock runs.

@@ -27,6 +27,25 @@ work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; packa
 - **Paper and REPORT:** §4.1 now states that the asymmetry values are the N = 4,000 rows. The paper's data-availability
   section describes the package.
 
+## The two tiers (as stated in `replication/README.md`)
+
+- **Tier 1: bit-identical recomputation from the cached responses** (`make replicate[-fast]`). No keys, no GPU.
+  - Fast mode passes in a fresh container: all claims, 53/53 headline numbers.
+  - The comparator canary proves that a one-byte or one-ulp change is rejected.
+- **Tier 2: live re-query.** New API calls and GPU runs, about $37. It is **not expected to be identical**. Measured
+  reasons:
+  - hosted endpoints have repeat noise of 0.034–0.296 nats (gate 0.3), and gate-failed endpoints reach 0.70;
+  - provider jitter: format fields shift, coefficients differ 7–9% in one framing, and answers drift over hours;
+  - mixture-of-experts batch nondeterminism: RMS 0.86 nats, with 2.5% of majority answers flipped.
+  - The deterministic reference is local bf16 Gemma-4 at batch size 1 with deterministic kernels: replicates
+    identical, repeat SD 0.114.
+
+## Amendment 4 null distribution
+
+- **Checked:** 20 of the 100 replicates were recomputed in the interrupted clean full run, and all 20 are identical
+  to the committed ones.
+- **Not yet recomputed:** replicates 20–99.
+
 ## Full-mode clean run: interrupted (host restart), needs an owner decision
 
 - **What happened:** the run started 04:54 UTC on 2026-10-15. The cloud host restarted between about 13:40 and 17:35
