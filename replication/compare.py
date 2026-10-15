@@ -29,7 +29,9 @@ IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "tim
                # Stage 3 audit B6: number of records in the response cache with the same body signature. It counts the
                # cache as it was when the audit ran; later phases added records of the same format, so it cannot be
                # reproduced from today's cache. The check itself (body_differs_from_battery_body = 0) is compared.
-               "stage1_records_with_same_body_signature"}
+               "stage1_records_with_same_body_signature",
+               # live API spend of the original run (confirm/api_summary.json); a replay from the cache spends 0
+               "spend"}
 
 
 def _num(x):
