@@ -84,7 +84,8 @@ STEPS = [
          claims=["C1", "C4"]),
     step("s1.amendments", "Amendments 4-5: local-vs-provider comparison, cubic replication, batch effect",
          [f"{LLM}compare_local.py --B 1000",
-          f"{LLM}compare_local.py --B 1000 --out results/llm/amendment5 --pairs gemma-26b-local-bs1:gemma-26b",
+          f"{LLM}compare_local.py --B 1000 --out results/llm/amendment5 --pairs gemma-26b-local-bs1:gemma-26b:Parasail "
+          "gemma-26b-local-bs1:gemma-26b-cw:CoreWeave",   # as in llm/run_amendment5.sh
           f"{LLM}cubic_31b.py", f"{LLM}batch_effect.py"],
          compare=[("results/llm/amendment4/local_vs_provider*", "fit"), ("results/llm/amendment5/local_vs_provider*", "fit"),
                   ("results/llm/amendment5/cubic_gemma-31b-local.json", "fit"),
