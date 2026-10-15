@@ -1,0 +1,342 @@
+$ python replication/stage1_rematerialise.py
+gemini-lite [google/gemini-3.1-flash-lite @ google-ai-studio] main: 24840 calls (24840 cached)
+  1000/24840  1s  spend $0.0000
+  2000/24840  1s  spend $0.0000
+  3000/24840  1s  spend $0.0000
+  4000/24840  1s  spend $0.0000
+  5000/24840  1s  spend $0.0000
+  6000/24840  1s  spend $0.0000
+  7000/24840  1s  spend $0.0000
+  8000/24840  1s  spend $0.0000
+  9000/24840  1s  spend $0.0000
+  10000/24840  1s  spend $0.0000
+  11000/24840  1s  spend $0.0000
+  12000/24840  1s  spend $0.0000
+  13000/24840  1s  spend $0.0000
+  14000/24840  1s  spend $0.0000
+  15000/24840  1s  spend $0.0000
+  16000/24840  1s  spend $0.0000
+  17000/24840  1s  spend $0.0000
+  18000/24840  1s  spend $0.0000
+  19000/24840  1s  spend $0.0000
+  20000/24840  1s  spend $0.0000
+  21000/24840  1s  spend $0.0000
+  22000/24840  1s  spend $0.0000
+  23000/24840  1s  spend $0.0000
+  24000/24840  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gemini-lite.csv: 24840 rows, 0 errors, new spend $0.0000
+  main/gemini-lite: {'rows': 24840, 'rows_new': 24840, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+gemma-26b-cw [google/gemma-4-26b-a4b-it @ coreweave/bf16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gemma-26b-cw.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/gemma-26b-cw: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 47, 'unexplained': 0, 'ok': True}
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gemma-26b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/gemma-26b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 44, 'unexplained': 0, 'ok': True}
+gemma-31b [google/gemma-4-31b-it @ io-net] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gemma-31b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/gemma-31b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 43, 'unexplained': 0, 'ok': True}
+gpt4o-mini [openai/gpt-4o-mini @ openai] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gpt4o-mini.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/gpt4o-mini: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 44, 'unexplained': 0, 'ok': True}
+gpt4o-mini [openai/gpt-4o-mini @ openai] main: 24840 calls (24840 cached)
+  1000/24840  1s  spend $0.0000
+  2000/24840  1s  spend $0.0000
+  3000/24840  1s  spend $0.0000
+  4000/24840  1s  spend $0.0000
+  5000/24840  1s  spend $0.0000
+  6000/24840  1s  spend $0.0000
+  7000/24840  1s  spend $0.0000
+  8000/24840  1s  spend $0.0000
+  9000/24840  1s  spend $0.0000
+  10000/24840  1s  spend $0.0000
+  11000/24840  1s  spend $0.0000
+  12000/24840  1s  spend $0.0000
+  13000/24840  1s  spend $0.0000
+  14000/24840  1s  spend $0.0000
+  15000/24840  1s  spend $0.0000
+  16000/24840  1s  spend $0.0000
+  17000/24840  1s  spend $0.0000
+  18000/24840  1s  spend $0.0000
+  19000/24840  1s  spend $0.0000
+  20000/24840  1s  spend $0.0000
+  21000/24840  1s  spend $0.0000
+  22000/24840  1s  spend $0.0000
+  23000/24840  1s  spend $0.0000
+  24000/24840  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gpt4o-mini_sampled.csv: 24840 rows, 0 errors, new spend $0.0000
+  main/gpt4o-mini_sampled: {'rows': 24840, 'rows_new': 24840, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+gpt6-luna [openai/gpt-6-luna @ openai] main: 24840 calls (24840 cached)
+  1000/24840  2s  spend $0.0000
+  2000/24840  2s  spend $0.0000
+  3000/24840  2s  spend $0.0000
+  4000/24840  2s  spend $0.0000
+  5000/24840  2s  spend $0.0000
+  6000/24840  2s  spend $0.0000
+  7000/24840  2s  spend $0.0000
+  8000/24840  2s  spend $0.0000
+  9000/24840  2s  spend $0.0000
+  10000/24840  2s  spend $0.0000
+  11000/24840  2s  spend $0.0000
+  12000/24840  2s  spend $0.0000
+  13000/24840  2s  spend $0.0000
+  14000/24840  2s  spend $0.0000
+  15000/24840  2s  spend $0.0000
+  16000/24840  2s  spend $0.0000
+  17000/24840  2s  spend $0.0000
+  18000/24840  2s  spend $0.0000
+  19000/24840  2s  spend $0.0000
+  20000/24840  2s  spend $0.0000
+  21000/24840  2s  spend $0.0000
+  22000/24840  2s  spend $0.0000
+  23000/24840  2s  spend $0.0000
+  24000/24840  2s  spend $0.0000
+wrote /repo/replication/out/stage1/main/gpt6-luna.csv: 24840 rows, 0 errors, new spend $0.0000
+  main/gpt6-luna: {'rows': 24840, 'rows_new': 24840, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+haiku [anthropic/claude-haiku-5.5 @ anthropic] main: 24840 calls (24840 cached)
+  1000/24840  2s  spend $0.0000
+  2000/24840  2s  spend $0.0000
+  3000/24840  2s  spend $0.0000
+  4000/24840  2s  spend $0.0000
+  5000/24840  2s  spend $0.0000
+  6000/24840  2s  spend $0.0000
+  7000/24840  2s  spend $0.0000
+  8000/24840  2s  spend $0.0000
+  9000/24840  2s  spend $0.0000
+  10000/24840  2s  spend $0.0000
+  11000/24840  2s  spend $0.0000
+  12000/24840  2s  spend $0.0000
+  13000/24840  3s  spend $0.0000
+  14000/24840  3s  spend $0.0000
+  15000/24840  3s  spend $0.0000
+  16000/24840  3s  spend $0.0000
+  17000/24840  3s  spend $0.0000
+  18000/24840  3s  spend $0.0000
+  19000/24840  3s  spend $0.0000
+  20000/24840  3s  spend $0.0000
+  21000/24840  3s  spend $0.0000
+  22000/24840  3s  spend $0.0000
+  23000/24840  3s  spend $0.0000
+  24000/24840  3s  spend $0.0000
+wrote /repo/replication/out/stage1/main/haiku.csv: 24840 rows, 0 errors, new spend $0.0000
+  main/haiku: {'rows': 24840, 'rows_new': 24840, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+llama-70b-pa [meta-llama/llama-3.3-70b-instruct @ parasail/fp8] main: 4068 calls (4068 cached)
+  1000/4068  0s  spend $0.0000
+  2000/4068  0s  spend $0.0000
+  3000/4068  0s  spend $0.0000
+  4000/4068  0s  spend $0.0000
+wrote /repo/replication/out/stage1/main/llama-70b-pa.csv: 4068 rows, 0 errors, new spend $0.0000
+  main/llama-70b-pa: {'rows': 4068, 'rows_new': 4068, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 38, 'unexplained': 0, 'ok': True}
+llama-70b [meta-llama/llama-3.3-70b-instruct @ coreweave/fp16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/llama-70b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/llama-70b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 29, 'unexplained': 0, 'ok': True}
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/llama-8b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/llama-8b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 18, 'unexplained': 0, 'ok': True}
+mistral-large [mistralai/mistral-large-4-0 @ mistral] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/mistral-large.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/mistral-large: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 33, 'unexplained': 0, 'ok': True}
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/mistral-small.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/mistral-small: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 27, 'unexplained': 0, 'ok': True}
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/nemo-12b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/nemo-12b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 50, 'unexplained': 0, 'ok': True}
+qwen-122b [qwen/qwen3.5-122b-a10b @ alibaba] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/qwen-122b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/qwen-122b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 14, 'unexplained': 0, 'ok': True}
+qwen-9b [qwen/qwen3.5-9b @ parasail/bf16] main: 12428 calls (12428 cached)
+  1000/12428  1s  spend $0.0000
+  2000/12428  1s  spend $0.0000
+  3000/12428  1s  spend $0.0000
+  4000/12428  1s  spend $0.0000
+  5000/12428  1s  spend $0.0000
+  6000/12428  1s  spend $0.0000
+  7000/12428  1s  spend $0.0000
+  8000/12428  1s  spend $0.0000
+  9000/12428  1s  spend $0.0000
+  10000/12428  1s  spend $0.0000
+  11000/12428  1s  spend $0.0000
+  12000/12428  1s  spend $0.0000
+wrote /repo/replication/out/stage1/main/qwen-9b.csv: 12428 rows, 0 errors, new spend $0.0000
+  main/qwen-9b: {'rows': 12428, 'rows_new': 12428, 'unmatched_rows': 0, 'duplicate_request_rows': 614, 'differing_rows': 34, 'unexplained': 0, 'ok': True}
+gemma-26b-cw [google/gemma-4-26b-a4b-it @ coreweave/bf16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/gemma-26b-cw.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/gemma-26b-cw: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+gemma-26b [google/gemma-4-26b-a4b-it @ parasail/bf16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/gemma-26b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/gemma-26b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+gemma-31b [google/gemma-4-31b-it @ io-net] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/gemma-31b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/gemma-31b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+gpt4o-mini [openai/gpt-4o-mini @ openai] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/gpt4o-mini.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/gpt4o-mini: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+llama-70b [meta-llama/llama-3.3-70b-instruct @ coreweave/fp16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/llama-70b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/llama-70b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/llama-8b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/llama-8b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+mistral-large [mistralai/mistral-large-4-0 @ mistral] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/mistral-large.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/mistral-large: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+mistral-small [mistralai/mistral-small-3.2-24b-instruct @ parasail/bf16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/mistral-small.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/mistral-small: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+nemo-12b [mistralai/mistral-nemo @ io-net/fp16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/nemo-12b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/nemo-12b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+qwen-122b [qwen/qwen3.5-122b-a10b @ alibaba] comprehension: 2116 calls (2115 cached)
+  1000/2116  0s  spend $0.0000
+error: qwen/qwen3.5-122b-a10b rep=0: request not in cache (SPT_OFFLINE=1)
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/qwen-122b.csv: 2115 rows, 1 errors, new spend $0.0000
+  comprehension/qwen-122b: {'rows': 2115, 'rows_new': 2115, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+qwen-9b [qwen/qwen3.5-9b @ parasail/bf16] comprehension: 2116 calls (2116 cached)
+  1000/2116  0s  spend $0.0000
+  2000/2116  0s  spend $0.0000
+wrote /repo/replication/out/stage1/comprehension/qwen-9b.csv: 2116 rows, 0 errors, new spend $0.0000
+  comprehension/qwen-9b: {'rows': 2116, 'rows_new': 2116, 'unmatched_rows': 0, 'duplicate_request_rows': 0, 'differing_rows': 0, 'unexplained': 0, 'ok': True}
+llama-8b [meta-llama/llama-3.1-8b-instruct @ coreweave/bf16] pilot: 1236 calls (1236 cached)
+  1000/1236  0s  spend $0.0000
+wrote /repo/replication/out/stage1/pilot/llama-8b.csv: 1236 rows, 0 errors, new spend $0.0000
+  pilot/llama-8b: {'rows': 1236, 'rows_new': 1236, 'unmatched_rows': 0, 'duplicate_request_rows': 54, 'differing_rows': 3, 'unexplained': 0, 'ok': True}
+all ok

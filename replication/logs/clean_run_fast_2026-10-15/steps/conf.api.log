@@ -1,0 +1,72 @@
+$ python llm/confirm_api.py prompts
+mapping symmetry asserted on 40 random cells
+confirm-lp 768 prompts
+gemini-lite 768 prompts
+gpt6-luna 768 prompts
+gemma-31b-local 768 prompts
+$ python llm/confirm_api.py all
+[04:48:29] gemini probes 0.0 True
+[04:48:38] luna probes 0.0 False
+[04:48:38] comprehension gemini {'key': 'gemini', 'n': 2116, 'invalid_rate': 0.0, 'acc_ally_majority': 1.0, 'acc_own': 1.0, 'acc_rival_majority': 0.9984, 'passes': True}
+[04:48:38] comprehension luna {'key': 'luna', 'n': 2116, 'invalid_rate': 0.0, 'acc_ally_majority': 1.0, 'acc_own': 1.0, 'acc_rival_majority': 0.9969, 'passes': True}
+[04:48:42] kavg selected {'calls': 1536, 'invalid': 0.0, 'cost': 0.0292608, 'providers': {'OpenAI': 1536}, 'reasoning_tokens_max': 0}
+[04:48:43] 1/T selected False
+[04:48:50] 1/T gemini True 1.1300000000000017
+[04:48:56] kavg gemini {'calls': 38400, 'invalid': 0.0, 'cost': 1.2480029999999998, 'providers': {'Google AI Studio': 38400}, 'reasoning_tokens_max': 2}
+[04:48:56] 1/T luna False None
+[04:49:02] kavg luna {'calls': 38400, 'invalid': 0.0, 'cost': 0.566766, 'providers': {'OpenAI': 38400}, 'reasoning_tokens_max': 0}
+[04:49:02] DONE spend {'usd': 0.0, 'calls': 0}
+$ python llm/confirm_temp_diag.py
+{
+ "qwen-122b": {
+  "ref_repeat_sd": 0.0,
+  "0.5": {
+   "chi2_vs_mean_ref": 47.635486080138996,
+   "p_nominal": 0.0004784468542835898,
+   "sim_median": 18.78271017664425,
+   "sim_p95": 32.360707536239914,
+   "within_noise": false
+  },
+  "1.5": {
+   "chi2_vs_mean_ref": 29.217596857224585,
+   "p_nominal": 0.08356240045508927,
+   "sim_median": 19.163412574317384,
+   "sim_p95": 31.121382898386464,
+   "within_noise": true
+  }
+ },
+ "nemo-12b": {
+  "ref_repeat_sd": 0.08512399168006614,
+  "0.5": {
+   "chi2_vs_mean_ref": 36.580657088052405,
+   "p_nominal": 0.013132168119014251,
+   "sim_median": 21.774599335683313,
+   "sim_p95": 35.40583201971786,
+   "within_noise": false
+  },
+  "1.5": {
+   "chi2_vs_mean_ref": 22.41460666767372,
+   "p_nominal": 0.3184431896424061,
+   "sim_median": 19.76467309231576,
+   "sim_p95": 31.445697427009875,
+   "within_noise": true
+  }
+ },
+ "gpt-4o-mini (selected)": {
+  "ref_repeat_sd": 0.22963965594417887,
+  "0.5": {
+   "chi2_vs_mean_ref": 169.11991069747032,
+   "p_nominal": 1.2853044111391596e-25,
+   "sim_median": 29.56778165134959,
+   "sim_p95": 53.3525650873731,
+   "within_noise": false
+  },
+  "1.5": {
+   "chi2_vs_mean_ref": 22.876343059594376,
+   "p_nominal": 0.29490709038865354,
+   "sim_median": 21.918287324478392,
+   "sim_p95": 35.333589651265825,
+   "within_noise": true
+  }
+ }
+}

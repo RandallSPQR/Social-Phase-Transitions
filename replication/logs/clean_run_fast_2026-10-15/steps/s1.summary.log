@@ -1,0 +1,438 @@
+$ python llm/comprehension.py results/llm/stage1/comprehension/gemma-26b-cw.csv results/llm/stage1/comprehension/gemma-26b.csv results/llm/stage1/comprehension/gemma-31b.csv results/llm/stage1/comprehension/gpt4o-mini.csv results/llm/stage1/comprehension/llama-70b.csv results/llm/stage1/comprehension/llama-8b.csv results/llm/stage1/comprehension/mistral-large.csv results/llm/stage1/comprehension/mistral-small.csv results/llm/stage1/comprehension/nemo-12b.csv results/llm/stage1/comprehension/qwen-122b.csv results/llm/stage1/comprehension/qwen-9b.csv
+          key                                    model            tag    n  acc_ally_majority  meanP_ally_majority  worst_k_ally_majority  acc_own  meanP_own  worst_k_own  acc_rival_majority  meanP_rival_majority  worst_k_rival_majority  leak_gt5  passes
+ gemma-26b-cw                google/gemma-4-26b-a4b-it coreweave/bf16 2116             1.0000               0.9999                  1.000   1.0000     1.0000        1.000              0.9984                0.9985                   0.996         0    True
+    gemma-26b                google/gemma-4-26b-a4b-it  parasail/bf16 2116             1.0000               0.9997                  1.000   1.0000     1.0000        1.000              1.0000                0.9993                   1.000         0    True
+    gemma-31b                    google/gemma-4-31b-it         io-net 2116             1.0000               1.0000                  1.000   1.0000     1.0000        1.000              1.0000                1.0000                   1.000         0    True
+   gpt4o-mini                       openai/gpt-4o-mini         openai 2116             1.0000               0.9975                  1.000   1.0000     1.0000        1.000              0.9891                0.9887                   0.875         0    True
+    llama-70b        meta-llama/llama-3.3-70b-instruct coreweave/fp16 2116             0.9641               0.9639                  0.917   1.0000     1.0000        1.000              0.9875                0.9870                   0.981         0    True
+     llama-8b         meta-llama/llama-3.1-8b-instruct coreweave/bf16 2116             0.7781               0.7258                  0.375   0.9868     0.9606        0.925              0.7156                0.6525                   0.375         0   False
+mistral-large              mistralai/mistral-large-4-0        mistral 2116             0.9844               0.9949                  0.971   1.0000     1.0000        1.000              0.9734                0.9939                   0.941        22    True
+mistral-small mistralai/mistral-small-3.2-24b-instruct  parasail/bf16 2116             0.1812               0.9446                  0.125   0.9761     0.9711        0.955              0.1047                0.9148                   0.000      1116   False
+     nemo-12b                   mistralai/mistral-nemo    io-net/fp16 2116             0.9844               0.8807                  0.981   1.0000     0.9956        1.000              0.9422                0.8555                   0.926         0    True
+    qwen-122b                   qwen/qwen3.5-122b-a10b        alibaba 2115             0.9984               0.9937                  0.996   1.0000     0.9998        1.000              0.9938                0.9863                   0.985         0    True
+      qwen-9b                          qwen/qwen3.5-9b  parasail/bf16 2116             0.9641               0.8827                  0.943   1.0000     0.9742        1.000              0.9625                0.8704                   0.952         4    True
+-> /repo/results/llm/comprehension_summary.csv
+$ python llm/comprehension.py results/llm/stage1/comprehension/gemma-26b-local.csv results/llm/stage1/comprehension/gemma-31b-local.csv --out results/llm/comprehension_local.csv
+            key                     model        tag    n  acc_ally_majority  meanP_ally_majority  worst_k_ally_majority  acc_own  meanP_own  worst_k_own  acc_rival_majority  meanP_rival_majority  worst_k_rival_majority  leak_gt5  passes
+gemma-26b-local google/gemma-4-26b-a4b-it local/bf16 4232                1.0               0.9999                    1.0      1.0        1.0          1.0              0.9984                0.9986                   0.996         0    True
+gemma-31b-local     google/gemma-4-31b-it local/bf16 4232                1.0               1.0000                    1.0      1.0        1.0          1.0              1.0000                1.0000                   1.000         0    True
+-> results/llm/comprehension_local.csv
+$ python llm/comprehension.py results/llm/stage1/comprehension/gemma-26b-local-bs1.csv --out results/llm/comprehension_local_bs1.csv
+                key                     model        tag    n  acc_ally_majority  meanP_ally_majority  worst_k_ally_majority  acc_own  meanP_own  worst_k_own  acc_rival_majority  meanP_rival_majority  worst_k_rival_majority  leak_gt5  passes
+gemma-26b-local-bs1 google/gemma-4-26b-a4b-it local/bf16 4232                1.0               0.9999                    1.0      1.0        1.0          1.0              0.9984                0.9991                   0.996         0    True
+-> results/llm/comprehension_local_bs1.csv
+$ python llm/summarize.py
+               key            arm  confirmatory  beta    b_a    b_r  b_r_minus_b_a  H1_holm  gamma  alpha  H3_pairwise_holm  H3_pairwise_supported  H3_cubic_holm  H3_cubic_supported  repeat_sd  excluded_frac
+       gemini-lite    neutral_own         False 1.500  2.860  0.141         -2.719      NaN -1.400  0.742               NaN                  False            NaN               False        NaN          0.000
+       gemini-lite      political         False 1.295  2.725 -0.134         -2.858      NaN  5.781  0.040               NaN                  False            NaN               False        NaN          0.000
+         gemma-26b  neutral_noown         False 0.611  1.225 -0.002         -1.227      NaN    NaN  0.766               NaN                  False            NaN               False      0.727          0.000
+         gemma-26b    neutral_own         False 0.702  1.556 -0.152         -1.708      NaN -0.534  0.456               NaN                  False            NaN               False      0.657          0.000
+         gemma-26b neutral_own_w2         False 0.640  1.613 -0.332         -1.945      NaN -0.664  0.512               NaN                  False            NaN               False      0.615          0.000
+         gemma-26b      political         False 0.300  1.092 -0.493         -1.585      NaN  5.251  0.160               NaN                  False            NaN               False      0.784          0.000
+         gemma-26b      workplace         False 0.313  1.649 -1.023         -2.672      NaN  2.274  0.083               NaN                  False            NaN               False      0.697          0.000
+      gemma-26b-cw  neutral_noown         False 0.629  1.201  0.057         -1.144      NaN    NaN  0.848               NaN                  False            NaN               False      0.345          0.000
+      gemma-26b-cw    neutral_own         False 0.756  1.592 -0.079         -1.671      NaN -0.596  0.537               NaN                  False            NaN               False      0.301          0.000
+      gemma-26b-cw neutral_own_w2         False 0.734  1.690 -0.221         -1.911      NaN -0.655  0.562               NaN                  False            NaN               False      0.395          0.000
+      gemma-26b-cw      political         False 0.347  1.135 -0.441         -1.576      NaN  6.001 -0.143               NaN                  False            NaN               False      0.359          0.000
+      gemma-26b-cw      workplace         False 0.309  1.618 -1.000         -2.618      NaN  2.061  0.036               NaN                  False            NaN               False      0.377          0.000
+         gemma-31b  neutral_noown         False 1.103  0.692  1.514          0.822      NaN    NaN  0.961               NaN                  False            NaN               False      0.231          0.000
+         gemma-31b    neutral_own         False 1.094  1.298  0.890         -0.409      NaN -0.070  0.955               NaN                  False            NaN               False      0.332          0.000
+         gemma-31b neutral_own_w2         False 0.996  1.192  0.800         -0.392      NaN -0.345  1.131               NaN                  False            NaN               False      0.280          0.000
+         gemma-31b      political         False 0.938  2.484 -0.609         -3.093      NaN  4.443  0.037               NaN                  False            NaN               False      0.182          0.000
+         gemma-31b      workplace         False 0.811  1.437  0.186         -1.251      NaN  1.220  0.578               NaN                  False            NaN               False      0.388          0.000
+        gpt4o-mini  neutral_noown         False 0.834  1.282  0.386         -0.896      NaN    NaN  0.820               NaN                  False            NaN               False      0.233          0.000
+        gpt4o-mini    neutral_own         False 0.607  1.100  0.114         -0.986      NaN -1.595  0.685               NaN                  False            NaN               False      0.328          0.000
+        gpt4o-mini neutral_own_w2         False 0.531  0.923  0.138         -0.785      NaN -1.625  0.805               NaN                  False            NaN               False      0.366          0.000
+        gpt4o-mini      political         False 0.131  0.911 -0.648         -1.560      NaN  6.467  0.189               NaN                  False            NaN               False      0.522          0.000
+        gpt4o-mini      workplace         False 0.454  1.003 -0.094         -1.097      NaN  2.177  0.239               NaN                  False            NaN               False      0.680          0.000
+gpt4o-mini_sampled    neutral_own         False 0.801  1.352  0.249         -1.103      NaN -1.480  0.831               NaN                  False            NaN               False        NaN          0.000
+gpt4o-mini_sampled      political         False 0.076  0.864 -0.712         -1.577      NaN  7.195  0.689               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna    neutral_own         False 0.455  0.553  0.357         -0.197      NaN  0.469  0.948               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna      political         False 0.208  0.530 -0.114         -0.644      NaN  1.214  1.064               NaN                  False            NaN               False        NaN          0.000
+             haiku    neutral_own         False 0.529  1.935 -0.877         -2.813      NaN  2.652  0.532               NaN                  False            NaN               False        NaN          0.000
+             haiku      political         False 0.727  1.419  0.035         -1.384      NaN  6.561 -0.178               NaN                  False            NaN               False        NaN          0.000
+         llama-70b  neutral_noown         False 0.946  0.595  1.297          0.702      NaN    NaN  1.145               NaN                  False            NaN               False      0.097          0.000
+         llama-70b    neutral_own          True 0.650  0.605  0.694          0.089    0.336 -0.252  1.420             0.354                  False          0.312               False      0.090          0.000
+         llama-70b neutral_own_w2         False 0.661  0.639  0.684          0.045      NaN -0.138  0.988               NaN                  False            NaN               False      0.108          0.000
+         llama-70b      political          True 0.781  0.961  0.602         -0.359    0.078  5.591  0.418             0.012                   True          0.012               False      0.070          0.000
+         llama-70b      workplace          True 0.629  1.089  0.169         -0.920    0.012  3.514  0.136             0.012                   True          0.312               False      0.088          0.000
+      llama-70b-pa  neutral_noown         False 0.967  0.607  1.328          0.721      NaN    NaN  1.004               NaN                  False            NaN               False      0.337          0.000
+      llama-70b-pa    neutral_own         False 0.624  0.607  0.642          0.035      NaN -0.256  1.526               NaN                  False            NaN               False      0.420          0.000
+          llama-8b  neutral_noown         False 0.055 -0.148  0.258          0.406      NaN    NaN  1.024               NaN                  False            NaN               False      0.016          0.000
+          llama-8b    neutral_own         False 0.041 -0.090  0.172          0.262      NaN -0.894  1.115               NaN                  False            NaN               False      0.018          0.000
+          llama-8b neutral_own_w2         False 0.071 -0.048  0.190          0.238      NaN -0.853  1.161               NaN                  False            NaN               False      0.024          0.000
+          llama-8b      political         False 0.050  0.037  0.063          0.026      NaN  0.121  1.467               NaN                  False            NaN               False      0.033          0.000
+          llama-8b      workplace         False 0.058  0.021  0.095          0.074      NaN  0.024  1.236               NaN                  False            NaN               False      0.026          0.000
+     mistral-large  neutral_noown         False 0.802  1.551  0.053         -1.498      NaN    NaN  0.964               NaN                  False            NaN               False      0.304          0.036
+     mistral-large    neutral_own         False 0.297  0.831 -0.237         -1.068      NaN  5.207  0.168               NaN                  False            NaN               False      0.288          0.000
+     mistral-large neutral_own_w2         False 0.488  1.349 -0.373         -1.722      NaN  4.167  0.289               NaN                  False            NaN               False      0.376          0.002
+     mistral-large      political         False 0.398  1.639 -0.842         -2.482      NaN 10.526  0.288               NaN                  False            NaN               False      0.313          0.010
+     mistral-large      workplace         False 0.519  1.441 -0.402         -1.844      NaN  6.062  0.413               NaN                  False            NaN               False      0.393          0.037
+     mistral-small  neutral_noown         False 0.215  0.292  0.137         -0.155      NaN    NaN  0.809               NaN                  False            NaN               False      0.041          0.321
+     mistral-small    neutral_own         False 0.182  0.320  0.044         -0.276      NaN -0.252  0.939               NaN                  False            NaN               False      0.044          0.061
+     mistral-small neutral_own_w2         False 0.227  0.387  0.066         -0.321      NaN  0.310  0.632               NaN                  False            NaN               False      0.047          0.062
+     mistral-small      political         False 0.179  0.384 -0.025         -0.409      NaN  2.698  0.565               NaN                  False            NaN               False      0.041          0.005
+     mistral-small      workplace         False 0.199  0.434 -0.037         -0.471      NaN  1.639  0.596               NaN                  False            NaN               False      0.044          0.230
+          nemo-12b  neutral_noown         False 0.074  0.107  0.042         -0.064      NaN    NaN  0.774               NaN                  False            NaN               False      0.083          0.000
+          nemo-12b    neutral_own          True 0.073  0.063  0.082          0.020    0.336 -0.450  0.987             0.012                  False          0.080               False      0.093          0.000
+          nemo-12b neutral_own_w2         False 0.112  0.136  0.087         -0.048      NaN  0.074  0.866               NaN                  False            NaN               False      0.096          0.000
+          nemo-12b      political          True 0.210  0.360  0.060         -0.300    0.012  2.773  0.995             0.012                  False          0.054               False      0.176          0.000
+          nemo-12b      workplace          True 0.206  0.424 -0.012         -0.436    0.012  1.842  0.673             0.012                  False          0.384               False      0.155          0.000
+         qwen-122b  neutral_noown         False 0.473  0.918  0.028         -0.890      NaN    NaN  0.951               NaN                  False            NaN               False      0.109          0.000
+         qwen-122b    neutral_own          True 0.346  0.843 -0.151         -0.993    0.012  2.197  0.026             0.012                  False          0.312               False      0.026          0.000
+         qwen-122b neutral_own_w2         False 0.351  0.832 -0.129         -0.962      NaN  1.388  0.298               NaN                  False            NaN               False      0.016          0.000
+         qwen-122b      political          True 0.237  0.732 -0.257         -0.989    0.012  3.648  0.015             0.012                  False          0.022               False      0.015          0.000
+         qwen-122b      workplace          True 0.235  0.888 -0.418         -1.307    0.012  3.073 -0.079             0.012                  False          0.022               False      0.020          0.000
+           qwen-9b  neutral_noown         False 0.083  0.193 -0.027         -0.220      NaN    NaN  0.801               NaN                  False            NaN               False      0.034          0.000
+           qwen-9b    neutral_own          True 0.092  0.244 -0.059         -0.303    0.012 -0.418  1.049             0.012                  False          0.384               False      0.035          0.000
+           qwen-9b neutral_own_w2         False 0.074  0.183 -0.035         -0.218      NaN -0.628  1.157               NaN                  False            NaN               False      0.032          0.000
+           qwen-9b      political          True 0.118  0.333 -0.097         -0.429    0.012  2.396  0.625             0.012                  False          0.266               False      0.038          0.000
+           qwen-9b      workplace          True 0.104  0.333 -0.125         -0.458    0.012  1.140  0.744             0.012                  False          0.384               False      0.039          0.000
+              family_pair         arm  beta_small  beta_large  diff_lo  diff_hi  p_one_sided                                                                status  holm  significant
+    llama-8b -> llama-70b neutral_own      0.0408      0.6499   0.5261   0.7218        0.001                              excluded: does not parse task (llama-8b)   NaN        False
+    llama-8b -> llama-70b   political      0.0500      0.7814   0.5790   0.9670        0.001                              excluded: does not parse task (llama-8b)   NaN        False
+    llama-8b -> llama-70b   workplace      0.0579      0.6294   0.4762   0.7137        0.001                              excluded: does not parse task (llama-8b)   NaN        False
+     qwen-9b -> qwen-122b neutral_own      0.0922      0.3459   0.2231   0.2863        0.001                                                                tested 0.003         True
+     qwen-9b -> qwen-122b   political      0.1179      0.2374   0.0901   0.1511        0.001                                                                tested 0.003         True
+     qwen-9b -> qwen-122b   workplace      0.1043      0.2351   0.1053   0.1604        0.001                                                                tested 0.003         True
+   gemma-26b -> gemma-31b neutral_own         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)   NaN        False
+   gemma-26b -> gemma-31b   political         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)   NaN        False
+   gemma-26b -> gemma-31b   workplace         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b, gemma-31b)   NaN        False
+nemo-12b -> mistral-large neutral_own         NaN         NaN      NaN      NaN          NaN        excluded: noise gate failed, no passing backup (mistral-large)   NaN        False
+nemo-12b -> mistral-large   political         NaN         NaN      NaN      NaN          NaN        excluded: noise gate failed, no passing backup (mistral-large)   NaN        False
+nemo-12b -> mistral-large   workplace         NaN         NaN      NaN      NaN          NaN        excluded: noise gate failed, no passing backup (mistral-large)   NaN        False
+H4: not supported (1 of 1 testable families significant in neutral; ≥3 of 4 required)
+$ python llm/summarize.py --relax-gate
+               key            arm  confirmatory  beta    b_a    b_r  b_r_minus_b_a  H1_holm  gamma  alpha  H3_pairwise_holm  H3_pairwise_supported  H3_cubic_holm  H3_cubic_supported  repeat_sd  excluded_frac
+       gemini-lite    neutral_own         False 1.500  2.860  0.141         -2.719      NaN -1.400  0.742               NaN                  False            NaN               False        NaN          0.000
+       gemini-lite      political         False 1.295  2.725 -0.134         -2.858      NaN  5.781  0.040               NaN                  False            NaN               False        NaN          0.000
+         gemma-26b  neutral_noown         False 0.611  1.225 -0.002         -1.227      NaN    NaN  0.766               NaN                  False            NaN               False      0.727          0.000
+         gemma-26b    neutral_own          True 0.702  1.556 -0.152         -1.708    0.021 -0.534  0.456             1.000                  False          0.021                True      0.657          0.000
+         gemma-26b neutral_own_w2         False 0.640  1.613 -0.332         -1.945      NaN -0.664  0.512               NaN                  False            NaN               False      0.615          0.000
+         gemma-26b      political          True 0.300  1.092 -0.493         -1.585    0.021  5.251  0.160             0.021                  False          0.021               False      0.784          0.000
+         gemma-26b      workplace          True 0.313  1.649 -1.023         -2.672    0.021  2.274  0.083             0.021                   True          0.021                True      0.697          0.000
+      gemma-26b-cw  neutral_noown         False 0.629  1.201  0.057         -1.144      NaN    NaN  0.848               NaN                  False            NaN               False      0.345          0.000
+      gemma-26b-cw    neutral_own         False 0.756  1.592 -0.079         -1.671      NaN -0.596  0.537               NaN                  False            NaN               False      0.301          0.000
+      gemma-26b-cw neutral_own_w2         False 0.734  1.690 -0.221         -1.911      NaN -0.655  0.562               NaN                  False            NaN               False      0.395          0.000
+      gemma-26b-cw      political         False 0.347  1.135 -0.441         -1.576      NaN  6.001 -0.143               NaN                  False            NaN               False      0.359          0.000
+      gemma-26b-cw      workplace         False 0.309  1.618 -1.000         -2.618      NaN  2.061  0.036               NaN                  False            NaN               False      0.377          0.000
+         gemma-31b  neutral_noown         False 1.103  0.692  1.514          0.822      NaN    NaN  0.961               NaN                  False            NaN               False      0.231          0.000
+         gemma-31b    neutral_own          True 1.094  1.298  0.890         -0.409    0.021 -0.070  0.955             1.000                  False          0.021                True      0.332          0.000
+         gemma-31b neutral_own_w2         False 0.996  1.192  0.800         -0.392      NaN -0.345  1.131               NaN                  False            NaN               False      0.280          0.000
+         gemma-31b      political          True 0.938  2.484 -0.609         -3.093    0.021  4.443  0.037             0.063                  False          0.021                True      0.182          0.000
+         gemma-31b      workplace          True 0.811  1.437  0.186         -1.251    0.021  1.220  0.578             0.275                  False          0.714               False      0.388          0.000
+        gpt4o-mini  neutral_noown         False 0.834  1.282  0.386         -0.896      NaN    NaN  0.820               NaN                  False            NaN               False      0.233          0.000
+        gpt4o-mini    neutral_own         False 0.607  1.100  0.114         -0.986      NaN -1.595  0.685               NaN                  False            NaN               False      0.328          0.000
+        gpt4o-mini neutral_own_w2         False 0.531  0.923  0.138         -0.785      NaN -1.625  0.805               NaN                  False            NaN               False      0.366          0.000
+        gpt4o-mini      political         False 0.131  0.911 -0.648         -1.560      NaN  6.467  0.189               NaN                  False            NaN               False      0.522          0.000
+        gpt4o-mini      workplace         False 0.454  1.003 -0.094         -1.097      NaN  2.177  0.239               NaN                  False            NaN               False      0.680          0.000
+gpt4o-mini_sampled    neutral_own         False 0.801  1.352  0.249         -1.103      NaN -1.480  0.831               NaN                  False            NaN               False        NaN          0.000
+gpt4o-mini_sampled      political         False 0.076  0.864 -0.712         -1.577      NaN  7.195  0.689               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna    neutral_own         False 0.455  0.553  0.357         -0.197      NaN  0.469  0.948               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna      political         False 0.208  0.530 -0.114         -0.644      NaN  1.214  1.064               NaN                  False            NaN               False        NaN          0.000
+             haiku    neutral_own         False 0.529  1.935 -0.877         -2.813      NaN  2.652  0.532               NaN                  False            NaN               False        NaN          0.000
+             haiku      political         False 0.727  1.419  0.035         -1.384      NaN  6.561 -0.178               NaN                  False            NaN               False        NaN          0.000
+         llama-70b  neutral_noown         False 0.946  0.595  1.297          0.702      NaN    NaN  1.145               NaN                  False            NaN               False      0.097          0.000
+         llama-70b    neutral_own          True 0.650  0.605  0.694          0.089    0.336 -0.252  1.420             1.000                  False          0.441               False      0.090          0.000
+         llama-70b neutral_own_w2         False 0.661  0.639  0.684          0.045      NaN -0.138  0.988               NaN                  False            NaN               False      0.108          0.000
+         llama-70b      political          True 0.781  0.961  0.602         -0.359    0.078  5.591  0.418             0.021                   True          0.021               False      0.070          0.000
+         llama-70b      workplace          True 0.629  1.089  0.169         -0.920    0.021  3.514  0.136             0.022                   True          0.441               False      0.088          0.000
+      llama-70b-pa  neutral_noown         False 0.967  0.607  1.328          0.721      NaN    NaN  1.004               NaN                  False            NaN               False      0.337          0.000
+      llama-70b-pa    neutral_own         False 0.624  0.607  0.642          0.035      NaN -0.256  1.526               NaN                  False            NaN               False      0.420          0.000
+          llama-8b  neutral_noown         False 0.055 -0.148  0.258          0.406      NaN    NaN  1.024               NaN                  False            NaN               False      0.016          0.000
+          llama-8b    neutral_own         False 0.041 -0.090  0.172          0.262      NaN -0.894  1.115               NaN                  False            NaN               False      0.018          0.000
+          llama-8b neutral_own_w2         False 0.071 -0.048  0.190          0.238      NaN -0.853  1.161               NaN                  False            NaN               False      0.024          0.000
+          llama-8b      political         False 0.050  0.037  0.063          0.026      NaN  0.121  1.467               NaN                  False            NaN               False      0.033          0.000
+          llama-8b      workplace         False 0.058  0.021  0.095          0.074      NaN  0.024  1.236               NaN                  False            NaN               False      0.026          0.000
+     mistral-large  neutral_noown         False 0.802  1.551  0.053         -1.498      NaN    NaN  0.964               NaN                  False            NaN               False      0.304          0.036
+     mistral-large    neutral_own          True 0.297  0.831 -0.237         -1.068    0.021  5.207  0.168             0.292                  False          0.640               False      0.288          0.000
+     mistral-large neutral_own_w2         False 0.488  1.349 -0.373         -1.722      NaN  4.167  0.289               NaN                  False            NaN               False      0.376          0.002
+     mistral-large      political          True 0.398  1.639 -0.842         -2.482    0.021 10.526  0.288             0.078                  False          0.441               False      0.313          0.010
+     mistral-large      workplace          True 0.519  1.441 -0.402         -1.844    0.021  6.062  0.413             0.021                   True          0.430               False      0.393          0.037
+     mistral-small  neutral_noown         False 0.215  0.292  0.137         -0.155      NaN    NaN  0.809               NaN                  False            NaN               False      0.041          0.321
+     mistral-small    neutral_own         False 0.182  0.320  0.044         -0.276      NaN -0.252  0.939               NaN                  False            NaN               False      0.044          0.061
+     mistral-small neutral_own_w2         False 0.227  0.387  0.066         -0.321      NaN  0.310  0.632               NaN                  False            NaN               False      0.047          0.062
+     mistral-small      political         False 0.179  0.384 -0.025         -0.409      NaN  2.698  0.565               NaN                  False            NaN               False      0.041          0.005
+     mistral-small      workplace         False 0.199  0.434 -0.037         -0.471      NaN  1.639  0.596               NaN                  False            NaN               False      0.044          0.230
+          nemo-12b  neutral_noown         False 0.074  0.107  0.042         -0.064      NaN    NaN  0.774               NaN                  False            NaN               False      0.083          0.000
+          nemo-12b    neutral_own          True 0.073  0.063  0.082          0.020    0.336 -0.450  0.987             0.030                  False          0.120               False      0.093          0.000
+          nemo-12b neutral_own_w2         False 0.112  0.136  0.087         -0.048      NaN  0.074  0.866               NaN                  False            NaN               False      0.096          0.000
+          nemo-12b      political          True 0.210  0.360  0.060         -0.300    0.021  2.773  0.995             0.021                  False          0.078               False      0.176          0.000
+          nemo-12b      workplace          True 0.206  0.424 -0.012         -0.436    0.021  1.842  0.673             0.021                  False          0.714               False      0.155          0.000
+         qwen-122b  neutral_noown         False 0.473  0.918  0.028         -0.890      NaN    NaN  0.951               NaN                  False            NaN               False      0.109          0.000
+         qwen-122b    neutral_own          True 0.346  0.843 -0.151         -0.993    0.021  2.197  0.026             0.036                  False          0.441               False      0.026          0.000
+         qwen-122b neutral_own_w2         False 0.351  0.832 -0.129         -0.962      NaN  1.388  0.298               NaN                  False            NaN               False      0.016          0.000
+         qwen-122b      political          True 0.237  0.732 -0.257         -0.989    0.021  3.648  0.015             0.040                  False          0.030               False      0.015          0.000
+         qwen-122b      workplace          True 0.235  0.888 -0.418         -1.307    0.021  3.073 -0.079             0.021                  False          0.030               False      0.020          0.000
+           qwen-9b  neutral_noown         False 0.083  0.193 -0.027         -0.220      NaN    NaN  0.801               NaN                  False            NaN               False      0.034          0.000
+           qwen-9b    neutral_own          True 0.092  0.244 -0.059         -0.303    0.021 -0.418  1.049             0.021                  False          0.640               False      0.035          0.000
+           qwen-9b neutral_own_w2         False 0.074  0.183 -0.035         -0.218      NaN -0.628  1.157               NaN                  False            NaN               False      0.032          0.000
+           qwen-9b      political          True 0.118  0.333 -0.097         -0.429    0.021  2.396  0.625             0.021                  False          0.418               False      0.038          0.000
+           qwen-9b      workplace          True 0.104  0.333 -0.125         -0.458    0.021  1.140  0.744             0.021                  False          0.640               False      0.039          0.000
+              family_pair         arm  beta_small  beta_large  diff_lo  diff_hi  p_one_sided                                   status  holm  significant
+    llama-8b -> llama-70b neutral_own      0.0408      0.6499   0.5261   0.7218        0.001 excluded: does not parse task (llama-8b)   NaN        False
+    llama-8b -> llama-70b   political      0.0500      0.7814   0.5790   0.9670        0.001 excluded: does not parse task (llama-8b)   NaN        False
+    llama-8b -> llama-70b   workplace      0.0579      0.6294   0.4762   0.7137        0.001 excluded: does not parse task (llama-8b)   NaN        False
+     qwen-9b -> qwen-122b neutral_own      0.0922      0.3459   0.2231   0.2863        0.001                                   tested 0.009         True
+     qwen-9b -> qwen-122b   political      0.1179      0.2374   0.0901   0.1511        0.001                                   tested 0.009         True
+     qwen-9b -> qwen-122b   workplace      0.1043      0.2351   0.1053   0.1604        0.001                                   tested 0.009         True
+   gemma-26b -> gemma-31b neutral_own      0.7015      1.0941   0.2260   0.5804        0.001                                   tested 0.009         True
+   gemma-26b -> gemma-31b   political      0.2997      0.9378   0.4535   0.9033        0.001                                   tested 0.009         True
+   gemma-26b -> gemma-31b   workplace      0.3131      0.8112   0.3591   0.6479        0.001                                   tested 0.009         True
+nemo-12b -> mistral-large neutral_own      0.0726      0.2967   0.1534   0.3210        0.001                                   tested 0.009         True
+nemo-12b -> mistral-large   political      0.2102      0.3984   0.0957   0.3091        0.001                                   tested 0.009         True
+nemo-12b -> mistral-large   workplace      0.2059      0.5194   0.2312   0.4232        0.001                                   tested 0.009         True
+H4: supported (3 of 3 testable families significant in neutral; ≥3 of 4 required)
+$ python llm/summarize.py --amendment4
+               key            arm  confirmatory  beta    b_a    b_r  b_r_minus_b_a  H1_holm  gamma  alpha  H3_pairwise_holm  H3_pairwise_supported  H3_cubic_holm  H3_cubic_supported  repeat_sd  excluded_frac
+       gemini-lite    neutral_own         False 1.500  2.860  0.141         -2.719      NaN -1.400  0.742               NaN                  False            NaN               False        NaN          0.000
+       gemini-lite      political         False 1.295  2.725 -0.134         -2.858      NaN  5.781  0.040               NaN                  False            NaN               False        NaN          0.000
+         gemma-26b  neutral_noown         False 0.611  1.225 -0.002         -1.227      NaN    NaN  0.766               NaN                  False            NaN               False      0.727          0.000
+         gemma-26b    neutral_own         False 0.702  1.556 -0.152         -1.708      NaN -0.534  0.456               NaN                  False            NaN               False      0.657          0.000
+         gemma-26b neutral_own_w2         False 0.640  1.613 -0.332         -1.945      NaN -0.664  0.512               NaN                  False            NaN               False      0.615          0.000
+         gemma-26b      political         False 0.300  1.092 -0.493         -1.585      NaN  5.251  0.160               NaN                  False            NaN               False      0.784          0.000
+         gemma-26b      workplace         False 0.313  1.649 -1.023         -2.672      NaN  2.274  0.083               NaN                  False            NaN               False      0.697          0.000
+      gemma-26b-cw  neutral_noown         False 0.629  1.201  0.057         -1.144      NaN    NaN  0.848               NaN                  False            NaN               False      0.345          0.000
+      gemma-26b-cw    neutral_own         False 0.756  1.592 -0.079         -1.671      NaN -0.596  0.537               NaN                  False            NaN               False      0.301          0.000
+      gemma-26b-cw neutral_own_w2         False 0.734  1.690 -0.221         -1.911      NaN -0.655  0.562               NaN                  False            NaN               False      0.395          0.000
+      gemma-26b-cw      political         False 0.347  1.135 -0.441         -1.576      NaN  6.001 -0.143               NaN                  False            NaN               False      0.359          0.000
+      gemma-26b-cw      workplace         False 0.309  1.618 -1.000         -2.618      NaN  2.061  0.036               NaN                  False            NaN               False      0.377          0.000
+   gemma-26b-local  neutral_noown         False 0.614  1.209  0.019         -1.190      NaN    NaN  0.851               NaN                  False            NaN               False      0.646          0.000
+   gemma-26b-local    neutral_own         False 0.762  1.637 -0.113         -1.751      NaN -0.500  0.409               NaN                  False            NaN               False      0.583          0.000
+   gemma-26b-local neutral_own_w2         False 0.731  1.735 -0.273         -2.008      NaN -0.615  0.537               NaN                  False            NaN               False      0.561          0.000
+   gemma-26b-local      political         False 0.394  1.195 -0.408         -1.603      NaN  6.025  0.037               NaN                  False            NaN               False      0.616          0.000
+   gemma-26b-local      workplace         False 0.301  1.634 -1.031         -2.666      NaN  2.074 -0.017               NaN                  False            NaN               False      0.576          0.000
+         gemma-31b  neutral_noown         False 1.103  0.692  1.514          0.822      NaN    NaN  0.961               NaN                  False            NaN               False      0.231          0.000
+         gemma-31b    neutral_own         False 1.094  1.298  0.890         -0.409      NaN -0.070  0.955               NaN                  False            NaN               False      0.332          0.000
+         gemma-31b neutral_own_w2         False 0.996  1.192  0.800         -0.392      NaN -0.345  1.131               NaN                  False            NaN               False      0.280          0.000
+         gemma-31b      political         False 0.938  2.484 -0.609         -3.093      NaN  4.443  0.037               NaN                  False            NaN               False      0.182          0.000
+         gemma-31b      workplace         False 0.811  1.437  0.186         -1.251      NaN  1.220  0.578               NaN                  False            NaN               False      0.388          0.000
+   gemma-31b-local  neutral_noown         False 1.117  0.747  1.488          0.742      NaN    NaN  1.055               NaN                  False            NaN               False      0.119          0.000
+   gemma-31b-local    neutral_own          True 1.112  1.297  0.927         -0.370    0.015  0.078  1.052             0.841                  False          0.015                True      0.079          0.000
+   gemma-31b-local neutral_own_w2         False 1.076  1.239  0.913         -0.326      NaN -0.202  0.986               NaN                  False            NaN               False      0.101          0.000
+   gemma-31b-local      political          True 0.916  2.412 -0.580         -2.993    0.015  4.054  0.127             0.268                  False          0.015                True      0.152          0.000
+   gemma-31b-local      workplace          True 0.892  1.542  0.242         -1.300    0.015  1.142  0.670             0.268                  False          0.364               False      0.100          0.000
+        gpt4o-mini  neutral_noown         False 0.834  1.282  0.386         -0.896      NaN    NaN  0.820               NaN                  False            NaN               False      0.233          0.000
+        gpt4o-mini    neutral_own         False 0.607  1.100  0.114         -0.986      NaN -1.595  0.685               NaN                  False            NaN               False      0.328          0.000
+        gpt4o-mini neutral_own_w2         False 0.531  0.923  0.138         -0.785      NaN -1.625  0.805               NaN                  False            NaN               False      0.366          0.000
+        gpt4o-mini      political         False 0.131  0.911 -0.648         -1.560      NaN  6.467  0.189               NaN                  False            NaN               False      0.522          0.000
+        gpt4o-mini      workplace         False 0.454  1.003 -0.094         -1.097      NaN  2.177  0.239               NaN                  False            NaN               False      0.680          0.000
+gpt4o-mini_sampled    neutral_own         False 0.801  1.352  0.249         -1.103      NaN -1.480  0.831               NaN                  False            NaN               False        NaN          0.000
+gpt4o-mini_sampled      political         False 0.076  0.864 -0.712         -1.577      NaN  7.195  0.689               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna    neutral_own         False 0.455  0.553  0.357         -0.197      NaN  0.469  0.948               NaN                  False            NaN               False        NaN          0.000
+         gpt6-luna      political         False 0.208  0.530 -0.114         -0.644      NaN  1.214  1.064               NaN                  False            NaN               False        NaN          0.000
+             haiku    neutral_own         False 0.529  1.935 -0.877         -2.813      NaN  2.652  0.532               NaN                  False            NaN               False        NaN          0.000
+             haiku      political         False 0.727  1.419  0.035         -1.384      NaN  6.561 -0.178               NaN                  False            NaN               False        NaN          0.000
+         llama-70b  neutral_noown         False 0.946  0.595  1.297          0.702      NaN    NaN  1.145               NaN                  False            NaN               False      0.097          0.000
+         llama-70b    neutral_own          True 0.650  0.605  0.694          0.089    0.336 -0.252  1.420             0.708                  False          0.364               False      0.090          0.000
+         llama-70b neutral_own_w2         False 0.661  0.639  0.684          0.045      NaN -0.138  0.988               NaN                  False            NaN               False      0.108          0.000
+         llama-70b      political          True 0.781  0.961  0.602         -0.359    0.078  5.591  0.418             0.015                   True          0.015               False      0.070          0.000
+         llama-70b      workplace          True 0.629  1.089  0.169         -0.920    0.015  3.514  0.136             0.016                   True          0.364               False      0.088          0.000
+      llama-70b-pa  neutral_noown         False 0.967  0.607  1.328          0.721      NaN    NaN  1.004               NaN                  False            NaN               False      0.337          0.000
+      llama-70b-pa    neutral_own         False 0.624  0.607  0.642          0.035      NaN -0.256  1.526               NaN                  False            NaN               False      0.420          0.000
+          llama-8b  neutral_noown         False 0.055 -0.148  0.258          0.406      NaN    NaN  1.024               NaN                  False            NaN               False      0.016          0.000
+          llama-8b    neutral_own         False 0.041 -0.090  0.172          0.262      NaN -0.894  1.115               NaN                  False            NaN               False      0.018          0.000
+          llama-8b neutral_own_w2         False 0.071 -0.048  0.190          0.238      NaN -0.853  1.161               NaN                  False            NaN               False      0.024          0.000
+          llama-8b      political         False 0.050  0.037  0.063          0.026      NaN  0.121  1.467               NaN                  False            NaN               False      0.033          0.000
+          llama-8b      workplace         False 0.058  0.021  0.095          0.074      NaN  0.024  1.236               NaN                  False            NaN               False      0.026          0.000
+     mistral-large  neutral_noown         False 0.802  1.551  0.053         -1.498      NaN    NaN  0.964               NaN                  False            NaN               False      0.304          0.036
+     mistral-large    neutral_own         False 0.297  0.831 -0.237         -1.068      NaN  5.207  0.168               NaN                  False            NaN               False      0.288          0.000
+     mistral-large neutral_own_w2         False 0.488  1.349 -0.373         -1.722      NaN  4.167  0.289               NaN                  False            NaN               False      0.376          0.002
+     mistral-large      political         False 0.398  1.639 -0.842         -2.482      NaN 10.526  0.288               NaN                  False            NaN               False      0.313          0.010
+     mistral-large      workplace         False 0.519  1.441 -0.402         -1.844      NaN  6.062  0.413               NaN                  False            NaN               False      0.393          0.037
+     mistral-small  neutral_noown         False 0.215  0.292  0.137         -0.155      NaN    NaN  0.809               NaN                  False            NaN               False      0.041          0.321
+     mistral-small    neutral_own         False 0.182  0.320  0.044         -0.276      NaN -0.252  0.939               NaN                  False            NaN               False      0.044          0.061
+     mistral-small neutral_own_w2         False 0.227  0.387  0.066         -0.321      NaN  0.310  0.632               NaN                  False            NaN               False      0.047          0.062
+     mistral-small      political         False 0.179  0.384 -0.025         -0.409      NaN  2.698  0.565               NaN                  False            NaN               False      0.041          0.005
+     mistral-small      workplace         False 0.199  0.434 -0.037         -0.471      NaN  1.639  0.596               NaN                  False            NaN               False      0.044          0.230
+          nemo-12b  neutral_noown         False 0.074  0.107  0.042         -0.064      NaN    NaN  0.774               NaN                  False            NaN               False      0.083          0.000
+          nemo-12b    neutral_own          True 0.073  0.063  0.082          0.020    0.336 -0.450  0.987             0.021                  False          0.090               False      0.093          0.000
+          nemo-12b neutral_own_w2         False 0.112  0.136  0.087         -0.048      NaN  0.074  0.866               NaN                  False            NaN               False      0.096          0.000
+          nemo-12b      political          True 0.210  0.360  0.060         -0.300    0.015  2.773  0.995             0.015                  False          0.060               False      0.176          0.000
+          nemo-12b      workplace          True 0.206  0.424 -0.012         -0.436    0.015  1.842  0.673             0.015                  False          0.384               False      0.155          0.000
+         qwen-122b  neutral_noown         False 0.473  0.918  0.028         -0.890      NaN    NaN  0.951               NaN                  False            NaN               False      0.109          0.000
+         qwen-122b    neutral_own          True 0.346  0.843 -0.151         -0.993    0.015  2.197  0.026             0.024                  False          0.364               False      0.026          0.000
+         qwen-122b neutral_own_w2         False 0.351  0.832 -0.129         -0.962      NaN  1.388  0.298               NaN                  False            NaN               False      0.016          0.000
+         qwen-122b      political          True 0.237  0.732 -0.257         -0.989    0.015  3.648  0.015             0.025                  False          0.024               False      0.015          0.000
+         qwen-122b      workplace          True 0.235  0.888 -0.418         -1.307    0.015  3.073 -0.079             0.015                  False          0.024               False      0.020          0.000
+           qwen-9b  neutral_noown         False 0.083  0.193 -0.027         -0.220      NaN    NaN  0.801               NaN                  False            NaN               False      0.034          0.000
+           qwen-9b    neutral_own          True 0.092  0.244 -0.059         -0.303    0.015 -0.418  1.049             0.015                  False          0.384               False      0.035          0.000
+           qwen-9b neutral_own_w2         False 0.074  0.183 -0.035         -0.218      NaN -0.628  1.157               NaN                  False            NaN               False      0.032          0.000
+           qwen-9b      political          True 0.118  0.333 -0.097         -0.429    0.015  2.396  0.625             0.015                  False          0.304               False      0.038          0.000
+           qwen-9b      workplace          True 0.104  0.333 -0.125         -0.458    0.015  1.140  0.744             0.015                  False          0.384               False      0.039          0.000
+                       family_pair         arm  beta_small  beta_large  diff_lo  diff_hi  p_one_sided                                                           status  holm  significant holm_gemma_family
+             llama-8b -> llama-70b neutral_own      0.0408      0.6499   0.5261   0.7218        0.001                         excluded: does not parse task (llama-8b)   NaN        False               NaN
+             llama-8b -> llama-70b   political      0.0500      0.7814   0.5790   0.9670        0.001                         excluded: does not parse task (llama-8b)   NaN        False               NaN
+             llama-8b -> llama-70b   workplace      0.0579      0.6294   0.4762   0.7137        0.001                         excluded: does not parse task (llama-8b)   NaN        False               NaN
+              qwen-9b -> qwen-122b neutral_own      0.0922      0.3459   0.2231   0.2863        0.001                                                           tested 0.003         True               NaN
+              qwen-9b -> qwen-122b   political      0.1179      0.2374   0.0901   0.1511        0.001                                                           tested 0.003         True               NaN
+              qwen-9b -> qwen-122b   workplace      0.1043      0.2351   0.1053   0.1604        0.001                                                           tested 0.003         True               NaN
+gemma-26b-local -> gemma-31b-local neutral_own         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b-local)   NaN        False               NaN
+gemma-26b-local -> gemma-31b-local   political         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b-local)   NaN        False               NaN
+gemma-26b-local -> gemma-31b-local   workplace         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (gemma-26b-local)   NaN        False               NaN
+         nemo-12b -> mistral-large neutral_own         NaN         NaN      NaN      NaN          NaN   excluded: noise gate failed, no passing backup (mistral-large)   NaN        False               NaN
+         nemo-12b -> mistral-large   political         NaN         NaN      NaN      NaN          NaN   excluded: noise gate failed, no passing backup (mistral-large)   NaN        False               NaN
+         nemo-12b -> mistral-large   workplace         NaN         NaN      NaN      NaN          NaN   excluded: noise gate failed, no passing backup (mistral-large)   NaN        False               NaN
+H4: not supported (1 of 1 testable families significant in neutral; ≥3 of 4 required)
+$ python llm/summarize.py --amendment5
+                key            arm  confirmatory  beta    b_a    b_r  b_r_minus_b_a  H1_holm  gamma  alpha  H3_pairwise_holm  H3_pairwise_supported  H3_cubic_holm  H3_cubic_supported  repeat_sd  excluded_frac
+        gemini-lite    neutral_own         False 1.500  2.860  0.141         -2.719      NaN -1.400  0.742               NaN                  False            NaN               False        NaN          0.000
+        gemini-lite      political         False 1.295  2.725 -0.134         -2.858      NaN  5.781  0.040               NaN                  False            NaN               False        NaN          0.000
+          gemma-26b  neutral_noown         False 0.611  1.225 -0.002         -1.227      NaN    NaN  0.766               NaN                  False            NaN               False      0.727          0.000
+          gemma-26b    neutral_own         False 0.702  1.556 -0.152         -1.708      NaN -0.534  0.456               NaN                  False            NaN               False      0.657          0.000
+          gemma-26b neutral_own_w2         False 0.640  1.613 -0.332         -1.945      NaN -0.664  0.512               NaN                  False            NaN               False      0.615          0.000
+          gemma-26b      political         False 0.300  1.092 -0.493         -1.585      NaN  5.251  0.160               NaN                  False            NaN               False      0.784          0.000
+          gemma-26b      workplace         False 0.313  1.649 -1.023         -2.672      NaN  2.274  0.083               NaN                  False            NaN               False      0.697          0.000
+       gemma-26b-cw  neutral_noown         False 0.629  1.201  0.057         -1.144      NaN    NaN  0.848               NaN                  False            NaN               False      0.345          0.000
+       gemma-26b-cw    neutral_own         False 0.756  1.592 -0.079         -1.671      NaN -0.596  0.537               NaN                  False            NaN               False      0.301          0.000
+       gemma-26b-cw neutral_own_w2         False 0.734  1.690 -0.221         -1.911      NaN -0.655  0.562               NaN                  False            NaN               False      0.395          0.000
+       gemma-26b-cw      political         False 0.347  1.135 -0.441         -1.576      NaN  6.001 -0.143               NaN                  False            NaN               False      0.359          0.000
+       gemma-26b-cw      workplace         False 0.309  1.618 -1.000         -2.618      NaN  2.061  0.036               NaN                  False            NaN               False      0.377          0.000
+    gemma-26b-local  neutral_noown         False 0.614  1.209  0.019         -1.190      NaN    NaN  0.851               NaN                  False            NaN               False      0.646          0.000
+    gemma-26b-local    neutral_own         False 0.762  1.637 -0.113         -1.751      NaN -0.500  0.409               NaN                  False            NaN               False      0.583          0.000
+    gemma-26b-local neutral_own_w2         False 0.731  1.735 -0.273         -2.008      NaN -0.615  0.537               NaN                  False            NaN               False      0.561          0.000
+    gemma-26b-local      political         False 0.394  1.195 -0.408         -1.603      NaN  6.025  0.037               NaN                  False            NaN               False      0.616          0.000
+    gemma-26b-local      workplace         False 0.301  1.634 -1.031         -2.666      NaN  2.074 -0.017               NaN                  False            NaN               False      0.576          0.000
+gemma-26b-local-bs1  neutral_noown         False 0.596  1.185  0.007         -1.178      NaN    NaN  0.488               NaN                  False            NaN               False      0.000          0.000
+gemma-26b-local-bs1    neutral_own          True 0.752  1.599 -0.096         -1.695    0.018 -0.457  0.439             1.000                  False          0.018                True      0.000          0.000
+gemma-26b-local-bs1 neutral_own_w2         False 0.733  1.729 -0.262         -1.991      NaN -0.602  0.499               NaN                  False            NaN               False      0.000          0.000
+gemma-26b-local-bs1      political          True 0.331  1.130 -0.467         -1.597    0.018  5.959 -0.019             0.018                  False          0.033               False      0.000          0.000
+gemma-26b-local-bs1      workplace          True 0.302  1.693 -1.088         -2.782    0.018  2.221  0.023             0.018                   True          0.018                True      0.000          0.000
+          gemma-31b  neutral_noown         False 1.103  0.692  1.514          0.822      NaN    NaN  0.961               NaN                  False            NaN               False      0.231          0.000
+          gemma-31b    neutral_own         False 1.094  1.298  0.890         -0.409      NaN -0.070  0.955               NaN                  False            NaN               False      0.332          0.000
+          gemma-31b neutral_own_w2         False 0.996  1.192  0.800         -0.392      NaN -0.345  1.131               NaN                  False            NaN               False      0.280          0.000
+          gemma-31b      political         False 0.938  2.484 -0.609         -3.093      NaN  4.443  0.037               NaN                  False            NaN               False      0.182          0.000
+          gemma-31b      workplace         False 0.811  1.437  0.186         -1.251      NaN  1.220  0.578               NaN                  False            NaN               False      0.388          0.000
+    gemma-31b-local  neutral_noown         False 1.117  0.747  1.488          0.742      NaN    NaN  1.055               NaN                  False            NaN               False      0.119          0.000
+    gemma-31b-local    neutral_own          True 1.112  1.297  0.927         -0.370    0.018  0.078  1.052             1.000                  False          0.018                True      0.079          0.000
+    gemma-31b-local neutral_own_w2         False 1.076  1.239  0.913         -0.326      NaN -0.202  0.986               NaN                  False            NaN               False      0.101          0.000
+    gemma-31b-local      political          True 0.916  2.412 -0.580         -2.993    0.018  4.054  0.127             0.335                  False          0.018                True      0.152          0.000
+    gemma-31b-local      workplace          True 0.892  1.542  0.242         -1.300    0.018  1.142  0.670             0.335                  False          0.364               False      0.100          0.000
+         gpt4o-mini  neutral_noown         False 0.834  1.282  0.386         -0.896      NaN    NaN  0.820               NaN                  False            NaN               False      0.233          0.000
+         gpt4o-mini    neutral_own         False 0.607  1.100  0.114         -0.986      NaN -1.595  0.685               NaN                  False            NaN               False      0.328          0.000
+         gpt4o-mini neutral_own_w2         False 0.531  0.923  0.138         -0.785      NaN -1.625  0.805               NaN                  False            NaN               False      0.366          0.000
+         gpt4o-mini      political         False 0.131  0.911 -0.648         -1.560      NaN  6.467  0.189               NaN                  False            NaN               False      0.522          0.000
+         gpt4o-mini      workplace         False 0.454  1.003 -0.094         -1.097      NaN  2.177  0.239               NaN                  False            NaN               False      0.680          0.000
+ gpt4o-mini_sampled    neutral_own         False 0.801  1.352  0.249         -1.103      NaN -1.480  0.831               NaN                  False            NaN               False        NaN          0.000
+ gpt4o-mini_sampled      political         False 0.076  0.864 -0.712         -1.577      NaN  7.195  0.689               NaN                  False            NaN               False        NaN          0.000
+          gpt6-luna    neutral_own         False 0.455  0.553  0.357         -0.197      NaN  0.469  0.948               NaN                  False            NaN               False        NaN          0.000
+          gpt6-luna      political         False 0.208  0.530 -0.114         -0.644      NaN  1.214  1.064               NaN                  False            NaN               False        NaN          0.000
+              haiku    neutral_own         False 0.529  1.935 -0.877         -2.813      NaN  2.652  0.532               NaN                  False            NaN               False        NaN          0.000
+              haiku      political         False 0.727  1.419  0.035         -1.384      NaN  6.561 -0.178               NaN                  False            NaN               False        NaN          0.000
+          llama-70b  neutral_noown         False 0.946  0.595  1.297          0.702      NaN    NaN  1.145               NaN                  False            NaN               False      0.097          0.000
+          llama-70b    neutral_own          True 0.650  0.605  0.694          0.089    0.336 -0.252  1.420             1.000                  False          0.364               False      0.090          0.000
+          llama-70b neutral_own_w2         False 0.661  0.639  0.684          0.045      NaN -0.138  0.988               NaN                  False            NaN               False      0.108          0.000
+          llama-70b      political          True 0.781  0.961  0.602         -0.359    0.078  5.591  0.418             0.018                   True          0.018               False      0.070          0.000
+          llama-70b      workplace          True 0.629  1.089  0.169         -0.920    0.018  3.514  0.136             0.018                   True          0.364               False      0.088          0.000
+       llama-70b-pa  neutral_noown         False 0.967  0.607  1.328          0.721      NaN    NaN  1.004               NaN                  False            NaN               False      0.337          0.000
+       llama-70b-pa    neutral_own         False 0.624  0.607  0.642          0.035      NaN -0.256  1.526               NaN                  False            NaN               False      0.420          0.000
+           llama-8b  neutral_noown         False 0.055 -0.148  0.258          0.406      NaN    NaN  1.024               NaN                  False            NaN               False      0.016          0.000
+           llama-8b    neutral_own         False 0.041 -0.090  0.172          0.262      NaN -0.894  1.115               NaN                  False            NaN               False      0.018          0.000
+           llama-8b neutral_own_w2         False 0.071 -0.048  0.190          0.238      NaN -0.853  1.161               NaN                  False            NaN               False      0.024          0.000
+           llama-8b      political         False 0.050  0.037  0.063          0.026      NaN  0.121  1.467               NaN                  False            NaN               False      0.033          0.000
+           llama-8b      workplace         False 0.058  0.021  0.095          0.074      NaN  0.024  1.236               NaN                  False            NaN               False      0.026          0.000
+      mistral-large  neutral_noown         False 0.802  1.551  0.053         -1.498      NaN    NaN  0.964               NaN                  False            NaN               False      0.304          0.036
+      mistral-large    neutral_own         False 0.297  0.831 -0.237         -1.068      NaN  5.207  0.168               NaN                  False            NaN               False      0.288          0.000
+      mistral-large neutral_own_w2         False 0.488  1.349 -0.373         -1.722      NaN  4.167  0.289               NaN                  False            NaN               False      0.376          0.002
+      mistral-large      political         False 0.398  1.639 -0.842         -2.482      NaN 10.526  0.288               NaN                  False            NaN               False      0.313          0.010
+      mistral-large      workplace         False 0.519  1.441 -0.402         -1.844      NaN  6.062  0.413               NaN                  False            NaN               False      0.393          0.037
+      mistral-small  neutral_noown         False 0.215  0.292  0.137         -0.155      NaN    NaN  0.809               NaN                  False            NaN               False      0.041          0.321
+      mistral-small    neutral_own         False 0.182  0.320  0.044         -0.276      NaN -0.252  0.939               NaN                  False            NaN               False      0.044          0.061
+      mistral-small neutral_own_w2         False 0.227  0.387  0.066         -0.321      NaN  0.310  0.632               NaN                  False            NaN               False      0.047          0.062
+      mistral-small      political         False 0.179  0.384 -0.025         -0.409      NaN  2.698  0.565               NaN                  False            NaN               False      0.041          0.005
+      mistral-small      workplace         False 0.199  0.434 -0.037         -0.471      NaN  1.639  0.596               NaN                  False            NaN               False      0.044          0.230
+           nemo-12b  neutral_noown         False 0.074  0.107  0.042         -0.064      NaN    NaN  0.774               NaN                  False            NaN               False      0.083          0.000
+           nemo-12b    neutral_own          True 0.073  0.063  0.082          0.020    0.336 -0.450  0.987             0.024                  False          0.090               False      0.093          0.000
+           nemo-12b neutral_own_w2         False 0.112  0.136  0.087         -0.048      NaN  0.074  0.866               NaN                  False            NaN               False      0.096          0.000
+           nemo-12b      political          True 0.210  0.360  0.060         -0.300    0.018  2.773  0.995             0.018                  False          0.060               False      0.176          0.000
+           nemo-12b      workplace          True 0.206  0.424 -0.012         -0.436    0.018  1.842  0.673             0.018                  False          0.384               False      0.155          0.000
+          qwen-122b  neutral_noown         False 0.473  0.918  0.028         -0.890      NaN    NaN  0.951               NaN                  False            NaN               False      0.109          0.000
+          qwen-122b    neutral_own          True 0.346  0.843 -0.151         -0.993    0.018  2.197  0.026             0.028                  False          0.364               False      0.026          0.000
+          qwen-122b neutral_own_w2         False 0.351  0.832 -0.129         -0.962      NaN  1.388  0.298               NaN                  False            NaN               False      0.016          0.000
+          qwen-122b      political          True 0.237  0.732 -0.257         -0.989    0.018  3.648  0.015             0.030                  False          0.026               False      0.015          0.000
+          qwen-122b      workplace          True 0.235  0.888 -0.418         -1.307    0.018  3.073 -0.079             0.018                  False          0.026               False      0.020          0.000
+            qwen-9b  neutral_noown         False 0.083  0.193 -0.027         -0.220      NaN    NaN  0.801               NaN                  False            NaN               False      0.034          0.000
+            qwen-9b    neutral_own          True 0.092  0.244 -0.059         -0.303    0.018 -0.418  1.049             0.018                  False          0.384               False      0.035          0.000
+            qwen-9b neutral_own_w2         False 0.074  0.183 -0.035         -0.218      NaN -0.628  1.157               NaN                  False            NaN               False      0.032          0.000
+            qwen-9b      political          True 0.118  0.333 -0.097         -0.429    0.018  2.396  0.625             0.018                  False          0.304               False      0.038          0.000
+            qwen-9b      workplace          True 0.104  0.333 -0.125         -0.458    0.018  1.140  0.744             0.018                  False          0.384               False      0.039          0.000
+                           family_pair         arm  beta_small  beta_large  diff_lo  diff_hi  p_one_sided                                                         status  holm  significant  holm_gemma_family
+                 llama-8b -> llama-70b neutral_own      0.0408      0.6499   0.5261   0.7218        0.001                       excluded: does not parse task (llama-8b)   NaN        False                NaN
+                 llama-8b -> llama-70b   political      0.0500      0.7814   0.5790   0.9670        0.001                       excluded: does not parse task (llama-8b)   NaN        False                NaN
+                 llama-8b -> llama-70b   workplace      0.0579      0.6294   0.4762   0.7137        0.001                       excluded: does not parse task (llama-8b)   NaN        False                NaN
+                  qwen-9b -> qwen-122b neutral_own      0.0922      0.3459   0.2231   0.2863        0.001                                                         tested 0.006         True                NaN
+                  qwen-9b -> qwen-122b   political      0.1179      0.2374   0.0901   0.1511        0.001                                                         tested 0.006         True                NaN
+                  qwen-9b -> qwen-122b   workplace      0.1043      0.2351   0.1053   0.1604        0.001                                                         tested 0.006         True                NaN
+gemma-26b-local-bs1 -> gemma-31b-local neutral_own      0.7517      1.1120   0.1698   0.5582        0.001                                                         tested 0.006         True              0.003
+gemma-26b-local-bs1 -> gemma-31b-local   political      0.3313      0.9160   0.3964   0.8457        0.001                                                         tested 0.006         True              0.003
+gemma-26b-local-bs1 -> gemma-31b-local   workplace      0.3024      0.8923   0.4433   0.7529        0.001                                                         tested 0.006         True              0.003
+             nemo-12b -> mistral-large neutral_own         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (mistral-large)   NaN        False                NaN
+             nemo-12b -> mistral-large   political         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (mistral-large)   NaN        False                NaN
+             nemo-12b -> mistral-large   workplace         NaN         NaN      NaN      NaN          NaN excluded: noise gate failed, no passing backup (mistral-large)   NaN        False                NaN
+H4: not supported (2 of 2 testable families significant in neutral; ≥3 of 4 required)
+$ python llm/secondary.py gemini-lite gemma-26b-cw gemma-26b gemma-31b gpt4o-mini gpt4o-mini_sampled gpt6-luna haiku llama-70b-pa llama-70b llama-8b mistral-large mistral-small nemo-12b qwen-122b qwen-9b
+                             sum  count
+contrast              param            
+own hidden − shown    alpha    2     12
+                      b_a      8     12
+                      b_r     10     12
+                      beta     5     12
+political − neutral   alpha    7     15
+                      b_a     10     15
+                      b_r     12     15
+                      beta     8     15
+                      gamma   15     15
+wording: w2 − v2      alpha    0     11
+                      b_a      6     11
+                      b_r      2     11
+                      beta     5     11
+                      gamma    5     11
+workplace − neutral   alpha    3     11
+                      b_a      6     11
+                      b_r     10     11
+                      beta     8     11
+                      gamma   10     11
+workplace − political alpha    2     11
+                      b_a      7     11
+                      b_r      9     11
+                      beta     1     11
+                      gamma   11     11
+          key         contrast param  diff    lo    hi  flag
+    gemma-26b wording: w2 − v2   b_r -0.18 -0.34 -0.03  True
+   gpt4o-mini wording: w2 − v2   b_a -0.18 -0.33 -0.02  True
+     llama-8b wording: w2 − v2  beta  0.03  0.01  0.05  True
+     llama-8b wording: w2 − v2   b_a  0.04  0.02  0.07  True
+mistral-large wording: w2 − v2  beta  0.19  0.08  0.30  True
+mistral-large wording: w2 − v2   b_a  0.52  0.30  0.74  True
+mistral-large wording: w2 − v2 gamma -1.04 -2.44 -0.32  True
+mistral-small wording: w2 − v2  beta  0.04  0.01  0.08  True
+mistral-small wording: w2 − v2   b_a  0.07  0.03  0.11  True
+mistral-small wording: w2 − v2 gamma  0.56  0.47  0.65  True
+     nemo-12b wording: w2 − v2  beta  0.04  0.02  0.06  True
+     nemo-12b wording: w2 − v2   b_a  0.07  0.04  0.10  True
+     nemo-12b wording: w2 − v2 gamma  0.52  0.47  0.58  True
+    qwen-122b wording: w2 − v2 gamma -0.81 -0.94 -0.68  True
+      qwen-9b wording: w2 − v2  beta -0.02 -0.03 -0.00  True
+      qwen-9b wording: w2 − v2   b_a -0.06 -0.09 -0.03  True
+      qwen-9b wording: w2 − v2   b_r  0.02  0.01  0.04  True
+      qwen-9b wording: w2 − v2 gamma -0.21 -0.25 -0.17  True
+$ python llm/bridge.py
+                           est_logprobs  est_sampled  se_logprobs  se_sampled   diff      z
+arm         param                                                                          
+neutral_own alpha                 0.827        0.831        0.249       0.253  0.004  0.010
+            b_a                   1.326        1.352        0.134       0.132  0.027  0.143
+            b_r                   0.276        0.249        0.068       0.066 -0.027 -0.286
+            b_r_minus_b_a        -1.049       -1.103        0.152       0.147 -0.054 -0.255
+            beta                  0.801        0.801        0.075       0.074 -0.000 -0.001
+            gamma                -1.493       -1.480        0.143       0.140  0.013  0.064
+            h                     0.612        0.614        0.120       0.120  0.002  0.011
+            h_O                   0.647        0.633        0.113       0.113 -0.013 -0.084
+political   alpha                 0.508        0.689        0.662       0.677  0.181  0.191
+            b_a                   0.925        0.864        0.188       0.198 -0.060 -0.220
+            b_r                  -0.604       -0.712        0.249       0.245 -0.109 -0.311
+            b_r_minus_b_a        -1.528       -1.577        0.329       0.361 -0.049 -0.099
+            beta                  0.161        0.076        0.147       0.130 -0.085 -0.430
+            gamma                 7.338        7.195        0.684       0.654 -0.143 -0.151
+            h_C                  -1.230       -1.270        0.383       0.347 -0.040 -0.077
+            h_L                  -1.140       -0.876        0.311       0.203  0.264  0.710
+            h_O                   0.474        0.470        0.237       0.240 -0.003 -0.010

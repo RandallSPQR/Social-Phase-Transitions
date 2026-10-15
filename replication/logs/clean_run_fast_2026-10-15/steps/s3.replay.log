@@ -1,0 +1,165 @@
+$ python llm/stage3.py check
+prompts: 3000 random cells x (contacts, no contacts) match the Stage 1 template; mutations rejected
+ising baseline: beta == Stage 1 A0 estimate and draws for 27 endpoint x framing fits
+  P4 abs_m        live-runner 0.884  simulator 0.880  z +0.37
+  P4 persistence  live-runner 0.803  simulator 0.794  z +0.48
+  P4 flip_rate    live-runner 0.051  simulator 0.052  z -0.24
+  P4 unsatisfied  live-runner 0.282  simulator 0.276  z +0.68
+  P4 abs_q        live-runner 0.786  simulator 0.780  z +0.39
+  P1 abs_m        live-runner 0.264  simulator 0.331  z -1.36
+  P1 persistence  live-runner 0.707  simulator 0.708  z -0.06
+  P1 flip_rate    live-runner 0.050  simulator 0.049  z +0.34
+  P1 unsatisfied  live-runner 0.303  simulator 0.298  z +0.79
+  P1 abs_q        live-runner 0.129  simulator 0.193  z -1.88
+  P4-nc abs_m        live-runner 0.533  simulator 0.537  z -0.30
+  P4-nc persistence  live-runner 0.442  simulator 0.458  z -0.75
+  P4-nc flip_rate    live-runner 0.125  simulator 0.124  z +0.18
+  P4-nc unsatisfied  live-runner 0.429  simulator 0.430  z -0.09
+  P4-nc abs_q        live-runner 0.280  simulator 0.287  z -0.31
+dynamics: live runner with a surrogate-mock LLM reproduces llm/surrogate.py
+ALL STAGE 3 PRE-DATA CHECKS PASSED
+$ python llm/stage3.py run
+stage3: 70 chains, 70 to run; workers 70; budget $12.0
+  done ('P4-nc', 3, 0): 2000 updates, invalid_first 0.050%, 72s, session spend $0.000
+  done ('P2', 4, 0): 2000 updates, invalid_first 0.000%, 72s, session spend $0.000
+  done ('P4-nc', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 1, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 1, 0): 2000 updates, invalid_first 0.050%, 73s, session spend $0.000
+  done ('P4-nc', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 3, 0): 2000 updates, invalid_first 0.050%, 73s, session spend $0.000
+  done ('P5', 1, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 1, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 2, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 0, 1): 2000 updates, invalid_first 0.100%, 73s, session spend $0.000
+  done ('P1', 3, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 1, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 3, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 3, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 1, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 2, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 3, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 3, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 3, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 3, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 4, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 4, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 2, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 4, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 4, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 2, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 1, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 4, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 2, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 3, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 2, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 1, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 1, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 1, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P5', 4, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 1, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2-nc', 0, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4', 2, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P3', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P1', 0, 0): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P2', 2, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 3, 1): 2000 updates, invalid_first 0.000%, 73s, session spend $0.000
+  done ('P4-nc', 1, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P2-nc', 3, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P1', 2, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P4-nc', 2, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P4', 1, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P2-nc', 4, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P3', 3, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P5', 2, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P3', 3, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P5', 4, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P1', 2, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P4', 0, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P2-nc', 1, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P2-nc', 2, 1): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+  done ('P2', 2, 0): 2000 updates, invalid_first 0.000%, 74s, session spend $0.000
+$ python llm/stage3.py measures
+       n_graphs   abs_m       m  persistence  excess_unsat  flip_rate   abs_q  unsatisfied  updates  invalid_first  kept_after_invalid      cost  invalid_rate  flag_invalid_gt_2pct
+point                                                                                                                                                                               
+P1            5  0.2084  0.1260       0.7784      0.135275     0.0280  0.1296       0.2884    20000              0                   0  0.743600       0.00000                 False
+P2            5  0.5606  0.5606       0.6034      0.300150     0.0598  0.3228       0.4513    20000              4                   0  0.409989       0.00020                 False
+P2-nc         5  0.1600  0.1540       0.7980      0.361750     0.0213  0.0648       0.5129    20000              0                   0  0.287903       0.00000                 False
+P3            5  0.1008 -0.0700       0.9908      0.241275     0.0010  0.1080       0.3944    20000              0                   0  3.133001       0.00000                 False
+P4            5  0.9358  0.9358       0.8974      0.098375     0.0253  0.8780       0.2515    20000              0                   0  0.049886       0.00000                 False
+P4-nc         5  0.6438  0.6438       0.6974      0.225675     0.0444  0.4188       0.3788    20000              1                   0  0.031680       0.00005                 False
+P5            5  0.5960 -0.1916       0.6596      0.175000     0.0859  0.3152       0.1750    20000              0                   0  0.294111       0.00000                 False
+$ python llm/stage3_evaluate.py
+point     measure  primary  observed    surrogate  surrogate_pass  fields_only outside_fields_only         ising outside_ising
+   P1       abs_m     True     0.208 [0.24, 0.46]           False [0.06, 0.09]                True  [0.08, 0.11]          True
+   P1 persistence     True     0.778 [0.66, 0.74]           False [0.34, 0.42]                True  [0.06, 0.10]          True
+   P2           m     True     0.561 [0.58, 0.66]           False [0.34, 0.43]                True [-0.01, 0.03]          True
+   P2 persistence     True     0.603 [0.59, 0.67]            True [0.47, 0.54]                True  [0.04, 0.10]          True
+   P3       abs_m     True     0.101 [0.20, 0.37]           False [0.09, 0.18]               False  [0.10, 0.17]         False
+   P3 persistence     True     0.991 [0.91, 0.95]           False [0.93, 0.97]                True  [0.18, 0.30]          True
+   P4           m     True     0.936 [0.87, 0.91]           False [0.52, 0.58]                True [-0.02, 0.02]          True
+   P4 persistence     True     0.897 [0.75, 0.84]           False [0.41, 0.48]                True  [0.04, 0.08]          True
+   P5       abs_m     True     0.596 [0.14, 0.24]           False [0.07, 0.09]                True  [0.13, 0.21]          True
+   P5 persistence     True     0.660 [0.11, 0.20]           False [0.07, 0.10]                True  [0.07, 0.15]          True
+P2-nc           m     True     0.154 [0.34, 0.43]           False          NaN                 NaN           NaN           NaN
+P2-nc persistence     True     0.798 [0.47, 0.54]           False          NaN                 NaN           NaN           NaN
+P4-nc           m     True     0.644 [0.52, 0.58]           False          NaN                 NaN           NaN           NaN
+P4-nc persistence     True     0.697 [0.41, 0.48]           False          NaN                 NaN           NaN           NaN
+{
+ "per_point": {
+  "P1": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P2": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P3": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": false,
+   "ising_rejected": false
+  },
+  "P4": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P5": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P2-nc": {
+   "passes_both_primary": false
+  },
+  "P4-nc": {
+   "passes_both_primary": false
+  }
+ },
+ "P1_P4_points_passing_both_primary": 0,
+ "overall_surrogate_supported (>=3 of 4)": false,
+ "amplification_observed": {
+  "P2": {
+   "m": 0.407,
+   "persistence": -0.195
+  },
+  "P4": {
+   "m": 0.292,
+   "persistence": 0.2
+  }
+ }
+}

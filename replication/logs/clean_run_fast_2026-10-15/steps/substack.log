@@ -1,0 +1,38 @@
+$ python llm/substack_visuals.py
+{
+ "graph_fingerprint": "b29361d8478c7953",
+ "display_pair": {
+  "P1": 48,
+  "gemini": 31
+ },
+ "gif_bytes": {
+  "P1": 1726167,
+  "gemini": 1847670,
+  "selected": 2206153,
+  "gemma": 828078,
+  "twins_P1": 2467351,
+  "twins_gemini": 2763205
+ }
+}
+P1 0.80 Tc 5/50 [0.04, 0.21] mean div 0.102
+P1 1.00 Tc 22/50 [0.31, 0.58] mean div 0.136
+P1 1.25 Tc 10/50 [0.11, 0.33] mean div 0.074
+gemini 0.80 Tc 9/50 [0.1, 0.31] mean div 0.172
+gemini 1.00 Tc 12/50 [0.14, 0.37] mean div 0.178
+gemini 1.25 Tc 12/50 [0.14, 0.37] mean div 0.107
+$ python llm/substack_mdist.py
+P1|1.6117|hot mean|m| 0.736 share|m|>0.5 1.00
+P1|2.0146|hot mean|m| 0.184 share|m|>0.5 0.01
+P1|2.5183|hot mean|m| 0.090 share|m|>0.5 0.00
+gemini|1.4655|hot mean|m| 0.558 share|m|>0.5 0.77
+gemini|1.8319|hot mean|m| 0.205 share|m|>0.5 0.01
+gemini|2.2898|hot mean|m| 0.106 share|m|>0.5 0.00
+selected|1.0000|hot mean|m| 0.109 share|m|>0.5 0.00
+selected|2.0000|hot mean|m| 0.080 share|m|>0.5 0.00
+selected|3.0000|hot mean|m| 0.066 share|m|>0.5 0.00
+gemma|1.0000|hot mean|m| 0.114 share|m|>0.5 0.00
+gemma|1.0000|cold mean|m| 0.375 share|m|>0.5 0.00
+gemma|2.0000|hot mean|m| 0.152 share|m|>0.5 0.00
+gemma|2.0000|cold mean|m| 0.327 share|m|>0.5 0.01
+gemma|3.0000|hot mean|m| 0.195 share|m|>0.5 0.00
+gemma|3.0000|cold mean|m| 0.204 share|m|>0.5 0.00

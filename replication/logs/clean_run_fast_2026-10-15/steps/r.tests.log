@@ -1,0 +1,70 @@
+$ python llm/residual_heterogeneity.py
+P1 {'prompts': 20000, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P2 {'prompts': 20004, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P3 {'prompts': 20000, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P4 {'prompts': 20000, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P5 {'prompts': 20000, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P2-nc {'prompts': 20000, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P4-nc {'prompts': 20001, 'differ_from_deterministic_render': 0, 'distinct_request_bodies_excluding_message': 1}
+P1 {'agent': (2.33, 0.013), 'graph_position': (3.4, 0.001)}
+P2 {'agent': (-1.01, 0.842), 'graph_position': (-0.83, 0.795)}
+P3 {'agent': (-1.94, 0.987), 'graph_position': (-1.15, 0.887)}
+P4 {'agent': (2.16, 0.019), 'graph_position': (1.4, 0.085)}
+P5 {'agent': (0.41, 0.339), 'graph_position': (0.62, 0.253)}
+P2-nc {'agent': (-1.27, 0.911), 'graph_position': (-1.15, 0.877)}
+P4-nc {'agent': (2.74, 0.005), 'graph_position': (2.78, 0.005)}
+Fisher p: {'agent': 0.007787432176900237, 'graph_position': 0.002824935257681162} -> c) triggered: True
+$ python llm/residual_heterogeneity_c.py
+P1 {'agent_n020_stratified': (0.23, 0.418), 'graph_position_n020_stratified': (0.16, 0.422), 'agent_n00_stratified': (0.0, 0.51), 'graph_position_n00_stratified': (-0.06, 0.486)}
+P2 {'agent_n020_stratified': (-0.94, 0.825), 'graph_position_n020_stratified': (-0.89, 0.825), 'agent_n00_stratified': (-0.71, 0.781), 'graph_position_n00_stratified': (-0.75, 0.765)}
+P3 {'agent_n020_stratified': (-0.43, 0.633), 'graph_position_n020_stratified': (-0.38, 0.59), 'agent_n00_stratified': (-0.04, 0.498), 'graph_position_n00_stratified': (-0.18, 0.538)}
+P4 {'agent_n020_stratified': (1.18, 0.12), 'graph_position_n020_stratified': (1.12, 0.139), 'agent_n00_stratified': (1.05, 0.163), 'graph_position_n00_stratified': (0.95, 0.159)}
+P5 {'agent_n020_stratified': (0.36, 0.367), 'graph_position_n020_stratified': (0.52, 0.303), 'agent_n00_stratified': (0.25, 0.43), 'graph_position_n00_stratified': (0.51, 0.323)}
+P2-nc {'agent_n020_stratified': (-1.16, 0.88), 'graph_position_n020_stratified': (-0.98, 0.853), 'agent_n00_stratified': (-1.23, 0.9), 'graph_position_n00_stratified': (-1.07, 0.857)}
+P4-nc {'agent_n020_stratified': (1.92, 0.044), 'graph_position_n020_stratified': (2.42, 0.012), 'agent_n00_stratified': (1.83, 0.044), 'graph_position_n00_stratified': (2.21, 0.028)}
+P1 tau_logit 0.101 {'persistence': (-0.81, -0.7), 'flip_rate': (-0.26, -0.39), 'abs_m': (-1.45, -1.6)}
+P2 tau_logit 0.0 {'persistence': (-0.21, -0.26), 'flip_rate': (-0.14, -0.08), 'abs_m': (-0.46, -0.52)}
+P3 tau_logit 0.0 {'persistence': (1.91, 1.77), 'flip_rate': (-1.43, -1.22), 'abs_m': (-1.5, -1.58)}
+P4 tau_logit 0.108 {'persistence': (1.77, 1.94), 'flip_rate': (-1.73, -1.88), 'abs_m': (0.73, 0.77)}
+P5 tau_logit 0.113 {'persistence': (1.61, 1.74), 'flip_rate': (-0.69, -0.85), 'abs_m': (1.08, 1.13)}
+P2-nc tau_logit 0.0 {'persistence': (1.67, 1.67), 'flip_rate': (-1.84, -1.83), 'abs_m': (-1.52, -1.45)}
+P4-nc tau_logit 0.06 {'persistence': (2.32, 2.54), 'flip_rate': (-1.39, -1.52), 'abs_m': (1.42, 1.6)}
+{
+ "stouffer": {
+  "het": {
+   "persistence": 2.8392443073321405,
+   "flip_rate": -2.8267120137985233
+  },
+  "hom": {
+   "persistence": 2.718083816842625,
+   "flip_rate": -2.767726190976963
+  }
+ },
+ "heterogeneity_explains": false
+}
+$ python llm/residual_identical_requests.py
+P1 {"calls": 20000, "repeat_pairs": 4559, "observed": 0.9776266725159026, "expected_i": 0.970639420584368, "excess_i": 0.006987251931534599, "ci_i": [0.0019993341247258353, 0.011528448454003254], "pairs_ii": 4559, "observed_ii": 0.9776266725159026, "expected_ii": 0.9721761028290599, "excess_ii": 0.0054505696868427655, "ci_ii": [-0.0002121225440915503, 0.0105497280164036], "excess_found_prestated_ii": false, "share_earlier_stayed": 0.9921035314762009, "expected_iii": 0.9776653265822759, "excess_iii": -3.865406637326707e-05, "ci_iii": [-0.004183247807647733, 0.003972495164891944], "excess_found_iii": false}
+P2 {"calls": 20000, "repeat_pairs": 2622, "observed": 0.9401220442410374, "expected_i": 0.9152485096514631, "excess_i": 0.02487353458957431, "ci_i": [0.01576516664628288, 0.03299484156245728], "pairs_ii": 2622, "observed_ii": 0.9401220442410374, "expected_ii": 0.9178031425743922, "excess_ii": 0.022318901666645186, "ci_ii": [0.012807072220792037, 0.030997722524476395], "excess_found_prestated_ii": true, "share_earlier_stayed": 0.9851258581235698, "expected_iii": 0.9410530129104979, "excess_iii": -0.000930968669460519, "ci_iii": [-0.00674754589378373, 0.004879408995342912], "excess_found_iii": false}
+P3 {"calls": 20000, "repeat_pairs": 5400, "observed": 0.9990740740740741, "expected_i": 0.9961177151483881, "excess_i": 0.00295635892568602, "ci_i": [0.001623680823397558, 0.004421958006844714], "pairs_ii": 5400, "observed_ii": 0.9990740740740741, "expected_ii": 0.9989491192707801, "excess_ii": 0.00012495480329399733, "ci_ii": [-0.00044873640718303407, 0.0006943141876661368], "excess_found_prestated_ii": false, "share_earlier_stayed": 1.0, "expected_iii": 0.9992362699702958, "excess_iii": -0.00016219589622168407, "ci_iii": [-0.0007623106836393695, 0.00044433805579977833], "excess_found_iii": false}
+P4 {"calls": 20000, "repeat_pairs": 6759, "observed": 0.9826897470039947, "expected_i": 0.9762591178488954, "excess_i": 0.006430629155099288, "ci_i": [0.002691134346690857, 0.009957952068052606], "pairs_ii": 6759, "observed_ii": 0.9826897470039947, "expected_ii": 0.977305084121911, "excess_ii": 0.005384662882083724, "ci_ii": [0.001752091337315853, 0.008929882323801624], "excess_found_prestated_ii": true, "share_earlier_stayed": 0.9924545051043053, "expected_iii": 0.9801244198543386, "excess_iii": 0.0025653271496560714, "ci_iii": [0.0003573991303931018, 0.004564551712970149], "excess_found_iii": true}
+P5 {"calls": 20000, "repeat_pairs": 7684, "observed": 0.9501561686621551, "expected_i": 0.9382266351321008, "excess_i": 0.011929533530054326, "ci_i": [0.006323112954040211, 0.01798726114670396], "pairs_ii": 7684, "observed_ii": 0.9501561686621551, "expected_ii": 0.9489776461441565, "excess_ii": 0.0011785225179986591, "ci_ii": [-0.003335747368338537, 0.005621397757112939], "excess_found_prestated_ii": false, "share_earlier_stayed": 0.9686361270171786, "expected_iii": 0.9511964281604471, "excess_iii": -0.0010402594982920066, "ci_iii": [-0.004780253795792472, 0.002474976816491489], "excess_found_iii": false}
+P2-nc {"calls": 20000, "repeat_pairs": 15017, "observed": 0.9742957980954918, "expected_i": 0.9516819787092632, "excess_i": 0.02261381938622864, "ci_i": [0.019976886825964317, 0.02575176402564921], "pairs_ii": 15017, "observed_ii": 0.9742957980954918, "expected_ii": 0.9517621076730003, "excess_ii": 0.022533690422491537, "ci_ii": [0.019887044475922027, 0.025655800858400166], "excess_found_prestated_ii": true, "share_earlier_stayed": 0.996603848971166, "expected_iii": 0.97191664039171, "excess_iii": 0.0023791577037818312, "ci_iii": [0.0005380227103919416, 0.0043545640246958174], "excess_found_iii": true}
+P4-nc {"calls": 20000, "repeat_pairs": 14308, "observed": 0.9365389991613083, "expected_i": 0.9097963894749814, "excess_i": 0.026742609686326912, "ci_i": [0.021974559884210407, 0.03096782230667473], "pairs_ii": 14308, "observed_ii": 0.9365389991613083, "expected_ii": 0.912796044926426, "excess_ii": 0.023742954234882374, "ci_ii": [0.01882368477833322, 0.028101852605739726], "excess_found_prestated_ii": true, "share_earlier_stayed": 0.9807100922560805, "expected_iii": 0.9351169344329661, "excess_iii": 0.001422064728342276, "ci_iii": [-0.002033097404479889, 0.004647445145023898], "excess_found_iii": false}
+$ python llm/residual_repeat_rule.py
+P1 {'ii_prestated_biased': (0.0055, -2.42, 2.5), 'iii_corrected': (0.0, -0.65, -0.28)}
+P2 {'ii_prestated_biased': (0.0223, -6.05, 11.34), 'iii_corrected': (0.0, -0.2, -0.08)}
+P3 {'ii_prestated_biased': (0.0001, 1.85, -1.3), 'iii_corrected': (0.0, 1.88, -1.28)}
+P4 {'ii_prestated_biased': (0.0054, 0.07, 2.57), 'iii_corrected': (0.0026, 0.97, 0.38)}
+P5 {'ii_prestated_biased': (0.0012, 1.46, -0.41), 'iii_corrected': (0.0, 1.59, -0.65)}
+P2-nc {'ii_prestated_biased': (0.0225, -16.83, 22.33), 'iii_corrected': (0.0024, 0.46, -0.36)}
+P4-nc {'ii_prestated_biased': (0.0237, -9.51, 22.48), 'iii_corrected': (0.0014, 1.81, -0.58)}
+{
+ "ii_prestated_biased": {
+  "persistence": -13.42579297184396,
+  "flip_rate": 24.460677597371156
+ },
+ "iii_corrected": {
+  "persistence": 1.7392868996031925,
+  "flip_rate": -0.898702366763241
+ }
+}

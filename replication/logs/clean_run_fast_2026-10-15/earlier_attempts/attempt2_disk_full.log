@@ -1,0 +1,24 @@
+2026-10-15T02:55:12Z start pid 13308 : <scratch>/clean/run_fast.sh
+commit 82a2a781dc3c67055e1f6ca88eae17928f418b3b
+image spt-replication:clean
+Thu Oct 15 02:55:12 UTC 2026
+4
+bash: line 1: free: command not found
+02:55:13 python 3.13.16 on Linux-6.18.44-fc-v114-x86_64-with-glibc2.41, 4 CPUs; mode fast
+02:55:29 cache: 31 snapshots, all verified
+Traceback (most recent call last):
+  File "/repo/replication/replicate.py", line 234, in <module>
+    main()
+    ~~~~^^
+  File "/repo/replication/replicate.py", line 220, in main
+    if not a.skip_fetch and not fetch(a.mode):
+                                ~~~~~^^^^^^^^
+  File "/repo/replication/replicate.py", line 82, in fetch
+    shutil.copyfileobj(fi, fo)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/usr/local/lib/python3.13/shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+    ~~~~~~~~~~^^^^^
+OSError: [Errno 28] No space left on device
+exit 1
+Thu Oct 15 02:55:36 UTC 2026
