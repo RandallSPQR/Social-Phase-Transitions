@@ -33,6 +33,10 @@ IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "tim
                "stage1_records_with_same_body_signature",
                # live API spend of the original run (confirm/api_summary.json); a replay from the cache spends 0
                "spend",
+               # confirm/api_summary.json: text of the first live API error of a probe that failed in the original run
+               # (e.g. "http 404"). Failed calls are not cached, so an offline replay reports "not in cache" instead;
+               # the probe outcomes themselves are compared
+               "first_error",
                # Stage 3 audit B11: checks against the git history (has a fit file changed since the predictions
                # commit?). Archives and the Docker image carry no .git, so these are recomputed only in a git clone
                # (python llm/stage3_audit.py surrogate); the committed values stay the record.
