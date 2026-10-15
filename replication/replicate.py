@@ -94,7 +94,8 @@ def snapshot(selected):
 
 
 # ---------------------------------------------------------------- spot checks (fast mode)
-SPOT = {"amp.stageB": ["results/llm/amplification/locate2/*/*_N100_*.csv.gz", "results/llm/amplification/perturb/*/*_N100_*.csv.gz"],
+SPOT = {"s1.amendments": ["results/llm/amendment4/cache/gemma-31b-local__gemma-31b__neutral_noown__B1000.npz"],
+        "amp.stageB": ["results/llm/amplification/locate2/*/*_N100_*.csv.gz", "results/llm/amplification/perturb/*/*_N100_*.csv.gz"],
         "conf.locate": ["results/llm/confirm/sim/coarse/*_N100_*.csv.gz", "results/llm/confirm/sim/fine/*_N100_*.csv.gz"],
         "conf.step45": ["results/llm/confirm/step45/step4/*_N100_*.csv.gz", "results/llm/confirm/step45/step5/*_N100_*.csv.gz"],
         "conf.gemma": ["results/llm/confirm/gemma_mechanism/len/*_N100_*.csv.gz"]}

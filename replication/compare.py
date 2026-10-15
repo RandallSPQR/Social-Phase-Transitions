@@ -168,6 +168,21 @@ def compare_file(ref, new, profile, col_tol=None):
         r = [json.loads(l) for l in open(ref) if l.strip()]
         n = [json.loads(l) for l in open(new) if l.strip()]
         st = compare_json(r, n, rtol, atol)
+    elif new.endswith(".npz"):
+        a, b = np.load(ref, allow_pickle=True), np.load(new, allow_pickle=True)
+        st = dict(n=0, bad=0, worst=0.0, probs=[])
+        if sorted(a.files) != sorted(b.files):
+            st["bad"] += 1; st["probs"].append("array names differ")
+        for k in a.files:
+            if k not in b.files:
+                continue
+            x, y = a[k], b[k]; st["n"] += int(x.size)
+            if x.dtype.kind in "fiu" and y.dtype.kind in "fiu":
+                ok = x.shape == y.shape and np.allclose(x, y, rtol=rtol, atol=atol, equal_nan=True)
+            else:
+                ok = str(x.tolist()) == str(y.tolist())
+            if not ok:
+                st["bad"] += 1; st["probs"].append(f"array {k} differs")
     elif new.endswith(".npy"):
         a, b = np.load(ref, allow_pickle=False), np.load(new, allow_pickle=False)
         ok = a.shape == b.shape and np.allclose(a, b, rtol=rtol, atol=atol, equal_nan=True)
