@@ -61,7 +61,9 @@ work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; packa
   - failure-mode table.
 
   The pod script was tested locally (dry, 3 steps). The owner launches it. The RunPod secret `HF_TOKEN` already
-  exists (owner, 2026-10-15) and is the launcher's default. The owner's steps are in `RELEASE_CHECKLIST.md`, section 0b.
+  exists (owner, 2026-10-15) and is the launcher's default. The owner's steps are in `RELEASE_CHECKLIST.md`, section 0b. A second job, `--job null`, recomputes all 100
+  null-distribution replicates on its own pod (about 21–25 h; caps 30 h job, 34 h / $16 check-in). It is prepared, not
+  launched.
 - **Earlier options**, kept for reference: the owner decides. Options:
   1. Relaunch the whole full mode: about 37 h, dominated by `s1.null` at about 21 h.
   2. Relaunch with `--skip s1.null`: about 16 h.

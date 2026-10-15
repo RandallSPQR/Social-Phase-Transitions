@@ -10,7 +10,20 @@
 - **Status:** prepared only. Nothing has been created on RunPod. No code bundle has been uploaded for this recipe, and
   no volume exists yet.
 
-## What it runs
+## Two jobs (`--job`)
+
+| job | steps | expected | job cap | check-in caps |
+|---|---|---|---|---|
+| `remaining` (default) | every full-mode step not yet measured, without `s1.null` (below) | about 13 h | 20 h | 24 h or $12 |
+| `null` | `qc.canary s1.null`: the Amendment 4 null distribution, all 100 replicates at B = 1000, compared with the committed `compare_rule_null_B1000.json` (profile `fit`) | about 21–25 h (12.5–15 min per replicate with the script's 4 worker processes, measured over 20 replicates) | 30 h | 34 h or $16 |
+
+- **Running both:** the two jobs can run at the same time on two pods sharing the dedicated volume. Each writes to its
+  own `/workspace/spt/<RUN>/` and its own `runs/<RUN>/` on HF.
+- **Pod records:** each job keeps its own record (`replication/runpod/pod_<job>.json`, git-ignored).
+- **Guard:** `launch` refuses to start a second pod for a job whose record still exists.
+- **Check-ins:** each job needs its own `check --job <job>`.
+
+## What it runs (job `remaining`)
 
 `qc.canary s1.probes s1.figures s2.surrogates s2.sims s3.replay s3.audit k.test k.avg k.followups r.tests r.replicate
 amp.stageB conf.api conf.locate conf.step45 conf.gemma substack` in full mode. Every simulation unit is recomputed from
@@ -54,10 +67,14 @@ python replication/runpod/launch_cpu.py volume-check --volume-id <ID>          #
 # 1. End-to-end test first (CLAUDE.md rule 6): 4 short steps (about 2 min of work), same chain end to end.
 python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e            # dry run
 python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e --confirm  # creates it
-python replication/runpod/launch_cpu.py check     # repeat until final_verified; it then removes the pod
+python replication/runpod/launch_cpu.py check --e2e   # repeat until final_verified; it then removes the pod
 # 2. The real run, only after the e2e test has passed:
 python replication/runpod/launch_cpu.py launch --volume-id <ID> --confirm
 python replication/runpod/launch_cpu.py check     # every few hours; removes the pod after the verified final upload
+# 3. Optional: the null distribution, in parallel or later (same volume; after the e2e test has passed):
+python replication/runpod/launch_cpu.py launch --volume-id <ID> --job null              # dry run
+python replication/runpod/launch_cpu.py launch --volume-id <ID> --job null --confirm
+python replication/runpod/launch_cpu.py check --job null
 ```
 
 The RunPod secret `HF_TOKEN` already exists and is the default (`--hf-secret HF_TOKEN`). The pod receives only the

@@ -37,7 +37,7 @@ table: `replication/runpod/README.md`. Run the commands from a checkout of the r
       `spt-replication-logs`.
 - [ ] **End-to-end test first** (CLAUDE.md rule 6), costing a few cents:
       `python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e` (dry run, prints the request), then the
-      same with `--confirm`. Run `python replication/runpod/launch_cpu.py check` every few minutes until it reports
+      same with `--confirm`. Run `python replication/runpod/launch_cpu.py check --e2e` every few minutes until it reports
       `final_verified: true`; check then removes the pod. Confirm `runs/e2e-<sha>/` on HF holds `status.json`,
       `pod.log`, `steps/*.log`, `records.json` and `final.tar.gz`, with all 4 steps passing.
 - [ ] **The real run:** `python replication/runpod/launch_cpu.py launch --volume-id <ID> --confirm` (about 13 h; job
@@ -47,9 +47,11 @@ table: `replication/runpod/README.md`. Run the commands from a checkout of the r
       `replication/logs/clean_run_full_remaining_<date>/` and replace the estimated full-mode times in
       `replication/README.md`, `Makefile`, `.zenodo.json` and `paper/paper.md` with the measured ones.
 - [ ] Delete the network volume once the record is imported (it is billed monthly).
-- [ ] Optional: the Amendment 4 null distribution (`s1.null`, about 21 h). 20 of its 100 replicates are already
-      checked and identical. To recompute all 100, run `STEPS=s1.null` on a second pod; this needs a one-line change
-      to the launcher, made on request.
+- [ ] Optional, in parallel or later: the Amendment 4 null distribution (all 100 replicates; 20 are already checked
+      and identical). Launch `python replication/runpod/launch_cpu.py launch --volume-id <ID> --job null` (dry run),
+      then the same with `--confirm`. Monitor with `check --job null`. It takes about 21–25 h; the job cap is 30 h and
+      check removes the pod at 34 h or $16. Import `runs/full-null-<sha>/final.tar.gz` the same way, then update the
+      null-distribution note in `replication/README.md` and `STATUS.md`.
 
 ## 1. Hugging Face dataset (`RandallSPQR/social-phase-transitions-llm-cache`)
 

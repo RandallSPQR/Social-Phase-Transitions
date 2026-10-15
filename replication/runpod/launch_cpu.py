@@ -2,8 +2,9 @@
 
   python replication/runpod/launch_cpu.py plan                          # print the pod spec and the steps; no API call
   python replication/runpod/launch_cpu.py volume-check --volume-id ID   # read-only: confirm the volume is the dedicated one
-  python replication/runpod/launch_cpu.py launch --volume-id ID --hf-secret NAME [--e2e] --confirm
-  python replication/runpod/launch_cpu.py check [--no-terminate]        # check-in: state, uptime, spend, heartbeat age,
+  python replication/runpod/launch_cpu.py launch --volume-id ID [--job remaining|null] [--e2e] --confirm
+  python replication/runpod/launch_cpu.py check [--job remaining|null] [--no-terminate]
+                                                                        # check-in: state, uptime, spend, heartbeat age,
                                                                         # steps; removes the pod only on a cap or after
                                                                         # a verified final upload
 
@@ -13,7 +14,7 @@ Rules (CLAUDE.md):
 - The pod receives only a reference to the owner's RunPod secret ({{ RUNPOD_SECRET_<name> }}) for HF_TOKEN, never a value.
 - Heartbeat and per-step uploads go to the HF dataset runs/<RUN>/ (readable from a session) as well as to the volume.
 - The pod never removes itself. `check` removes it only after runs/<RUN>/status.json reports final_verified (and 30 min
-  have passed), or when a cap is hit (uptime > MAX_H, or pod spend > MAX_POD_USD).
+  have passed), or when the job's cap is hit (JOBS: max_h uptime, max_usd pod spend; the e2e pod: 2 h / $2).
 - `--e2e` runs a 4-step end-to-end test of the whole chain (heartbeat, per-step upload, final upload, removal) before
   any paid full run, as CLAUDE.md requires.
 - Without --confirm, `launch` prints the request body and exits.
@@ -30,9 +31,14 @@ VCPU, MEM_NOTE = 8, "8 vCPU compute-optimised (the scripts use up to 4 processes
 STEPS_FULL = ("qc.canary s1.probes s1.figures s2.surrogates s2.sims s3.replay s3.audit k.test k.avg k.followups "
               "r.tests r.replicate amp.stageB conf.api conf.locate conf.step45 conf.gemma substack")
 STEPS_E2E = "qc.canary base.tables s1.figures conf.gemma"          # about 2 min of work: proves the chain end to end
-JOB_HOURS, JOB_HOURS_E2E = 20, 1
-MAX_H, MAX_POD_USD = 24.0, 12.0                                     # check-in caps (the expected run is about 13 h)
-PODF = os.path.join(ROOT, "replication", "runpod", "pod.json")      # pod id + launch record (git-ignored)
+JOB_HOURS_E2E = 1
+# Jobs. "remaining": every full-mode step not yet measured, without the null distribution (about 13 h).
+# "null": the Amendment 4 null distribution alone (s1.null: 100 replicates at B = 1000, about 12.5-15 min each with the
+# script's 4 worker processes, about 21-25 h); replicates 0-19 are already checked identical, this recomputes all 100
+# and compares results/llm/amendment4/compare_rule_null_B1000.json with the committed file.
+JOBS = {"remaining": dict(steps=STEPS_FULL, job_hours=20, max_h=24.0, max_usd=12.0),
+        "null": dict(steps="qc.canary s1.null", job_hours=30, max_h=34.0, max_usd=16.0)}
+PODF = lambda job: os.path.join(ROOT, "replication", "runpod", f"pod_{job}.json")   # pod id + launch record (git-ignored)
 VOL_PREFIX = "spt-replication"
 H = lambda: {"Authorization": "Bearer " + os.environ["RUNPOD_API_KEY"], "Content-Type": "application/json"}
 
@@ -72,8 +78,9 @@ def start_cmd(s, run, steps, job_hours):
 
 
 def body(a, s):
-    run = f"{'e2e' if a.e2e else 'full-remaining'}-{s}"
-    steps, jh = (STEPS_E2E, JOB_HOURS_E2E) if a.e2e else (STEPS_FULL, JOB_HOURS)
+    j = JOBS[a.job]
+    run = f"e2e-{s}" if a.e2e else f"full-{a.job}-{s}"
+    steps, jh = (STEPS_E2E, JOB_HOURS_E2E) if a.e2e else (j["steps"], j["job_hours"])
     return run, {"name": f"spt-{run}", "imageName": IMAGE, "computeType": "CPU", "cpuFlavorIds": ["cpu3c"],
                  "vcpuCount": VCPU, "containerDiskInGb": 20, "cloudType": "SECURE",
                  "networkVolumeId": a.volume_id, "volumeMountPath": "/workspace",
@@ -92,8 +99,10 @@ def volume_check(vid):
 
 
 def plan(a):
-    print(f"image   {IMAGE}\ncpu     {MEM_NOTE}\nsteps   {STEPS_FULL}\nsteps (e2e) {STEPS_E2E}\n"
-          f"caps    job {JOB_HOURS} h (e2e {JOB_HOURS_E2E} h); check-in removes the pod at uptime > {MAX_H} h or spend > ${MAX_POD_USD}\n"
+    j = JOBS[a.job]
+    print(f"job     {a.job}\nimage   {IMAGE}\ncpu     {MEM_NOTE}\nsteps   {j['steps']}\nsteps (e2e) {STEPS_E2E}\n"
+          f"caps    job {j['job_hours']} h (e2e {JOB_HOURS_E2E} h); check-in removes the pod at uptime > {j['max_h']} h "
+          f"or spend > ${j['max_usd']}\n"
           f"volume  dedicated '{VOL_PREFIX}…' network volume mounted at /workspace; logs at /workspace/spt/<RUN>/\n"
           f"record  HF {REPO_ID} runs/<RUN>/ (status.json every 90 s, pod.log, steps/*.log, records.json, final.tar.gz)")
 
@@ -107,14 +116,18 @@ def launch(a):
     bundle(s)
     r = requests.post(f"{REST}/pods", headers=H(), json=b, timeout=60); print("create ->", r.status_code, r.text[:400])
     r.raise_for_status(); p = r.json()
-    rec = dict(id=p["id"], run=run, created=time.time(), utc=time.strftime("%FT%TZ", time.gmtime()),
+    rec = dict(id=p["id"], job=a.job, run=run, created=time.time(), utc=time.strftime("%FT%TZ", time.gmtime()),
                costPerHr=p.get("costPerHr"), code=s, e2e=a.e2e)
-    json.dump(rec, open(PODF, "w"), indent=1); print("pod", rec)
+    f = PODF("e2e" if a.e2e else a.job)
+    if os.path.exists(f) and not a.e2e:
+        sys.exit(f"{f} exists: a {a.job} pod was already launched; check or remove it first")
+    json.dump(rec, open(f, "w"), indent=1); print("pod", rec, "->", os.path.relpath(f, ROOT))
 
 
 def check(a):
     from huggingface_hub import HfApi
-    rec = json.load(open(PODF)); pid = rec["id"]
+    rec = json.load(open(PODF("e2e" if a.e2e else a.job))); pid = rec["id"]
+    j = JOBS[rec.get("job", a.job)]; max_h, max_usd = (2.0, 2.0) if rec.get("e2e") else (j["max_h"], j["max_usd"])
     r = requests.get(f"{REST}/pods/{pid}", headers=H(), timeout=30); pod = None if r.status_code == 404 else r.json()
     api = HfApi(token=os.environ["HF_TOKEN"])
     try:
@@ -131,8 +144,8 @@ def check(a):
     print(json.dumps(out, indent=1))
     if pod is not None and not a.no_terminate:
         why = None
-        if hrs > MAX_H: why = f"uptime {hrs:.1f} h > {MAX_H} h"
-        elif rate * hrs > MAX_POD_USD: why = f"pod spend ${rate * hrs:.2f} > ${MAX_POD_USD}"
+        if hrs > max_h: why = f"uptime {hrs:.1f} h > {max_h} h"
+        elif rate * hrs > max_usd: why = f"pod spend ${rate * hrs:.2f} > ${max_usd}"
         elif st.get("final_verified") and age is not None and age > 30: why = "final upload verified; pod idle 30+ min"
         if why:
             print("REMOVING", pid, "-", why)
@@ -144,6 +157,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("what", choices=["plan", "volume-check", "launch", "check"])
     ap.add_argument("--volume-id"); ap.add_argument("--hf-secret", default="HF_TOKEN")
+    ap.add_argument("--job", choices=sorted(JOBS), default="remaining")
     ap.add_argument("--e2e", action="store_true"); ap.add_argument("--confirm", action="store_true")
     ap.add_argument("--no-terminate", action="store_true")
     a = ap.parse_args()
