@@ -163,9 +163,11 @@ STEPS = [
          compare=[("results/llm/residual/*.json", "exact"), ("results/llm/residual/*.csv", "exact")], claims=["S1"]),
     step("r.replicate", "Residual persistence: replicate predictions, analysis, reanalysis on actual graphs, replay "
          "audit, combined effect",
-         [f"{LLM}replicate_predictions.py", f"{LLM}stage3_replicate_analyse.py", f"{LLM}stage3_replicate_reanalyse.py",
+         [f"{LLM}replicate_predictions.py", f"{LLM}stage3_replicate.py ncbattery",   # k = 0 battery (32 cached calls) + nc predictions
+          f"{LLM}stage3_replicate_analyse.py", f"{LLM}stage3_replicate_reanalyse.py",
           f"{LLM}replicate_replay_audit.py", f"{LLM}persistence_effect_combined.py"],
-         compare=[("results/llm/replicate/predictions.json", "exact"), ("results/llm/stage3_rep1/analysis.json", "exact"),
+         compare=[("results/llm/replicate/predictions.json", "exact"), ("results/llm/replicate/k_avg_nc_calls.csv", "exact"),
+                  ("results/llm/stage3_rep1/analysis.json", "exact"),
                   ("results/llm/stage3_rep1/reanalysis.json", "exact"), ("results/llm/stage3_rep1/replay_audit/*.json", "exact"),
                   ("results/llm/stage3_rep1/replay_audit/*.csv", "exact"),
                   ("results/llm/stage3_rep1/persistence_effect_combined.json", "exact")], claims=["S1"]),

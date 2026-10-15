@@ -73,6 +73,14 @@ def fetch(mode):
     say(f"cache: {fetch_cache.manifest()['files']} snapshots, {'all verified' if not bad else f'{bad} FAILED'}")
     if bad:
         return False
+    # several audit scripts read the raw .jsonl directly (not through llm/client.py), so restore them all up front
+    import gzip
+    for f in fetch_cache.manifest()["files"]:
+        gz = os.path.join(ROOT, "results", "llm", "cache", f["file"]); raw = gz[:-3]
+        if not os.path.exists(raw):
+            with gzip.open(gz, "rb") as fi, open(raw + ".part", "wb") as fo:
+                shutil.copyfileobj(fi, fo)
+            os.replace(raw + ".part", raw)
     if mode == "fast":
         import fetch_units
         if fetch_units.fetch():
