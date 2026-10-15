@@ -27,6 +27,14 @@ class BudgetExceeded(RuntimeError):
     pass
 
 
+class CacheMiss(RuntimeError):
+    pass
+
+
+# SPT_OFFLINE=1 (set by `make replicate`): never call the API; a request missing from the cache raises CacheMiss.
+OFFLINE = os.environ.get("SPT_OFFLINE") == "1"
+
+
 def _slug(model):
     return model.replace("/", "__").replace(":", "_")
 
@@ -111,6 +119,8 @@ def chat(body, rep=0, budget_usd=None, retries=6, timeout=60):
     key = request_key(body, rep)
     if key in idx:
         return idx[key]
+    if OFFLINE:   # replication (tier 1): a cache miss is an error, never a live call
+        raise CacheMiss(f"{model} rep={rep}: request not in cache (SPT_OFFLINE=1)")
     if budget_usd is not None and _spend["usd"] >= budget_usd:
         raise BudgetExceeded(f"session spend ${_spend['usd']:.4f} >= cap ${budget_usd}")
     payload = dict(body)

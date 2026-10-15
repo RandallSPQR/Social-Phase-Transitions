@@ -39,3 +39,5 @@ results/llm/confirm/*.csv
 results/llm/confirm/step45/
 results/llm/confirm/gemma_mechanism/len/
 results/llm/confirm/gemma_mechanism/glass/
+replication/out/
+.venv/

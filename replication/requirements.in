@@ -1,0 +1,21 @@
+# Direct dependencies of the tier-1 replication (analysis + simulation + figures; no GPU, no API).
+# Pinned to the exact versions every committed result was produced with (Python 3.13).
+# networkx is pinned EXACTLY: random_regular_graph builds different graphs from the same seed across versions
+# (EXECUTION_LOG entry 51); graph fingerprints are asserted at run time.
+numpy==2.5.3
+pandas==3.0.5
+scipy==1.18.1
+numba==0.68.0
+llvmlite==0.50.0
+networkx==3.7
+matplotlib==3.11.2
+pillow==12.3.0
+scikit-learn==1.9.1
+requests==2.34.2
+# ffmpeg binary for the MP4/GIF illustrations (put on PATH by replication/replicate.py; pins the ffmpeg build)
+imageio-ffmpeg==0.6.0
+# transitive, pinned to the producing environment
+pyparsing==3.1.1
+narwhals==2.26.0
+fonttools==4.66.1
+charset-normalizer==3.5.1
