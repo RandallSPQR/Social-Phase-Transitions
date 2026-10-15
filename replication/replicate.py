@@ -228,6 +228,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mode", choices=["fast", "full"], default="fast")
     ap.add_argument("--only", nargs="*", default=None)
+    ap.add_argument("--skip", nargs="*", default=[], help="step ids to leave out (e.g. s1.null, about 21 h on 4 cores)")
     ap.add_argument("--skip-fetch", action="store_true")
     ap.add_argument("--report-only", action="store_true")
     ap.add_argument("--recompare", action="store_true")
@@ -246,7 +247,8 @@ def main():
     if hard:
         say("ENVIRONMENT MISMATCH: " + "; ".join(hard)); say("install replication/requirements.lock (or use the Dockerfile)")
         sys.exit(2)
-    selected = [s for s in S.STEPS if (s["mode"] == "both" or s["mode"] == a.mode) and (a.only is None or s["id"] in a.only)]
+    selected = [s for s in S.STEPS if (s["mode"] == "both" or s["mode"] == a.mode) and (a.only is None or s["id"] in a.only)
+                and s["id"] not in a.skip]
     if not a.skip_fetch and not fetch(a.mode):
         say("data fetch/verification FAILED"); sys.exit(3)
     snapshot(selected)
