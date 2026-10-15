@@ -68,7 +68,7 @@ def main():
            y=(0.95, 0.928))
     fig.subplots_adjust(top=0.9, hspace=0.45)
     V.foot(fig, V.CAPTION + " Qwen and Gemini at 0.8, 1 and 1.25 × their tipping point T_c; GPT-4o-mini and Gemma at T = 1, 2, 3 "
-           "(no tipping point in range). Gemma: random start (solid) and all-A start (dashed). Same runs as run A of the twin figure.", y=0.045)
+           "(GPT-4o-mini: no transition; Gemma: unresolved, slow relaxation near an ordering boundary). Gemma: random start (solid) and all-A start (dashed). Same runs as run A of the twin figure.", y=0.045)
     fig.savefig(os.path.join(V.OUT, "m_distribution.png"), dpi=150); plt.close(fig)
     for key, r in res.items():
         print(key, f"mean|m| {r['mean_abs_m']:.3f}", f"share|m|>0.5 {r['share_abs_m_gt_0_5']:.2f}")

@@ -889,3 +889,11 @@ judgment calls, in time order (2026-10-08).
     - Replica overlap shows no frozen state (identical-start |q| ≈ independent-start |q|). Unsatisfied ties are
       0.04–0.06 above the floor.
     - The REPORT §8 Gemma bullet was updated.
+
+71. **Gemma follow-through (owner, 2026-10-15; report edits, no new runs).**
+    - §8 label: "slow, start-dependent relaxation near an ordering boundary (inferred from the knockouts; mechanism not
+      identified; start-dependence borderline and seed-sensitive at T = 2.0)".
+    - Claim 5 reworded in the Abstract, Headline, §7.3, §8 and §10: two clear transitions, GPT-4o-mini none, Gemma
+      unresolved. Gemma's pre-registered verdict "no transition in range" is stated, with the post-hoc reading.
+    - §5: the saturation knockout added as a within-model trait-summary illustration.
+    - Substack figure labels updated, and the affected figures re-rendered (deterministic; numbers unchanged).

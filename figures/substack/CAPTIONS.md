@@ -21,7 +21,8 @@ battery), not live LLM calls. T is decision noise (every logit divided by T), no
 - **Qwen3.5-122B and Gemini 3.1 Flash-Lite** are shown at 0.8×, 1× and 1.25× their tipping point T_c (2.01 and 1.83):
   they settle into a majority below T_c and wander at T_c.
 - **GPT-4o-mini** (T = 1, 2, 3) never forms a majority.
-- **Gemma-4 31B** (T = 1, 2, 3) is shown from a random start and from an all-A start. The two starts end in different
+- **Gemma-4 31B** (T = 1, 2, 3; unresolved: slow relaxation near an ordering boundary) is shown from a random start
+  and from an all-A start. The two starts end in different
   places (|m| ≈ 0.1 vs ≈ 0.4 at T = 1–2): history matters.
 
 ## twins_kymographs.png
@@ -56,8 +57,8 @@ Spectral-embedding layout (Laplacian eigenvectors 2–3, fixed), faint edges, sw
 |---|---|
 | `network_P1` | Qwen3.5-122B at T_c |
 | `network_gemini` | Gemini 3.1 Flash-Lite at T_c |
-| `network_selected` | GPT-4o-mini at T = 2 (no tipping point) |
-| `network_gemma` | Gemma-4 31B at T = 2, random start (no tipping point) |
+| `network_selected` | GPT-4o-mini at T = 2 (no transition) |
+| `network_gemma` | Gemma-4 31B at T = 2, random start (unresolved: slow relaxation near an ordering boundary) |
 | `twins_P1`, `twins_gemini` | twin runs at T_c, side by side; the median-divergence pair |
 
 ## m_distribution.png

@@ -180,7 +180,7 @@ def fig_kymographs(runs, order, plt):
     head(fig, "Who holds which position, over time, in four simulated populations",
          "Each row of pixels is one agent (blue = A, orange = B); thin line above each panel = |m(t)|, the size of the majority", y=(0.915, 0.903))
     foot(fig, CAPTION + " Agents are ordered on the vertical axis by the graph's Fiedler vector (spectral ordering), so neighbours tend to sit close together. "
-         "Qwen and Gemini at 0.8, 1 and 1.25 × their tipping point T_c; GPT-4o-mini and Gemma at T = 1, 2, 3 (neither has a tipping point in range). "
+         "Qwen and Gemini at 0.8, 1 and 1.25 × their tipping point T_c; GPT-4o-mini (no transition) and Gemma (unresolved: slow relaxation near an ordering boundary) at T = 1, 2, 3. "
          "Gemma is shown from a random (hot) and an all-A (cold) start. One run per panel, seed fixed in advance (pair 0).", y=0.075)
     fig.savefig(os.path.join(OUT, "kymographs.png"), dpi=150); plt.close(fig)
 
@@ -262,7 +262,8 @@ def main():
     fig_kymographs(runs, order, plt); fig_twins(twins, stats, order, plt)
     sizes = {}
     for m, T in (("P1", tc("P1")), ("gemini", tc("gemini")), ("selected", 2.0), ("gemma", 2.0)):
-        lab = f"{NAME[m]}, T = " + (f"T_c ({T:.2f})" if m in ("P1", "gemini") else "2.0 (no tipping point)")
+        lab = f"{NAME[m]}, T = " + (f"T_c ({T:.2f})" if m in ("P1", "gemini") else
+                                    {"selected": "2.0 (no transition)", "gemma": "2.0 (unresolved: slow relaxation\nnear an ordering boundary)"}[m])
         sizes[m] = animate([runs[(m, round(T, 4), "hot")]], pos, G, os.path.join(OUT, f"network_{m}"), [lab], plt)
     for m in ("P1", "gemini"):
         T = tc(m); j = stats[("display", m)]; a, b = twins[(m, round(T, 4), j)]

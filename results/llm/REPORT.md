@@ -32,8 +32,12 @@ labelled as such. Refuted and failed results are reported in the main text.
   - It passes for **all three synthetic error shapes in both confirmatory models that have a tipping point** (Qwen3.5
     122B and Gemini 3.1 Flash-Lite).
   - A real model with no tipping point (GPT-4o-mini) stays below the amplification floor everywhere.
-- **Tipping points are model-dependent.** Only **2 of 4** confirmatory models have a tipping point in the swept range
-  of decision noise. That is knowable only by simulating the population, not from single-agent statistics.
+- **Tipping points are model-dependent.** Two confirmatory models (Qwen3.5-122B, Gemini 3.1 Flash-Lite) have a clear
+  order–disorder transition in the swept range of decision noise.
+  - GPT-4o-mini has none: hot and cold starts agree, and the Binder cumulant stays below 0.5.
+  - Gemma-31B is **unresolved**. Its pre-registered verdict was "no transition in range". The post-hoc reading is that
+    the hot/cold rule cannot locate a transition when relaxation near it is this slow.
+  - Which case a model falls in is knowable only by simulating the population, not from single-agent statistics.
 - **Scope throughout:** these models, this binary task, memoryless agents, random-regular degree-4 graphs.
 
 ---
@@ -63,9 +67,12 @@ the models, binary task and graphs tested.
    - Under a corrected rule tested on fresh simulations, amplification at T_c exceeds the worst-case control by
      0.15–2.03 |m| per nat for 3 of 3 synthetic error shapes in both confirmatory models with a transition.
    - The original pre-registered version of this test was refuted, for a stated technical reason.
-5. **Whether a population has a tipping point is model-dependent.** Only 2 of 4 confirmatory models have an
-   order–disorder transition in the swept decision-noise range. This is a property of the population, not readable from single-agent
-   statistics.
+5. **Whether a population has a tipping point is model-dependent.** Two confirmatory models have a clear
+   order–disorder transition in the swept decision-noise range.
+   - GPT-4o-mini has none.
+   - Gemma-31B is unresolved. The pre-registered verdict was "no transition in range"; the post-hoc reading is slow,
+     start-dependent relaxation that the locating rule cannot resolve.
+   - This is a property of the population, not readable from single-agent statistics.
 
 Amplification results are simulation-based: empirical kernels are run under a 1/T decision-noise rescaling that is
 verified only for T > 1. The persistence excess over Markov kernels seen in one live run did not repeat (footnote-level
@@ -378,6 +385,14 @@ before claiming anything". This triggered the residual tests (§6).
 2. An order-averaged one-shot battery recovers the live per-step kernel.
 3. Per-step-invisible differences can still matter collectively.
 
+**Within-model illustration** (exploratory; `results/llm/GEMMA_MECHANISM_RESULTS.md`). The saturation knockout of the
+Gemma mechanism test is in effect a trait summary of Gemma-31B: an additive logit with Gemma's own fitted ally, rival
+and own-position weights (+1.23, −0.90, +0.13 at T = 2), fitted to its measured table.
+- It puts the population in a different phase from the measured table it summarises: disordered (|m| 0.09 from both
+  starts) instead of slowly ordering and start-dependent (cold starts |m| ≈ 0.34–0.40).
+- This is the trait-summary failure of the kernel test, reproduced within one model: same weights, different
+  collective state.
+
 **Free follow-up checks found no non-Markov mechanism in the logs** (post-hoc):
 - provider caching;
 - wall-clock drift;
@@ -534,7 +549,8 @@ All five pass comprehension (99–100% per question type).
 - **P1:** T_c = 2.01 [1.96, 2.07]. Independent of Stage B's 1.93.
 - **Gemini:** T_c = 1.83 [1.81, 1.86].
 - **GPT-6-luna (exploratory):** 0.49, on the unverified sharpening side.
-- **GPT-4o-mini and Gemma-31B: no transition in the swept range** (§8).
+- **GPT-4o-mini and Gemma-31B: "no transition in the swept range"** as pre-registered. On the post-hoc reading, GPT-4o-mini
+  has none and Gemma is unresolved (§8).
 
 **Verdicts (Step 4)** [`results/llm/AMPLIFICATION_CONFIRM_RESULTS.md`; `results/llm/confirm/results/step4.json`]:
 
@@ -579,13 +595,18 @@ Figures: `results/llm/confirm/results/fig_step4_amplification.png`, `fig_ruleA.p
 
 ## 8. Model-dependence of tipping points
 
-Of the four confirmatory models, **two** (Qwen-122B, Gemini) have an order–disorder transition in the swept
-decision-noise range. **Two** do not [`results/llm/AMPLIFICATION_CONFIRM_STOP2.md`]:
+Of the four confirmatory models, **two** (Qwen-122B, Gemini) have a clear order–disorder transition in the swept
+decision-noise range. **GPT-4o-mini** has none. **Gemma-31B** is unresolved
+[`results/llm/AMPLIFICATION_CONFIRM_STOP2.md`; `results/llm/GEMMA_MECHANISM_RESULTS.md`]:
 
 - **GPT-4o-mini never orders.** The highest Binder cumulant at N = 1,600 is 0.47, at T = 0.2 (the rule needs ≥ 0.5),
   and |m| ≤ 0.22. Hot and cold starts agree everywhere.
-- **Gemma-31B is frozen and start-dependent.** Hot and cold starts disagree at every T ≤ 3.16, so the rule marks that
-  region as frozen.
+- **Gemma-31B: slow, start-dependent relaxation near an ordering boundary.** This label is inferred from the
+  knockouts. The mechanism is not identified, and the start-dependence is borderline and seed-sensitive at T = 2.0.
+  - **Pre-registered verdict: "no transition in range".** Hot and cold starts disagree at every T ≤ 3.16, so the
+    locating rule marked that region "frozen" (the rule's term, `AMPLIFICATION_CONFIRM_STOP2.md`) and found no
+    transition.
+  - **Post-hoc reading: unresolved.** A hot/cold rule cannot locate a transition when relaxation near it is this slow.
   - **The mechanism is not identified.**
     - Stage 1 does not settle it. In the neutral framing simulated here, Gemma-31B's rivals repel at 71% of ally
       weight (b_r 0.93 [0.79, 1.11] vs b_a 1.30). With 25% rival ties that is compatible with frustration.
@@ -603,11 +624,13 @@ decision-noise range. **Two** do not [`results/llm/AMPLIFICATION_CONFIRM_STOP2.m
   - The result is unchanged with exact full-vocabulary P(A).
   - **Exploratory run-length check:** start-dependence persists at T ≈ 2.0–2.3 even at 4× run length, and dissolves
     above T ≈ 2.7 [`results/llm/confirm/results/gemma_exploratory.json`].
+    - **This is seed-sensitive.** In the mechanism test's rerun with other seeds it persisted at T = 2.0 only (gap
+      0.27 → 0.18); at 2.16 and 2.34 it decayed by more than half (to 0.13 and 0.07).
   - **Exploratory outcome sensitivity:** a 0.1-nat per-step error changes which collective basin a population reaches
     in 24–51% of paired runs from identical starts. A different random seed alone changes it in 43–60%. In this regime
     the outcome is close to a coin flip set by the stochastic path.
 
-**Why this matters.** Both "no transition" models pass comprehension, and both have well-defined single-agent response
+**Why this matters.** GPT-4o-mini and Gemma both pass comprehension, and both have well-defined single-agent response
 tables. Nothing in their per-agent statistics announces whether a population of them will have a tipping point.
 In this study, **whether a tipping point exists, where it lies, and how strongly it amplifies errors were all
 knowable only by simulating the population** with the measured kernel.
@@ -663,8 +686,9 @@ network, not of any single response.
    - At P1's tipping point, a 0.1-nat per-step error moved |m| by 0.15–2.0 per nat more than in the controls.
    - The real fixed-order battery error grew with population size there.
    - The same errors had small effects at the operating point actually used (T = 1).
-3. **Whether a population is near a tipping point is a population-level property.** It differed across models that
-   all passed the same single-agent checks. Evaluating multi-agent deployments therefore needs population-level
+3. **Whether a population is near a tipping point is a population-level property.** Across models that all passed the
+   same single-agent checks, two had a clear transition, one had none, and one (Gemma) was unresolved because its
+   relaxation near the ordering boundary is slow. Evaluating multi-agent deployments therefore needs population-level
    simulation or measurement with the measured response tables, not only per-agent scores.
 4. **Presentation details matter:** contact order, option order, letter mapping, batching and provider. An evaluation
    that fixes them measures one slice of the response distribution. Averaging over them recovered live behaviour per
