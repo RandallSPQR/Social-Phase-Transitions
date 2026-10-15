@@ -104,6 +104,10 @@ restarted, and all 20 equal the committed runs (agreement, slope and verdict; `s
 `replication/logs/clean_run_full_2026-10-15_partial/`; the first 12 were also compared field by field). Replicates
 20–99 have not been recomputed. A full run recomputes all 100 (about 21 h on 4 cores).
 
+**Unmeasured full-mode steps.** `replication/runpod/` holds a prepared, not launched, recipe that runs them on a
+RunPod CPU pod. It skips the null distribution, keeps logs on a dedicated network volume and in the HF dataset, and
+includes an end-to-end test mode.
+
 Per-step times are in the generated report and in the table below.
 
 ## Claims map
@@ -256,4 +260,7 @@ analyses can be rerun on the new data with the same step commands.
 | `audit_secrets.py` | credential scan of the git history and of the dataset, run before release |
 | `hf_dataset_card/README.md` | dataset card for the Hugging Face dataset |
 | `RELEASE_CHECKLIST.md` | the steps for the owner to make the release public |
+| `canary.py` | comparator canary (step `qc.canary`) |
+| `runpod/` | prepared CPU-pod recipe for the unmeasured full-mode steps (`README.md`, `launch_cpu.py`, `pod_full_remaining.sh`) |
+| `STATUS.md` | working status and handoff note |
 | `logs/` | the clean-run logs from a fresh container |

@@ -114,7 +114,7 @@ else:
     sizes = {x.path: getattr(x, "size", None)
              for x in api.list_repo_tree(REPO, repo_type="dataset", path_in_repo=f"runs/{RUN}", recursive=True)}
     ok = sizes.get(f"runs/{RUN}/final.tar.gz") == os.path.getsize(tgz)
-print("[pod] final upload", "VERIFIED" if ok else "NOT VERIFIED", os.path.getsize(tgz), "bytes", flush=True)
+print("[pod] final upload", ("DRY RUN (not uploaded; local file only)" if DRY else ("VERIFIED" if ok else "NOT VERIFIED")), os.path.getsize(tgz), "bytes", flush=True)
 if ok: open(f"{D}/FINAL_VERIFIED", "w").write("ok\n")
 EOF
 sleep 100   # one more heartbeat carries final_verified

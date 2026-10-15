@@ -956,3 +956,16 @@ judgment calls, in time order (2026-10-08).
         20 of 100 replicates, all equal to the committed runs.
       - **Record:** `replication/logs/clean_run_full_2026-10-15_partial/`.
       - **Not relaunched:** the owner decides; options in `replication/STATUS.md`.
+    - **Owner follow-up (2026-10-15 evening; no relaunch, nothing launched):**
+      - Comparator canary (`replication/canary.py`, step `qc.canary`, first in every run): a byte flip in a base.sim
+        array, a raw byte flip, and a 1-ulp change in a CSV and a JSON value must each fail; identical copies must
+        pass. It found two weaknesses, both fixed:
+        - `exact` allowed 1e-12. It is now bit-identical, with a documented 4-ulp profile only for the
+          hand-transcribed asymmetry table.
+        - pandas' default CSV parser merges values one ulp apart. CSVs are now parsed round-trip.
+        Both clean runs and the Stage 1 cache check still pass under the strict comparator.
+      - Documentation:
+        - The two tiers are stated with the measured drift.
+        - The null distribution is stated as checked on 20 of 100 replicates, all identical.
+      - RunPod CPU-pod recipe prepared (`replication/runpod/`), not launched. The pod script was tested locally in
+        dry mode.

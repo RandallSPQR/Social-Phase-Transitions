@@ -1,4 +1,4 @@
-# Replication package: working status (handoff note, 2026-10-15 ~13:40 UTC)
+# Replication package: working status (handoff note, updated 2026-10-15 ~18:40 UTC)
 
 For a session that resumes this work without the earlier conversation. Branch `claude/peaceful-fermi-hz11cv`; all
 work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; package docs in `replication/README.md`.
@@ -53,7 +53,15 @@ work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; packa
 - **What survived:** 8 of 25 steps finished, all PASS. That includes `base.sim`, bit-identical, recomputed with the
   fixed comparator. `s1.null` had finished 20 of 100 replicates, all equal to the committed ones. Record:
   `replication/logs/clean_run_full_2026-10-15_partial/`.
-- **Not relaunched:** the owner decides. Options:
+- **Owner decision (2026-10-15): do not relaunch here.** A RunPod CPU-pod recipe for the unmeasured steps (without
+  the null distribution) is prepared in `replication/runpod/` but not launched:
+  - dedicated `spt-replication-…` network volume;
+  - HF heartbeat and per-step verified uploads;
+  - end-to-end test mode first;
+  - failure-mode table.
+
+  The pod script was tested locally (dry, 3 steps). The owner launches it.
+- **Earlier options**, kept for reference: the owner decides. Options:
   1. Relaunch the whole full mode: about 37 h, dominated by `s1.null` at about 21 h.
   2. Relaunch with `--skip s1.null`: about 16 h.
   3. Run only the unmeasured steps with `--only …`: about 13 h.
