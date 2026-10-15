@@ -109,7 +109,8 @@ def spot_prepare(step_id):
         files = expand(pat)
         pick = sorted(files, key=lambda p: hashlib.sha256(rel(p).encode()).hexdigest())[:SPOT_PER_PATTERN]
         for p in pick:
-            for q in [p] + ([p.replace(".csv.gz", "_visits.npy")] if os.path.exists(p.replace(".csv.gz", "_visits.npy")) else []):
+            vis = p[:-len(".csv.gz")] + "_visits.npy" if p.endswith(".csv.gz") else None
+            for q in [p] + ([vis] if vis and os.path.exists(vis) else []):
                 dest = os.path.join(OUT, "spot", rel(q))
                 os.makedirs(os.path.dirname(dest), exist_ok=True); shutil.move(q, dest); held.append(q)
     return held
