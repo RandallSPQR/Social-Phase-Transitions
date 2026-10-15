@@ -128,7 +128,7 @@ def compare_csv(ref_path, new_path, rtol, atol, col_tol=None):
                 i = int(np.argmax(~ok))
                 st["probs"].append(f"{c}[{i}]: {xv[i]!r} vs {yv[i]!r} ({nb} cells)")
         else:
-            xs, ys = x.astype(str), y.astype(str)
+            xs, ys = x.map(str), y.map(str)
             ok = (xs == ys) | (xs.map(_pathlike) & ys.map(_pathlike))
             nb = int((~ok).sum())
             if nb:

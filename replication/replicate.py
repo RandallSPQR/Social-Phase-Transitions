@@ -166,7 +166,12 @@ def run_step(st, mode, records):
         tol = c[2] if len(c) > 2 else None
         for refp in sorted(glob.glob(os.path.join(REF, pat), recursive=True)):
             newp = os.path.join(ROOT, os.path.relpath(refp, REF))
-            cmp.append(dict(file=rel(newp), **compare.compare_file(refp, newp, prof, tol)))
+            try:
+                r = compare.compare_file(refp, newp, prof, tol)
+            except Exception as e:   # a file the comparator cannot read is a failed comparison, not a crash
+                r = dict(ok=False, n=0, bad=1, worst=None, probs=[f"comparison error: {type(e).__name__}: {e}"[:200]],
+                         profile=prof)
+            cmp.append(dict(file=rel(newp), **r))
     spots = spot_check(held)
     ok = rc == 0 and all(c["ok"] for c in cmp) and all(s["ok"] for s in spots)
     records[st["id"]] = dict(id=st["id"], title=st["title"], claims=st["claims"], mode=mode, exit=rc,
