@@ -5,9 +5,9 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 
 ## 0. Before anything is public
 
-- [ ] **Secrets audit of the Hugging Face dataset.** Done 2026-10-15 over every file except the activation arrays;
+- [x] **Secrets audit of the Hugging Face dataset.** Done 2026-10-15 over every file except the activation arrays;
       results in "Audit results" below. Re-run if files are added: `replication/audit_secrets.py`.
-- [ ] **Secrets audit of the git history** (the whole history becomes public with the repository): see "Audit results".
+- [x] **Secrets audit of the git history** (done; one finding needs an owner decision) (the whole history becomes public with the repository): see "Audit results".
 - [ ] **Third-party PDFs** in `papers/`: confirm redistribution rights or remove them before the repository/release is
       public (LICENSES.md, note 1). Removing them from the working tree does not remove them from history; if they must
       not be public, the history needs rewriting before the repository is made public (owner decision).
@@ -75,4 +75,12 @@ Scans print file names and pattern names only, never the matched text (`replicat
 - **Commit metadata** carries the author address of one commit (`RandallSPQR <…@gmail.com>`), which becomes public
   with the history. All other commits are authored as `Claude <noreply@anthropic.com>`.
 
-**Hugging Face dataset**: see below (filled in after the scan completes).
+**Hugging Face dataset** (2026-10-15; 357 files):
+- **Scope:** every file except the 24 activation arrays (`*.npy`, raw float arrays). Code tarballs and `.gz` files
+  were opened and every member scanned.
+- **No API keys, tokens, bearer headers, private keys or OpenRouter generation ids** were found. The cache snapshots
+  were written after generation ids stopped being stored.
+- **Email-like matches (140):** all are inside `data/*.npz` binaries bundled in the pod code tarballs (`code/*.tgz`).
+  They are the same 6-byte chance matches in compressed binary data as in the git history, not addresses.
+- **Status:** cleared for publication as far as credentials are concerned. The terms of the model outputs are a
+  separate question (LICENSES.md, note 2).
