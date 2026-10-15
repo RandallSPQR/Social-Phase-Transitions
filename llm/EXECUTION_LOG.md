@@ -897,3 +897,20 @@ judgment calls, in time order (2026-10-08).
       unresolved. Gemma's pre-registered verdict "no transition in range" is stated, with the post-hoc reading.
     - §5: the saturation knockout added as a within-model trait-summary illustration.
     - Substack figure labels updated, and the affected figures re-rendered (deterministic; numbers unchanged).
+
+72. **Paper draft (owner, 2026-10-15; writing only, no new runs or numbers).**
+    - `paper/paper.md`: an academic-paper draft converted from `results/llm/REPORT.md` (5b046b4), in pandoc Markdown
+      ready for LaTeX.
+      - Full prose for §3 Methods, §4 Results (verdicts before post-hoc readings; failures kept in the main text) and
+        §7 Limitations.
+      - Placeholders for §1 (bullet points only), §2, §5, §6 and §8. The Abstract is a draft.
+      - The AI-use statement is the owner's draft.
+      - Appendices: pre-registration log (adds the Gemma mechanism plan, f9d5e0c), deviations, costs, and a table of
+        the models studied. Claude Haiku 5.5 is marked there as a subject, not a tool.
+    - Fixes made while drafting:
+      - Persistence is defined as in the code: overlap with the configuration at the end of warm-up
+        (`stage3_replicate_reanalyse.replica_measures`).
+      - The Binder normalisation 1 − ⟨m⁴⟩/(3⟨m²⟩²) is as in `amplification_curve.binder`.
+    - `paper/related_work_notes.md`: neutral summaries, each marked "verify".
+    - `paper/refs.bib`: 19 entries, all marked UNVERIFIED. The five Sept 2026 proofs are cited as unrefereed
+      preprints, with titles and dates taken from the PDF title pages.
