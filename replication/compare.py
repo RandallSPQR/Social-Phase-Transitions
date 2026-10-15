@@ -10,6 +10,8 @@ Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeri
   media   file exists and is non-empty (MP4/GIF)
   text    the file exists and is non-empty (logs, Markdown tables)
 
+JSON fields present only in the regenerated file (added by a later version of the producing script) are listed as
+"extra" in the record, not counted as differences; every committed field must be reproduced.
 Strings must match exactly except for keys that record where or when a file was made (IGNORE_KEYS) and values that
 are absolute paths.
 """
@@ -45,7 +47,7 @@ def _pathlike(s):
 
 def compare_json(ref, new, rtol, atol):
     """Return (n_values, n_bad, worst_abs_diff, first_problems)."""
-    st = {"n": 0, "bad": 0, "worst": 0.0, "probs": []}
+    st = {"n": 0, "bad": 0, "worst": 0.0, "probs": [], "extra": []}
 
     def walk(a, b, p):
         if isinstance(a, dict):
@@ -57,9 +59,9 @@ def compare_json(ref, new, rtol, atol):
                 if k not in b:
                     bad(p + "/" + str(k), "missing"); continue
                 walk(a[k], b[k], p + "/" + str(k))
-            for k in b:
+            for k in b:   # fields added by later code versions are reported, not failed (committed fields must match)
                 if k not in a and k not in IGNORE_KEYS:
-                    bad(p + "/" + str(k), "extra")
+                    st["extra"].append(p + "/" + str(k))
         elif isinstance(a, list):
             if not isinstance(b, list) or len(a) != len(b):
                 return bad(p, f"length {len(a)} vs {len(b) if isinstance(b, list) else type(b).__name__}")
