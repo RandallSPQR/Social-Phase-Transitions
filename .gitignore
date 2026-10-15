@@ -41,3 +41,4 @@ results/llm/confirm/gemma_mechanism/len/
 results/llm/confirm/gemma_mechanism/glass/
 replication/out/
 .venv/
+replication/runpod/pod.json
