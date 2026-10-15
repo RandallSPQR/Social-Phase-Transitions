@@ -227,10 +227,12 @@ def report(records, mode, env):
           "| claim | quantity | paper | regenerated | ok |", "|---|---|---|---|---|"]
     for h in heads:
         L.append(f"| {h['claim']} | {h['what']} | {h['paper']} | {h['got']} | {'yes' if h['ok'] else '**NO**'} |")
-    L += ["", "## Steps", "", "| step | result | minutes | files | differing | spot units | exit |", "|---|---|---|---|---|---|---|"]
+    L += ["", "## Steps", "", "| step | result | minutes | files | differing | spot units | peak RSS so far (MB) | exit |",
+          "|---|---|---|---|---|---|---|---|"]
     for r in records.values():
         L.append(f"| {r['id']} | {'PASS' if r['ok'] else '**FAIL**'} | {r['seconds'] / 60:.1f} | {len(r['compared'])} | "
-                 f"{sum(not x['ok'] for x in r['compared'])} | {len(r['spot'])} | {r['exit']} |")
+                 f"{sum(not x['ok'] for x in r['compared'])} | {len(r['spot'])} | {r.get('peak_child_rss_mb', '')} | {r['exit']} |")
+    L += ["", f"Total step time: {sum(r['seconds'] for r in records.values()) / 60:.1f} min."]
     bad = [(r["id"], x) for r in records.values() for x in r["compared"] + r["spot"] if not x["ok"]]
     if bad:
         L += ["", "## Differences", ""]

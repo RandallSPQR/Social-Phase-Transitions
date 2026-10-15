@@ -13,7 +13,7 @@ committed results (reference/), the comparison records (compare.json), and the r
 Run it on a clean checkout. Steps overwrite result files in place, and the comparison reference is the snapshot taken
 at the start of the first run (replication/out/reference/). Delete replication/out/ to start over.
 """
-import argparse, glob, hashlib, json, os, platform, random, shutil, subprocess, sys, time
+import argparse, glob, hashlib, json, os, platform, random, resource, shutil, subprocess, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "replication"))
@@ -184,8 +184,10 @@ def run_step(st, mode, records):
             cmp.append(dict(file=rel(newp), **r))
     spots = spot_check(held)
     ok = rc == 0 and all(c["ok"] for c in cmp) and all(s["ok"] for s in spots)
+    peak_mb = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1024   # largest child process so far (Linux: KiB)
     records[st["id"]] = dict(id=st["id"], title=st["title"], claims=st["claims"], mode=mode, exit=rc,
-                             seconds=round(dt, 1), compared=cmp, spot=spots, ok=ok, log=rel(log))
+                             seconds=round(dt, 1), peak_child_rss_mb=round(peak_mb), compared=cmp, spot=spots, ok=ok,
+                             log=rel(log))
     json.dump(records, open(RECORDS, "w"), indent=1)
     nbad = sum(not c["ok"] for c in cmp)
     say(f"{'PASS' if ok else 'FAIL'} {st['id']:<14} {dt / 60:6.1f} min  {len(cmp)} files compared, {nbad} differ"
@@ -223,7 +225,8 @@ def main():
     for st in selected:
         say(f"---- {st['id']}: {st['title']}")
         run_step(st, a.mode, records)
-    say(f"all steps done in {(time.time() - t0) / 60:.1f} min")
+    say(f"all steps done in {(time.time() - t0) / 60:.1f} min; largest process "
+        f"{resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss / 1024:.0f} MB")
     sys.exit(claims.report(records, a.mode, info))
 
 
