@@ -137,9 +137,9 @@ within their 95% CIs of theory [`results/validation_crossings.csv`; `HANDOFF.md`
 
 **Asymmetry sweep** [`results/asymmetry_sweep.csv`; `HANDOFF.md` §3b; `figures/fig4_asymmetry.png`]. Non-reciprocity ε
 is the probability that the reverse direction of a tie is redrawn independently.
-- **Glass (ρ = 0.5, c = 4, T = 1.0):** persistence falls 0.51 → 0.28 → 0.11 → ≈ 0.01 as ε goes 0 → 0.1 → 0.2 → 0.35,
-  with no size dependence across N = 1k–4k.
-- **Consensus (ρ = 0.1, T = 2.0):** |m| goes only from 0.62 to 0.55 as ε goes 0 → 1.
+- **Glass (ρ = 0.5, c = 4, T = 1.0):** persistence falls 0.51 → 0.28 → 0.11 → ≈ 0.01 as ε goes 0 → 0.1 → 0.2 → 0.35
+  (values at N = 4,000), with no size dependence across N = 1k–4k.
+- **Consensus (ρ = 0.1, T = 2.0):** |m| goes only from 0.62 to 0.55 as ε goes 0 → 1 (N = 4,000).
 
 Frozen camps melt quickly under non-reciprocity. This is consistent with Crisanti and Sompolinsky's (1987) result for dense
 asymmetric spin glasses and is **not new physics**. We report it only to establish that the simulator reproduces known

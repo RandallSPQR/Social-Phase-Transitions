@@ -278,9 +278,9 @@ Table: Simulated versus analytic transitions of the Viana–Bray baseline. Sourc
 ![Finite-size crossings for the $c = 4$ baseline. Source: `figures/fig3_crossings_c4.png`.](../figures/fig3_crossings_c4.png){#fig:crossings}
 
 Under non-reciprocity, frozen camps melt quickly. In the glass regime ($\rho = 0.5$, $c = 4$, $T = 1.0$) persistence
-falls from 0.51 to 0.28, 0.11 and ≈ 0.01 as $\varepsilon$ goes from 0 to 0.1, 0.2 and 0.35, with no size dependence
-across $N$ = 1k–4k. In the consensus regime ($\rho = 0.1$, $T = 2.0$) $|m|$ falls only from 0.62 to 0.55 as
-$\varepsilon$ goes from 0 to 1 [`results/asymmetry_sweep.csv`; `figures/fig4_asymmetry.png`]. This is consistent with
+falls from 0.51 to 0.28, 0.11 and ≈ 0.01 as $\varepsilon$ goes from 0 to 0.1, 0.2 and 0.35 (values at $N = 4{,}000$), with
+no size dependence across $N$ = 1k–4k. In the consensus regime ($\rho = 0.1$, $T = 2.0$) $|m|$ falls only from 0.62
+to 0.55 as $\varepsilon$ goes from 0 to 1 ($N = 4{,}000$) [`results/asymmetry_sweep.csv`; `figures/fig4_asymmetry.png`]. This is consistent with
 @crisanti1987dynamics for dense asymmetric spin glasses and is not new; we report it only to establish that the
 simulator reproduces known results.
 
