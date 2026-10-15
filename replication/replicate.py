@@ -70,7 +70,7 @@ def fetch(mode):
     sys.path.insert(0, os.path.join(ROOT, "llm"))
     import fetch_cache
     bad = fetch_cache.fetch(verbose=False)
-    say(f"cache: {fetch_cache.manifest()['files']} snapshots, {'all verified' if not bad else f'{bad} FAILED'}")
+    say(f"cache: {len(fetch_cache.manifest()['files'])} snapshots, {'all verified' if not bad else f'{bad} FAILED'}")
     if bad:
         return False
     # several audit scripts read the raw .jsonl directly (not through llm/client.py), so restore them all up front

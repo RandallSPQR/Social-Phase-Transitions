@@ -41,11 +41,16 @@ def fetch():
         if sha256(p) != f["sha256"]:
             print("SHA-256 MISMATCH", f["file"], flush=True); os.remove(p); bad += 1; continue
         with tarfile.open(p) as t:
-            members = t.getmembers()
-            for x in members:   # only regular files under the declared prefixes, never absolute or parent paths
-                if not x.isfile() or x.name.startswith("/") or ".." in x.name.split("/") or \
-                        not any(x.name.startswith(q) for q in f["prefixes"]):
+            members = []
+            for x in t.getmembers():   # regular files and directories under the declared prefixes only
+                name = x.name.rstrip("/")
+                safe = not name.startswith("/") and ".." not in name.split("/")
+                under = any((name + "/").startswith(q) for q in f["prefixes"])
+                above = x.isdir() and any(q.startswith(name + "/") for q in f["prefixes"])
+                if not safe or not (x.isfile() or x.isdir()) or not (under or above):
                     raise RuntimeError(f"unexpected member {x.name} in {f['file']}")
+                if x.isfile():
+                    members.append(x)
             t.extractall(ROOT, members=members, filter="data")
         print(f"units: {f['file']} verified, {f['n_files']} files unpacked", flush=True)
     return bad
