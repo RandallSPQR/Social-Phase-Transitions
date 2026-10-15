@@ -212,7 +212,19 @@ def compare_file(ref, new, profile, col_tol=None):
             if not ok:
                 st["bad"] += 1; st["probs"].append(f"array {k} differs")
     elif new.endswith(".npy"):
-        a, b = np.load(ref, allow_pickle=False), np.load(new, allow_pickle=False)
+        try:
+            a, b = np.load(ref, allow_pickle=False), np.load(new, allow_pickle=False)
+        except ValueError:   # object arrays (data/asym/asym.npy: rows of parameters + per-graph result arrays)
+            def plain(x):
+                if isinstance(x, np.ndarray):
+                    return [plain(y) for y in x.tolist()] if x.dtype == object else x.tolist()
+                if isinstance(x, (list, tuple)):
+                    return [plain(y) for y in x]
+                return x.item() if isinstance(x, np.generic) else x
+            a = plain(np.load(ref, allow_pickle=True)); b = plain(np.load(new, allow_pickle=True))
+            st = compare_json(a, b, rtol, atol)
+            st.update(ok=st["bad"] == 0, profile=profile)
+            return st
         ok = a.shape == b.shape and np.allclose(a, b, rtol=rtol, atol=atol, equal_nan=True)
         st = dict(n=int(a.size), bad=0 if ok else 1, worst=float(np.nanmax(np.abs(a - b))) if a.shape == b.shape else None,
                   probs=[] if ok else ["array differs"])
