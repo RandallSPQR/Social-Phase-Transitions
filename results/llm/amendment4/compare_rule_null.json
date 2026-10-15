@@ -1,0 +1,172 @@
+{
+ "R": 20,
+ "B": 100,
+ "noise": 0.3,
+ "p_verdict_averages_out": 0.8,
+ "p_frac_agree_ge_0_9": 0.85,
+ "p_slope_ci_contains_1": 0.95,
+ "frac_agree_mean": 0.9431034482758619,
+ "frac_agree_min": 0.7586206896551724,
+ "runs": [
+  {
+   "run": 0,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 1,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 2,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 1.0,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 3,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": false,
+   "verdict": "jitter biases estimates"
+  },
+  {
+   "run": 4,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9310344827586207,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 5,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 6,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 7,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.896551724137931,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter biases estimates"
+  },
+  {
+   "run": 8,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9310344827586207,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 9,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 10,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 1.0,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 11,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.7586206896551724,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter biases estimates"
+  },
+  {
+   "run": 12,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 13,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9310344827586207,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 14,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 15,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9310344827586207,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 16,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.8620689655172413,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter biases estimates"
+  },
+  {
+   "run": 17,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9310344827586207,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 18,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 1.0,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  },
+  {
+   "run": 19,
+   "B": 100,
+   "noise": 0.3,
+   "frac_agree": 0.9655172413793104,
+   "slope_ci_contains_1": true,
+   "verdict": "jitter averages out"
+  }
+ ]
+}

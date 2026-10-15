@@ -1,0 +1,1001 @@
+{
+ "base.sim": {
+  "id": "base.sim",
+  "title": "Viana-Bray validation sweep and asymmetry sweep (raw simulation output)",
+  "claims": [
+   "C0"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 9223.7,
+  "peak_child_rss_mb": 165,
+  "compared": [
+   {
+    "file": "data/f_r00_N1000.npz",
+    "n": 145647,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r00_N2000.npz",
+    "n": 116527,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r00_N250.npz",
+    "n": 201646,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r00_N500.npz",
+    "n": 161326,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r10_N1000.npz",
+    "n": 145647,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r10_N2000.npz",
+    "n": 116527,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r10_N250.npz",
+    "n": 201646,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r10_N500.npz",
+    "n": 161326,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r20_N1000.npz",
+    "n": 145647,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r20_N2000.npz",
+    "n": 116527,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r20_N250.npz",
+    "n": 201646,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/f_r20_N500.npz",
+    "n": 161326,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c3_N1000.npz",
+    "n": 235248,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c3_N2000.npz",
+    "n": 196056,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c3_N500.npz",
+    "n": 291247,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c4_N1000.npz",
+    "n": 313648,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c4_N2000.npz",
+    "n": 313656,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c4_N250.npz",
+    "n": 582447,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c4_N500.npz",
+    "n": 436847,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c6_N1000.npz",
+    "n": 235248,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c6_N2000.npz",
+    "n": 196056,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/sg_c6_N500.npz",
+    "n": 291247,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "data/asym/asym.npy",
+    "n": 17800,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "exact"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/base.sim.log"
+ },
+ "base.tables": {
+  "id": "base.tables",
+  "title": "Crossing table and asymmetry table from the raw output",
+  "claims": [
+   "C0"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 4.7,
+  "peak_child_rss_mb": 165,
+  "compared": [
+   {
+    "file": "results/validation_crossings.csv",
+    "n": 208,
+    "bad": 0,
+    "worst": 0.04269999999999996,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/asymmetry_sweep.csv",
+    "n": 1320,
+    "bad": 0,
+    "worst": 4.0657581468206416e-20,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/base.tables.log"
+ },
+ "base.figures": {
+  "id": "base.figures",
+  "title": "Baseline figures 1-4",
+  "claims": [
+   "C0"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 6.1,
+  "peak_child_rss_mb": 165,
+  "compared": [
+   {
+    "file": "figures/fig1_phase_diagram_c4.png",
+    "ok": true,
+    "n": 1,
+    "bad": 0,
+    "worst": null,
+    "profile": "figure",
+    "probs": []
+   },
+   {
+    "file": "figures/fig2_glass_vs_connectivity.png",
+    "ok": true,
+    "n": 1,
+    "bad": 0,
+    "worst": null,
+    "profile": "figure",
+    "probs": []
+   },
+   {
+    "file": "figures/fig3_crossings_c4.png",
+    "ok": true,
+    "n": 1,
+    "bad": 0,
+    "worst": null,
+    "profile": "figure",
+    "probs": []
+   },
+   {
+    "file": "figures/fig4_asymmetry.png",
+    "ok": true,
+    "n": 1,
+    "bad": 0,
+    "worst": null,
+    "profile": "figure",
+    "probs": []
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/base.figures.log"
+ },
+ "s1.cache": {
+  "id": "s1.cache",
+  "title": "Stage 1: rebuild every API request and check every committed CSV row against the cache",
+  "claims": [
+   "C1"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 229.6,
+  "peak_child_rss_mb": 4643,
+  "compared": [],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/s1.cache.log"
+ },
+ "s1.fits": {
+  "id": "s1.fits",
+  "title": "Stage 1: response-function fits (bootstrap B = 1000) for every endpoint",
+  "claims": [
+   "C1"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 500.6,
+  "peak_child_rss_mb": 4643,
+  "compared": [
+   {
+    "file": "results/llm/fits/main/gemini-lite.json",
+    "n": 10230,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-26b-cw.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-26b-local-bs1.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-26b-local.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-26b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-31b-local.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gemma-31b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gpt4o-mini.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gpt4o-mini_sampled.json",
+    "n": 10230,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/gpt6-luna.json",
+    "n": 10230,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/haiku.json",
+    "n": 10230,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/llama-70b-pa.json",
+    "n": 9229,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/llama-70b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/llama-8b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/mistral-large.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/mistral-small.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/nemo-12b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/qwen-122b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/main/qwen-9b.json",
+    "n": 24594,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/fits/pilot/llama-8b.json",
+    "n": 477,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [
+     "/arms[0]/draws",
+     "/arms[1]/draws",
+     "/arms[2]/draws",
+     "/arms[3]/draws"
+    ],
+    "ok": true,
+    "profile": "fit"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/s1.fits.log"
+ },
+ "s1.summary": {
+  "id": "s1.summary",
+  "title": "Stage 1: comprehension gate, hypothesis verdicts H1-H5, secondary contrasts, bridge",
+  "claims": [
+   "C1"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 15.0,
+  "peak_child_rss_mb": 4643,
+  "compared": [
+   {
+    "file": "results/llm/comprehension_summary.csv",
+    "n": 165,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/comprehension_local.csv",
+    "n": 30,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/comprehension_local_bs1.csv",
+    "n": 15,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/stage1_cells.csv",
+    "n": 4550,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_cells_amendment4.csv",
+    "n": 5250,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_cells_amendment5_rescue.csv",
+    "n": 5600,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_cells_sensitivity_gate_relaxed.csv",
+    "n": 4550,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_H4.csv",
+    "n": 120,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_H4_amendment4.csv",
+    "n": 132,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_H4_amendment5_rescue.csv",
+    "n": 132,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_H4_sensitivity_gate_relaxed.csv",
+    "n": 120,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_verdicts.json",
+    "n": 1,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_verdicts_amendment4.json",
+    "n": 4,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_verdicts_amendment5_rescue.json",
+    "n": 19,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_verdicts_sensitivity_gate_relaxed.json",
+    "n": 1,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/stage1_secondary.csv",
+    "n": 2016,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/bridge_comparison.csv",
+    "n": 136,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/s1.summary.log"
+ },
+ "s1.temperature": {
+  "id": "s1.temperature",
+  "title": "Stage 1: 1/T temperature checks (re-materialised from the cache) and diagnostic",
+  "claims": [
+   "C1",
+   "C4"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 89.4,
+  "peak_child_rss_mb": 4643,
+  "compared": [
+   {
+    "file": "results/llm/temperature_semantics.csv",
+    "n": 66,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/temperature_verify.csv",
+    "n": 8000,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/temperature_verify_nemo-12b.csv",
+    "n": 8000,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/temperature_verify_qwen-122b.csv",
+    "n": 8000,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/temperature_verify_qwen-9b.csv",
+    "n": 8000,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/temperature_verify.json",
+    "n": 18,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/temperature_verify_nemo-12b.json",
+    "n": 18,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/temperature_verify_qwen-122b.json",
+    "n": 18,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/temperature_verify_qwen-9b.json",
+    "n": 18,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/s1.temperature.log"
+ },
+ "s1.amendments": {
+  "id": "s1.amendments",
+  "title": "Amendments 4-5: local-vs-provider comparison, cubic replication, batch effect",
+  "claims": [
+   "C1"
+  ],
+  "mode": "full",
+  "exit": 0,
+  "seconds": 4770.0,
+  "peak_child_rss_mb": 4643,
+  "compared": [
+   {
+    "file": "results/llm/amendment4/local_vs_provider_coefficients.csv",
+    "n": 1218,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-26b-cw.csv",
+    "n": 406,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-26b-cw.json",
+    "n": 12,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-26b.csv",
+    "n": 406,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-26b.json",
+    "n": 12,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-31b.csv",
+    "n": 406,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_gemma-31b.json",
+    "n": 12,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment4/local_vs_provider_summary.json",
+    "n": 36,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_coefficients.csv",
+    "n": 812,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_gemma-26b-cw.csv",
+    "n": 406,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_gemma-26b-cw.json",
+    "n": 12,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_gemma-26b.csv",
+    "n": 406,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_gemma-26b.json",
+    "n": 12,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/local_vs_provider_summary.json",
+    "n": 24,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/cubic_gemma-31b-local.json",
+    "n": 106,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "fit"
+   },
+   {
+    "file": "results/llm/amendment5/batch_effect.json",
+    "n": 19,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "extra": [],
+    "ok": true,
+    "profile": "exact"
+   },
+   {
+    "file": "results/llm/amendment5/batch_effect_by_cell.csv",
+    "n": 9405,
+    "bad": 0,
+    "worst": 0.0,
+    "probs": [],
+    "ok": true,
+    "profile": "exact"
+   }
+  ],
+  "spot": [],
+  "ok": true,
+  "log": "replication/out/logs/s1.amendments.log"
+ }
+}

@@ -1,0 +1,221 @@
+$ python llm/confirm_step45.py run
+169 units
+[     0s] 1/169 step5/P1_N1600_T0.5000_W2000.csv.gz
+[     0s] 2/169 step5/P1_N1600_T0.6082_W2000.csv.gz
+[     0s] 3/169 step5/P1_N1600_T0.7399_W2000.csv.gz
+[     0s] 4/169 step5/P1_N1600_T0.5515_W2000.csv.gz
+[     0s] 5/169 step5/P1_N1600_T0.8160_W2000.csv.gz
+[     0s] 6/169 step4/P1_N1600_T1.6190_W500.csv.gz
+[     0s] 7/169 step4/P1_N1600_T1.6913_W500.csv.gz
+[     0s] 8/169 step5/P1_N1600_T0.9000_W2000.csv.gz
+[     0s] 9/169 step4/P1_N1600_T1.7669_W500.csv.gz
+[     0s] 10/169 step4/P1_N1600_T1.5497_W500.csv.gz
+[     0s] 11/169 step4/P1_N1600_T1.9284_W500.csv.gz
+[     0s] 12/169 step4/P1_N1600_T2.1047_W500.csv.gz
+[     0s] 13/169 step4/P1_N1600_T1.8459_W500.csv.gz
+[     0s] 14/169 step4/P1_N1600_T2.0146_W500.csv.gz
+[     0s] 15/169 step4/P1_N1600_T2.2970_W500.csv.gz
+[     0s] 16/169 step4/P1_N1600_T2.1987_W500.csv.gz
+[     0s] 17/169 step4/P1_N1600_T2.3997_W500.csv.gz
+[     0s] 18/169 step4/P1_N1600_T2.5069_W500.csv.gz
+[     0s] 19/169 step4/P1_N1600_T2.6190_W500.csv.gz
+[     0s] 20/169 step4/P2_N1600_T2.0146_W500.csv.gz
+[     0s] 21/169 step4/P4_N1600_T2.0146_W500.csv.gz
+[     0s] 22/169 step5/P1_N1600_T0.6708_W2000.csv.gz
+[     0s] 23/169 step4/gemini_N1600_T1.4091_W500.csv.gz
+[     0s] 24/169 step4/gemini_N1600_T1.4721_W500.csv.gz
+[     0s] 25/169 step4/gemini_N1600_T1.5379_W500.csv.gz
+[     0s] 26/169 step4/gemini_N1600_T1.6785_W500.csv.gz
+[     0s] 27/169 step4/gemini_N1600_T1.7535_W500.csv.gz
+[     0s] 28/169 step4/gemini_N1600_T1.8319_W500.csv.gz
+[     0s] 29/169 step4/gemini_N1600_T1.9137_W500.csv.gz
+[     0s] 30/169 step4/gemini_N1600_T1.6067_W500.csv.gz
+[     0s] 31/169 step4/gemini_N1600_T2.0886_W500.csv.gz
+[     0s] 32/169 step4/gemini_N1600_T2.2795_W500.csv.gz
+[     0s] 33/169 step4/gemini_N1600_T2.1820_W500.csv.gz
+[     0s] 34/169 step4/gemini_N1600_T2.3814_W500.csv.gz
+[     0s] 35/169 step4/P2_N1600_T1.8319_W500.csv.gz
+[     0s] 36/169 step4/P4_N1600_T1.8319_W500.csv.gz
+[     0s] 37/169 step4/luna_N1600_T0.3781_W1000.csv.gz
+[     0s] 38/169 step4/luna_N1600_T0.4126_W1000.csv.gz
+[     0s] 39/169 step4/gemini_N1600_T1.9993_W500.csv.gz
+[     0s] 40/169 step4/luna_N1600_T0.4503_W1000.csv.gz
+[     0s] 41/169 step4/luna_N1600_T0.4704_W1000.csv.gz
+[     0s] 42/169 step4/luna_N1600_T0.4915_W1000.csv.gz
+[     0s] 43/169 step4/luna_N1600_T0.5134_W1000.csv.gz
+[     0s] 44/169 step4/luna_N1600_T0.5604_W1000.csv.gz
+[     0s] 45/169 step4/luna_N1600_T0.5364_W1000.csv.gz
+[     0s] 46/169 step4/luna_N1600_T0.6116_W1000.csv.gz
+[     0s] 47/169 step4/luna_N1600_T0.4310_W1000.csv.gz
+[     0s] 48/169 step4/luna_N1600_T0.6389_W1000.csv.gz
+[     0s] 49/169 step4/P2_N1600_T0.4915_W1000.csv.gz
+[     0s] 50/169 step4/P4_N1600_T0.4915_W1000.csv.gz
+[     0s] 51/169 step4/selected_N1600_T1.5497_W500.csv.gz
+[     0s] 52/169 step4/selected_N1600_T1.6190_W500.csv.gz
+[     0s] 53/169 step4/selected_N1600_T1.6913_W500.csv.gz
+[     0s] 54/169 step4/selected_N1600_T1.7669_W500.csv.gz
+[     0s] 55/169 step4/selected_N1600_T1.8459_W500.csv.gz
+[     0s] 56/169 step4/selected_N1600_T1.9284_W500.csv.gz
+[     0s] 57/169 step4/selected_N1600_T2.0146_W500.csv.gz
+[     0s] 58/169 step4/selected_N1600_T2.1047_W500.csv.gz
+[     0s] 59/169 step4/selected_N1600_T2.1987_W500.csv.gz
+[     0s] 60/169 step4/selected_N1600_T2.2970_W500.csv.gz
+[     0s] 61/169 step4/selected_N1600_T2.5069_W500.csv.gz
+[     0s] 62/169 step4/selected_N1600_T2.6190_W500.csv.gz
+[     0s] 63/169 step4/selected_N1600_T1.4091_W500.csv.gz
+[     0s] 64/169 step4/selected_N1600_T1.4721_W500.csv.gz
+[     0s] 65/169 step4/selected_N1600_T1.5379_W500.csv.gz
+[     0s] 66/169 step4/selected_N1600_T1.6067_W500.csv.gz
+[     0s] 67/169 step4/selected_N1600_T1.6785_W500.csv.gz
+[     0s] 68/169 step4/selected_N1600_T1.7535_W500.csv.gz
+[     0s] 69/169 step4/selected_N1600_T1.8319_W500.csv.gz
+[     0s] 70/169 step4/selected_N1600_T1.9137_W500.csv.gz
+[     0s] 71/169 step4/selected_N1600_T1.9993_W500.csv.gz
+[     0s] 72/169 step4/selected_N1600_T2.0886_W500.csv.gz
+[     0s] 73/169 step4/selected_N1600_T2.1820_W500.csv.gz
+[     0s] 74/169 step4/selected_N1600_T2.2795_W500.csv.gz
+[     0s] 75/169 step4/selected_N1600_T2.3814_W500.csv.gz
+[     0s] 76/169 step4/selected_N1600_T2.3997_W500.csv.gz
+[     0s] 77/169 step4/luna_N1600_T0.3950_W1000.csv.gz
+[     0s] 78/169 step5/P1_N1600_T0.6082_W1000.csv.gz
+[     0s] 79/169 step5/P1_N1600_T0.5515_W1000.csv.gz
+[     0s] 80/169 step5/P1_N1600_T0.6708_W1000.csv.gz
+[     0s] 81/169 step5/P1_N1600_T0.7399_W1000.csv.gz
+[     0s] 82/169 step5/P1_N1600_T0.8160_W1000.csv.gz
+[     0s] 83/169 step5/P1_N1600_T0.9000_W1000.csv.gz
+[     0s] 84/169 step5/P1_N1600_T0.5000_W500.csv.gz
+[     0s] 85/169 step5/P1_N1600_T0.5515_W500.csv.gz
+[     0s] 86/169 step5/P1_N1600_T0.6082_W500.csv.gz
+[     0s] 87/169 step5/P1_N1600_T0.6708_W500.csv.gz
+[     0s] 88/169 step5/P1_N1600_T0.7399_W500.csv.gz
+[     0s] 89/169 step5/P1_N1600_T0.9000_W500.csv.gz
+[     0s] 90/169 step5/P1_N1600_T0.8160_W500.csv.gz
+[     0s] 91/169 step5/P1_N400_T0.5000_W2000.csv.gz
+[     0s] 92/169 step5/P1_N400_T0.6082_W2000.csv.gz
+[     0s] 93/169 step5/P1_N400_T0.5515_W2000.csv.gz
+[     0s] 94/169 step5/P1_N400_T0.7399_W2000.csv.gz
+[     0s] 95/169 step5/P1_N400_T0.6708_W2000.csv.gz
+[     0s] 96/169 step5/P1_N400_T0.8160_W2000.csv.gz
+[     0s] 97/169 step5/P1_N400_T0.9000_W2000.csv.gz
+[     0s] 98/169 step5/P1_N400_T0.5000_W1000.csv.gz
+[     0s] 99/169 step5/P1_N400_T0.5515_W1000.csv.gz
+[     0s] 100/169 step5/P1_N400_T0.6082_W1000.csv.gz
+[     0s] 101/169 step5/P1_N400_T0.7399_W1000.csv.gz
+[     0s] 102/169 step5/P1_N400_T0.6708_W1000.csv.gz
+[     0s] 103/169 step5/P1_N400_T0.8160_W1000.csv.gz
+[     0s] 104/169 step5/P1_N400_T0.9000_W1000.csv.gz
+[     0s] 105/169 step5/P1_N400_T0.5000_W500.csv.gz
+[     0s] 106/169 step5/P1_N400_T0.5515_W500.csv.gz
+[     0s] 107/169 step5/P1_N400_T0.6082_W500.csv.gz
+[     0s] 108/169 step5/P1_N400_T0.6708_W500.csv.gz
+[     0s] 109/169 step5/P1_N400_T0.7399_W500.csv.gz
+[     0s] 110/169 step5/P1_N400_T0.8160_W500.csv.gz
+[     0s] 111/169 step4/luna_N1600_T0.5854_W1000.csv.gz
+[     0s] 112/169 step5/P1_N100_T0.5000_W2000.csv.gz
+[     0s] 113/169 step5/P1_N100_T0.5515_W2000.csv.gz
+[     0s] 114/169 step5/P1_N100_T0.6082_W2000.csv.gz
+[     0s] 115/169 step5/P1_N100_T0.6708_W2000.csv.gz
+[     0s] 116/169 step5/P1_N100_T0.7399_W2000.csv.gz
+[     0s] 117/169 step5/P1_N100_T0.8160_W2000.csv.gz
+[     0s] 118/169 step5/P1_N100_T0.9000_W2000.csv.gz
+[     0s] 119/169 step4/P1_N100_T2.0146_W500.csv.gz
+[     0s] 120/169 step4/P2_N100_T2.0146_W500.csv.gz
+[     0s] 121/169 step4/P4_N100_T2.0146_W500.csv.gz
+[     0s] 122/169 step5/P1_N400_T0.9000_W500.csv.gz
+[     0s] 123/169 step4/gemini_N100_T1.8319_W500.csv.gz
+[     0s] 124/169 step4/P2_N100_T1.8319_W500.csv.gz
+[     0s] 125/169 step4/P4_N100_T1.8319_W500.csv.gz
+[     0s] 126/169 step4/luna_N100_T0.4915_W1000.csv.gz
+[     0s] 127/169 step4/P4_N100_T0.4915_W1000.csv.gz
+[     0s] 128/169 step4/selected_N100_T1.5497_W500.csv.gz
+[     0s] 129/169 step4/selected_N100_T1.6190_W500.csv.gz
+[     0s] 130/169 step4/selected_N100_T1.6913_W500.csv.gz
+[     0s] 131/169 step5/P1_N1600_T0.5000_W1000.csv.gz
+[     0s] 132/169 step4/selected_N100_T1.8459_W500.csv.gz
+[     0s] 133/169 step4/selected_N100_T1.9284_W500.csv.gz
+[     0s] 134/169 step4/selected_N100_T2.0146_W500.csv.gz
+[     0s] 135/169 step4/selected_N100_T2.1047_W500.csv.gz
+[     0s] 136/169 step4/selected_N100_T2.1987_W500.csv.gz
+[     0s] 137/169 step4/selected_N100_T2.2970_W500.csv.gz
+[     0s] 138/169 step4/selected_N100_T2.3997_W500.csv.gz
+[     0s] 139/169 step4/selected_N100_T2.5069_W500.csv.gz
+[     0s] 140/169 step4/selected_N100_T2.6190_W500.csv.gz
+[     0s] 141/169 step4/selected_N100_T1.4091_W500.csv.gz
+[     0s] 142/169 step4/selected_N100_T1.4721_W500.csv.gz
+[     0s] 143/169 step4/selected_N100_T1.6067_W500.csv.gz
+[     0s] 144/169 step4/selected_N100_T1.6785_W500.csv.gz
+[     0s] 145/169 step4/selected_N100_T1.7535_W500.csv.gz
+[     0s] 146/169 step4/selected_N100_T1.8319_W500.csv.gz
+[     0s] 147/169 step4/selected_N100_T1.9137_W500.csv.gz
+[     0s] 148/169 step4/selected_N100_T1.9993_W500.csv.gz
+[     0s] 149/169 step4/selected_N100_T2.0886_W500.csv.gz
+[     0s] 150/169 step4/selected_N100_T2.1820_W500.csv.gz
+[     0s] 151/169 step4/selected_N100_T2.2795_W500.csv.gz
+[     0s] 152/169 step4/selected_N100_T2.3814_W500.csv.gz
+[     8s] 153/169 step5/P1_N100_T0.5000_W1000.csv.gz
+[     8s] 154/169 step5/P1_N100_T0.5515_W1000.csv.gz
+[     8s] 155/169 step5/P1_N100_T0.6082_W1000.csv.gz
+[     8s] 156/169 step5/P1_N100_T0.6708_W1000.csv.gz
+[     8s] 157/169 step5/P1_N100_T0.7399_W1000.csv.gz
+[     9s] 158/169 step4/selected_N100_T1.7669_W500.csv.gz
+[     9s] 159/169 step5/P1_N100_T0.9000_W1000.csv.gz
+[     9s] 160/169 step4/P2_N100_T0.4915_W1000.csv.gz
+[     9s] 161/169 step5/P1_N100_T0.5515_W500.csv.gz
+[     9s] 162/169 step5/P1_N100_T0.6082_W500.csv.gz
+[     9s] 163/169 step5/P1_N100_T0.6708_W500.csv.gz
+[     9s] 164/169 step5/P1_N100_T0.7399_W500.csv.gz
+[     9s] 165/169 step5/P1_N100_T0.8160_W500.csv.gz
+[     9s] 166/169 step5/P1_N100_T0.9000_W500.csv.gz
+[     9s] 167/169 step4/selected_N100_T1.5379_W500.csv.gz
+[    12s] 168/169 step5/P1_N100_T0.5000_W500.csv.gz
+[    16s] 169/169 step5/P1_N100_T0.8160_W1000.csv.gz
+$ python llm/confirm_step45.py gemma
+[     0s] len 20/126
+[     0s] len 40/126
+[     0s] len 60/126
+[     0s] len 80/126
+[     0s] len 100/126
+[     0s] len 120/126
+[     0s] basin 1/24 N1600_T2.0000.csv.gz
+[     0s] basin 2/24 N1600_T2.1630.csv.gz
+[     0s] basin 3/24 N1600_T2.3392.csv.gz
+[     0s] basin 4/24 N1600_T2.5298.csv.gz
+[     0s] basin 5/24 N1600_T2.9589.csv.gz
+[     0s] basin 6/24 N400_T2.0000.csv.gz
+[     0s] basin 7/24 N1600_T2.7360.csv.gz
+[     0s] basin 8/24 N1600_T1.0000.csv.gz
+[     0s] basin 9/24 N400_T2.1630.csv.gz
+[     0s] basin 10/24 N400_T2.3392.csv.gz
+[     0s] basin 11/24 N400_T2.5298.csv.gz
+[     0s] basin 12/24 N400_T2.7360.csv.gz
+[     0s] basin 13/24 N400_T2.9589.csv.gz
+[     0s] basin 14/24 N400_T3.2000.csv.gz
+[     0s] basin 15/24 N1600_T3.2000.csv.gz
+[     0s] basin 16/24 N100_T2.1630.csv.gz
+[     0s] basin 17/24 N100_T2.3392.csv.gz
+[     0s] basin 18/24 N100_T2.0000.csv.gz
+[     0s] basin 19/24 N400_T1.0000.csv.gz
+[     0s] basin 20/24 N100_T2.9589.csv.gz
+[     0s] basin 21/24 N100_T2.7360.csv.gz
+[     0s] basin 22/24 N100_T3.2000.csv.gz
+[     0s] basin 23/24 N100_T1.0000.csv.gz
+[     0s] basin 24/24 N100_T2.5298.csv.gz
+$ python llm/confirm_analyse.py
+P1 confirmatory amplification at the tipping point exceeds the controls for 3 of 3 synthetic shapes
+   stay {'A_model': 0.313, 'A_P2': 0.079, 'A_P4': 0.161, 'D': 0.152, 'D_ci': [0.09266650156250016, 0.21552951406250054], 'rule_A': True, 'G': 1.361, 'G_ci': [0.9617748346488053, 2.0805917565209353], 'rule_B': False, 'peak_T': 1.928, 'rule_C': True}
+   majority {'A_model': 1.096, 'A_P2': 0.005, 'A_P4': 0.305, 'D': 0.791, 'D_ci': [0.6755366859603817, 0.8957131554303905], 'rule_A': True, 'G': 1.743, 'G_ci': [1.440440155548856, 2.111132788714757], 'rule_B': True, 'peak_T': 1.928, 'rule_C': True}
+   noise {'A_model': 2.18, 'A_P2': 0.149, 'A_P4': 0.091, 'D': 2.032, 'D_ci': [1.9579423032353258, 2.099645222324801], 'rule_A': True, 'G': 11.712, 'G_ci': [9.22126144665802, 14.424624750438833], 'rule_B': True, 'peak_T': 2.015, 'rule_C': True}
+   fixed {'A_model': 0.616, 'rule_A': None, 'G': 1.733, 'G_ci': [1.427431972532772, 2.1171386947729833], 'rule_B': True, 'peak_T': 1.928, 'rule_C': True}
+gemini confirmatory amplification at the tipping point exceeds the controls for 3 of 3 synthetic shapes
+   stay {'A_model': 1.349, 'A_P2': 0.086, 'A_P4': 0.15, 'D': 1.199, 'D_ci': [1.1189631593750002, 1.27823603125], 'rule_A': True, 'G': 3.428, 'G_ci': [3.0157498269720717, 3.9385507238026385], 'rule_B': True, 'peak_T': 1.832, 'rule_C': True}
+   majority {'A_model': 1.302, 'A_P2': 0.003, 'A_P4': 0.27, 'D': 1.033, 'D_ci': [0.9383661973145146, 1.1343974624437128], 'rule_A': True, 'G': 3.748, 'G_ci': [3.1528146674032564, 4.611585827302863], 'rule_B': True, 'peak_T': 1.832, 'rule_C': True}
+   noise {'A_model': 1.332, 'A_P2': 0.159, 'A_P4': 0.096, 'D': 1.173, 'D_ci': [1.095658384348872, 1.2519858566471136], 'rule_A': True, 'G': 9.506, 'G_ci': [7.841909429368647, 12.104536149966888], 'rule_B': True, 'peak_T': 1.832, 'rule_C': True}
+   fixed {'A_model': 0.13, 'rule_A': None, 'G': 1.165, 'G_ci': [0.9024751639095794, 1.5044235040616083], 'rule_B': False, 'peak_T': 1.754, 'rule_C': True}
+luna exploratory (defined decision-noise rescaling, not verified sampling temperature) amplification at the tipping point exceeds the controls for 3 of 3 synthetic shapes
+   stay {'A_model': 0.2, 'A_P2': 0.001, 'A_P4': 0.001, 'D': 0.199, 'D_ci': [0.1327987562500001, 0.260989001562499], 'rule_A': True, 'rule_B': 'not tested (amplification below floor)', 'peak_T': 0.395, 'rule_C': False}
+   majority {'A_model': 0.482, 'A_P2': 0.066, 'A_P4': 0.006, 'D': 0.416, 'D_ci': [0.30802425775802844, 0.5195770860065143], 'rule_A': True, 'G': 2.411, 'G_ci': [1.7031492557979897, 3.6515205640175514], 'rule_B': True, 'peak_T': 0.431, 'rule_C': False}
+   noise {'A_model': 1.117, 'A_P2': 0.005, 'A_P4': 0.001, 'D': 1.112, 'D_ci': [1.0480902990711665, 1.1791570443210369], 'rule_A': True, 'rule_B': 'not tested (amplification below floor)', 'peak_T': 0.45, 'rule_C': True}
+   fixed {'A_model': 0.52, 'rule_A': None, 'G': 1.438, 'G_ci': [1.3917107403945896, 1.4885596567827974], 'rule_B': True, 'peak_T': 0.612, 'rule_C': False}
+GPT-4o-mini control: {'stay': ('below floor everywhere', 0, 0.075), 'majority': ('below floor everywhere', 0, 0.089), 'noise': ('below floor everywhere', 0, 0.096)}
+Step 5: finite-time effect {'persist:stay': {'growth_at_4x': False, 'maxG_1x': 0.5101260458867563, 'maxG_4x': 0.6431202644671691, 'not_halved': True}, 'persist:majority': {'growth_at_4x': False, 'maxG_1x': 3.3738572774319593, 'maxG_4x': None, 'not_halved': False}, 'persist:noise': {'growth_at_4x': False, 'maxG_1x': 1.4907717624021588, 'maxG_4x': 2.2964378771267353, 'not_halved': True}}
+Gemma: True

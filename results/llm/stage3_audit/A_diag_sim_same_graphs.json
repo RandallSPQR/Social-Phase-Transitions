@@ -1,0 +1,730 @@
+{
+ "P1": {
+  "abs_m": {
+   "primary": true,
+   "interval": [
+    0.2361899999999999,
+    0.45521
+   ],
+   "mock_mean": 0.3079725,
+   "sim_mean": 0.3118845,
+   "mock_sd": 0.06450527934125301,
+   "sim_sd": 0.0699971811802658,
+   "z_mock_minus_sim": -0.6324929561892978,
+   "paired_mean_diff": 0.0005125000000000025,
+   "paired_z": 0.07050160918012514,
+   "mock_inside": "136/160",
+   "sim_inside": "342/400",
+   "sim_inside_share": 0.855
+  },
+  "m": {
+   "primary": false,
+   "interval": [
+    -0.2078399999999999,
+    0.23223
+   ],
+   "mock_mean": -0.00655,
+   "sim_mean": -0.002232499999999999,
+   "mock_sd": 0.11860358368486629,
+   "sim_sd": 0.11535746706116132,
+   "z_mock_minus_sim": -0.3921987936886922,
+   "paired_mean_diff": 0.003607499999999997,
+   "paired_z": 0.27159972335877947,
+   "mock_inside": "150/160",
+   "sim_inside": "372/400",
+   "sim_inside_share": 0.93
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.65959,
+    0.7358
+   ],
+   "mock_mean": 0.696905,
+   "sim_mean": 0.7009385,
+   "mock_sd": 0.02294759630333052,
+   "sim_sd": 0.023252419342149267,
+   "z_mock_minus_sim": -1.871922777911977,
+   "paired_mean_diff": -0.0033599999999999962,
+   "paired_z": -1.4330448691510087,
+   "mock_inside": "145/160",
+   "sim_inside": "360/400",
+   "sim_inside_share": 0.9
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.1301699999999999,
+    0.1618749999999999
+   ],
+   "mock_mean": 0.14757437500000004,
+   "sim_mean": 0.1471185,
+   "mock_sd": 0.007651599881004868,
+   "sim_sd": 0.008076892858371593,
+   "z_mock_minus_sim": 0.6267786498630405,
+   "paired_mean_diff": 0.0004100000000000005,
+   "paired_z": 0.5277090409373418,
+   "mock_inside": "151/160",
+   "sim_inside": "381/400",
+   "sim_inside_share": 0.9525
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.0454,
+    0.055105
+   ],
+   "mock_mean": 0.04960875,
+   "sim_mean": 0.049076749999999995,
+   "mock_sd": 0.003233577521091099,
+   "sim_sd": 0.0035265316532328375,
+   "z_mock_minus_sim": 1.713090490849565,
+   "paired_mean_diff": 0.0003643749999999998,
+   "paired_z": 1.1169660723052486,
+   "mock_inside": "137/160",
+   "sim_inside": "329/400",
+   "sim_inside_share": 0.8225
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.0935999999999999,
+    0.2680199999999999
+   ],
+   "mock_mean": 0.16267,
+   "sim_mean": 0.16323900000000002,
+   "mock_sd": 0.046291600770407504,
+   "sim_sd": 0.05179111001602234,
+   "z_mock_minus_sim": -0.1269185336515275,
+   "paired_mean_diff": 0.009040000000000001,
+   "paired_z": 1.758568162381014,
+   "mock_inside": "150/160",
+   "sim_inside": "363/400",
+   "sim_inside_share": 0.9075
+  }
+ },
+ "P2": {
+  "abs_m": {
+   "primary": false,
+   "interval": [
+    0.5812,
+    0.6628000000000001
+   ],
+   "mock_mean": 0.62119,
+   "sim_mean": 0.6221795,
+   "mock_sd": 0.04049524061936801,
+   "sim_sd": 0.033131430832708635,
+   "z_mock_minus_sim": -0.14961399810595075,
+   "paired_mean_diff": 0.009000000000000005,
+   "paired_z": 1.1616021581807137,
+   "mock_inside": "29/40",
+   "sim_inside": "312/400",
+   "sim_inside_share": 0.78
+  },
+  "m": {
+   "primary": true,
+   "interval": [
+    0.5806000000000001,
+    0.6642
+   ],
+   "mock_mean": 0.62119,
+   "sim_mean": 0.6221765,
+   "mock_sd": 0.04049524061936801,
+   "sim_sd": 0.03314021472970305,
+   "z_mock_minus_sim": -0.14915791195351014,
+   "paired_mean_diff": 0.009000000000000005,
+   "paired_z": 1.1616021581807137,
+   "mock_inside": "29/40",
+   "sim_inside": "319/400",
+   "sim_inside_share": 0.7975
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.5933900000000001,
+    0.6704300000000001
+   ],
+   "mock_mean": 0.62607,
+   "sim_mean": 0.6273125,
+   "mock_sd": 0.0222889900382022,
+   "sim_sd": 0.02394427624008824,
+   "z_mock_minus_sim": -0.33382573336445615,
+   "paired_mean_diff": -0.004680000000000006,
+   "paired_z": -0.8943905028293945,
+   "mock_inside": "37/40",
+   "sim_inside": "351/400",
+   "sim_inside_share": 0.8775
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.28785,
+    0.328555
+   ],
+   "mock_mean": 0.31114,
+   "sim_mean": 0.31116625,
+   "mock_sd": 0.008523415711122818,
+   "sim_sd": 0.007233132547771684,
+   "z_mock_minus_sim": -0.018812439498509314,
+   "paired_mean_diff": 0.0017125000000000044,
+   "paired_z": 1.0042897939438566,
+   "mock_inside": "39/40",
+   "sim_inside": "396/400",
+   "sim_inside_share": 0.99
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.0532,
+    0.0605
+   ],
+   "mock_mean": 0.056652499999999995,
+   "sim_mean": 0.056746,
+   "mock_sd": 0.003159112785220495,
+   "sim_sd": 0.0031421276893277427,
+   "z_mock_minus_sim": -0.17856319096975612,
+   "paired_mean_diff": -5.000000000001531e-06,
+   "paired_z": -0.0060920025924950435,
+   "mock_inside": "28/40",
+   "sim_inside": "305/400",
+   "sim_inside_share": 0.7625
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.3183999999999999,
+    0.4520399999999999
+   ],
+   "mock_mean": 0.39498,
+   "sim_mean": 0.3928749999999999,
+   "mock_sd": 0.050453691384862775,
+   "sim_sd": 0.04518491525294742,
+   "z_mock_minus_sim": 0.2538844327729085,
+   "paired_mean_diff": 0.01346000000000001,
+   "paired_z": 1.4012079298006732,
+   "mock_inside": "32/40",
+   "sim_inside": "347/400",
+   "sim_inside_share": 0.8675
+  }
+ },
+ "P3": {
+  "abs_m": {
+   "primary": true,
+   "interval": [
+    0.1987899999999999,
+    0.3652
+   ],
+   "mock_mean": 0.28129125,
+   "sim_mean": 0.2713755,
+   "mock_sd": 0.048659044015120244,
+   "sim_sd": 0.04636251077933993,
+   "z_mock_minus_sim": 2.2077644474596165,
+   "paired_mean_diff": 0.009084999999999996,
+   "paired_z": 1.7992448057953274,
+   "mock_inside": "139/160",
+   "sim_inside": "365/400",
+   "sim_inside_share": 0.9125
+  },
+  "m": {
+   "primary": false,
+   "interval": [
+    -0.3686,
+    -0.19514
+   ],
+   "mock_mean": -0.27613125000000005,
+   "sim_mean": -0.26663650000000005,
+   "mock_sd": 0.05136895789195709,
+   "sim_sd": 0.05003206157769522,
+   "z_mock_minus_sim": -1.9906260780679392,
+   "paired_mean_diff": -0.008434999999999998,
+   "paired_z": -1.5764750896737085,
+   "mock_inside": "141/160",
+   "sim_inside": "360/400",
+   "sim_inside_share": 0.9
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.9116,
+    0.946
+   ],
+   "mock_mean": 0.9299837500000001,
+   "sim_mean": 0.9299965,
+   "mock_sd": 0.010629186633537199,
+   "sim_sd": 0.010798138136643981,
+   "z_mock_minus_sim": -0.01276518670593459,
+   "paired_mean_diff": -0.00043250000000000997,
+   "paired_z": -0.3970222989095198,
+   "mock_inside": "140/160",
+   "sim_inside": "360/400",
+   "sim_inside_share": 0.9
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.164675,
+    0.1982799999999999
+   ],
+   "mock_mean": 0.177439375,
+   "sim_mean": 0.18025825,
+   "mock_sd": 0.011677863523019274,
+   "sim_sd": 0.01118928481513387,
+   "z_mock_minus_sim": -2.611269306003551,
+   "paired_mean_diff": -0.002454999999999998,
+   "paired_z": -2.3140902573942874,
+   "mock_inside": "133/160",
+   "sim_inside": "352/400",
+   "sim_inside_share": 0.88
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.0049,
+    0.0081049999999999
+   ],
+   "mock_mean": 0.006050625,
+   "sim_mean": 0.006036999999999999,
+   "mock_sd": 0.000879178924770724,
+   "sim_sd": 0.0008932388757902656,
+   "z_mock_minus_sim": 0.16491650942051314,
+   "paired_mean_diff": 2.999999999999991e-05,
+   "paired_z": 0.35032828055620063,
+   "mock_inside": "146/160",
+   "sim_inside": "361/400",
+   "sim_inside_share": 0.9025
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.0623799999999999,
+    0.1656199999999999
+   ],
+   "mock_mean": 0.12708749999999996,
+   "sim_mean": 0.119557,
+   "mock_sd": 0.04063072968786745,
+   "sim_sd": 0.037179800900320435,
+   "z_mock_minus_sim": 2.029077236354762,
+   "paired_mean_diff": 0.004105,
+   "paired_z": 1.0054205079528902,
+   "mock_inside": "128/160",
+   "sim_inside": "334/400",
+   "sim_inside_share": 0.835
+  }
+ },
+ "P4": {
+  "abs_m": {
+   "primary": false,
+   "interval": [
+    0.8664,
+    0.9112
+   ],
+   "mock_mean": 0.8845599999999999,
+   "sim_mean": 0.8864635,
+   "mock_sd": 0.013520446055454714,
+   "sim_sd": 0.013029869973596122,
+   "z_mock_minus_sim": -0.85173921135383,
+   "paired_mean_diff": 0.0020099999999999814,
+   "paired_z": 0.710906789714081,
+   "mock_inside": "36/40",
+   "sim_inside": "360/400",
+   "sim_inside_share": 0.9
+  },
+  "m": {
+   "primary": true,
+   "interval": [
+    0.86639,
+    0.9098
+   ],
+   "mock_mean": 0.8845599999999999,
+   "sim_mean": 0.8864635,
+   "mock_sd": 0.013520446055454714,
+   "sim_sd": 0.013029869973596122,
+   "z_mock_minus_sim": -0.85173921135383,
+   "paired_mean_diff": 0.0020099999999999814,
+   "paired_z": 0.710906789714081,
+   "mock_inside": "36/40",
+   "sim_inside": "358/400",
+   "sim_inside_share": 0.895
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.7548,
+    0.8392
+   ],
+   "mock_mean": 0.79812,
+   "sim_mean": 0.7990515,
+   "mock_sd": 0.02324009797410834,
+   "sim_sd": 0.02150758676539928,
+   "z_mock_minus_sim": -0.2432936462790578,
+   "paired_mean_diff": 0.003810000000000002,
+   "paired_z": 0.8550896543418031,
+   "mock_inside": "40/40",
+   "sim_inside": "381/400",
+   "sim_inside_share": 0.9525
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.097575,
+    0.1418749999999999
+   ],
+   "mock_mean": 0.11326250000000002,
+   "sim_mean": 0.11261050000000003,
+   "mock_sd": 0.004734498998756974,
+   "sim_sd": 0.004376680028306324,
+   "z_mock_minus_sim": 0.8359830863632612,
+   "paired_mean_diff": 0.0001150000000000026,
+   "paired_z": 0.10688855537436877,
+   "mock_inside": "40/40",
+   "sim_inside": "400/400",
+   "sim_inside_share": 1.0
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.0433,
+    0.0579999999999999
+   ],
+   "mock_mean": 0.04983,
+   "sim_mean": 0.0493995,
+   "mock_sd": 0.00379906871179281,
+   "sim_sd": 0.00369248369523807,
+   "z_mock_minus_sim": 0.6850535930400704,
+   "paired_mean_diff": 0.00015750000000000036,
+   "paired_z": 0.22349380954663453,
+   "mock_inside": "39/40",
+   "sim_inside": "379/400",
+   "sim_inside_share": 0.9475
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.7611799999999999,
+    0.8320000000000001
+   ],
+   "mock_mean": 0.7861800000000001,
+   "sim_mean": 0.788587,
+   "mock_sd": 0.023636382212651835,
+   "sim_sd": 0.023604643165008207,
+   "z_mock_minus_sim": -0.614160280284117,
+   "paired_mean_diff": 0.004800000000000024,
+   "paired_z": 0.9366253124699971,
+   "mock_inside": "34/40",
+   "sim_inside": "340/400",
+   "sim_inside_share": 0.85
+  }
+ },
+ "P5": {
+  "abs_m": {
+   "primary": true,
+   "interval": [
+    0.1379999999999999,
+    0.2379999999999999
+   ],
+   "mock_mean": 0.183815,
+   "sim_mean": 0.17948350000000005,
+   "mock_sd": 0.034069352721644054,
+   "sim_sd": 0.03180934633146503,
+   "z_mock_minus_sim": 0.7711788557375892,
+   "paired_mean_diff": 0.004044999999999998,
+   "paired_z": 0.6260774103695691,
+   "mock_inside": "33/40",
+   "sim_inside": "349/400",
+   "sim_inside_share": 0.8725
+  },
+  "m": {
+   "primary": false,
+   "interval": [
+    -0.072,
+    0.0620099999999999
+   ],
+   "mock_mean": -0.0027550000000000005,
+   "sim_mean": -0.0026664999999999996,
+   "mock_sd": 0.07332940065212588,
+   "sim_sd": 0.05792956640965844,
+   "z_mock_minus_sim": -0.00740541406789306,
+   "paired_mean_diff": -0.0010750000000000024,
+   "paired_z": -0.06836518820452533,
+   "mock_inside": "26/40",
+   "sim_inside": "295/400",
+   "sim_inside_share": 0.7375
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.1103999999999999,
+    0.1958299999999999
+   ],
+   "mock_mean": 0.16765500000000003,
+   "sim_mean": 0.16720649999999998,
+   "mock_sd": 0.025070362009393703,
+   "sim_sd": 0.025102649567091927,
+   "z_mock_minus_sim": 0.10786601177524643,
+   "paired_mean_diff": -0.002774999999999997,
+   "paired_z": -0.5240581366763697,
+   "mock_inside": "37/40",
+   "sim_inside": "346/400",
+   "sim_inside_share": 0.865
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.35,
+    0.3816
+   ],
+   "mock_mean": 0.3666175,
+   "sim_mean": 0.36616699999999996,
+   "mock_sd": 0.012021388790881793,
+   "sim_sd": 0.00948055448184377,
+   "z_mock_minus_sim": 0.22996828256792448,
+   "paired_mean_diff": -0.00015999999999999625,
+   "paired_z": -0.09719381396947216,
+   "mock_inside": "34/40",
+   "sim_inside": "362/400",
+   "sim_inside_share": 0.905
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.29869,
+    0.3359999999999999
+   ],
+   "mock_mean": 0.31943,
+   "sim_mean": 0.31869725,
+   "mock_sd": 0.01431085655663613,
+   "sim_sd": 0.011215750089167318,
+   "z_mock_minus_sim": 0.3143229632471538,
+   "paired_mean_diff": 0.0011674999999999921,
+   "paired_z": 0.8371811365582211,
+   "mock_inside": "32/40",
+   "sim_inside": "362/400",
+   "sim_inside_share": 0.905
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.0703999999999999,
+    0.1139999999999999
+   ],
+   "mock_mean": 0.09727,
+   "sim_mean": 0.09623700000000002,
+   "mock_sd": 0.017219401699007864,
+   "sim_sd": 0.013697960296727643,
+   "z_mock_minus_sim": 0.36794945399725915,
+   "paired_mean_diff": 0.0031299999999999982,
+   "paired_z": 0.9343266504203724,
+   "mock_inside": "34/40",
+   "sim_inside": "359/400",
+   "sim_inside_share": 0.8975
+  }
+ },
+ "P2-nc": {
+  "abs_m": {
+   "primary": false,
+   "interval": [
+    0.3455899999999999,
+    0.4276
+   ],
+   "mock_mean": 0.38872,
+   "sim_mean": 0.38616500000000004,
+   "mock_sd": 0.017258445721383745,
+   "sim_sd": 0.023001548928992414,
+   "z_mock_minus_sim": 0.8628100686937402,
+   "paired_mean_diff": 0.0017449999999999953,
+   "paired_z": 0.37171350294154376,
+   "mock_inside": "39/40",
+   "sim_inside": "367/400",
+   "sim_inside_share": 0.9175
+  },
+  "m": {
+   "primary": true,
+   "interval": [
+    0.3428,
+    0.4270099999999999
+   ],
+   "mock_mean": 0.38872,
+   "sim_mean": 0.38616300000000003,
+   "mock_sd": 0.017258445721383745,
+   "sim_sd": 0.023004788234284198,
+   "z_mock_minus_sim": 0.8634671152232982,
+   "paired_mean_diff": 0.0017449999999999953,
+   "paired_z": 0.37171350294154376,
+   "mock_inside": "39/40",
+   "sim_inside": "372/400",
+   "sim_inside_share": 0.93
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.4744,
+    0.542
+   ],
+   "mock_mean": 0.5050700000000001,
+   "sim_mean": 0.5065569999999999,
+   "mock_sd": 0.022876370072463587,
+   "sim_sd": 0.01954742965238749,
+   "z_mock_minus_sim": -0.39687266931914783,
+   "paired_mean_diff": -0.003424999999999995,
+   "paired_z": -0.6716287572007821,
+   "mock_inside": "34/40",
+   "sim_inside": "372/400",
+   "sim_inside_share": 0.93
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.33975,
+    0.36635
+   ],
+   "mock_mean": 0.3503225,
+   "sim_mean": 0.350184,
+   "mock_sd": 0.008663480306761303,
+   "sim_sd": 0.008009267439178238,
+   "z_mock_minus_sim": 0.0970462977092663,
+   "paired_mean_diff": 0.0007575000000000012,
+   "paired_z": 0.4607822926151282,
+   "mock_inside": "35/40",
+   "sim_inside": "356/400",
+   "sim_inside_share": 0.89
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.0701,
+    0.0782
+   ],
+   "mock_mean": 0.07594000000000001,
+   "sim_mean": 0.07602400000000001,
+   "mock_sd": 0.002370740444757767,
+   "sim_sd": 0.0026828096595123787,
+   "z_mock_minus_sim": -0.21098873813542765,
+   "paired_mean_diff": 0.0005949999999999986,
+   "paired_z": 0.9120289704156024,
+   "mock_inside": "34/40",
+   "sim_inside": "313/400",
+   "sim_inside_share": 0.7825
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.1095799999999999,
+    0.2124
+   ],
+   "mock_mean": 0.15996,
+   "sim_mean": 0.155582,
+   "mock_sd": 0.02529153907372876,
+   "sim_sd": 0.027532372852466205,
+   "z_mock_minus_sim": 1.0351696360514382,
+   "paired_mean_diff": 0.00701,
+   "paired_z": 1.1028020947783055,
+   "mock_inside": "40/40",
+   "sim_inside": "374/400",
+   "sim_inside_share": 0.935
+  }
+ },
+ "P4-nc": {
+  "abs_m": {
+   "primary": false,
+   "interval": [
+    0.5155899999999999,
+    0.5750099999999999
+   ],
+   "mock_mean": 0.54147,
+   "sim_mean": 0.5387905,
+   "mock_sd": 0.02403239480368116,
+   "sim_sd": 0.019418142816089935,
+   "z_mock_minus_sim": 0.6832089703400454,
+   "paired_mean_diff": 0.0031349999999999907,
+   "paired_z": 0.7251172497489511,
+   "mock_inside": "32/40",
+   "sim_inside": "345/400",
+   "sim_inside_share": 0.8625
+  },
+  "m": {
+   "primary": true,
+   "interval": [
+    0.5162,
+    0.57601
+   ],
+   "mock_mean": 0.54147,
+   "sim_mean": 0.5387905,
+   "mock_sd": 0.02403239480368116,
+   "sim_sd": 0.019418142816089935,
+   "z_mock_minus_sim": 0.6832089703400454,
+   "paired_mean_diff": 0.0031349999999999907,
+   "paired_z": 0.7251172497489511,
+   "mock_inside": "33/40",
+   "sim_inside": "343/400",
+   "sim_inside_share": 0.8575
+  },
+  "persistence": {
+   "primary": true,
+   "interval": [
+    0.4129899999999999,
+    0.48101
+   ],
+   "mock_mean": 0.44966000000000006,
+   "sim_mean": 0.44972850000000003,
+   "mock_sd": 0.01837184021323158,
+   "sim_sd": 0.02120695936630025,
+   "z_mock_minus_sim": -0.02215164426468802,
+   "paired_mean_diff": -0.00027499999999997665,
+   "paired_z": -0.0783996891509425,
+   "mock_inside": "38/40",
+   "sim_inside": "352/400",
+   "sim_inside_share": 0.88
+  },
+  "excess_unsat": {
+   "primary": false,
+   "interval": [
+    0.258575,
+    0.283475
+   ],
+   "mock_mean": 0.2698775,
+   "sim_mean": 0.27041425,
+   "mock_sd": 0.008115022078425495,
+   "sim_sd": 0.007852032888922575,
+   "z_mock_minus_sim": -0.40001698193765367,
+   "paired_mean_diff": 0.00021749999999999756,
+   "paired_z": 0.10799786499626464,
+   "mock_inside": "37/40",
+   "sim_inside": "354/400",
+   "sim_inside_share": 0.885
+  },
+  "flip_rate": {
+   "primary": false,
+   "interval": [
+    0.1185,
+    0.1346
+   ],
+   "mock_mean": 0.12298500000000001,
+   "sim_mean": 0.12427975,
+   "mock_sd": 0.004215815764962056,
+   "sim_sd": 0.004120340757436634,
+   "z_mock_minus_sim": -1.855768321534908,
+   "paired_mean_diff": -0.0015099999999999968,
+   "paired_z": -2.1196833703812157,
+   "mock_inside": "35/40",
+   "sim_inside": "369/400",
+   "sim_inside_share": 0.9225
+  },
+  "abs_q": {
+   "primary": false,
+   "interval": [
+    0.24718,
+    0.3372
+   ],
+   "mock_mean": 0.28776,
+   "sim_mean": 0.290761,
+   "mock_sd": 0.02635735483401462,
+   "sim_sd": 0.02642310219910905,
+   "z_mock_minus_sim": -0.6864347170447868,
+   "paired_mean_diff": -0.0032099999999999967,
+   "paired_z": -0.6668277817357463,
+   "mock_inside": "36/40",
+   "sim_inside": "370/400",
+   "sim_inside_share": 0.925
+  }
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "pair": "gemma-31b (Io Net) vs gemma-31b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9889592424331534,
+ "slope_lo": 0.940421516704496,
+ "slope_hi": 1.029765346696559,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.30370728216911974,
+ "kappa": 0.9823667011367087,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}

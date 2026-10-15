@@ -1,0 +1,13 @@
+$ python llm/stage2.py floor
+$ python llm/stage2.py stage3
+stage3: 21520 runs -> results/llm/stage2/stage3.csv
+$ python llm/stage2.py fss
+fss: 11520 runs -> results/llm/stage2/fss.csv
+$ python llm/stage2.py jitter
+jitter: 1920 runs -> results/llm/stage2/jitter.csv
+$ python llm/stage2_report.py
+wrote stage3
+wrote jitter
+wrote fss
+$ python llm/plot_stage2.py
+ok

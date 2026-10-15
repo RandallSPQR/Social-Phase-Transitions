@@ -1,0 +1,50 @@
+0 {'run': 0, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+1 {'run': 1, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+2 {'run': 2, 'B': 100, 'noise': 0.3, 'frac_agree': 1.0, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+3 {'run': 3, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': False, 'verdict': 'jitter biases estimates'}
+4 {'run': 4, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+5 {'run': 5, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+6 {'run': 6, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+7 {'run': 7, 'B': 100, 'noise': 0.3, 'frac_agree': 0.896551724137931, 'slope_ci_contains_1': True, 'verdict': 'jitter biases estimates'}
+8 {'run': 8, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+9 {'run': 9, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+10 {'run': 10, 'B': 100, 'noise': 0.3, 'frac_agree': 1.0, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+11 {'run': 11, 'B': 100, 'noise': 0.3, 'frac_agree': 0.7586206896551724, 'slope_ci_contains_1': True, 'verdict': 'jitter biases estimates'}
+12 {'run': 12, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+13 {'run': 13, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+14 {'run': 14, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+15 {'run': 15, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+16 {'run': 16, 'B': 100, 'noise': 0.3, 'frac_agree': 0.8620689655172413, 'slope_ci_contains_1': True, 'verdict': 'jitter biases estimates'}
+17 {'run': 17, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9310344827586207, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+18 {'run': 18, 'B': 100, 'noise': 0.3, 'frac_agree': 1.0, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+19 {'run': 19, 'B': 100, 'noise': 0.3, 'frac_agree': 0.9655172413793104, 'slope_ci_contains_1': True, 'verdict': 'jitter averages out'}
+{
+ "R": 20,
+ "B": 100,
+ "noise": 0.3,
+ "p_verdict_averages_out": 0.8,
+ "p_frac_agree_ge_0_9": 0.85,
+ "p_slope_ci_contains_1": 0.95,
+ "frac_agree_mean": 0.9431034482758619,
+ "frac_agree_min": 0.7586206896551724
+}
+{
+ "R": 20,
+ "B": 100,
+ "noise": 0.3,
+ "p_verdict_averages_out": 0.8,
+ "p_frac_agree_ge_0_9": 0.85,
+ "p_slope_ci_contains_1": 0.95,
+ "frac_agree_mean": 0.9431034482758619,
+ "frac_agree_min": 0.7586206896551724
+}
+{
+ "R": 20,
+ "B": 100,
+ "noise": 0.3,
+ "p_verdict_averages_out": 0.8,
+ "p_frac_agree_ge_0_9": 0.85,
+ "p_slope_ci_contains_1": 0.95,
+ "frac_agree_mean": 0.9431034482758619,
+ "frac_agree_min": 0.7586206896551724
+}

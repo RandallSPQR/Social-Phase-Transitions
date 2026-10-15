@@ -1,0 +1,209 @@
+$ python llm/confirm_sim.py locate P1 gemini gemma gemma_exact selected luna
+[     0s] 10/90 P1_N1600_T0.5017_c_W1000.csv.gz
+[     0s] 20/90 P1_N1600_T2.5085_h_W1000.csv.gz
+[     0s] 30/90 P1_N400_T0.2000_c_W1000.csv.gz
+[     0s] 40/90 P1_N400_T0.6314_c_W1000.csv.gz
+[     0s] 50/90 P1_N400_T2.5085_h_W1000.csv.gz
+[     0s] 60/90 P1_N100_T0.2000_h_W1000.csv.gz
+[     0s] 70/90 P1_N100_T0.6314_h_W1000.csv.gz
+[     0s] 80/90 P1_N100_T1.9932_h_W1000.csv.gz
+[     0s] 90/90 P1_N100_T5.0000_c_W1000.csv.gz
+[     0s] 10/78 P1_N1600_T1.5874_c_W1000.csv.gz
+[     0s] 20/78 P1_N1600_T2.1040_h_W1000.csv.gz
+[     0s] 30/78 P1_N400_T1.3405_c_W1000.csv.gz
+[     0s] 40/78 P1_N400_T1.7767_c_W1000.csv.gz
+[     0s] 50/78 P1_N400_T2.3550_c_W1000.csv.gz
+[     0s] 60/78 P1_N100_T1.5874_h_W1000.csv.gz
+[     0s] 70/78 P1_N100_T1.9887_c_W1000.csv.gz
+[     0s] 78/78 P1_N100_T2.4915_h_W1000.csv.gz
+[     0s] 10/26 P1_N1600_T1.6190_c_W200.csv.gz
+[     0s] 20/26 P1_N1600_T2.3997_c_W200.csv.gz
+[     0s] 26/26 P1_N1600_T1.6913_h_W200.csv.gz
+[     0s] 10/26 P1_N1600_T1.9284_c_W500.csv.gz
+[     0s] 20/26 P1_N1600_T2.3997_h_W500.csv.gz
+[     0s] 26/26 P1_N1600_T2.6190_h_W500.csv.gz
+P1 {"result": "transition located", "Tc": 2.014609755738853, "Tc_ci": [1.956305826220242, 2.073019630758241], "check_100_400": [1.9242929172749286], "check_scaled_m2": [1.9882264572087742], "frozen": [0.2, 0.2517, 0.3168, 0.3986, 0.5017, 0.6314], "step4": {"W": 500, "R": 400}}
+[     0s] 10/90 gemini_N1600_T0.6314_h_W1000.csv.gz
+[     0s] 20/90 gemini_N1600_T1.2585_c_W1000.csv.gz
+[     0s] 30/90 gemini_N1600_T3.1569_h_W1000.csv.gz
+[     0s] 40/90 gemini_N400_T0.3986_h_W1000.csv.gz
+[     0s] 50/90 gemini_N400_T1.9932_h_W1000.csv.gz
+[     0s] 60/90 gemini_N100_T0.2000_c_W1000.csv.gz
+[     0s] 70/90 gemini_N100_T0.6314_c_W1000.csv.gz
+[     0s] 80/90 gemini_N100_T1.5838_h_W1000.csv.gz
+[     0s] 90/90 gemini_N100_T5.0000_c_W1000.csv.gz
+[     0s] 10/78 gemini_N1600_T1.7767_h_W1000.csv.gz
+[     0s] 20/78 gemini_N1600_T2.3550_h_W1000.csv.gz
+[     0s] 30/78 gemini_N400_T1.4182_h_W1000.csv.gz
+[     0s] 40/78 gemini_N400_T1.8797_c_W1000.csv.gz
+[     0s] 50/78 gemini_N400_T2.3550_c_W1000.csv.gz
+[     0s] 60/78 gemini_N100_T1.5874_h_W1000.csv.gz
+[     0s] 70/78 gemini_N100_T2.1040_h_W1000.csv.gz
+[     1s] 78/78 gemini_N100_T1.5874_c_W1000.csv.gz
+[     0s] 10/26 gemini_N1600_T1.4721_c_W200.csv.gz
+[     0s] 20/26 gemini_N1600_T2.1820_h_W200.csv.gz
+[     0s] 26/26 gemini_N1600_T1.6067_h_W200.csv.gz
+[     0s] 10/26 gemini_N1600_T1.6067_c_W500.csv.gz
+[     0s] 20/26 gemini_N1600_T2.1820_h_W500.csv.gz
+[     0s] 26/26 gemini_N1600_T1.4721_h_W500.csv.gz
+gemini {"result": "transition located", "Tc": 1.8318654229855829, "Tc_ci": [1.814872626669177, 1.8588985106060363], "check_100_400": [1.8447223700792772], "check_scaled_m2": [1.856427246906904], "frozen": [], "step4": {"W": 500, "R": 400}}
+[     0s] 10/90 gemma_N1600_T0.6314_c_W1000.csv.gz
+[     0s] 20/90 gemma_N1600_T0.2517_c_W1000.csv.gz
+[     0s] 30/90 gemma_N400_T0.2000_c_W1000.csv.gz
+[     0s] 40/90 gemma_N400_T0.6314_h_W1000.csv.gz
+[     0s] 50/90 gemma_N400_T1.5838_c_W1000.csv.gz
+[     0s] 60/90 gemma_N100_T0.2000_c_W1000.csv.gz
+[     0s] 70/90 gemma_N100_T0.6314_h_W1000.csv.gz
+[     0s] 80/90 gemma_N100_T0.2517_c_W1000.csv.gz
+[     0s] 90/90 gemma_N100_T5.0000_h_W1000.csv.gz
+gemma {"result": "no transition in the swept range (never ordered at a non-frozen T, or no drop)", "Tc": null, "Tc_ci": null, "check_100_400": null, "check_scaled_m2": null, "frozen": [0.2, 0.2517, 0.3168, 0.3986, 0.5017, 0.6314, 0.7946, 1.0, 1.2585, 1.5838, 1.9932, 2.5085, 3.1569], "step4": null}
+[     0s] 10/90 gemma_exact_N1600_T0.6314_h_W1000.csv.gz
+[     0s] 20/90 gemma_exact_N1600_T1.9932_h_W1000.csv.gz
+[     0s] 30/90 gemma_exact_N1600_T5.0000_h_W1000.csv.gz
+[     0s] 40/90 gemma_exact_N400_T0.3168_c_W1000.csv.gz
+[     0s] 50/90 gemma_exact_N400_T1.9932_h_W1000.csv.gz
+[     0s] 60/90 gemma_exact_N100_T0.2000_c_W1000.csv.gz
+[     0s] 70/90 gemma_exact_N100_T0.6314_c_W1000.csv.gz
+[     0s] 80/90 gemma_exact_N100_T1.5838_c_W1000.csv.gz
+[     0s] 90/90 gemma_exact_N100_T5.0000_h_W1000.csv.gz
+gemma_exact {"result": "no transition in the swept range (never ordered at a non-frozen T, or no drop)", "Tc": null, "Tc_ci": null, "check_100_400": null, "check_scaled_m2": null, "frozen": [0.2, 0.2517, 0.3168, 0.3986, 0.5017, 0.6314, 0.7946, 1.0, 1.2585, 1.5838, 1.9932, 2.5085, 3.1569], "step4": null}
+[     0s] 10/90 selected_N1600_T0.5017_h_W1000.csv.gz
+[     0s] 20/90 selected_N1600_T1.9932_c_W1000.csv.gz
+[     0s] 30/90 selected_N400_T0.2000_c_W1000.csv.gz
+[     0s] 40/90 selected_N400_T0.6314_c_W1000.csv.gz
+[     0s] 50/90 selected_N400_T1.0000_c_W1000.csv.gz
+[     0s] 60/90 selected_N400_T3.9730_c_W1000.csv.gz
+[     0s] 70/90 selected_N100_T0.6314_h_W1000.csv.gz
+[     0s] 80/90 selected_N100_T1.5838_h_W1000.csv.gz
+[     1s] 90/90 selected_N100_T2.5085_c_W1000.csv.gz
+selected {"result": "no transition in the swept range (never ordered at a non-frozen T, or no drop)", "Tc": null, "Tc_ci": null, "check_100_400": null, "check_scaled_m2": null, "frozen": [], "step4": null}
+[     0s] 10/90 luna_N1600_T0.7946_h_W1000.csv.gz
+[     0s] 20/90 luna_N1600_T1.9932_h_W1000.csv.gz
+[     0s] 30/90 luna_N400_T0.2000_c_W1000.csv.gz
+[     0s] 40/90 luna_N400_T0.5017_c_W1000.csv.gz
+[     0s] 50/90 luna_N400_T1.9932_h_W1000.csv.gz
+[     0s] 60/90 luna_N100_T0.2517_h_W1000.csv.gz
+[     0s] 70/90 luna_N100_T0.7946_h_W1000.csv.gz
+[     0s] 80/90 luna_N100_T2.5085_h_W1000.csv.gz
+[     1s] 90/90 luna_N100_T0.2000_h_W1000.csv.gz
+[     0s] 10/78 luna_N1600_T0.3189_c_W1000.csv.gz
+[     0s] 20/78 luna_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 30/78 luna_N400_T0.3569_c_W1000.csv.gz
+[     0s] 40/78 luna_N400_T0.4731_h_W1000.csv.gz
+[     0s] 50/78 luna_N400_T0.6271_h_W1000.csv.gz
+[     0s] 60/78 luna_N100_T0.3995_h_W1000.csv.gz
+[     0s] 70/78 luna_N100_T0.4731_c_W1000.csv.gz
+[     0s] 78/78 luna_N100_T0.6271_c_W1000.csv.gz
+[     0s] 10/26 luna_N1600_T0.4704_c_W200.csv.gz
+[     0s] 20/26 luna_N1600_T0.5364_h_W200.csv.gz
+[     0s] 26/26 luna_N1600_T0.6389_c_W200.csv.gz
+[     0s] 10/26 luna_N1600_T0.4310_h_W500.csv.gz
+[     0s] 20/26 luna_N1600_T0.5364_c_W500.csv.gz
+[     0s] 26/26 luna_N1600_T0.6389_c_W500.csv.gz
+[     0s] 10/26 luna_N1600_T0.4503_c_W1000.csv.gz
+[     0s] 20/26 luna_N1600_T0.5604_h_W1000.csv.gz
+[     0s] 26/26 luna_N1600_T0.6116_c_W1000.csv.gz
+luna {"result": "transition located", "Tc": 0.4914686270072032, "Tc_ci": [0.4673254487226148, 0.5693682981856739], "check_100_400": [0.44258322999930955], "check_scaled_m2": [0.4615037056562218], "frozen": [], "step4": {"W": 1000, "R": 200}}
+$ python llm/confirm_sim.py luna_draws
+[     0s] 10/39 luna_d0_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d0_N400_T0.4472_h_W1000.csv.gz
+[     0s] 30/39 luna_d0_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d0_N100_T0.5603_h_W1000.csv.gz
+draw 0 0.3868409403300425
+[     0s] 10/39 luna_d1_N1600_T0.3374_h_W1000.csv.gz
+[     0s] 20/39 luna_d1_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 30/39 luna_d1_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d1_N100_T0.5928_h_W1000.csv.gz
+draw 1 0.482931579641939
+[     0s] 10/39 luna_d2_N1600_T0.6271_h_W1000.csv.gz
+[     0s] 20/39 luna_d2_N400_T0.4731_h_W1000.csv.gz
+[     0s] 30/39 luna_d2_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d2_N100_T0.3374_h_W1000.csv.gz
+draw 2 0.5715140577212829
+[     0s] 10/39 luna_d3_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d3_N400_T0.4731_h_W1000.csv.gz
+[     0s] 30/39 luna_d3_N100_T0.3995_h_W1000.csv.gz
+[     0s] 39/39 luna_d3_N100_T0.5603_h_W1000.csv.gz
+draw 3 0.45256290036692204
+[     0s] 10/39 luna_d4_N1600_T0.6271_h_W1000.csv.gz
+[     0s] 20/39 luna_d4_N400_T0.5296_h_W1000.csv.gz
+[     0s] 30/39 luna_d4_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d4_N100_T0.3569_h_W1000.csv.gz
+draw 4 0.35928594158412425
+[     0s] 10/39 luna_d5_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d5_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d5_N100_T0.3995_h_W1000.csv.gz
+[     0s] 39/39 luna_d5_N100_T0.3189_h_W1000.csv.gz
+draw 5 0.5087017334096128
+[     0s] 10/39 luna_d6_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d6_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d6_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d6_N100_T0.5928_h_W1000.csv.gz
+draw 6 0.33959102971461
+[     0s] 10/39 luna_d7_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d7_N1600_T0.6271_h_W1000.csv.gz
+[     0s] 30/39 luna_d7_N400_T0.4731_h_W1000.csv.gz
+[     0s] 39/39 luna_d7_N100_T0.5603_h_W1000.csv.gz
+draw 7 0.441775599255559
+[     0s] 10/39 luna_d8_N1600_T0.3374_h_W1000.csv.gz
+[     0s] 20/39 luna_d8_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d8_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d8_N400_T0.3569_h_W1000.csv.gz
+draw 8 0.46283228538018095
+[     0s] 10/39 luna_d9_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d9_N400_T0.4731_h_W1000.csv.gz
+[     0s] 30/39 luna_d9_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d9_N400_T0.5603_h_W1000.csv.gz
+draw 9 0.45669206256094635
+[     0s] 10/39 luna_d10_N1600_T0.3569_h_W1000.csv.gz
+[     0s] 20/39 luna_d10_N400_T0.4731_h_W1000.csv.gz
+[     0s] 30/39 luna_d10_N100_T0.3995_h_W1000.csv.gz
+[     0s] 39/39 luna_d10_N1600_T0.5928_h_W1000.csv.gz
+draw 10 0.364165551930983
+[     0s] 10/39 luna_d11_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d11_N1600_T0.3374_h_W1000.csv.gz
+[     0s] 30/39 luna_d11_N100_T0.3374_h_W1000.csv.gz
+[     0s] 39/39 luna_d11_N100_T0.5005_h_W1000.csv.gz
+draw 11 0.40684987752257845
+[     0s] 10/39 luna_d12_N1600_T0.5603_h_W1000.csv.gz
+[     0s] 20/39 luna_d12_N400_T0.4472_h_W1000.csv.gz
+[     0s] 30/39 luna_d12_N100_T0.3995_h_W1000.csv.gz
+[     1s] 39/39 luna_d12_N100_T0.5928_h_W1000.csv.gz
+draw 12 0.49413919377676085
+[     0s] 10/39 luna_d13_N1600_T0.6271_h_W1000.csv.gz
+[     0s] 20/39 luna_d13_N400_T0.3569_h_W1000.csv.gz
+[     0s] 30/39 luna_d13_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d13_N400_T0.4472_h_W1000.csv.gz
+draw 13 0.41735779073644785
+[     0s] 10/39 luna_d14_N1600_T0.5603_h_W1000.csv.gz
+[     0s] 20/39 luna_d14_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d14_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d14_N100_T0.5296_h_W1000.csv.gz
+draw 14 0.43458041100684525
+[     0s] 10/39 luna_d15_N1600_T0.5603_h_W1000.csv.gz
+[     0s] 20/39 luna_d15_N400_T0.4731_h_W1000.csv.gz
+[     0s] 30/39 luna_d15_N100_T0.4472_h_W1000.csv.gz
+[     1s] 39/39 luna_d15_N100_T0.4731_h_W1000.csv.gz
+draw 15 0.3628741073459992
+[     0s] 10/39 luna_d16_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d16_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d16_N100_T0.3995_h_W1000.csv.gz
+[     0s] 39/39 luna_d16_N100_T0.5005_h_W1000.csv.gz
+draw 16 0.559228828056456
+[     0s] 10/39 luna_d17_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d17_N400_T0.4472_h_W1000.csv.gz
+[     0s] 30/39 luna_d17_N100_T0.4472_h_W1000.csv.gz
+[     0s] 39/39 luna_d17_N400_T0.5928_h_W1000.csv.gz
+draw 17 0.5005553038430967
+[     0s] 10/39 luna_d18_N1600_T0.5603_h_W1000.csv.gz
+[     0s] 20/39 luna_d18_N400_T0.5296_h_W1000.csv.gz
+[     0s] 30/39 luna_d18_N100_T0.4227_h_W1000.csv.gz
+[     0s] 39/39 luna_d18_N400_T0.3374_h_W1000.csv.gz
+draw 18 0.41546710748415
+[     0s] 10/39 luna_d19_N1600_T0.5928_h_W1000.csv.gz
+[     0s] 20/39 luna_d19_N400_T0.5005_h_W1000.csv.gz
+[     0s] 30/39 luna_d19_N100_T0.3776_h_W1000.csv.gz
+[     0s] 39/39 luna_d19_N1600_T0.5296_h_W1000.csv.gz
+draw 19 0.4580586822995906
+$ python llm/confirm_report_step3.py
+saved

@@ -1,0 +1,35 @@
+{
+ "H4_verdict": "not supported (2 of 2 testable families significant in neutral; \u22653 of 4 required)",
+ "H4_gemma_family_local": {
+  "neutral_own": {
+   "beta_26b": 0.7516536867698463,
+   "beta_31b": 1.1119629987283992,
+   "diff_ci": [
+    0.16982899999999998,
+    0.5582087499999999
+   ],
+   "p_one_sided": 0.001,
+   "holm_within_family": 0.003
+  },
+  "political": {
+   "beta_26b": 0.33131737387660487,
+   "beta_31b": 0.9159765294660299,
+   "diff_ci": [
+    0.39636150000000003,
+    0.84574825
+   ],
+   "p_one_sided": 0.001,
+   "holm_within_family": 0.003
+  },
+  "workplace": {
+   "beta_26b": 0.3024476755680491,
+   "beta_31b": 0.8922760707761352,
+   "diff_ci": [
+    0.44331925,
+    0.752945
+   ],
+   "p_one_sided": 0.001,
+   "holm_within_family": 0.003
+  }
+ }
+}

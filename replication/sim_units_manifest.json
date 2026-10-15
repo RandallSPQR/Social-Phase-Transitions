@@ -1,0 +1,38 @@
+{
+ "dataset": {
+  "host": "huggingface.co",
+  "repo_type": "dataset",
+  "repo_id": "RandallSPQR/social-phase-transitions-llm-cache",
+  "revision": "main",
+  "url_template": "https://huggingface.co/datasets/{repo_id}/resolve/{revision}/{file}"
+ },
+ "description": "Per-unit outputs of the long simulations (amplification Stage B; confirmatory locate, Steps 4-5, Gemma checks and mechanism test). Deterministic tar (sorted names, fixed mtime). Produced by the scripts named in replication/steps.py; regenerated bit-identically by full mode.",
+ "files": [
+  {
+   "file": "sim_units/amplification_units.tar",
+   "sha256": "90f905cfb39fc4687e7a7b256b247e9c8c071940d53a6043b1db7cfb76b68a60",
+   "size": 123617280,
+   "n_files": 1782,
+   "prefixes": [
+    "results/llm/amplification/locate/",
+    "results/llm/amplification/locate2/",
+    "results/llm/amplification/perturb/"
+   ]
+  },
+  {
+   "file": "sim_units/confirm_units.tar",
+   "sha256": "62820ec07b454b5aefeb624661d3a62433055ff114faf66cd45c9c1fbeb15039",
+   "size": 15933440,
+   "n_files": 2169,
+   "prefixes": [
+    "results/llm/confirm/sim/coarse/",
+    "results/llm/confirm/sim/fine/",
+    "results/llm/confirm/sim/wrule/",
+    "results/llm/confirm/sim/gemma_len/",
+    "results/llm/confirm/step45/",
+    "results/llm/confirm/gemma_mechanism/len/",
+    "results/llm/confirm/gemma_mechanism/glass/"
+   ]
+  }
+ ]
+}

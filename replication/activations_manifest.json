@@ -1,0 +1,62 @@
+{
+ "dataset": "RandallSPQR/social-phase-transitions-llm-cache",
+ "note": "Gemma-4 activations used by the exploratory probes (Amendments 4-5); SHA-256 of each file (LFS object ids, and computed for the small non-LFS index files).",
+ "files": {
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/index.csv": {
+   "size": 440123,
+   "sha256": "fd0afbbf15b20681c94b05e044e413aff8cd144ecd9deba14881f09010c2aea0"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_005.npy": {
+   "size": 46914688,
+   "sha256": "5e62a6f21f80bc69114d6b4a40481a435b34aed7ca0f0579f23720a8b6c62fbb"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_010.npy": {
+   "size": 46914688,
+   "sha256": "44bc29d468441a98867b3c415e45bc822441e3e10195d54a600e33e85f5d201d"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_015.npy": {
+   "size": 46914688,
+   "sha256": "057caaaf7efeb0381259b0d5080e07ed0228eade7b65d81590bfa1c52aadc31e"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_020.npy": {
+   "size": 46914688,
+   "sha256": "adf7409e16c54dcf2664282da1e91cb653d6c3403967aba121d77d9ad655ba33"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_025.npy": {
+   "size": 46914688,
+   "sha256": "7f7f4a08825fdf7b46be2e99b4a74984d4f66b7a6407423cebdc4ede32365f28"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/layer_030.npy": {
+   "size": 46914688,
+   "sha256": "8781697e3d970f90d1120c83ed3ee3a026bbd298062a03633253ae708e2cf846"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/index.csv": {
+   "size": 440123,
+   "sha256": "fd0afbbf15b20681c94b05e044e413aff8cd144ecd9deba14881f09010c2aea0"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_010.npy": {
+   "size": 89564288,
+   "sha256": "027ed88781437e9d0f0b0b762120bbdca06391765edc30b06456750a8c13d1b2"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_020.npy": {
+   "size": 89564288,
+   "sha256": "4bbc7798d6df6b5da69748f1abb2212b27bf7572e0ac11348682ea45fbb93dc1"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_030.npy": {
+   "size": 89564288,
+   "sha256": "48f3617daf16e4fbd6c240638918fc818e7ce46233a72e40be7fe83cd8c72e3d"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_040.npy": {
+   "size": 89564288,
+   "sha256": "b058e47451fd17cfb12b815efe73b6a45520ae256ab5d5b8dfcad2541f6bdb02"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_050.npy": {
+   "size": 89564288,
+   "sha256": "c81867777da9834ed778591dc3024f4bc0cdb31ce77dca91b12a236d9fefc2c4"
+  },
+  "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/layer_060.npy": {
+   "size": 89564288,
+   "sha256": "795d3e5771f883990ea089ad991e3892ca55bc69f23cca513e054d1d03fc9216"
+  }
+ }
+}

@@ -1,0 +1,42 @@
+[boot] 2026-10-13T03:49:23Z pod 4np9j3upf9p17c
+[boot] secret HF_TOKEN len 37 ok
+[boot] secret OPENROUTER_API_KEY len 73 ok
+[boot] boot-log upload failed
+/root/code/code/pod_code_e726c86.tgz
+[boot] code ready
+[2026-10-13T03:49:27Z] pod 4np9j3upf9p17c starting; installing deps
+[2026-10-13T03:49:42Z] restoring run state from HF runs/stage3-rep1/
+restored 16 files; cache records {'meta-llama__llama-3.3-70b-instruct.jsonl': 44079, 'mistralai__mistral-nemo.jsonl': 58944, 'openai__gpt-6-luna.jsonl': 47880, 'qwen__qwen3.5-122b-a10b.jsonl': 37413, 'qwen__qwen3.5-9b.jsonl': 61298}
+[2026-10-13T03:49:47Z] starting replicate (deadline 0.15 h)
+RUN_START {"event": "start", "t": 1791863389.3812113, "utc": "2026-10-13T03:49:49Z", "host": "16480e88edd5", "pod": "4np9j3upf9p17c", "chains_saved": 1, "chains_midrun": ["P1:0:0", "P2:0:0", "P3:0:1", "P4:0:0", "P5:0:0"]}
+HEARTBEAT {"elapsed_h": 2.974, "spend_usd": 0.6067, "done": false, "stopped": false, "rss_mb": 132, "peak_rss_mb": 132} alibaba: 0/10 ch, 0 calls, eta 0.0 h, sent None | parasail: 0/20 ch, 0 calls, eta 0.0 h, sent None | coreweave: 1/10 ch, 0 calls, eta 0.0 h, sent None | ionet: 0/20 ch, 0 calls, eta 0.0 h, sent None | openai: 0/10 ch, 0 calls, eta 0.0 h, sent None
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [AProcessing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            
+UPLOAD FAILED (run continues; next heartbeat retries): ConnectionError('Network error: Request error: HTTP status client error (403 Forbidden), domain: https://huggingface.co/api/datasets/RandallSPQR/social-phase-transitions-llm-cache/xet-write-token/main')
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[boot] boot-log upload failed
+[2026-10-13T03:58:47Z] runner exited (code 124); final upload
+[2026-10-13T03:58:52Z] final upload attempt 1: 
+[boot] boot-log upload failed
+[2026-10-13T03:59:57Z] final upload attempt 2: 
+[boot] boot-log upload failed
+[2026-10-13T04:01:01Z] final upload attempt 3: 
+[boot] boot-log upload failed
+[2026-10-13T04:02:05Z] final upload attempt 4: 
+[boot] boot-log upload failed
+[2026-10-13T04:03:10Z] final upload attempt 5: 
+[boot] boot-log upload failed
+[2026-10-13T04:04:15Z] final upload attempt 6: 
+[boot] boot-log upload failed
+[2026-10-13T04:05:19Z] final upload attempt 7: 
+[boot] boot-log upload failed
+[2026-10-13T04:06:25Z] final upload attempt 8: UPLOAD verified 16/16 files
+[2026-10-13T04:06:25Z] FINAL UPLOAD VERIFIED (run done: False)

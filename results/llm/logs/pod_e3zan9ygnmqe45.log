@@ -1,0 +1,357 @@
+[21:37:58] PHASE setup installing packages
+[21:38:13] run e3zan9ygnmqe45; deadline 01:13:58 UTC; device cuda
+name, memory.total [MiB]
+NVIDIA A100-SXM4-80GB, 81920 MiB
+[21:38:13] PHASE download google/gemma-4-26b-a4b-it
+[tracker] download target /workspace/.cache/huggingface: 215 GB free of 215 GB
+[tracker] df Filesystem      Size  Used Avail Use% Mounted on
+[tracker] df overlay          50G  250M   50G   1% /
+[tracker] df overlay          50G  250M   50G   1% /
+[tracker] df /dev/vdb        200G   46M  200G   1% /workspace
+[tracker] df /dev/vdb        200G   46M  200G   1% /workspace
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:01,  6.93it/s]Fetching 9 files:  56%|█████▌    | 5/9 [00:00<00:00, 20.98it/s]Fetching 9 files:  89%|████████▉ | 8/9 [00:17<00:02,  2.70s/it]Fetching 9 files: 100%|██████████| 9/9 [07:36<00:00, 83.53s/it]Fetching 9 files: 100%|██████████| 9/9 [07:36<00:00, 50.73s/it]
+[tracker] DOWNLOADED google/gemma-4-26b-a4b-it: 51.6 GB in 457 s
+[21:45:50] PHASE smoke gemma-26b-local
+Loading weights:   0%|          | 0/1013 [00:00<?, ?it/s]Loading weights:   0%|          | 2/1013 [00:00<00:53, 18.84it/s]Loading weights:   0%|          | 4/1013 [00:00<01:26, 11.66it/s]Loading weights:   3%|▎         | 26/1013 [00:00<00:17, 55.66it/s]Loading weights:   5%|▍         | 47/1013 [00:00<00:13, 70.45it/s]Loading weights:   7%|▋         | 70/1013 [00:00<00:10, 90.15it/s]Loading weights:   9%|▉         | 91/1013 [00:01<00:09, 93.79it/s]Loading weights:  11%|█▏        | 114/1013 [00:01<00:08, 102.00it/s]Loading weights:  13%|█▎        | 135/1013 [00:01<00:08, 107.73it/s]Loading weights:  15%|█▌        | 157/1013 [00:01<00:08, 103.86it/s]Loading weights:  18%|█▊        | 179/1013 [00:01<00:07, 110.28it/s]Loading weights:  20%|█▉        | 201/1013 [00:02<00:07, 110.03it/s]Loading weights:  22%|██▏       | 223/1013 [00:02<00:07, 104.63it/s]Loading weights:  24%|██▍       | 244/1013 [00:02<00:07, 100.08it/s]Loading weights:  26%|██▋       | 266/1013 [00:02<00:07, 97.89it/s] Loading weights:  28%|██▊       | 288/1013 [00:03<00:07, 96.75it/s]Loading weights:  31%|███       | 310/1013 [00:03<00:07, 96.17it/s]Loading weights:  33%|███▎      | 331/1013 [00:03<00:07, 94.02it/s]Loading weights:  35%|███▍      | 354/1013 [00:03<00:06, 95.38it/s]Loading weights:  37%|███▋      | 376/1013 [00:04<00:06, 95.14it/s]Loading weights:  39%|███▉      | 397/1013 [00:04<00:06, 93.15it/s]Loading weights:  41%|████▏     | 419/1013 [00:04<00:06, 93.08it/s]Loading weights:  43%|████▎     | 439/1013 [00:04<00:06, 91.13it/s]Loading weights:  46%|████▌     | 463/1013 [00:04<00:05, 95.35it/s]Loading weights:  48%|████▊     | 485/1013 [00:05<00:05, 97.62it/s]Loading weights:  50%|█████     | 507/1013 [00:05<00:05, 97.81it/s]Loading weights:  52%|█████▏    | 528/1013 [00:05<00:04, 97.24it/s]Loading weights:  54%|█████▍    | 550/1013 [00:05<00:04, 97.88it/s]Loading weights:  56%|█████▋    | 572/1013 [00:06<00:04, 99.45it/s]Loading weights:  59%|█████▊    | 594/1013 [00:06<00:04, 99.55it/s]Loading weights:  61%|██████    | 615/1013 [00:06<00:04, 99.18it/s]Loading weights:  63%|██████▎   | 638/1013 [00:06<00:03, 105.33it/s]Loading weights:  83%|████████▎ | 843/1013 [00:06<00:00, 435.29it/s]Loading weights: 100%|██████████| 1013/1013 [00:06<00:00, 148.36it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.8438 nats
+gemma-26b-local-smoke: 50 prompts, mean 173 tokens, layers [5, 10, 15, 20, 25, 30]/30, |A ids|=3 |B ids|=3
+  rep 0 batch 0/22 0s
+  rep 1 batch 0/22 4s
+done gemma-26b-local-smoke: 50 prompts x 2 reps in 7s
+Upload 6 LFS files:   0%|          | 0/6 [00:00<?, ?it/s]
+layer_005.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][A
+
+layer_010.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][A[A
+
+
+layer_015.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][A[A[A
+
+
+
+layer_020.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][A[A[A[A
+
+
+
+
+layer_025.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][A[A[A[A[A
+
+
+
+
+layer_025.npy:  23%|██▎       | 65.5k/282k [00:00<00:00, 574kB/s][A[A[A[A[A
+
+layer_010.npy:  23%|██▎       | 65.5k/282k [00:00<00:00, 474kB/s][A[Alayer_020.npy: 100%|██████████| 282k/282k [00:00<00:00, 1.25MB/s]
+layer_005.npy: 100%|██████████| 282k/282k [00:00<00:00, 1.09MB/s]
+Upload 6 LFS files:  17%|█▋        | 1/6 [00:00<00:01,  3.26it/s]
+layer_030.npy:   0%|          | 0.00/282k [00:00<?, ?B/s][Alayer_010.npy: 100%|██████████| 282k/282k [00:00<00:00, 784kB/s] 
+layer_015.npy: 100%|██████████| 282k/282k [00:00<00:00, 772kB/s]
+layer_025.npy: 100%|██████████| 282k/282k [00:00<00:00, 713kB/s] 
+Upload 6 LFS files:  50%|█████     | 3/6 [00:00<00:00,  7.77it/s]layer_030.npy: 100%|██████████| 282k/282k [00:00<00:00, 1.08MB/s]
+Upload 6 LFS files: 100%|██████████| 6/6 [00:00<00:00, 10.66it/s]Upload 6 LFS files: 100%|██████████| 6/6 [00:00<00:00,  9.15it/s]
+[tracker] UPLOADED gemma-26b-local-smoke OK: 9 files, verified
+[21:46:16] PHASE main gemma-26b-local
+Loading weights:   0%|          | 0/1013 [00:00<?, ?it/s]Loading weights:   0%|          | 2/1013 [00:00<00:53, 19.04it/s]Loading weights:   0%|          | 4/1013 [00:00<01:25, 11.82it/s]Loading weights:   3%|▎         | 26/1013 [00:00<00:17, 55.83it/s]Loading weights:   5%|▍         | 48/1013 [00:00<00:13, 72.61it/s]Loading weights:   7%|▋         | 70/1013 [00:00<00:10, 89.35it/s]Loading weights:   9%|▉         | 92/1013 [00:01<00:09, 95.43it/s]Loading weights:  11%|█         | 113/1013 [00:01<00:09, 99.94it/s]Loading weights:  13%|█▎        | 135/1013 [00:01<00:08, 107.13it/s]Loading weights:  15%|█▌        | 157/1013 [00:01<00:08, 103.79it/s]Loading weights:  18%|█▊        | 179/1013 [00:01<00:07, 110.88it/s]Loading weights:  20%|█▉        | 201/1013 [00:02<00:07, 110.13it/s]Loading weights:  22%|██▏       | 223/1013 [00:02<00:07, 105.12it/s]Loading weights:  24%|██▍       | 244/1013 [00:02<00:07, 100.38it/s]Loading weights:  26%|██▋       | 266/1013 [00:02<00:07, 97.94it/s] Loading weights:  28%|██▊       | 288/1013 [00:03<00:07, 97.02it/s]Loading weights:  31%|███       | 309/1013 [00:03<00:07, 95.27it/s]Loading weights:  33%|███▎      | 332/1013 [00:03<00:07, 96.84it/s]Loading weights:  35%|███▍      | 354/1013 [00:03<00:06, 96.65it/s]Loading weights:  37%|███▋      | 376/1013 [00:03<00:06, 96.03it/s]Loading weights:  39%|███▉      | 397/1013 [00:04<00:06, 93.82it/s]Loading weights:  41%|████▏     | 419/1013 [00:04<00:06, 94.07it/s]Loading weights:  44%|████▎     | 441/1013 [00:04<00:06, 95.07it/s]Loading weights:  46%|████▌     | 463/1013 [00:04<00:05, 96.44it/s]Loading weights:  48%|████▊     | 485/1013 [00:05<00:05, 99.03it/s]Loading weights:  50%|█████     | 507/1013 [00:05<00:05, 98.93it/s]Loading weights:  52%|█████▏    | 528/1013 [00:05<00:04, 98.28it/s]Loading weights:  54%|█████▍    | 550/1013 [00:05<00:04, 99.19it/s]Loading weights:  56%|█████▋    | 572/1013 [00:05<00:04, 100.38it/s]Loading weights:  59%|█████▊    | 594/1013 [00:06<00:04, 100.61it/s]Loading weights:  61%|██████    | 616/1013 [00:06<00:03, 101.69it/s]Loading weights:  63%|██████▎   | 638/1013 [00:06<00:03, 105.63it/s]Loading weights:  83%|████████▎ | 844/1013 [00:06<00:00, 438.58it/s]Loading weights: 100%|██████████| 1013/1013 [00:06<00:00, 149.59it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.8438 nats
+gemma-26b-local: 8330 prompts, mean 169 tokens, layers [5, 10, 15, 20, 25, 30]/30, |A ids|=3 |B ids|=3
+  rep 0 batch 0/537 0s
+  rep 0 batch 50/537 13s
+  rep 0 batch 100/537 26s
+  rep 0 batch 150/537 40s
+  rep 0 batch 200/537 54s
+  rep 0 batch 250/537 68s
+  rep 0 batch 300/537 83s
+  rep 0 batch 350/537 98s
+  rep 0 batch 400/537 116s
+  rep 0 batch 450/537 133s
+  rep 0 batch 500/537 152s
+  rep 1 batch 0/782 166s
+  rep 1 batch 50/782 176s
+  rep 1 batch 100/782 187s
+  rep 1 batch 150/782 197s
+  rep 1 batch 200/782 208s
+  rep 1 batch 250/782 219s
+  rep 1 batch 300/782 230s
+  rep 1 batch 350/782 242s
+  rep 1 batch 400/782 253s
+  rep 1 batch 450/782 265s
+  rep 1 batch 500/782 276s
+  rep 1 batch 550/782 289s
+  rep 1 batch 600/782 303s
+  rep 1 batch 650/782 317s
+  rep 1 batch 700/782 331s
+  rep 1 batch 750/782 345s
+done gemma-26b-local: 8330 prompts x 2 reps in 355s
+[21:52:30] PHASE upload gemma-26b-local
+Upload 6 LFS files:   0%|          | 0/6 [00:00<?, ?it/s]
+layer_005.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A
+
+layer_010.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A
+
+
+layer_015.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A
+
+
+
+layer_020.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A[A
+
+
+
+
+layer_025.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A[A[A
+
+
+
+layer_020.npy:   0%|          | 65.5k/46.9M [00:00<01:23, 560kB/s][A[A[A[A
+
+
+
+
+layer_025.npy:  29%|██▉       | 13.6M/46.9M [00:00<00:00, 115MB/s][A[A[A[A[A
+layer_005.npy:   2%|▏         | 1.05M/46.9M [00:00<00:05, 8.62MB/s][A
+
+
+layer_015.npy:   0%|          | 65.5k/46.9M [00:00<01:39, 471kB/s][A[A[A
+
+layer_010.npy:   3%|▎         | 1.64M/46.9M [00:00<00:03, 11.5MB/s][A[A
+
+
+
+
+layer_025.npy:  54%|█████▎    | 25.1M/46.9M [00:00<00:00, 45.5MB/s][A[A[A[A[A
+
+
+
+layer_020.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 28.9MB/s][A[A[A[A
+
+layer_010.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 27.5MB/s][A[A
+layer_005.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 27.1MB/s][A
+
+
+layer_015.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 26.3MB/s][A[A[A
+
+
+layer_015.npy:  68%|██████▊   | 32.1M/46.9M [00:00<00:00, 40.1MB/s][A[A[A
+
+
+
+
+layer_025.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 25.6MB/s][A[A[A[A[A
+
+layer_010.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 32.9MB/s][A[A
+layer_005.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 31.7MB/s][A
+
+
+
+layer_020.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 30.6MB/s][A[A[A[Alayer_005.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 36.2MB/s]
+layer_015.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 35.4MB/s]
+layer_010.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 33.0MB/s]
+Upload 6 LFS files:  17%|█▋        | 1/6 [00:01<00:07,  1.54s/it]
+layer_030.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][Alayer_025.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 29.5MB/s]
+layer_020.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 28.8MB/s]
+Upload 6 LFS files:  50%|█████     | 3/6 [00:01<00:01,  2.23it/s]
+layer_030.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:00, 65.0MB/s][AUpload 6 LFS files:  67%|██████▋   | 4/6 [00:01<00:00,  2.88it/s]
+layer_030.npy:  68%|██████▊   | 32.1M/46.9M [00:00<00:00, 65.6MB/s][Alayer_030.npy: 100%|██████████| 46.9M/46.9M [00:00<00:00, 64.3MB/s]
+Upload 6 LFS files: 100%|██████████| 6/6 [00:02<00:00,  2.97it/s]Upload 6 LFS files: 100%|██████████| 6/6 [00:02<00:00,  2.42it/s]
+[tracker] UPLOADED gemma-26b-local OK: 9 files, verified
+[21:52:35] PHASE download google/gemma-4-31b-it
+[tracker] download target /workspace/.cache/huggingface: 163 GB free of 215 GB
+[tracker] df Filesystem      Size  Used Avail Use% Mounted on
+[tracker] df overlay          50G  525M   50G   2% /
+[tracker] df overlay          50G  525M   50G   2% /
+[tracker] df /dev/vdb        200G   49G  152G  25% /workspace
+[tracker] df /dev/vdb        200G   49G  152G  25% /workspace
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:02,  3.76it/s]Fetching 9 files:  56%|█████▌    | 5/9 [00:00<00:00, 14.44it/s]Fetching 9 files:  78%|███████▊  | 7/9 [00:01<00:00,  5.77it/s]Fetching 9 files:  78%|███████▊  | 7/9 [00:20<00:00,  5.77it/s]Fetching 9 files:  89%|████████▉ | 8/9 [01:54<00:24, 24.26s/it]Fetching 9 files: 100%|██████████| 9/9 [06:07<00:00, 77.61s/it]Fetching 9 files: 100%|██████████| 9/9 [06:07<00:00, 40.87s/it]
+[tracker] DOWNLOADED google/gemma-4-31b-it: 62.6 GB in 368 s
+[21:58:43] PHASE smoke gemma-31b-local
+Loading weights:   0%|          | 0/1188 [00:00<?, ?it/s]Loading weights:   0%|          | 2/1188 [00:00<02:10,  9.08it/s]Loading weights:   1%|▏         | 15/1188 [00:00<00:21, 54.79it/s]Loading weights:   2%|▏         | 29/1188 [00:00<00:13, 83.69it/s]Loading weights:   4%|▎         | 43/1188 [00:00<00:11, 102.36it/s]Loading weights:   5%|▍         | 56/1188 [00:00<00:10, 108.45it/s]Loading weights:   6%|▌         | 68/1188 [00:00<00:10, 110.55it/s]Loading weights:   7%|▋         | 80/1188 [00:00<00:10, 109.80it/s]Loading weights:   8%|▊         | 92/1188 [00:00<00:10, 102.51it/s]Loading weights:   9%|▉         | 104/1188 [00:01<00:10, 105.93it/s]Loading weights:  10%|▉         | 118/1188 [00:01<00:09, 112.42it/s]Loading weights:  11%|█         | 132/1188 [00:01<00:09, 116.49it/s]Loading weights:  12%|█▏        | 146/1188 [00:01<00:08, 121.69it/s]Loading weights:  13%|█▎        | 160/1188 [00:01<00:08, 118.51it/s]Loading weights:  14%|█▍        | 172/1188 [00:01<00:08, 117.64it/s]Loading weights:  16%|█▌        | 186/1188 [00:01<00:08, 123.33it/s]Loading weights:  17%|█▋        | 200/1188 [00:01<00:08, 120.27it/s]Loading weights:  18%|█▊        | 216/1188 [00:01<00:07, 131.20it/s]Loading weights:  19%|█▉        | 230/1188 [00:02<00:07, 128.73it/s]Loading weights:  20%|██        | 243/1188 [00:02<00:07, 119.83it/s]Loading weights:  22%|██▏       | 256/1188 [00:02<00:08, 113.92it/s]Loading weights:  23%|██▎       | 273/1188 [00:02<00:07, 128.74it/s]Loading weights:  24%|██▍       | 289/1188 [00:02<00:06, 132.31it/s]Loading weights:  26%|██▌       | 306/1188 [00:02<00:06, 139.52it/s]Loading weights:  27%|██▋       | 321/1188 [00:02<00:06, 137.45it/s]Loading weights:  28%|██▊       | 335/1188 [00:02<00:06, 126.54it/s]Loading weights:  30%|██▉       | 351/1188 [00:03<00:06, 127.58it/s]Loading weights:  31%|███       | 366/1188 [00:03<00:06, 125.71it/s]Loading weights:  32%|███▏      | 380/1188 [00:03<00:06, 124.66it/s]Loading weights:  33%|███▎      | 394/1188 [00:03<00:06, 123.76it/s]Loading weights:  34%|███▍      | 408/1188 [00:03<00:06, 122.88it/s]Loading weights:  35%|███▌      | 421/1188 [00:03<00:06, 114.28it/s]Loading weights:  37%|███▋      | 435/1188 [00:03<00:06, 119.72it/s]Loading weights:  38%|███▊      | 449/1188 [00:03<00:06, 123.14it/s]Loading weights:  39%|███▉      | 463/1188 [00:03<00:05, 124.81it/s]Loading weights:  40%|████      | 476/1188 [00:04<00:05, 126.15it/s]Loading weights:  41%|████      | 490/1188 [00:04<00:05, 121.94it/s]Loading weights:  42%|████▏     | 503/1188 [00:04<00:06, 113.92it/s]Loading weights:  44%|████▎     | 517/1188 [00:04<00:05, 115.56it/s]Loading weights:  45%|████▍     | 531/1188 [00:04<00:06, 106.17it/s]Loading weights:  46%|████▌     | 546/1188 [00:04<00:06, 105.41it/s]Loading weights:  47%|████▋     | 561/1188 [00:04<00:05, 110.55it/s]Loading weights:  48%|████▊     | 575/1188 [00:04<00:05, 114.40it/s]Loading weights:  49%|████▉     | 587/1188 [00:05<00:05, 114.50it/s]Loading weights:  51%|█████     | 601/1188 [00:05<00:05, 115.85it/s]Loading weights:  52%|█████▏    | 615/1188 [00:05<00:05, 114.17it/s]Loading weights:  53%|█████▎    | 629/1188 [00:05<00:04, 113.41it/s]Loading weights:  54%|█████▍    | 643/1188 [00:05<00:04, 113.33it/s]Loading weights:  55%|█████▌    | 657/1188 [00:05<00:04, 109.74it/s]Loading weights:  56%|█████▋    | 670/1188 [00:05<00:04, 114.58it/s]Loading weights:  58%|█████▊    | 684/1188 [00:05<00:04, 113.33it/s]Loading weights:  59%|█████▊    | 697/1188 [00:06<00:04, 117.33it/s]Loading weights:  60%|█████▉    | 711/1188 [00:06<00:04, 114.96it/s]Loading weights:  61%|██████    | 725/1188 [00:06<00:03, 117.36it/s]Loading weights:  62%|██████▏   | 739/1188 [00:06<00:03, 119.34it/s]Loading weights:  63%|██████▎   | 751/1188 [00:06<00:03, 114.77it/s]Loading weights:  64%|██████▍   | 763/1188 [00:06<00:03, 107.48it/s]Loading weights:  65%|██████▌   | 774/1188 [00:06<00:03, 107.11it/s]Loading weights:  66%|██████▌   | 787/1188 [00:06<00:03, 112.62it/s]Loading weights:  67%|██████▋   | 800/1188 [00:06<00:03, 115.62it/s]Loading weights:  68%|██████▊   | 812/1188 [00:07<00:03, 114.79it/s]Loading weights:  69%|██████▉   | 824/1188 [00:07<00:03, 111.67it/s]Loading weights:  81%|████████  | 963/1188 [00:07<00:00, 468.85it/s]Loading weights: 100%|██████████| 1188/1188 [00:07<00:00, 161.54it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.3750 nats
+gemma-31b-local-smoke: 50 prompts, mean 173 tokens, layers [10, 20, 30, 40, 50, 60]/60, |A ids|=3 |B ids|=3
+  rep 0 batch 0/22 0s
+  rep 1 batch 0/22 4s
+done gemma-31b-local-smoke: 50 prompts x 2 reps in 8s
+Upload 6 LFS files:   0%|          | 0/6 [00:00<?, ?it/s]
+layer_010.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][A
+
+layer_020.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][A[A
+
+
+layer_030.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][A[A[A
+
+
+
+layer_040.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][A[A[A[A
+
+
+
+
+layer_050.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][A[A[A[A[A
+
+
+
+
+layer_050.npy:  12%|█▏        | 65.5k/538k [00:00<00:00, 563kB/s][A[A[A[A[A
+
+
+layer_030.npy:  12%|█▏        | 65.5k/538k [00:00<00:01, 467kB/s][A[A[Alayer_050.npy: 100%|██████████| 538k/538k [00:00<00:00, 1.69MB/s]
+layer_020.npy: 100%|██████████| 538k/538k [00:00<00:00, 1.63MB/s]
+layer_040.npy: 100%|██████████| 538k/538k [00:00<00:00, 1.58MB/s]
+layer_010.npy: 100%|██████████| 538k/538k [00:00<00:00, 1.28MB/s]
+Upload 6 LFS files:  17%|█▋        | 1/6 [00:00<00:02,  2.28it/s]
+layer_060.npy:   0%|          | 0.00/538k [00:00<?, ?B/s][Alayer_030.npy: 100%|██████████| 538k/538k [00:00<00:00, 1.08MB/s]
+layer_060.npy: 100%|██████████| 538k/538k [00:00<00:00, 3.93MB/s]
+Upload 6 LFS files:  67%|██████▋   | 4/6 [00:00<00:00,  7.61it/s]Upload 6 LFS files: 100%|██████████| 6/6 [00:00<00:00, 10.32it/s]Upload 6 LFS files: 100%|██████████| 6/6 [00:00<00:00,  8.31it/s]
+[tracker] UPLOADED gemma-31b-local-smoke OK: 9 files, verified
+[21:59:11] PHASE main gemma-31b-local
+Loading weights:   0%|          | 0/1188 [00:00<?, ?it/s]Loading weights:   0%|          | 1/1188 [00:00<04:21,  4.53it/s]Loading weights:   1%|▏         | 15/1188 [00:00<00:20, 55.97it/s]Loading weights:   2%|▏         | 26/1188 [00:00<00:15, 72.70it/s]Loading weights:   4%|▍         | 47/1188 [00:00<00:10, 108.57it/s]Loading weights:   5%|▌         | 61/1188 [00:00<00:09, 114.18it/s]Loading weights:   6%|▋         | 75/1188 [00:00<00:09, 114.91it/s]Loading weights:   7%|▋         | 87/1188 [00:00<00:09, 114.14it/s]Loading weights:   8%|▊         | 99/1188 [00:01<00:09, 110.58it/s]Loading weights:   9%|▉         | 112/1188 [00:01<00:09, 114.40it/s]Loading weights:  11%|█         | 126/1188 [00:01<00:08, 119.14it/s]Loading weights:  12%|█▏        | 140/1188 [00:01<00:08, 123.07it/s]Loading weights:  13%|█▎        | 154/1188 [00:01<00:08, 125.04it/s]Loading weights:  14%|█▍        | 167/1188 [00:01<00:08, 117.10it/s]Loading weights:  15%|█▌        | 179/1188 [00:01<00:08, 113.20it/s]Loading weights:  16%|█▋        | 195/1188 [00:01<00:08, 123.09it/s]Loading weights:  18%|█▊        | 210/1188 [00:01<00:07, 129.04it/s]Loading weights:  19%|█▉        | 224/1188 [00:02<00:07, 129.96it/s]Loading weights:  20%|██        | 238/1188 [00:02<00:07, 127.63it/s]Loading weights:  21%|██        | 251/1188 [00:02<00:08, 114.36it/s]Loading weights:  22%|██▏       | 265/1188 [00:02<00:07, 119.65it/s]Loading weights:  23%|██▎       | 279/1188 [00:02<00:07, 125.08it/s]Loading weights:  25%|██▍       | 293/1188 [00:02<00:06, 128.91it/s]Loading weights:  26%|██▌       | 307/1188 [00:02<00:07, 121.55it/s]Loading weights:  27%|██▋       | 320/1188 [00:02<00:07, 122.65it/s]Loading weights:  28%|██▊       | 333/1188 [00:02<00:07, 120.39it/s]Loading weights:  29%|██▉       | 346/1188 [00:03<00:06, 120.73it/s]Loading weights:  30%|███       | 361/1188 [00:03<00:06, 125.93it/s]Loading weights:  32%|███▏      | 375/1188 [00:03<00:06, 127.72it/s]Loading weights:  33%|███▎      | 388/1188 [00:03<00:06, 123.96it/s]Loading weights:  34%|███▍      | 401/1188 [00:03<00:06, 121.94it/s]Loading weights:  35%|███▍      | 414/1188 [00:03<00:06, 116.38it/s]Loading weights:  36%|███▌      | 426/1188 [00:03<00:06, 116.48it/s]Loading weights:  37%|███▋      | 438/1188 [00:03<00:06, 117.00it/s]Loading weights:  38%|███▊      | 450/1188 [00:03<00:06, 115.84it/s]Loading weights:  39%|███▉      | 464/1188 [00:04<00:06, 116.73it/s]Loading weights:  40%|████      | 478/1188 [00:04<00:06, 115.64it/s]Loading weights:  41%|████▏     | 492/1188 [00:04<00:06, 114.53it/s]Loading weights:  42%|████▏     | 504/1188 [00:04<00:05, 114.22it/s]Loading weights:  44%|████▎     | 518/1188 [00:04<00:05, 117.57it/s]Loading weights:  45%|████▍     | 532/1188 [00:04<00:06, 106.71it/s]Loading weights:  46%|████▌     | 547/1188 [00:04<00:05, 113.62it/s]Loading weights:  47%|████▋     | 561/1188 [00:04<00:05, 114.49it/s]Loading weights:  48%|████▊     | 575/1188 [00:04<00:05, 117.76it/s]Loading weights:  49%|████▉     | 587/1188 [00:05<00:05, 116.69it/s]Loading weights:  51%|█████     | 601/1188 [00:05<00:05, 109.03it/s]Loading weights:  52%|█████▏    | 615/1188 [00:05<00:05, 109.62it/s]Loading weights:  53%|█████▎    | 629/1188 [00:05<00:04, 111.81it/s]Loading weights:  54%|█████▍    | 644/1188 [00:05<00:04, 114.65it/s]Loading weights:  55%|█████▌    | 658/1188 [00:05<00:04, 118.74it/s]Loading weights:  56%|█████▋    | 670/1188 [00:05<00:04, 118.96it/s]Loading weights:  58%|█████▊    | 684/1188 [00:05<00:04, 116.83it/s]Loading weights:  59%|█████▊    | 697/1188 [00:06<00:04, 120.24it/s]Loading weights:  60%|█████▉    | 711/1188 [00:06<00:04, 116.84it/s]Loading weights:  61%|██████    | 725/1188 [00:06<00:03, 118.61it/s]Loading weights:  62%|██████▏   | 739/1188 [00:06<00:03, 120.66it/s]Loading weights:  63%|██████▎   | 752/1188 [00:06<00:03, 110.63it/s]Loading weights:  64%|██████▍   | 764/1188 [00:06<00:03, 112.76it/s]Loading weights:  65%|██████▌   | 776/1188 [00:06<00:03, 111.21it/s]Loading weights:  66%|██████▋   | 788/1188 [00:06<00:03, 112.79it/s]Loading weights:  67%|██████▋   | 800/1188 [00:06<00:03, 113.59it/s]Loading weights:  69%|██████▊   | 815/1188 [00:07<00:03, 120.43it/s]Loading weights:  70%|██████▉   | 828/1188 [00:07<00:02, 122.85it/s]Loading weights:  81%|████████  | 965/1188 [00:07<00:00, 479.13it/s]Loading weights: 100%|██████████| 1188/1188 [00:07<00:00, 161.50it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.3750 nats
+gemma-31b-local: 8330 prompts, mean 169 tokens, layers [10, 20, 30, 40, 50, 60]/60, |A ids|=3 |B ids|=3
+  rep 0 batch 0/537 0s
+  rep 0 batch 50/537 35s
+  rep 0 batch 100/537 73s
+  rep 0 batch 150/537 111s
+  rep 0 batch 200/537 151s
+  rep 0 batch 250/537 191s
+  rep 0 batch 300/537 232s
+  rep 0 batch 350/537 277s
+  rep 0 batch 400/537 329s
+  rep 0 batch 450/537 382s
+  rep 0 batch 500/537 439s
+  rep 1 batch 0/782 482s
+  rep 1 batch 50/782 505s
+  rep 1 batch 100/782 530s
+  rep 1 batch 150/782 556s
+  rep 1 batch 200/782 584s
+  rep 1 batch 250/782 612s
+  rep 1 batch 300/782 641s
+  rep 1 batch 350/782 670s
+  rep 1 batch 400/782 699s
+  rep 1 batch 450/782 728s
+  rep 1 batch 500/782 758s
+  rep 1 batch 550/782 793s
+  rep 1 batch 600/782 830s
+  rep 1 batch 650/782 868s
+  rep 1 batch 700/782 908s
+  rep 1 batch 750/782 947s
+done gemma-31b-local: 8330 prompts x 2 reps in 972s
+[22:15:43] PHASE upload gemma-31b-local
+Upload 6 LFS files:   0%|          | 0/6 [00:00<?, ?it/s]
+layer_010.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A
+
+layer_020.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A[A
+
+
+layer_030.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A[A[A
+
+
+
+layer_040.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A[A[A[A
+
+
+
+
+layer_050.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A[A[A[A[A
+layer_010.npy:   1%|          | 1.11M/89.6M [00:00<00:07, 11.1MB/s][A
+
+layer_020.npy:   0%|          | 65.5k/89.6M [00:00<02:42, 552kB/s][A[A
+
+
+layer_030.npy:   2%|▏         | 1.57M/89.6M [00:00<00:06, 13.3MB/s][A[A[A
+
+
+
+
+layer_050.npy:   1%|          | 1.05M/89.6M [00:00<00:10, 8.83MB/s][A[A[A[A[A
+
+
+
+layer_040.npy:   0%|          | 65.5k/89.6M [00:00<03:08, 476kB/s][A[A[A[A
+layer_010.npy:  18%|█▊        | 16.1M/89.6M [00:00<00:02, 32.0MB/s][A
+
+layer_020.npy:  18%|█▊        | 16.1M/89.6M [00:00<00:02, 32.1MB/s][A[A
+
+
+layer_030.npy:  18%|█▊        | 16.1M/89.6M [00:00<00:02, 30.2MB/s][A[A[A
+
+
+
+layer_040.npy:  18%|█▊        | 16.1M/89.6M [00:00<00:02, 28.9MB/s][A[A[A[A
+
+
+layer_030.npy:  36%|███▌      | 32.1M/89.6M [00:00<00:01, 42.5MB/s][A[A[A
+layer_010.npy:  36%|███▌      | 32.1M/89.6M [00:01<00:01, 30.9MB/s][A
+
+layer_020.npy:  36%|███▌      | 32.1M/89.6M [00:01<00:01, 31.1MB/s][A[A
+
+
+layer_030.npy:  54%|█████▎    | 48.1M/89.6M [00:01<00:01, 39.5MB/s][A[A[A
+layer_010.npy:  54%|█████▎    | 48.1M/89.6M [00:01<00:01, 39.7MB/s][A
+
+
+
+
+layer_050.npy:  18%|█▊        | 16.1M/89.6M [00:01<00:06, 12.0MB/s][A[A[A[A[A
+
+
+layer_030.npy:  72%|███████▏  | 64.1M/89.6M [00:01<00:00, 46.6MB/s][A[A[A
+layer_010.npy:  72%|███████▏  | 64.1M/89.6M [00:01<00:00, 47.2MB/s][A
+
+layer_020.npy:  54%|█████▎    | 48.1M/89.6M [00:01<00:01, 31.5MB/s][A[A
+
+
+
+
+layer_050.npy:  36%|███▌      | 32.1M/89.6M [00:01<00:02, 22.7MB/s][A[A[A[A[A
+
+
+layer_030.npy:  89%|████████▉ | 80.1M/89.6M [00:01<00:00, 53.0MB/s][A[A[A
+
+
+
+
+layer_050.npy:  54%|█████▎    | 48.1M/89.6M [00:01<00:01, 31.3MB/s][A[A[A[A[A
+layer_010.npy:  89%|████████▉ | 80.1M/89.6M [00:02<00:00, 39.3MB/s][A
+
+
+
+
+layer_050.npy:  72%|███████▏  | 64.1M/89.6M [00:02<00:00, 38.9MB/s][A[A[A[A[Alayer_030.npy: 100%|██████████| 89.6M/89.6M [00:02<00:00, 41.0MB/s]
+layer_010.npy: 100%|██████████| 89.6M/89.6M [00:02<00:00, 39.4MB/s]
+Upload 6 LFS files:  17%|█▋        | 1/6 [00:02<00:11,  2.38s/it]
+layer_060.npy:   0%|          | 0.00/89.6M [00:00<?, ?B/s][A
+
+layer_020.npy:  72%|███████▏  | 64.1M/89.6M [00:02<00:01, 24.1MB/s][A[AUpload 6 LFS files:  33%|███▎      | 2/6 [00:02<00:04,  1.05s/it]
+
+
+
+
+layer_050.npy:  89%|████████▉ | 80.1M/89.6M [00:02<00:00, 38.7MB/s][A[A[A[A[A
+layer_060.npy:  18%|█▊        | 16.1M/89.6M [00:00<00:01, 65.9MB/s][A
+
+layer_020.npy:  89%|████████▉ | 80.1M/89.6M [00:02<00:00, 31.0MB/s][A[Alayer_050.npy: 100%|██████████| 89.6M/89.6M [00:02<00:00, 32.3MB/s]
+
+layer_060.npy:  36%|███▌      | 32.1M/89.6M [00:00<00:00, 68.9MB/s][Alayer_020.npy: 100%|██████████| 89.6M/89.6M [00:02<00:00, 31.0MB/s]
+Upload 6 LFS files:  50%|█████     | 3/6 [00:03<00:02,  1.24it/s]
+layer_060.npy:  54%|█████▎    | 48.1M/89.6M [00:00<00:00, 65.7MB/s][A
+layer_060.npy:  72%|███████▏  | 64.1M/89.6M [00:00<00:00, 63.4MB/s][A
+layer_060.npy:  89%|████████▉ | 80.1M/89.6M [00:01<00:00, 44.8MB/s][Alayer_060.npy: 100%|██████████| 89.6M/89.6M [00:01<00:00, 51.6MB/s]
+Upload 6 LFS files:  83%|████████▎ | 5/6 [00:04<00:00,  1.38it/s]
+
+
+
+layer_040.npy:  36%|███▌      | 32.1M/89.6M [00:08<00:16, 3.45MB/s][A[A[A[A
+
+
+
+layer_040.npy:  54%|█████▎    | 48.1M/89.6M [00:08<00:06, 6.06MB/s][A[A[A[A
+
+
+
+layer_040.npy:  72%|███████▏  | 64.1M/89.6M [00:08<00:02, 9.32MB/s][A[A[A[A
+
+
+
+layer_040.npy:  89%|████████▉ | 80.1M/89.6M [00:08<00:00, 13.4MB/s][A[A[A[Alayer_040.npy: 100%|██████████| 89.6M/89.6M [00:09<00:00, 9.83MB/s]
+Upload 6 LFS files: 100%|██████████| 6/6 [00:09<00:00,  1.96s/it]Upload 6 LFS files: 100%|██████████| 6/6 [00:09<00:00,  1.56s/it]
+[tracker] UPLOADED gemma-31b-local OK: 9 files, verified
+[22:15:54] PHASE finishing exit 0
+Upload 0 LFS files: 0it [00:00, ?it/s]Upload 0 LFS files: 0it [00:00, ?it/s]

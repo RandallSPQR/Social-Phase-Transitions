@@ -1,0 +1,31 @@
+# Citation metadata. Fields marked CHECK are to be confirmed by the author before the release; the DOI is added once
+# Zenodo has minted it for the release.
+cff-version: 1.2.0
+message: "If you use this code or data, please cite it as below."
+title: "Do LLM agents behave like spins? Response functions, live networks and amplification near tipping points — code, data and replication package"
+type: software
+authors:
+  - family-names: Bennington        # CHECK
+    given-names: Randall            # CHECK
+    # orcid: https://orcid.org/0000-0000-0000-0000   # CHECK: add if available
+version: 1.0.0
+date-released: 2026-10-15          # CHECK: set to the release date
+license: Apache-2.0
+repository-code: "https://github.com/RandallSPQR/Social-Phase-Transitions"
+# doi: 10.5281/zenodo.XXXXXXX      # CHECK: add after Zenodo mints the DOI
+keywords:
+  - large language models
+  - multi-agent systems
+  - spin glass
+  - Viana-Bray model
+  - discrete choice with social interactions
+  - pre-registration
+  - replication
+references:
+  - type: dataset
+    title: "social-phase-transitions-llm-cache: LLM response cache, pod outputs and simulation units"
+    authors:
+      - family-names: Bennington    # CHECK
+        given-names: Randall        # CHECK
+    url: "https://huggingface.co/datasets/RandallSPQR/social-phase-transitions-llm-cache"
+    license: CC-BY-4.0

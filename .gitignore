@@ -4,3 +4,41 @@ __pycache__/
 results/llm/cache/*.jsonl
 # cache snapshots live in the private HF dataset (see results/llm/cache_manifest.json, llm/fetch_cache.py)
 results/llm/cache/*.jsonl.gz
+# live runner logs (rewritten while jobs run; final copies committed with results)
+results/llm/logs/runpod_launch.log
+results/llm/logs/runpod_launch.out
+results/llm/logs/stage3_run.log
+results/llm/logs/live/
+results/llm/logs/relay_*.out
+# live background-job logs and PID files (llm/bg.sh); final copies are committed with the results
+results/llm/logs/bg/
+results/llm/logs/pod_id.txt
+
+# option B replicate: gzip copies of the live cache made for HF uploads (cache lives on HF, not in git); mock-run output
+results/llm/stage3_rep1/upload/
+results/llm/stage3_rep1_mock/
+# option B replicate outputs change every few minutes while the run is live; their durable record during the run is the
+# 15-min verified upload to the private HF dataset (runs/stage3-rep1/). Final outputs are committed once, with git add -f.
+results/llm/stage3_rep1/
+results/llm/amplification/locate/
+results/llm/amplification/locate2/
+results/llm/amplification/perturb/
+results/llm/confirm/sim/
+results/llm/confirm/gemma/*.csv
+!results/llm/confirm/gemma/prompts_kavg.csv
+!results/llm/confirm/gemma/fingerprint_ref.csv
+results/llm/confirm/gemma/*.json
+results/llm/logs/local_gemma.pid
+results/llm/logs/phase.json
+results/llm/logs/progress.json
+results/llm/logs/uploads.json
+results/llm/logs/pod_e2e-*.log
+# live-updated during the API run; force-added at stop points
+results/llm/confirm/*.json
+results/llm/confirm/*.csv
+results/llm/confirm/step45/
+results/llm/confirm/gemma_mechanism/len/
+results/llm/confirm/gemma_mechanism/glass/
+replication/out/
+.venv/
+replication/runpod/pod_*.json

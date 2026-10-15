@@ -1,0 +1,235 @@
+counts,s0,mapping,order,pA_ref,prompt
+0003,-1,0,0,0.999999986132958,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+1220,-1,0,1,2.2159490454103225e-08,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds A.
+- A rival holds A.
+- An ally holds B.
+- An ally holds B.
+- An ally holds A.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+1040,-1,0,0,0.0600861486594508,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds A.
+- A rival holds A.
+- An ally holds A.
+- A rival holds A.
+- A rival holds A.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+0002,-1,0,0,0.999999984286576,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+0320,1,0,1,1.2751906483220112e-07,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds B.
+- A rival holds A.
+- An ally holds B.
+- A rival holds A.
+- An ally holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+0202,1,0,1,0.999738823189554,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- An ally holds B.
+- An ally holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+3210,1,0,1,0.99999998274218,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+- A rival holds A.
+- An ally holds B.
+- An ally holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+0014,1,0,0,0.9859378821180758,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+- A rival holds B.
+- A rival holds B.
+- A rival holds A.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+0031,-1,0,1,0.9996200205013136,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds A.
+- A rival holds A.
+- A rival holds A.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+0024,1,0,1,0.9999724645616268,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+- A rival holds A.
+- A rival holds A.
+- A rival holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+5100,1,0,1,0.999999965678692,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- An ally holds B.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+0032,-1,0,1,0.0013250072944424,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds A.
+- A rival holds B.
+- A rival holds B.
+- A rival holds A.
+- A rival holds A.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+2210,-1,0,0,0.9149037123808672,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- A rival holds A.
+- An ally holds B.
+- An ally holds A.
+- An ally holds B.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+5001,1,0,1,0.9999999500627887,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+3010,-1,0,1,0.9999999888575029,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds A.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+4001,-1,0,1,0.9999999358794548,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- A rival holds B.
+- An ally holds A.
+- An ally holds A.
+- An ally holds A.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
+0004,1,0,0,0.9999999861329368,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position A.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+- A rival holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+2010,-1,0,0,0.9999998362624212,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- An ally holds A.
+- An ally holds A.
+- A rival holds A.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+3002,-1,0,0,0.9999995262098924,"You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- An ally holds A.
+- An ally holds A.
+- A rival holds B.
+- An ally holds A.
+
+Which position do you take now? Reply with exactly one letter, A or B, and nothing else."
+0204,-1,0,1,0.9999999677581656,"You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).
+
+You currently hold position B.
+
+The people you are in contact with, and the position each currently holds:
+- A rival holds B.
+- A rival holds B.
+- An ally holds B.
+- An ally holds B.
+- A rival holds B.
+- A rival holds B.
+
+Which position do you take now? Reply with exactly one letter, B or A, and nothing else."
