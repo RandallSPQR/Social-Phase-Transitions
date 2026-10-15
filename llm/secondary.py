@@ -1,15 +1,22 @@
 """Secondary/exploratory contrasts (PREREG §7, Amendment 3): wording arm vs neutral_own, own-position-hidden
 vs shown, and framing sensitivity. Differences of independent bootstrap draws (arms are fitted separately),
-95% percentile CIs; flagged if the CI excludes 0. Writes results/llm/stage1_secondary.csv."""
-import glob, json, os
+95% percentile CIs; flagged if the CI excludes 0. Writes results/llm/stage1_secondary.csv.
+
+  python llm/secondary.py [KEY ...]     # default: every fit in results/llm/fits/main/
+The committed table predates the self-hosted Gemma fits (Amendments 4-5); replication/steps.py passes the 16 API
+endpoint keys it was made from."""
+import glob, json, os, sys
 import numpy as np, pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rows = []; rng = np.random.default_rng(11)
 CONTRASTS = [("wording: w2 − v2", "neutral_own_w2", "neutral_own"), ("own hidden − shown", "neutral_noown", "neutral_own"),
              ("political − neutral", "political", "neutral_own"), ("workplace − neutral", "workplace", "neutral_own"),
              ("workplace − political", "workplace", "political")]
+ONLY = set(sys.argv[1:])
 for p in sorted(glob.glob(os.path.join(ROOT, "results/llm/fits/main/*.json"))):
-    key = os.path.basename(p)[:-5]; A = {a["arm"]: a for a in json.load(open(p))["arms"]}
+    key = os.path.basename(p)[:-5]
+    if ONLY and key not in ONLY: continue
+    A = {a["arm"]: a for a in json.load(open(p))["arms"]}
     for name, a1, a0 in CONTRASTS:
         if a1 not in A or a0 not in A: continue
         for q in ("beta", "b_a", "b_r", "gamma", "alpha"):

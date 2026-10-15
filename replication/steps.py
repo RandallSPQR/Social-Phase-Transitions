@@ -70,7 +70,7 @@ STEPS = [
           " --out results/llm/comprehension_local.csv",
           f"{LLM}comprehension.py {S1}/comprehension/gemma-26b-local-bs1.csv --out results/llm/comprehension_local_bs1.csv",
           f"{LLM}summarize.py", f"{LLM}summarize.py --relax-gate", f"{LLM}summarize.py --amendment4",
-          f"{LLM}summarize.py --amendment5", f"{LLM}secondary.py", f"{LLM}bridge.py"],
+          f"{LLM}summarize.py --amendment5", f"{LLM}secondary.py " + " ".join(API_MAIN), f"{LLM}bridge.py"],
          compare=[("results/llm/comprehension_summary.csv", "exact"), ("results/llm/comprehension_local*.csv", "exact"),
                   ("results/llm/stage1_cells*.csv", "fit"), ("results/llm/stage1_H4*.csv", "fit"),
                   ("results/llm/stage1_verdicts*.json", "fit"), ("results/llm/stage1_secondary.csv", "fit"),
