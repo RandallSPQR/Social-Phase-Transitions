@@ -63,7 +63,7 @@ in the clean run recorded in `replication/logs/`. The full-mode figures are esti
 
 | mode | what runs | wall time | peak memory (largest process) | download | free disk |
 |---|---|---|---|---|---|
-| fast | every analysis; spot checks recompute 1–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | about 55 min (52 min of steps + 3 min download and verification) | 4.6 GB | 200 MB | 3 GB |
+| fast | every analysis; spot checks recompute 1–6 sampled simulation units per family and require them to be bit-identical to the fetched ones | 55 min (measured: 54.6 min from container start to exit, of which 25 s download and verification) | 4.6 GB | 200 MB | 3 GB |
 | full | everything in fast mode, plus every simulation unit recomputed from scratch, the baseline physics sweeps, the 14 Amendment 4–5 bootstrap caches, the 100-replicate null distribution of Amendment 4, and the exploratory probes | about 16–17 h (estimate): baseline sweeps 3.7 h (the validation sweep uses 2 processes), amplification Stage B 5.5 h, confirmatory Steps 4–5 2.8 h, bootstrap caches and null distribution 2.5 h, the rest as in fast mode | about 5 GB (estimate) | 1 GB | 4 GB |
 
 Per-step times are in the generated report and in the table below.

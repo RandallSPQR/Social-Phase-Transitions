@@ -11,7 +11,7 @@ The exploratory probes (E1) run only in full mode.
   bundles from the Hugging Face dataset (private at the time; read with a token passed as an environment variable,
   never written to disk or logs).
 - **Hardware:** 4 vCPU (x86-64), 15 GB RAM, Linux; Python 3.13.16 from `replication/requirements.lock` (`env.json`).
-- **Time:** 54.2 min of steps, plus about 1 min of download and verification. The largest single process used
+- **Time:** 54.6 min from container start to exit: 25 s download and verification, 54.2 min of steps. The largest single process used
   4.6 GB of memory.
 - **Network:** behind a TLS-intercepting proxy (its CA was mounted read-only). No API endpoint was contacted
   (`SPT_OFFLINE=1`).
