@@ -4,8 +4,8 @@ Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeri
   exact   rtol 1e-12, atol 1e-12   deterministic code on the pinned environment (simulations, fits, tables)
   fit     rtol 1e-6,  atol 1e-9    iterative optimisers whose last digits may move with BLAS thread scheduling
   print4  rtol 0,     atol 6e-5    values that were transcribed at 4 decimals
-  rows    exact, but row order ignored (call logs written in thread-completion order): both tables are sorted on every
-          column before comparison
+  rows    exact, but row/record order ignored (logs written in completion order): CSV rows are sorted on every
+          column, JSON-lines records on their canonical JSON, before comparison
   boot    per-column               bootstrap CI bounds whose generator state depends on an unrecorded call order
   figure  file exists, is a valid PNG, and each pixel dimension is within 2% of the committed one. Bytes are not
           compared: figures are saved with a tight bounding box, so the installed fonts move the size by a few pixels
@@ -32,7 +32,12 @@ IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "tim
                # reproduced from today's cache. The check itself (body_differs_from_battery_body = 0) is compared.
                "stage1_records_with_same_body_signature",
                # live API spend of the original run (confirm/api_summary.json); a replay from the cache spends 0
-               "spend"}
+               "spend",
+               # Stage 3 audit B11: checks against the git history (has a fit file changed since the predictions
+               # commit?). Archives and the Docker image carry no .git, so these are recomputed only in a git clone
+               # (python llm/stage3_audit.py surrogate); the committed values stay the record.
+               "predictions_commit", "fit_file_changed_since_predictions_commit",
+               "stage3_csv_changed_since_predictions_commit"}
 
 
 def _num(x):
@@ -180,6 +185,8 @@ def compare_file(ref, new, profile, col_tol=None):
     elif new.endswith(".jsonl"):
         r = [json.loads(l) for l in open(ref) if l.strip()]
         n = [json.loads(l) for l in open(new) if l.strip()]
+        if profile == "rows":   # records written in completion order
+            r = sorted(r, key=lambda x: json.dumps(x, sort_keys=True)); n = sorted(n, key=lambda x: json.dumps(x, sort_keys=True))
         st = compare_json(r, n, rtol, atol)
     elif new.endswith(".npz"):
         a, b = np.load(ref, allow_pickle=True), np.load(new, allow_pickle=True)

@@ -547,8 +547,13 @@ def audit_surrogate():
     import stage2_report as R
     resum = R.summarise(R.add_floor(S3.copy()))
     out = {}
-    git = lambda *a: subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True).stdout.strip()
-    pred_commit = git("log", "-1", "--format=%h", "--", "results/llm/stage2/stage3_predictions.json")
+    def git(*a):   # provenance checks need the git history; without it (an archive or a container) they are None
+        try:
+            return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+        except FileNotFoundError:
+            return None
+    pred_commit = git("log", "-1", "--format=%h", "--", "results/llm/stage2/stage3_predictions.json") or None
+    changed = lambda f: None if pred_commit is None else bool(git("diff", "--stat", pred_commit, "HEAD", "--", f))
     for pid in POINTS:
         key, framing, rho, contacts = stage3.POINTS[pid]
         p, pmode = pred[pid]
@@ -567,8 +572,8 @@ def audit_surrogate():
                         explicit_jitter=sorted(runs.explicit_jitter.unique().tolist()),
                         surrogate_choice=fit["choice"], params_point_estimate=dict(zip(["p_voter", "alpha", "b_a", "b_r", "gamma", "h_C", "h_L", "h_O"], map(float, row[:8]))),
                         neutral_h_applied_as_letter_field=bool((framing != "neutral") or (row[S.H_C] == 0 and row[S.H_L] == fit["est"][fit["names"].index("h")])),
-                        fit_file_changed_since_predictions_commit=bool(git("diff", "--stat", pred_commit, "HEAD", "--", fit_file)),
-                        stage3_csv_changed_since_predictions_commit=bool(git("diff", "--stat", pred_commit, "HEAD", "--", "results/llm/stage2/stage3.csv")),
+                        fit_file_changed_since_predictions_commit=changed(fit_file),
+                        stage3_csv_changed_since_predictions_commit=changed("results/llm/stage2/stage3.csv"),
                         max_abs_diff_interval_recomputed_vs_committed=float(dmax))
     src = inspect.getsource(S.run.py_func)
     common = dict(predictions_commit=pred_commit,

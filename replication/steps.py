@@ -134,7 +134,7 @@ STEPS = [
           f"{LLM}stage3_audit.py mock-summary", f"{LLM}stage3_audit.py sim-diag", f"{LLM}stage3_audit.py surrogate",
           f"{LLM}stage3_audit.py report", f"{LLM}stage3_audit_order.py"],
          compare=[("results/llm/stage3_audit/*.json", "exact"), ("results/llm/stage3_audit/*.csv", "exact"),
-                  ("results/llm/stage3_audit/A_mock_runs.jsonl", "exact"), ("results/llm/stage3_audit/*.md", "text")],
+                  ("results/llm/stage3_audit/A_mock_runs.jsonl", "rows"), ("results/llm/stage3_audit/*.md", "text")],
          clean=["results/llm/stage3_audit/A_mock_runs.jsonl"], claims=["C2"]),
 
     # ------------------------------------------------------------------ kernel test (paper §3.5, §4.4)
