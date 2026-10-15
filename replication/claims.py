@@ -11,6 +11,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "replication", "out")
 
 CLAIMS = {
+    "QC": "The comparator detects the smallest corruption: one flipped byte in a base.sim array and a one-ulp change "
+          "in a CSV and a JSON result are each rejected, unmodified copies pass (replication/canary.py)",
     "C0": "Baseline: the simulator reproduces the Viana-Bray transitions (6 of 6 within 95% CIs) and the melting of "
           "frozen camps under non-reciprocity (paper §4.1)",
     "C1": "LLM response functions are not Ising-like: H1 9 of 12 (12 of 15, 15 of 18), H2 supported, H3 2 of 12, "

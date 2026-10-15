@@ -60,8 +60,8 @@ def same(a, b):
 
 
 def check(ref_path, new_path):
-    a = pd.read_csv(ref_path, dtype={"counts": str}, keep_default_na=False, na_values=[""])
-    b = pd.read_csv(new_path, dtype={"counts": str}, keep_default_na=False, na_values=[""])
+    a = pd.read_csv(ref_path, dtype={"counts": str}, keep_default_na=False, na_values=[""], float_precision="round_trip")
+    b = pd.read_csv(new_path, dtype={"counts": str}, keep_default_na=False, na_values=[""], float_precision="round_trip")
     f = [c for c in FIELDS if c in a.columns]
     k = GROUP + ["perm"] + (["question"] if "question" in a.columns else [])
     g = [c for c in GROUP + (["question"] if "question" in a.columns else []) if c in a.columns]

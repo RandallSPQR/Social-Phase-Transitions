@@ -40,6 +40,12 @@ def step(id, title, cmds, compare=(), mode="both", claims=(), clean=(), clean_fu
 
 
 STEPS = [
+    # ------------------------------------------------------------------ quality control of the comparator itself
+    step("qc.canary", "Comparator canary: a one-byte change in a base.sim array, a raw byte flip, and a 1-ulp change "
+         "in a CSV and a JSON value must each be rejected; unmodified copies must pass",
+         ["python replication/canary.py"], claims=["QC"],
+         note="runs first in every mode; writes replication/out/canary.json"),
+
     # ------------------------------------------------------------------ baseline physics (paper §3.1, §4.1)
     step("base.sim", "Viana-Bray validation sweep and asymmetry sweep (raw simulation output)",
          ["cd sim && python run_validation.py", "cd sim && python run_asym.py"],
@@ -48,7 +54,7 @@ STEPS = [
          note="run_validation uses 2 processes (hard-coded); about 3.4 h, asymmetry about 17 min"),
     step("base.tables", "Crossing table and asymmetry table from the raw output",
          ["python replication/baseline_tables.py"],
-         compare=[("results/validation_crossings.csv", "exact", BOOT_CI), ("results/asymmetry_sweep.csv", "exact")],
+         compare=[("results/validation_crossings.csv", "exact", BOOT_CI), ("results/asymmetry_sweep.csv", "ulp")],
          claims=["C0"]),
     step("base.figures", "Baseline figures 1-4",
          ["cd sim && python plots.py 1 2 3", "cd sim && python plot_asym.py"],

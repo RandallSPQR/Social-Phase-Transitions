@@ -1,7 +1,11 @@
 """Compare regenerated result files with the committed reference copies.
 
 Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeric value):
-  exact   rtol 1e-12, atol 1e-12   deterministic code on the pinned environment (simulations, fits, tables)
+  exact   rtol 0,     atol 0       bit-identical values: deterministic code on the pinned environment (simulations,
+                                   kernels, verdicts, tables)
+  ulp     |d| <= 4 ulp             results/asymmetry_sweep.csv only: transcribed by hand from data/asym/asym.npy; the
+                                   transcription script was not kept, so its summation order is unknown and a few
+                                   means differ in the last bit (largest 4e-20)
   fit     rtol 1e-6,  atol 1e-9    iterative optimisers whose last digits may move with BLAS thread scheduling
   print4  rtol 0,     atol 6e-5    values that were transcribed at 4 decimals
   rows    exact, but row/record order ignored (logs written in completion order): CSV rows are sorted on every
@@ -22,7 +26,8 @@ import json, math, os, struct
 import numpy as np
 import pandas as pd
 
-PROFILES = {"exact": (1e-12, 1e-12), "fit": (1e-6, 1e-9), "print4": (0.0, 6e-5)}
+PROFILES = {"exact": (0.0, 0.0), "fit": (1e-6, 1e-9), "print4": (0.0, 6e-5)}
+ULPS = 4   # profile "ulp"
 IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "timestamp", "generated", "generated_utc",
                "git", "commit", "elapsed", "elapsed_s", "runtime", "runtime_s", "wall", "wall_s", "host", "date",
                "written", "seconds",
@@ -113,10 +118,13 @@ def compare_json(ref, new, rtol, atol):
 
 def read_table(path):
     comp = "gzip" if path.endswith(".gz") else None
-    return pd.read_csv(path, compression=comp, keep_default_na=False, na_values=["", "nan", "NaN"], low_memory=False)
+    # float_precision="round_trip": pandas' default fast parser can map two strings one ulp apart to the same double,
+    # which would hide last-bit differences (found by replication/canary.py)
+    return pd.read_csv(path, compression=comp, keep_default_na=False, na_values=["", "nan", "NaN"], low_memory=False,
+                       float_precision="round_trip")
 
 
-def compare_csv(ref_path, new_path, rtol, atol, col_tol=None, unordered=False):
+def compare_csv(ref_path, new_path, rtol, atol, col_tol=None, unordered=False, ulp=False):
     a, b = read_table(ref_path), read_table(new_path)
     st = {"n": 0, "bad": 0, "worst": 0.0, "probs": []}
     if unordered and list(a.columns) == list(b.columns):
@@ -143,8 +151,14 @@ def compare_csv(ref_path, new_path, rtol, atol, col_tol=None, unordered=False):
         if numeric:
             xv, yv = xn.to_numpy(float), yn.to_numpy(float)
             both_nan = np.isnan(xv) & np.isnan(yv)
-            d = np.abs(xv - yv)
-            ok = both_nan | (d <= a_ + r_ * np.abs(xv)) | ((xv == yv) & np.isinf(xv))
+            with np.errstate(invalid="ignore"):   # inf - inf; infinities are compared by equality below
+                d = np.abs(xv - yv)
+            if ulp:
+                lim = ULPS * np.spacing(np.maximum(np.abs(xv), np.abs(yv)))
+                ok = both_nan | (d <= lim) | ((xv == yv) & np.isinf(xv))
+            else:
+                with np.errstate(invalid="ignore"):
+                    ok = both_nan | (d <= a_ + r_ * np.abs(xv)) | ((xv == yv) & np.isinf(xv))
             fin = np.isfinite(d)
             if fin.any():
                 st["worst"] = max(st["worst"], float(d[fin].max()))
@@ -187,7 +201,7 @@ def compare_file(ref, new, profile, col_tol=None):
         return dict(ok=True, n=1, bad=0, worst=None, probs=[], profile=profile)
     rtol, atol = PROFILES.get(profile, PROFILES["exact"])
     if new.endswith((".csv", ".csv.gz")):
-        st = compare_csv(ref, new, rtol, atol, col_tol, unordered=profile == "rows")
+        st = compare_csv(ref, new, rtol, atol, col_tol, unordered=profile == "rows", ulp=profile == "ulp")
     elif new.endswith(".json"):
         st = compare_json(json.load(open(ref)), json.load(open(new)), rtol, atol)
     elif new.endswith(".jsonl"):
