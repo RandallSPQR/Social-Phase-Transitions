@@ -914,3 +914,38 @@ judgment calls, in time order (2026-10-08).
     - `paper/related_work_notes.md`: neutral summaries, each marked "verify".
     - `paper/refs.bib`: 19 entries, all marked UNVERIFIED. The five Sept 2026 proofs are cited as unrefereed
       preprints, with titles and dates taken from the PDF title pages.
+
+73. **Replication package (owner, 2026-10-15; no API calls, no GPU; nothing published).**
+    - `make replicate` / `make replicate-fast` (`replication/`):
+      - fetch the HF dataset and verify every SHA-256;
+      - rerun every analysis from the cache (`SPT_OFFLINE=1`, so a cache miss raises instead of calling the API);
+      - regenerate every figure;
+      - compare every regenerated number with the committed results (stated tolerances);
+      - print a pass/fail table per claim, including 53 headline numbers checked against the paper.
+    - **Environment:** `replication/requirements.lock` (hashes; networkx pinned exactly; ffmpeg pinned through
+      imageio-ffmpeg) and a `Dockerfile` with the base image pinned by digest. The graph-fingerprint assertions are
+      kept.
+    - **Code changes, all keeping their defaults:**
+      - `llm/client.py`: offline guard.
+      - `llm/secondary.py` and `llm/temp_check.py semantics`: optional key lists, because the committed tables
+        predate later endpoints.
+      - `llm/stage3_audit.py` B11 runs without a git checkout.
+    - **New uploads to the private HF dataset:** `sim_units/` (two deterministic tar bundles of the simulation units,
+      140 MB), verified by re-download.
+    - **Clean-room test:** a fresh container built from `git archive` of 38b926f.
+      - Fast mode, 54.6 min on 4 vCPU: every claim passes, 53/53 headline numbers
+        (`replication/logs/clean_run_fast_2026-10-15/`).
+      - Four earlier attempts each stopped on a defect that was then fixed: the tar directory check, host disk full,
+        a font-dependent figure size, and git/error-text in the audit.
+    - **Known, explained differences (documented in `replication/README.md`):**
+      - Stage 1 duplicate requests: the cache keeps one of two live answers. Every row is checked; 0 are unexplained.
+      - Bootstrap CI bounds of the baseline crossings, whose call order was not recorded (≤ 0.043).
+      - Six provenance fields that cannot be reproduced from recorded data.
+    - **Found while building it** (reported to the owner):
+      - The paper's §4.1 asymmetry numbers are the N = 4,000 rows, which the text does not say.
+      - The git history contains OpenRouter generation ids in cache files committed before 2026-10-09. This needs an
+        owner decision before the repository is made public (`replication/RELEASE_CHECKLIST.md`).
+      - `papers/*.pdf` are third-party works (`LICENSES.md`).
+    - **Prepared, not published:** licences (Apache-2.0 for code, CC BY 4.0 for data), `CITATION.cff`,
+      `.zenodo.json`, the HF dataset card and the release checklist.
+    - **Full mode:** a clean-room run was started; its log is to follow.
