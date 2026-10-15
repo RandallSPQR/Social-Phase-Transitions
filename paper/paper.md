@@ -683,15 +683,30 @@ this paper depends on their correctness.
 # Data and code availability {-}
 
 All code, pre-registrations, amendments, the execution log and result files are in the repository
-`randallspqr/social-phase-transitions` [URL and archival DOI to be added]; every analysis script is named next to its
-result in `results/llm/REPORT.md`. Results are committed under `results/` and `results/llm/`. The raw API cache
-(every request body and compact reply, keyed by the SHA-256 of the request plus replicate index, with no credentials
-or account-linked identifiers; 31 files, 709,422 records) is held in a private Hugging Face dataset and listed with
-per-file SHA-256, size and record count in `results/llm/cache_manifest.json`; `llm/fetch_cache.py` restores and
-verifies it, and reruns from the cache are exact. GPU and CPU pod outputs and logs are in the same dataset. Stage 3
-graph fingerprints are in `results/llm/stage3/graph_hashes.json`, the replicate's actual graphs in
-`results/llm/stage3_rep1/graphs/`, and fingerprints of the confirmatory phase's graphs in
-`results/llm/confirm/sim/locate_*.json`. *[Author: state the access policy for the private cache.]*
+`randallspqr/social-phase-transitions` [URL to be added], archived with DOI [10.5281/zenodo.XXXXXXX, to be added].
+Code is released under Apache-2.0 and data under CC BY 4.0 (`LICENSES.md`).
+
+**Data.** The Hugging Face dataset `RandallSPQR/social-phase-transitions-llm-cache` [to be made public] holds:
+- the raw API cache: every request body and compact reply, keyed by the SHA-256 of the request plus replicate index,
+  with no credentials or account-linked identifiers; 31 files, 709,422 records, each listed with its SHA-256 in
+  `results/llm/cache_manifest.json`;
+- the GPU and CPU pod outputs and logs;
+- the per-unit outputs of the long simulations.
+
+**Replication.** `make replicate-fast` (about RT_FAST on 4 cores) and `make replicate` (about RT_FULL; recomputes every
+simulation unit) reproduce every analysis and figure in this paper from that dataset, with no API keys and no GPU:
+- every downloaded file is checked against its committed SHA-256;
+- every regenerated result is compared with the committed one within stated tolerances;
+- each claim of §4 gets a pass/fail result, including the headline numbers printed here.
+
+The environment is pinned (`replication/requirements.lock`, `Dockerfile`). `replication/README.md` maps each claim to
+its scripts, result files and figures, and separates this exact reproduction from re-collection of the data, which
+needs API keys and a GPU (about $37) and is not expected to be identical because providers drift.
+
+**Graphs.** Graph fingerprints are asserted before use. They are stored in:
+- `results/llm/stage3/graph_hashes.json` (Stage 3);
+- `results/llm/stage3_rep1/graphs/` (the replicate's actual graphs);
+- `results/llm/confirm/sim/locate_*.json` (the confirmatory phase).
 
 # AI use {-}
 
