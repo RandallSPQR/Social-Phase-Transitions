@@ -46,22 +46,23 @@ scratch. The probes download 820 MB of Gemma activations from the HF dataset.
 ## Steps for the owner
 
 ```bash
-export RUNPOD_API_KEY=...   HF_TOKEN=...      # in your own shell; never committed or printed
+export RUNPOD_API_KEY=...   HF_TOKEN=...      # in your own shell (HF_TOKEN: the launcher uploads the code bundle)
 # 0. Create the dedicated volume in the RunPod console: Storage → New Network Volume, name "spt-replication-logs",
 #    10 GB, in a data centre that offers CPU pods. Note its id.
 python replication/runpod/launch_cpu.py plan                                   # spec and steps; no API call
 python replication/runpod/launch_cpu.py volume-check --volume-id <ID>          # read-only; must print the dedicated name
 # 1. End-to-end test first (CLAUDE.md rule 6): 4 short steps (about 2 min of work), same chain end to end.
-python replication/runpod/launch_cpu.py launch --volume-id <ID> --hf-secret <SECRET_NAME> --e2e            # dry run
-python replication/runpod/launch_cpu.py launch --volume-id <ID> --hf-secret <SECRET_NAME> --e2e --confirm  # creates it
+python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e            # dry run
+python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e --confirm  # creates it
 python replication/runpod/launch_cpu.py check     # repeat until final_verified; it then removes the pod
 # 2. The real run, only after the e2e test has passed:
-python replication/runpod/launch_cpu.py launch --volume-id <ID> --hf-secret <SECRET_NAME> --confirm
+python replication/runpod/launch_cpu.py launch --volume-id <ID> --confirm
 python replication/runpod/launch_cpu.py check     # every few hours; removes the pod after the verified final upload
 ```
 
-`<SECRET_NAME>` is the name of a RunPod secret that holds an HF token with write access to the dataset. The pod
-receives only the reference `{{ RUNPOD_SECRET_<name> }}`.
+The RunPod secret `HF_TOKEN` already exists and is the default (`--hf-secret HF_TOKEN`). The pod receives only the
+reference `{{ RUNPOD_SECRET_HF_TOKEN }}`. The token needs write access to the dataset, because the pod uploads
+`runs/<RUN>/`.
 
 Afterwards, a session imports the result: download `runs/<RUN>/final.tar.gz`, then save it as
 `replication/logs/clean_run_full_remaining_<date>/` in the layout of the other records. Finally, replace the

@@ -15,6 +15,42 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 - [ ] **Author metadata:** name, affiliation and ORCID in `CITATION.cff`, `.zenodo.json` and the dataset card (fields
       marked CHECK).
 
+## 0b. Optional before release: the full-mode steps not yet measured (RunPod CPU pod)
+
+Fast mode passes in a fresh container. Full mode was measured for 8 of 25 steps before the host restarted
+(`replication/logs/clean_run_full_2026-10-15_partial/`). This section completes the measurement. It is not required
+for the release, and the README already marks the remaining full-mode times as estimates. Recipe and failure-mode
+table: `replication/runpod/README.md`. Run the commands from a checkout of the release commit, with
+`RUNPOD_API_KEY` and `HF_TOKEN` in your shell. Never commit or paste them.
+
+- [x] RunPod secret `HF_TOKEN` exists. `launch_cpu.py` passes it to the pod by reference
+      (`{{ RUNPOD_SECRET_HF_TOKEN }}`, the default `--hf-secret`). It needs **write** access to the dataset, because
+      the pod uploads `runs/<RUN>/`.
+- [ ] Create a **new, dedicated** network volume in the RunPod console (Storage → New Network Volume):
+      - name `spt-replication-logs`, about 10 GB;
+      - in a data centre that offers CPU pods (the pod runs where the volume is);
+      - never the shared volume. The launcher refuses any volume whose name does not start with `spt-replication`.
+
+      Note the volume id.
+- [ ] `python replication/runpod/launch_cpu.py plan`: no API call; check the spec, the steps and the caps.
+- [ ] `python replication/runpod/launch_cpu.py volume-check --volume-id <ID>`: read-only; must print
+      `spt-replication-logs`.
+- [ ] **End-to-end test first** (CLAUDE.md rule 6), costing a few cents:
+      `python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e` (dry run, prints the request), then the
+      same with `--confirm`. Run `python replication/runpod/launch_cpu.py check` every few minutes until it reports
+      `final_verified: true`; check then removes the pod. Confirm `runs/e2e-<sha>/` on HF holds `status.json`,
+      `pod.log`, `steps/*.log`, `records.json` and `final.tar.gz`, with all 4 steps passing.
+- [ ] **The real run:** `python replication/runpod/launch_cpu.py launch --volume-id <ID> --confirm` (about 13 h; job
+      cap 20 h; check removes the pod at 24 h or $12). Run `check` every few hours. It removes the pod only after the
+      final upload is verified.
+- [ ] Ask a session to import `runs/full-remaining-<sha>/final.tar.gz` into
+      `replication/logs/clean_run_full_remaining_<date>/` and replace the estimated full-mode times in
+      `replication/README.md`, `Makefile`, `.zenodo.json` and `paper/paper.md` with the measured ones.
+- [ ] Delete the network volume once the record is imported (it is billed monthly).
+- [ ] Optional: the Amendment 4 null distribution (`s1.null`, about 21 h). 20 of its 100 replicates are already
+      checked and identical. To recompute all 100, run `STEPS=s1.null` on a second pod; this needs a one-line change
+      to the launcher, made on request.
+
 ## 1. Hugging Face dataset (`RandallSPQR/social-phase-transitions-llm-cache`)
 
 - [x] Simulation unit bundles uploaded to `sim_units/` and verified by re-download (`replication/sim_units_manifest.json`).
