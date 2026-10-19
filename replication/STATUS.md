@@ -1,90 +1,97 @@
-# Replication package: working status (handoff note, updated 2026-10-15 ~18:40 UTC)
+# Replication package: status at session close (2026-10-19)
 
-For a session that resumes this work without the earlier conversation. Branch `claude/peaceful-fermi-hz11cv`; all
-work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; package docs in `replication/README.md`.
+This note is for a session that resumes the work without the earlier conversation.
 
-## Owner's request (2026-10-15)
+- **Branch:** `claude/peaceful-fermi-hz11cv`.
+- **State:** everything is committed and pushed. Nothing is running, no scheduled check-ins remain, and nothing has
+  been published or launched.
+- **Background:** `llm/EXECUTION_LOG.md` entry 73. Package documentation: `replication/README.md`.
 
-1. `make replicate` / `make replicate-fast`: fetch HF dataset → verify SHA-256 → rerun every analysis from cache (no
-   keys, no GPU) → regenerate figures → compare with committed results (stated tolerances) → pass/fail per claim.
-2. Pinned environment (lockfile + Dockerfile), graph-fingerprint assertions kept, runtime/hardware for both modes.
-3. README with claims map, tier 1 (exact, from cache) vs tier 2 (re-collection, ~$37, provider drift).
-4. Test on a fresh container, fix what breaks, record the clean-run log.
-5. Licences: code Apache-2.0, data CC BY 4.0, model-provider output terms (Gemma checked).
-6. Prepare GitHub release + Zenodo + HF dataset card. **Publish nothing; the owner flips the switches.**
+## Owner's request (2026-10-15) and where each item stands
 
-## Done
+| # | item | status |
+|---|---|---|
+| 1 | `make replicate` / `make replicate-fast`: fetch → verify SHA-256 → rerun from cache (no keys, no GPU) → regenerate figures → compare with stated tolerances → pass/fail per claim | **done** |
+| 2 | Pinned environment (lock file, Dockerfile), graph fingerprints, runtime and hardware for both modes | **done**. Fast mode measured; full mode partly measured, rest estimated |
+| 3 | README: claims map, tier 1 vs tier 2 | **done** |
+| 4 | Fresh-container test, fixes, clean-run log | **done for fast mode**. Full mode interrupted after 8 of 25 steps (all pass); the rest is prepared for RunPod |
+| 5 | Licences: code Apache-2.0, data CC BY 4.0, model-output terms | **done**; the terms table is still to be verified by the owner |
+| 6 | GitHub release, Zenodo, HF dataset card | **prepared, not published** |
 
-- **Items 1–3, 5 and 6:** done. Files: `Makefile`, `Dockerfile`, `.dockerignore`, `replication/*`, `LICENSE`,
-  `LICENSE-DATA`, `LICENSES.md`, `CITATION.cff`, `.zenodo.json`, `replication/hf_dataset_card/README.md`,
-  `replication/RELEASE_CHECKLIST.md`.
-- **Item 4, fast mode:** passes in a fresh container (image built from `git archive` of 38b926f). Every claim passes,
-  53/53 headline numbers, 54.6 min, peak 4.6 GB. Record: `replication/logs/clean_run_fast_2026-10-15/` (including 4
-  earlier failed attempts and their fixes).
-- **HF dataset (still private):** `sim_units/amplification_units.tar` and `confirm_units.tar` uploaded and verified
-  (`replication/sim_units_manifest.json`).
-- **Secrets audits:** done; results in `replication/RELEASE_CHECKLIST.md`.
-- **Paper and REPORT:** §4.1 now states that the asymmetry values are the N = 4,000 rows. The paper's data-availability
-  section describes the package.
+Owner follow-ups, all done:
+- comparator canary;
+- two-tier statement with the measured drift;
+- null-distribution note;
+- RunPod recipe with a separate `--job null`;
+- release checklist section 0b;
+- confirmation that the RunPod secret `HF_TOKEN` already exists.
 
-## The two tiers (as stated in `replication/README.md`)
+## Verified results
 
-- **Tier 1: bit-identical recomputation from the cached responses** (`make replicate[-fast]`). No keys, no GPU.
-  - Fast mode passes in a fresh container: all claims, 53/53 headline numbers.
-  - The comparator canary proves that a one-byte or one-ulp change is rejected.
-- **Tier 2: live re-query.** New API calls and GPU runs, about $37. It is **not expected to be identical**. Measured
-  reasons:
-  - hosted endpoints have repeat noise of 0.034–0.296 nats (gate 0.3), and gate-failed endpoints reach 0.70;
-  - provider jitter: format fields shift, coefficients differ 7–9% in one framing, and answers drift over hours;
-  - mixture-of-experts batch nondeterminism: RMS 0.86 nats, with 2.5% of majority answers flipped.
-  - The deterministic reference is local bf16 Gemma-4 at batch size 1 with deterministic kernels: replicates
-    identical, repeat SD 0.114.
+- **Fast mode, clean container** (image from `git archive` of 38b926f):
+  - every claim passes, 53/53 headline numbers;
+  - 54.6 min on 4 vCPU, peak 4.6 GB;
+  - record: `replication/logs/clean_run_fast_2026-10-15/`, including 4 earlier failed attempts and the fix for each.
+- **Full mode, clean container, interrupted by a host restart:**
+  - 8 of 25 steps finished, all pass, and all recomputed outputs are bit-identical (baseline sweeps 153.7 min;
+    Amendment 4–5 bootstrap caches 79.5 min);
+  - the null distribution reached 20 of 100 replicates, all identical to the committed ones;
+  - record: `replication/logs/clean_run_full_2026-10-15_partial/`.
+- **Comparator** (`replication/canary.py`, step `qc.canary`, first in every run):
+  - rejects a one-byte change in a base.sim array, a raw byte flip, and a 1-ulp change in a CSV and in a JSON result;
+  - `exact` means bit-identical; CSVs are parsed round-trip;
+  - both clean runs pass under this strict comparator.
+- **Two tiers** (`replication/README.md`):
+  - Tier 1 is bit-identical recomputation from the cached responses.
+  - Tier 2 is live re-query, not expected to be identical. Measured reasons: hosted repeat SD 0.034–0.296 nats (up to
+    0.70 on gate-failed endpoints); provider jitter (coefficients 7–9%, drift over hours); mixture-of-experts batch
+    nondeterminism (0.86 nats RMS, 2.5% of majority answers flip).
+  - The deterministic reference is local bf16 Gemma-4 at batch size 1 (identical replicates; repeat SD 0.114).
 
-## Amendment 4 null distribution
+## Prepared for the owner (not launched): RunPod CPU pods
 
-- **Checked:** 20 of the 100 replicates were recomputed in the interrupted clean full run, and all 20 are identical
-  to the committed ones.
-- **Not yet recomputed:** replicates 20–99.
+Recipe: `replication/runpod/` (`README.md`, `launch_cpu.py`, `pod_full_remaining.sh`). The owner's steps are in
+`replication/RELEASE_CHECKLIST.md` §0b.
 
-## Full-mode clean run: interrupted (host restart), needs an owner decision
-
-- **What happened:** the run started 04:54 UTC on 2026-10-15. The cloud host restarted between about 13:40 and 17:35
-  UTC, after the session went idle; uptime was 0 at the 17:35 check-in. Docker and the run were lost.
-- **What survived:** 8 of 25 steps finished, all PASS. That includes `base.sim`, bit-identical, recomputed with the
-  fixed comparator. `s1.null` had finished 20 of 100 replicates, all equal to the committed ones. Record:
-  `replication/logs/clean_run_full_2026-10-15_partial/`.
-- **Owner decision (2026-10-15): do not relaunch here.** A RunPod CPU-pod recipe for the unmeasured steps (without
-  the null distribution) is prepared in `replication/runpod/` but not launched:
-  - dedicated `spt-replication-…` network volume;
-  - HF heartbeat and per-step verified uploads;
-  - end-to-end test mode first;
-  - failure-mode table.
-
-  The pod script was tested locally (dry, 3 steps). The owner launches it. The RunPod secret `HF_TOKEN` already
-  exists (owner, 2026-10-15) and is the launcher's default. The owner's steps are in `RELEASE_CHECKLIST.md`, section 0b. A second job, `--job null`, recomputes all 100
-  null-distribution replicates on its own pod (about 21–25 h; caps 30 h job, 34 h / $16 check-in). It is prepared, not
-  launched.
-- **Earlier options**, kept for reference: the owner decides. Options:
-  1. Relaunch the whole full mode: about 37 h, dominated by `s1.null` at about 21 h.
-  2. Relaunch with `--skip s1.null`: about 16 h.
-  3. Run only the unmeasured steps with `--only …`: about 13 h.
-
-  Any long run needs the session kept active (the host is reclaimed when idle) or a machine the owner controls.
-- **To relaunch:** see `replication/logs/clean_run_full_2026-10-15_partial/run_full.sh`. First start dockerd with
-  `llm/bg.sh start dockerd dockerd`. Rebuild the image, which may need a retry on Docker Hub 429s.
+- **Jobs:**
+  - `--job remaining`: the 18 unmeasured full-mode steps, without `s1.null`. About 13 h; job cap 20 h; check-in caps
+    24 h / $12.
+  - `--job null`: all 100 null replicates. About 21–25 h; job cap 30 h; check-in caps 34 h / $16.
+  - `--e2e`: a 4-step end-to-end test, to run first.
+- **Storage:** a new dedicated network volume named `spt-replication-…`, which the owner creates. The launcher refuses
+  any other volume, so the shared volume can never be mounted.
+- **Record:** HF `runs/<RUN>/` (heartbeat every 90 s, each step uploaded and verified, final tarball).
+- **Safety:** nothing is created without `--confirm`. `check --job …` (or `check --e2e`) removes a pod only after a
+  verified final upload or on a cap.
+- **Tested so far:** the pod script ran locally in dry mode (3 steps, no RunPod, no HF writes). The HF uploads, the
+  volume mount and the RunPod create/remove calls are exercised only by the `--e2e` launch.
+- **After a run:** import `runs/<RUN>/final.tar.gz` into `replication/logs/clean_run_full_<job>_<date>/`. Replace the
+  estimated full-mode times in `replication/README.md`, `Makefile`, `.zenodo.json` and `paper/paper.md`, and update
+  the null-distribution note. Then delete the volume (deletion needs the owner's OK).
 
 ## Open decisions for the owner (reported; not acted on)
 
-1. **Generation ids in git history.** Cache files committed before 2026-10-09 still contain OpenRouter generation
-   ids. The options (accept; rewrite history; fresh public repo) are in `RELEASE_CHECKLIST.md`. Only "accept" keeps
-   the pre-registration commit ids verifiable.
-2. **`papers/*.pdf`** (OpenAI's documents): confirm redistribution rights or remove them; they are also in the history.
-3. **Author metadata:** "Randall Bennington" (inferred from the email address) in `CITATION.cff`, `.zenodo.json` and
-   the card is to be confirmed, and an ORCID added.
+1. **Generation ids in the git history.** Cache files committed before 2026-10-09 still contain OpenRouter generation
+   ids. The options (accept; rewrite history; fresh public repository) are in `RELEASE_CHECKLIST.md`. Only "accept"
+   keeps the pre-registration commit ids verifiable.
+2. **`papers/*.pdf`** (OpenAI's documents): confirm redistribution rights or remove them. They are also in the history.
+3. **Author metadata:** "Randall Bennington", inferred from the email address, appears in `CITATION.cff`,
+   `.zenodo.json` and the dataset card. Confirm it and add an ORCID.
 4. **Model-output terms:** verify the table in `LICENSES.md`. The Gemma 4 licence page was unreachable; the HF card
    says Apache-2.0.
 5. **Publishing:** nothing is published. The HF dataset is private, there is no release or tag, and Zenodo is not
-   enabled. Steps are in `RELEASE_CHECKLIST.md`.
+   enabled. Steps: `RELEASE_CHECKLIST.md` §§1–2.
+6. **Optional measurement:** the RunPod jobs above.
+
+## Environment notes for a resuming session
+
+- **Machine:** the cloud host is reclaimed or restarted when the session is idle. Any long run here dies with it
+  (this happened on 2026-10-15). Use a machine the owner controls for multi-hour jobs.
+- **Docker:** start it with `llm/bg.sh start dockerd dockerd`. Pulls from Docker Hub can be rate-limited (429); retry
+  with backoff. Debian mirrors are blocked by the network policy, which is why ffmpeg comes from PyPI.
+- **Disk:** the allowance filled once. Free scratch space before large runs.
+- **Scratch outputs:** the clean-run directories under the session scratchpad are not part of the record; the
+  committed logs are.
 
 ## Standing rules (from CLAUDE.md and the owner)
 
@@ -92,4 +99,5 @@ work is committed and pushed. Background: `llm/EXECUTION_LOG.md` entry 73; packa
 - No force-push. No PR unless asked. Never print secrets. No model identifiers in commits.
 - Commit trailers: `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` and
   `Claude-Session: https://claude.ai/code/session_01HkJZ66L2APs3D5WfJVsYtg`.
-- Disk is a fixed allowance; it filled once. Free scratch space before large runs.
+- Never mount the owner's shared network volume or touch their other pods. Deleting anything on a shared resource
+  needs the owner's OK.
