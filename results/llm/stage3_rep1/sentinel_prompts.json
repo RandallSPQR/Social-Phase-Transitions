@@ -1,0 +1,162 @@
+{
+ "P1": [
+  {
+   "name": "near_half",
+   "counts": "0202",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aQrQaQrQ",
+   "pA_kavg": 0.5,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position A.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds B.\n- A rival holds B.\n- An ally holds B.\n- A rival holds B.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_1",
+   "counts": "3010",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaPrP",
+   "pA_kavg": null,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position A.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A.\n- An ally holds A.\n- An ally holds A.\n- A rival holds A.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_2",
+   "counts": "3100",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaPaQ",
+   "pA_kavg": null,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position A.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A.\n- An ally holds A.\n- An ally holds A.\n- An ally holds B.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  }
+ ],
+ "P2": [
+  {
+   "name": "near_half",
+   "counts": "3010",
+   "s0": -1,
+   "mapping": 1,
+   "order": 0,
+   "seq": "aPaPrPaP",
+   "pA_kavg": 0.5005930737498828,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (oppose the measure) or B (support the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position A (oppose the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds B (support the measure).\n- An ally holds B (support the measure).\n- A rival holds B (support the measure).\n- An ally holds B (support the measure).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_1",
+   "counts": "2020",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPrPrP",
+   "pA_kavg": null,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (support the measure) or B (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position A (support the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (support the measure).\n- An ally holds A (support the measure).\n- A rival holds A (support the measure).\n- A rival holds A (support the measure).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_2",
+   "counts": "3010",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaPrP",
+   "pA_kavg": null,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (support the measure) or B (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position A (support the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (support the measure).\n- An ally holds A (support the measure).\n- An ally holds A (support the measure).\n- A rival holds A (support the measure).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  }
+ ],
+ "P3": [
+  {
+   "name": "near_half",
+   "counts": "0400",
+   "s0": 1,
+   "mapping": 0,
+   "order": 1,
+   "seq": "aQaQaQaQ",
+   "pA_kavg": 0.4999999999969359,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, B (oppose the measure) or A (support the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position A (support the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n\nWhich position do you take now? Reply with exactly one letter, B or A, and nothing else."
+  },
+  {
+   "name": "typical_1",
+   "counts": "1300",
+   "s0": -1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaQaQaQ",
+   "pA_kavg": null,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (support the measure) or B (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position B (oppose the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (support the measure).\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_2",
+   "counts": "2200",
+   "s0": -1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaQaQ",
+   "pA_kavg": null,
+   "prompt": "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (support the measure) or B (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).\n\nYou currently hold position B (oppose the measure).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (support the measure).\n- An ally holds A (support the measure).\n- An ally holds B (oppose the measure).\n- An ally holds B (oppose the measure).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  }
+ ],
+ "P4": [
+  {
+   "name": "near_half",
+   "counts": "1012",
+   "s0": -1,
+   "mapping": 0,
+   "order": 1,
+   "seq": "rQaPrPrQ",
+   "pA_kavg": 0.5,
+   "prompt": "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, B (keep the current tool) or A (adopt the new tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).\n\nYou currently hold position B (keep the current tool).\n\nThe people you are in contact with, and the position each currently holds:\n- A rival holds B (keep the current tool).\n- An ally holds A (adopt the new tool).\n- A rival holds A (adopt the new tool).\n- A rival holds B (keep the current tool).\n\nWhich position do you take now? Reply with exactly one letter, B or A, and nothing else."
+  },
+  {
+   "name": "typical_1",
+   "counts": "3010",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaPrP",
+   "pA_kavg": null,
+   "prompt": "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, A (adopt the new tool) or B (keep the current tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).\n\nYou currently hold position A (adopt the new tool).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (adopt the new tool).\n- An ally holds A (adopt the new tool).\n- An ally holds A (adopt the new tool).\n- A rival holds A (adopt the new tool).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_2",
+   "counts": "4000",
+   "s0": 1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaPaPaP",
+   "pA_kavg": null,
+   "prompt": "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, A (adopt the new tool) or B (keep the current tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).\n\nYou currently hold position A (adopt the new tool).\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A (adopt the new tool).\n- An ally holds A (adopt the new tool).\n- An ally holds A (adopt the new tool).\n- An ally holds A (adopt the new tool).\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  }
+ ],
+ "P5": [
+  {
+   "name": "near_half",
+   "counts": "3100",
+   "s0": -1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aQaPaPaP",
+   "pA_kavg": 0.5,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position B.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds B.\n- An ally holds A.\n- An ally holds A.\n- An ally holds A.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_1",
+   "counts": "0400",
+   "s0": -1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aQaQaQaQ",
+   "pA_kavg": null,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position B.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds B.\n- An ally holds B.\n- An ally holds B.\n- An ally holds B.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  },
+  {
+   "name": "typical_2",
+   "counts": "1300",
+   "s0": -1,
+   "mapping": 0,
+   "order": 0,
+   "seq": "aPaQaQaQ",
+   "pA_kavg": null,
+   "prompt": "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).\n\nYou currently hold position B.\n\nThe people you are in contact with, and the position each currently holds:\n- An ally holds A.\n- An ally holds B.\n- An ally holds B.\n- An ally holds B.\n\nWhich position do you take now? Reply with exactly one letter, A or B, and nothing else."
+  }
+ ]
+}

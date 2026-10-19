@@ -1,0 +1,19 @@
+# keep the image to code + committed results; data that the replication fetches is excluded so the run downloads
+# and verifies it
+.git
+.venv
+**/__pycache__
+replication/out
+results/llm/cache
+results/llm/logs/bg
+results/llm/stage3_rep1/upload
+results/llm/amplification/locate
+results/llm/amplification/locate2
+results/llm/amplification/perturb
+results/llm/confirm/sim/coarse
+results/llm/confirm/sim/fine
+results/llm/confirm/sim/wrule
+results/llm/confirm/sim/gemma_len
+results/llm/confirm/step45
+results/llm/confirm/gemma_mechanism/len
+results/llm/confirm/gemma_mechanism/glass

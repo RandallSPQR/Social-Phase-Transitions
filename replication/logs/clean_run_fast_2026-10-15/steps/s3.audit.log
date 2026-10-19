@@ -1,0 +1,887 @@
+$ python llm/stage3_audit.py logs
+P1 {'rows': 20000, 'calls': 20000, 'chains_replayed': 10}
+P2 {'rows': 20000, 'calls': 20004, 'chains_replayed': 10}
+P3 {'rows': 20000, 'calls': 20000, 'chains_replayed': 10}
+P4 {'rows': 20000, 'calls': 20000, 'chains_replayed': 10}
+P5 {'rows': 20000, 'calls': 20000, 'chains_replayed': 10}
+P2-nc {'rows': 20000, 'calls': 20000, 'chains_replayed': 10}
+P4-nc {'rows': 20000, 'calls': 20001, 'chains_replayed': 10}
+{
+ "B9": {
+  "chains": 70,
+  "initial_m_z_mean": -0.10571428571428573,
+  "initial_m_z_var": 1.1093959183673474,
+  "chi2_sum_z2_p": 0.45788083632521015,
+  "harness": {
+   "N_WARM": 10,
+   "N_MEAS": 10,
+   "init": "independent 50/50 per agent (rng.random() < 0.5)",
+   "persistence_ref": "states after sweep N_WARM-1 (st[:, N_WARM])"
+  },
+  "simulator": {
+   "stage3_jobs": [
+    [
+     10,
+     10
+    ]
+   ],
+   "init": "np.random.random() < 0.5 + init_bias, init_bias = 0",
+   "persistence_ref": "copied when t == n_warm - 1"
+  },
+  "stage2_csv_n_warm_n_meas": [
+   [
+    10,
+    10
+   ]
+  ]
+ },
+ "B10": {
+  "max_abs_diff_vs_measures_by_graph": 1.1102230246251565e-16,
+  "max_abs_diff_vs_harness_graph_measures": 1.1102230246251565e-16,
+  "max_abs_diff_point_means_vs_summary_csv": 1.1102230246251565e-16,
+  "code": "results/llm/stage3_audit/replay_measure_source.py (surrogate.run, dynamics replaced by replay)"
+ }
+}
+$ python llm/stage3_audit.py mock --reps 40 --workers 4
+mock: 287 tasks to run (0 done earlier)
+  rep  0 P1     abs_m 0.401 m 0.335 persistence 0.682 excess_unsat 0.130 flip_rate 0.044 abs_q 0.234
+  rep  0 P3     abs_m 0.213 m -0.201 persistence 0.936 excess_unsat 0.183 flip_rate 0.005 abs_q 0.143
+  rep  0 P4     abs_m 0.882 m 0.882 persistence 0.806 excess_unsat 0.118 flip_rate 0.051 abs_q 0.774
+  rep  0 P2     abs_m 0.630 m 0.630 persistence 0.637 excess_unsat 0.299 flip_rate 0.055 abs_q 0.414
+  rep  0 P2-nc  abs_m 0.411 m 0.411 persistence 0.507 excess_unsat 0.349 flip_rate 0.076 abs_q 0.182
+  rep  0 P4-nc  abs_m 0.511 m 0.511 persistence 0.462 excess_unsat 0.278 flip_rate 0.125 abs_q 0.247
+  rep  0 P5     abs_m 0.186 m -0.007 persistence 0.167 excess_unsat 0.372 flip_rate 0.318 abs_q 0.088
+  rep  1 P1     abs_m 0.371 m -0.077 persistence 0.708 excess_unsat 0.142 flip_rate 0.049 abs_q 0.208
+  rep  1 P2     abs_m 0.665 m 0.665 persistence 0.627 excess_unsat 0.314 flip_rate 0.055 abs_q 0.435
+  rep  1 P4     abs_m 0.891 m 0.891 persistence 0.807 excess_unsat 0.112 flip_rate 0.045 abs_q 0.792
+  rep  1 P3     abs_m 0.300 m -0.300 persistence 0.956 excess_unsat 0.172 flip_rate 0.004 abs_q 0.080
+  rep  1 P5     abs_m 0.202 m 0.035 persistence 0.176 excess_unsat 0.363 flip_rate 0.313 abs_q 0.091
+  rep  1 P2-nc  abs_m 0.421 m 0.421 persistence 0.463 excess_unsat 0.364 flip_rate 0.077 abs_q 0.209
+  rep  1 P4-nc  abs_m 0.519 m 0.519 persistence 0.444 excess_unsat 0.279 flip_rate 0.122 abs_q 0.256
+  rep  2 P1     abs_m 0.278 m -0.088 persistence 0.690 excess_unsat 0.163 flip_rate 0.053 abs_q 0.159
+  rep  2 P2     abs_m 0.590 m 0.590 persistence 0.614 excess_unsat 0.306 flip_rate 0.058 abs_q 0.358
+  rep  2 P3     abs_m 0.286 m -0.286 persistence 0.931 excess_unsat 0.180 flip_rate 0.006 abs_q 0.157
+  rep  2 P4     abs_m 0.887 m 0.887 persistence 0.785 excess_unsat 0.116 flip_rate 0.051 abs_q 0.792
+  rep  2 P2-nc  abs_m 0.412 m 0.412 persistence 0.485 excess_unsat 0.349 flip_rate 0.076 abs_q 0.126
+  rep  2 P5     abs_m 0.264 m -0.192 persistence 0.244 excess_unsat 0.337 flip_rate 0.287 abs_q 0.166
+  rep  2 P4-nc  abs_m 0.525 m 0.525 persistence 0.451 excess_unsat 0.278 flip_rate 0.123 abs_q 0.269
+  rep  3 P1     abs_m 0.290 m 0.127 persistence 0.662 excess_unsat 0.149 flip_rate 0.053 abs_q 0.128
+  rep  3 P2     abs_m 0.634 m 0.634 persistence 0.656 excess_unsat 0.311 flip_rate 0.056 abs_q 0.412
+  rep  3 P3     abs_m 0.301 m -0.301 persistence 0.923 excess_unsat 0.167 flip_rate 0.006 abs_q 0.104
+  rep  3 P4     abs_m 0.852 m 0.852 persistence 0.758 excess_unsat 0.121 flip_rate 0.055 abs_q 0.724
+  rep  3 P2-nc  abs_m 0.366 m 0.366 persistence 0.543 excess_unsat 0.339 flip_rate 0.071 abs_q 0.124
+  rep  3 P5     abs_m 0.161 m 0.024 persistence 0.175 excess_unsat 0.380 flip_rate 0.339 abs_q 0.085
+  rep  3 P4-nc  abs_m 0.547 m 0.547 persistence 0.440 excess_unsat 0.264 flip_rate 0.132 abs_q 0.276
+  rep  4 P1     abs_m 0.355 m -0.210 persistence 0.720 excess_unsat 0.149 flip_rate 0.050 abs_q 0.244
+  rep  4 P2     abs_m 0.666 m 0.666 persistence 0.661 excess_unsat 0.325 flip_rate 0.052 abs_q 0.461
+  rep  4 P3     abs_m 0.306 m -0.292 persistence 0.936 excess_unsat 0.177 flip_rate 0.006 abs_q 0.085
+  rep  4 P4     abs_m 0.883 m 0.883 persistence 0.791 excess_unsat 0.108 flip_rate 0.048 abs_q 0.786
+  rep  4 P2-nc  abs_m 0.389 m 0.389 persistence 0.485 excess_unsat 0.346 flip_rate 0.076 abs_q 0.146
+  rep  4 P5     abs_m 0.201 m 0.069 persistence 0.171 excess_unsat 0.370 flip_rate 0.328 abs_q 0.089
+  rep  4 P4-nc  abs_m 0.560 m 0.560 persistence 0.479 excess_unsat 0.261 flip_rate 0.123 abs_q 0.312
+  rep  5 P1     abs_m 0.264 m 0.149 persistence 0.712 excess_unsat 0.146 flip_rate 0.043 abs_q 0.188
+  rep  5 P2     abs_m 0.660 m 0.660 persistence 0.638 excess_unsat 0.303 flip_rate 0.055 abs_q 0.447
+  rep  5 P4     abs_m 0.899 m 0.899 persistence 0.806 excess_unsat 0.116 flip_rate 0.049 abs_q 0.804
+  rep  5 P3     abs_m 0.258 m -0.258 persistence 0.932 excess_unsat 0.181 flip_rate 0.006 abs_q 0.138
+  rep  5 P5     abs_m 0.184 m 0.086 persistence 0.192 excess_unsat 0.353 flip_rate 0.309 abs_q 0.095
+  rep  5 P2-nc  abs_m 0.384 m 0.384 persistence 0.538 excess_unsat 0.348 flip_rate 0.074 abs_q 0.142
+  rep  5 P4-nc  abs_m 0.567 m 0.567 persistence 0.454 excess_unsat 0.266 flip_rate 0.118 abs_q 0.310
+  rep  6 P1     abs_m 0.266 m -0.081 persistence 0.687 excess_unsat 0.149 flip_rate 0.052 abs_q 0.150
+  rep  6 P2     abs_m 0.648 m 0.648 persistence 0.620 excess_unsat 0.311 flip_rate 0.059 abs_q 0.406
+  rep  6 P3     abs_m 0.284 m -0.284 persistence 0.930 excess_unsat 0.192 flip_rate 0.006 abs_q 0.124
+  rep  6 P4     abs_m 0.871 m 0.871 persistence 0.765 excess_unsat 0.124 flip_rate 0.054 abs_q 0.754
+  rep  6 P5     abs_m 0.250 m 0.009 persistence 0.152 excess_unsat 0.350 flip_rate 0.310 abs_q 0.097
+  rep  6 P2-nc  abs_m 0.374 m 0.374 persistence 0.504 excess_unsat 0.345 flip_rate 0.075 abs_q 0.170
+  rep  6 P4-nc  abs_m 0.555 m 0.555 persistence 0.435 excess_unsat 0.263 flip_rate 0.123 abs_q 0.287
+  rep  7 P1     abs_m 0.238 m -0.097 persistence 0.686 excess_unsat 0.149 flip_rate 0.050 abs_q 0.128
+  rep  7 P2     abs_m 0.576 m 0.576 persistence 0.634 excess_unsat 0.305 flip_rate 0.053 abs_q 0.354
+  rep  7 P3     abs_m 0.305 m -0.305 persistence 0.923 excess_unsat 0.182 flip_rate 0.007 abs_q 0.133
+  rep  7 P4     abs_m 0.871 m 0.871 persistence 0.812 excess_unsat 0.118 flip_rate 0.052 abs_q 0.762
+  rep  7 P2-nc  abs_m 0.418 m 0.418 persistence 0.532 excess_unsat 0.348 flip_rate 0.077 abs_q 0.164
+  rep  7 P5     abs_m 0.206 m 0.024 persistence 0.198 excess_unsat 0.353 flip_rate 0.302 abs_q 0.085
+  rep  7 P4-nc  abs_m 0.491 m 0.491 persistence 0.425 excess_unsat 0.278 flip_rate 0.122 abs_q 0.237
+  rep  8 P1     abs_m 0.222 m 0.119 persistence 0.705 excess_unsat 0.145 flip_rate 0.046 abs_q 0.092
+  rep  8 P2     abs_m 0.562 m 0.562 persistence 0.627 excess_unsat 0.320 flip_rate 0.059 abs_q 0.322
+  rep  8 P3     abs_m 0.189 m -0.168 persistence 0.929 excess_unsat 0.187 flip_rate 0.006 abs_q 0.075
+  rep  8 P4     abs_m 0.896 m 0.896 persistence 0.803 excess_unsat 0.106 flip_rate 0.047 abs_q 0.812
+  rep  8 P2-nc  abs_m 0.377 m 0.377 persistence 0.522 excess_unsat 0.351 flip_rate 0.072 abs_q 0.153
+  rep  8 P4-nc  abs_m 0.575 m 0.575 persistence 0.455 excess_unsat 0.265 flip_rate 0.119 abs_q 0.306
+  rep  8 P5     abs_m 0.162 m -0.099 persistence 0.175 excess_unsat 0.359 flip_rate 0.308 abs_q 0.090
+  rep  9 P1     abs_m 0.311 m -0.221 persistence 0.662 excess_unsat 0.153 flip_rate 0.055 abs_q 0.150
+  rep  9 P2     abs_m 0.649 m 0.649 persistence 0.629 excess_unsat 0.304 flip_rate 0.055 abs_q 0.440
+  rep  9 P4     abs_m 0.893 m 0.893 persistence 0.811 excess_unsat 0.113 flip_rate 0.047 abs_q 0.803
+  rep  9 P3     abs_m 0.382 m -0.382 persistence 0.930 excess_unsat 0.170 flip_rate 0.006 abs_q 0.122
+  rep  9 P2-nc  abs_m 0.388 m 0.388 persistence 0.524 excess_unsat 0.357 flip_rate 0.077 abs_q 0.161
+  rep  9 P5     abs_m 0.171 m 0.085 persistence 0.174 excess_unsat 0.379 flip_rate 0.331 abs_q 0.107
+  rep  9 P4-nc  abs_m 0.564 m 0.564 persistence 0.482 excess_unsat 0.265 flip_rate 0.122 abs_q 0.300
+  rep 10 P1     abs_m 0.265 m -0.053 persistence 0.641 excess_unsat 0.165 flip_rate 0.055 abs_q 0.096
+  rep 10 P2     abs_m 0.656 m 0.656 persistence 0.647 excess_unsat 0.298 flip_rate 0.052 abs_q 0.444
+  rep 10 P3     abs_m 0.354 m -0.336 persistence 0.924 excess_unsat 0.168 flip_rate 0.007 abs_q 0.147
+  rep 10 P4     abs_m 0.889 m 0.889 persistence 0.808 excess_unsat 0.112 flip_rate 0.051 abs_q 0.791
+  rep 10 P5     abs_m 0.152 m 0.001 persistence 0.173 excess_unsat 0.370 flip_rate 0.323 abs_q 0.111
+  rep 10 P2-nc  abs_m 0.396 m 0.396 persistence 0.518 excess_unsat 0.355 flip_rate 0.078 abs_q 0.169
+  rep 10 P4-nc  abs_m 0.564 m 0.564 persistence 0.440 excess_unsat 0.257 flip_rate 0.122 abs_q 0.327
+  rep 11 P1     abs_m 0.226 m 0.051 persistence 0.656 excess_unsat 0.156 flip_rate 0.055 abs_q 0.112
+  rep 11 P2     abs_m 0.666 m 0.666 persistence 0.654 excess_unsat 0.313 flip_rate 0.054 abs_q 0.436
+  rep 11 P3     abs_m 0.314 m -0.314 persistence 0.947 excess_unsat 0.169 flip_rate 0.005 abs_q 0.151
+  rep 11 P4     abs_m 0.910 m 0.910 persistence 0.836 excess_unsat 0.105 flip_rate 0.046 abs_q 0.830
+  rep 11 P5     abs_m 0.181 m -0.005 persistence 0.127 excess_unsat 0.373 flip_rate 0.337 abs_q 0.082
+  rep 11 P2-nc  abs_m 0.395 m 0.395 persistence 0.487 excess_unsat 0.345 flip_rate 0.078 abs_q 0.147
+  rep 11 P4-nc  abs_m 0.557 m 0.557 persistence 0.426 excess_unsat 0.266 flip_rate 0.124 abs_q 0.284
+  rep 12 P1     abs_m 0.365 m 0.216 persistence 0.679 excess_unsat 0.145 flip_rate 0.049 abs_q 0.149
+  rep 12 P3     abs_m 0.384 m -0.384 persistence 0.935 excess_unsat 0.166 flip_rate 0.006 abs_q 0.139
+  rep 12 P2     abs_m 0.586 m 0.586 persistence 0.602 excess_unsat 0.306 flip_rate 0.062 abs_q 0.372
+  rep 12 P4     abs_m 0.887 m 0.887 persistence 0.787 excess_unsat 0.113 flip_rate 0.052 abs_q 0.789
+  rep 12 P5     abs_m 0.198 m 0.031 persistence 0.173 excess_unsat 0.361 flip_rate 0.322 abs_q 0.074
+  rep 12 P4-nc  abs_m 0.524 m 0.524 persistence 0.450 excess_unsat 0.277 flip_rate 0.119 abs_q 0.268
+  rep 12 P2-nc  abs_m 0.422 m 0.422 persistence 0.509 excess_unsat 0.348 flip_rate 0.076 abs_q 0.176
+  rep 13 P1     abs_m 0.313 m -0.173 persistence 0.702 excess_unsat 0.137 flip_rate 0.046 abs_q 0.247
+  rep 13 P2     abs_m 0.519 m 0.519 persistence 0.593 excess_unsat 0.288 flip_rate 0.064 abs_q 0.288
+  rep 13 P3     abs_m 0.335 m -0.335 persistence 0.928 excess_unsat 0.167 flip_rate 0.007 abs_q 0.124
+  rep 13 P4     abs_m 0.861 m 0.861 persistence 0.765 excess_unsat 0.111 flip_rate 0.054 abs_q 0.750
+  rep 13 P5     abs_m 0.190 m -0.060 persistence 0.150 excess_unsat 0.353 flip_rate 0.308 abs_q 0.097
+  rep 13 P2-nc  abs_m 0.387 m 0.387 persistence 0.542 excess_unsat 0.349 flip_rate 0.073 abs_q 0.144
+  rep 13 P4-nc  abs_m 0.571 m 0.571 persistence 0.476 excess_unsat 0.270 flip_rate 0.116 abs_q 0.292
+  rep 14 P1     abs_m 0.309 m 0.129 persistence 0.667 excess_unsat 0.161 flip_rate 0.055 abs_q 0.068
+  rep 14 P2     abs_m 0.655 m 0.655 persistence 0.649 excess_unsat 0.306 flip_rate 0.056 abs_q 0.463
+  rep 14 P3     abs_m 0.273 m -0.254 persistence 0.900 excess_unsat 0.186 flip_rate 0.008 abs_q 0.102
+  rep 14 P4     abs_m 0.884 m 0.884 persistence 0.756 excess_unsat 0.113 flip_rate 0.050 abs_q 0.792
+  rep 14 P5     abs_m 0.171 m 0.034 persistence 0.196 excess_unsat 0.373 flip_rate 0.322 abs_q 0.106
+  rep 14 P2-nc  abs_m 0.393 m 0.393 persistence 0.494 excess_unsat 0.350 flip_rate 0.075 abs_q 0.200
+  rep 14 P4-nc  abs_m 0.522 m 0.522 persistence 0.454 excess_unsat 0.280 flip_rate 0.128 abs_q 0.259
+  rep 15 P1     abs_m 0.287 m -0.051 persistence 0.694 excess_unsat 0.152 flip_rate 0.048 abs_q 0.139
+  rep 15 P3     abs_m 0.321 m -0.321 persistence 0.911 excess_unsat 0.171 flip_rate 0.008 abs_q 0.229
+  rep 15 P2     abs_m 0.645 m 0.645 persistence 0.635 excess_unsat 0.314 flip_rate 0.056 abs_q 0.405
+  rep 15 P4     abs_m 0.860 m 0.860 persistence 0.766 excess_unsat 0.123 flip_rate 0.057 abs_q 0.736
+  rep 15 P2-nc  abs_m 0.384 m 0.384 persistence 0.499 excess_unsat 0.353 flip_rate 0.076 abs_q 0.169
+  rep 15 P5     abs_m 0.170 m 0.002 persistence 0.160 excess_unsat 0.376 flip_rate 0.325 abs_q 0.086
+  rep 15 P4-nc  abs_m 0.533 m 0.533 persistence 0.433 excess_unsat 0.278 flip_rate 0.124 abs_q 0.270
+  rep 16 P1     abs_m 0.258 m 0.046 persistence 0.728 excess_unsat 0.135 flip_rate 0.046 abs_q 0.146
+  rep 16 P2     abs_m 0.533 m 0.533 persistence 0.593 excess_unsat 0.309 flip_rate 0.063 abs_q 0.274
+  rep 16 P3     abs_m 0.396 m -0.396 persistence 0.914 excess_unsat 0.175 flip_rate 0.007 abs_q 0.153
+  rep 16 P4     abs_m 0.883 m 0.883 persistence 0.796 excess_unsat 0.114 flip_rate 0.049 abs_q 0.786
+  rep 16 P5     abs_m 0.173 m 0.003 persistence 0.154 excess_unsat 0.384 flip_rate 0.348 abs_q 0.092
+  rep 16 P2-nc  abs_m 0.399 m 0.399 persistence 0.496 excess_unsat 0.361 flip_rate 0.076 abs_q 0.166
+  rep 16 P4-nc  abs_m 0.564 m 0.564 persistence 0.473 excess_unsat 0.255 flip_rate 0.121 abs_q 0.318
+  rep 17 P1     abs_m 0.351 m 0.227 persistence 0.694 excess_unsat 0.149 flip_rate 0.048 abs_q 0.151
+  rep 17 P2     abs_m 0.610 m 0.610 persistence 0.614 excess_unsat 0.303 flip_rate 0.059 abs_q 0.364
+  rep 17 P3     abs_m 0.285 m -0.285 persistence 0.932 excess_unsat 0.180 flip_rate 0.006 abs_q 0.174
+  rep 17 P4     abs_m 0.887 m 0.887 persistence 0.831 excess_unsat 0.110 flip_rate 0.046 abs_q 0.786
+  rep 17 P5     abs_m 0.135 m 0.008 persistence 0.146 excess_unsat 0.374 flip_rate 0.327 abs_q 0.092
+  rep 17 P2-nc  abs_m 0.416 m 0.416 persistence 0.529 excess_unsat 0.363 flip_rate 0.073 abs_q 0.185
+  rep 17 P4-nc  abs_m 0.526 m 0.526 persistence 0.455 excess_unsat 0.269 flip_rate 0.130 abs_q 0.306
+  rep 18 P1     abs_m 0.252 m -0.085 persistence 0.701 excess_unsat 0.161 flip_rate 0.049 abs_q 0.132
+  rep 18 P2     abs_m 0.579 m 0.579 persistence 0.636 excess_unsat 0.320 flip_rate 0.055 abs_q 0.336
+  rep 18 P3     abs_m 0.285 m -0.251 persistence 0.933 excess_unsat 0.182 flip_rate 0.006 abs_q 0.139
+  rep 18 P4     abs_m 0.884 m 0.884 persistence 0.784 excess_unsat 0.108 flip_rate 0.049 abs_q 0.787
+  rep 18 P5     abs_m 0.201 m -0.063 persistence 0.173 excess_unsat 0.363 flip_rate 0.325 abs_q 0.090
+  rep 18 P2-nc  abs_m 0.384 m 0.384 persistence 0.544 excess_unsat 0.358 flip_rate 0.070 abs_q 0.183
+  rep 18 P4-nc  abs_m 0.539 m 0.539 persistence 0.445 excess_unsat 0.274 flip_rate 0.125 abs_q 0.296
+  rep 19 P1     abs_m 0.365 m 0.228 persistence 0.681 excess_unsat 0.144 flip_rate 0.051 abs_q 0.180
+  rep 19 P2     abs_m 0.662 m 0.662 persistence 0.643 excess_unsat 0.329 flip_rate 0.054 abs_q 0.458
+  rep 19 P3     abs_m 0.260 m -0.257 persistence 0.945 excess_unsat 0.181 flip_rate 0.005 abs_q 0.143
+  rep 19 P4     abs_m 0.875 m 0.875 persistence 0.764 excess_unsat 0.112 flip_rate 0.052 abs_q 0.779
+  rep 19 P5     abs_m 0.151 m -0.015 persistence 0.161 excess_unsat 0.375 flip_rate 0.332 abs_q 0.064
+  rep 19 P2-nc  abs_m 0.397 m 0.397 persistence 0.504 excess_unsat 0.357 flip_rate 0.078 abs_q 0.167
+  rep 19 P4-nc  abs_m 0.517 m 0.517 persistence 0.442 excess_unsat 0.276 flip_rate 0.126 abs_q 0.267
+  rep 20 P1     abs_m 0.340 m -0.038 persistence 0.672 excess_unsat 0.145 flip_rate 0.055 abs_q 0.182
+  rep 20 P2     abs_m 0.582 m 0.582 persistence 0.607 excess_unsat 0.321 flip_rate 0.061 abs_q 0.350
+  rep 20 P3     abs_m 0.280 m -0.280 persistence 0.933 excess_unsat 0.184 flip_rate 0.006 abs_q 0.074
+  rep 20 P4     abs_m 0.897 m 0.897 persistence 0.824 excess_unsat 0.114 flip_rate 0.048 abs_q 0.807
+  rep 20 P5     abs_m 0.226 m -0.119 persistence 0.141 excess_unsat 0.362 flip_rate 0.316 abs_q 0.094
+  rep 20 P2-nc  abs_m 0.374 m 0.374 persistence 0.487 excess_unsat 0.351 flip_rate 0.079 abs_q 0.142
+  rep 20 P4-nc  abs_m 0.505 m 0.505 persistence 0.415 excess_unsat 0.281 flip_rate 0.128 abs_q 0.272
+  rep 21 P1     abs_m 0.318 m -0.268 persistence 0.694 excess_unsat 0.134 flip_rate 0.046 abs_q 0.140
+  rep 21 P2     abs_m 0.583 m 0.583 persistence 0.613 excess_unsat 0.316 flip_rate 0.057 abs_q 0.366
+  rep 21 P3     abs_m 0.283 m -0.282 persistence 0.940 excess_unsat 0.190 flip_rate 0.006 abs_q 0.133
+  rep 21 P4     abs_m 0.873 m 0.873 persistence 0.780 excess_unsat 0.117 flip_rate 0.052 abs_q 0.769
+  rep 21 P5     abs_m 0.191 m 0.077 persistence 0.170 excess_unsat 0.370 flip_rate 0.317 abs_q 0.087
+  rep 21 P2-nc  abs_m 0.387 m 0.387 persistence 0.501 excess_unsat 0.351 flip_rate 0.073 abs_q 0.163
+  rep 21 P4-nc  abs_m 0.491 m 0.491 persistence 0.403 excess_unsat 0.282 flip_rate 0.129 abs_q 0.236
+  rep 22 P1     abs_m 0.393 m 0.100 persistence 0.704 excess_unsat 0.144 flip_rate 0.053 abs_q 0.116
+  rep 22 P2     abs_m 0.626 m 0.626 persistence 0.657 excess_unsat 0.306 flip_rate 0.057 abs_q 0.385
+  rep 22 P3     abs_m 0.355 m -0.355 persistence 0.943 excess_unsat 0.171 flip_rate 0.005 abs_q 0.096
+  rep 22 P4     abs_m 0.880 m 0.880 persistence 0.798 excess_unsat 0.116 flip_rate 0.049 abs_q 0.778
+  rep 22 P5     abs_m 0.259 m 0.167 persistence 0.231 excess_unsat 0.339 flip_rate 0.289 abs_q 0.128
+  rep 22 P2-nc  abs_m 0.363 m 0.363 persistence 0.492 excess_unsat 0.350 flip_rate 0.078 abs_q 0.155
+  rep 22 P4-nc  abs_m 0.535 m 0.535 persistence 0.461 excess_unsat 0.268 flip_rate 0.125 abs_q 0.296
+  rep 23 P1     abs_m 0.231 m -0.170 persistence 0.686 excess_unsat 0.151 flip_rate 0.051 abs_q 0.146
+  rep 23 P2     abs_m 0.648 m 0.648 persistence 0.631 excess_unsat 0.302 flip_rate 0.056 abs_q 0.428
+  rep 23 P3     abs_m 0.216 m -0.216 persistence 0.924 excess_unsat 0.189 flip_rate 0.007 abs_q 0.068
+  rep 23 P4     abs_m 0.888 m 0.888 persistence 0.822 excess_unsat 0.114 flip_rate 0.050 abs_q 0.792
+  rep 23 P5     abs_m 0.157 m 0.034 persistence 0.134 excess_unsat 0.379 flip_rate 0.338 abs_q 0.076
+  rep 23 P2-nc  abs_m 0.389 m 0.389 persistence 0.532 excess_unsat 0.362 flip_rate 0.071 abs_q 0.209
+  rep 23 P4-nc  abs_m 0.576 m 0.576 persistence 0.468 excess_unsat 0.255 flip_rate 0.123 abs_q 0.334
+  rep 24 P1     abs_m 0.212 m 0.085 persistence 0.693 excess_unsat 0.147 flip_rate 0.049 abs_q 0.182
+  rep 24 P2     abs_m 0.646 m 0.646 persistence 0.647 excess_unsat 0.313 flip_rate 0.053 abs_q 0.397
+  rep 24 P3     abs_m 0.319 m -0.319 persistence 0.942 excess_unsat 0.176 flip_rate 0.005 abs_q 0.112
+  rep 24 P4     abs_m 0.869 m 0.869 persistence 0.796 excess_unsat 0.123 flip_rate 0.054 abs_q 0.771
+  rep 24 P2-nc  abs_m 0.405 m 0.405 persistence 0.497 excess_unsat 0.353 flip_rate 0.076 abs_q 0.185
+  rep 24 P5     abs_m 0.200 m 0.009 persistence 0.147 excess_unsat 0.367 flip_rate 0.321 abs_q 0.099
+  rep 24 P4-nc  abs_m 0.583 m 0.583 persistence 0.460 excess_unsat 0.265 flip_rate 0.121 abs_q 0.338
+  rep 25 P1     abs_m 0.293 m -0.208 persistence 0.673 excess_unsat 0.155 flip_rate 0.051 abs_q 0.135
+  rep 25 P2     abs_m 0.624 m 0.624 persistence 0.650 excess_unsat 0.317 flip_rate 0.056 abs_q 0.384
+  rep 25 P3     abs_m 0.339 m -0.339 persistence 0.917 excess_unsat 0.183 flip_rate 0.007 abs_q 0.131
+  rep 25 P2-nc  abs_m 0.379 m 0.379 persistence 0.489 excess_unsat 0.359 flip_rate 0.076 abs_q 0.142
+  rep 25 P4     abs_m 0.889 m 0.889 persistence 0.814 excess_unsat 0.107 flip_rate 0.045 abs_q 0.801
+  rep 25 P5     abs_m 0.183 m -0.006 persistence 0.142 excess_unsat 0.374 flip_rate 0.332 abs_q 0.088
+  rep 25 P4-nc  abs_m 0.523 m 0.523 persistence 0.434 excess_unsat 0.276 flip_rate 0.129 abs_q 0.272
+  rep 26 P1     abs_m 0.367 m 0.012 persistence 0.743 excess_unsat 0.137 flip_rate 0.044 abs_q 0.174
+  rep 26 P3     abs_m 0.323 m -0.320 persistence 0.928 excess_unsat 0.172 flip_rate 0.006 abs_q 0.095
+  rep 26 P2     abs_m 0.589 m 0.589 persistence 0.607 excess_unsat 0.312 flip_rate 0.059 abs_q 0.356
+  rep 26 P4     abs_m 0.882 m 0.882 persistence 0.774 excess_unsat 0.120 flip_rate 0.054 abs_q 0.785
+  rep 26 P5     abs_m 0.199 m -0.023 persistence 0.183 excess_unsat 0.367 flip_rate 0.308 abs_q 0.104
+  rep 26 P2-nc  abs_m 0.382 m 0.382 persistence 0.518 excess_unsat 0.363 flip_rate 0.079 abs_q 0.130
+  rep 26 P4-nc  abs_m 0.531 m 0.531 persistence 0.449 excess_unsat 0.262 flip_rate 0.125 abs_q 0.297
+  rep 27 P1     abs_m 0.391 m 0.067 persistence 0.679 excess_unsat 0.151 flip_rate 0.051 abs_q 0.245
+  rep 27 P2     abs_m 0.607 m 0.607 persistence 0.621 excess_unsat 0.314 flip_rate 0.060 abs_q 0.407
+  rep 27 P3     abs_m 0.244 m -0.242 persistence 0.918 excess_unsat 0.182 flip_rate 0.008 abs_q 0.118
+  rep 27 P4     abs_m 0.878 m 0.878 persistence 0.765 excess_unsat 0.113 flip_rate 0.054 abs_q 0.772
+  rep 27 P5     abs_m 0.226 m -0.045 persistence 0.194 excess_unsat 0.356 flip_rate 0.317 abs_q 0.118
+  rep 27 P2-nc  abs_m 0.401 m 0.401 persistence 0.474 excess_unsat 0.353 flip_rate 0.080 abs_q 0.199
+  rep 27 P4-nc  abs_m 0.551 m 0.551 persistence 0.443 excess_unsat 0.282 flip_rate 0.124 abs_q 0.308
+  rep 28 P1     abs_m 0.294 m 0.057 persistence 0.717 excess_unsat 0.147 flip_rate 0.051 abs_q 0.109
+  rep 28 P2     abs_m 0.641 m 0.641 persistence 0.608 excess_unsat 0.316 flip_rate 0.056 abs_q 0.380
+  rep 28 P3     abs_m 0.402 m -0.402 persistence 0.922 excess_unsat 0.153 flip_rate 0.006 abs_q 0.175
+  rep 28 P4     abs_m 0.863 m 0.863 persistence 0.785 excess_unsat 0.119 flip_rate 0.055 abs_q 0.747
+  rep 28 P5     abs_m 0.207 m 0.111 persistence 0.148 excess_unsat 0.376 flip_rate 0.323 abs_q 0.088
+  rep 28 P2-nc  abs_m 0.340 m 0.340 persistence 0.501 excess_unsat 0.336 flip_rate 0.080 abs_q 0.116
+  rep 28 P4-nc  abs_m 0.500 m 0.500 persistence 0.426 excess_unsat 0.282 flip_rate 0.128 abs_q 0.230
+  rep 29 P1     abs_m 0.258 m -0.092 persistence 0.662 excess_unsat 0.147 flip_rate 0.054 abs_q 0.086
+  rep 29 P2     abs_m 0.562 m 0.562 persistence 0.611 excess_unsat 0.304 flip_rate 0.058 abs_q 0.363
+  rep 29 P3     abs_m 0.207 m -0.207 persistence 0.942 excess_unsat 0.153 flip_rate 0.005 abs_q 0.148
+  rep 29 P4     abs_m 0.892 m 0.892 persistence 0.813 excess_unsat 0.109 flip_rate 0.049 abs_q 0.800
+  rep 29 P5     abs_m 0.138 m -0.055 persistence 0.183 excess_unsat 0.357 flip_rate 0.294 abs_q 0.114
+  rep 29 P2-nc  abs_m 0.381 m 0.381 persistence 0.512 excess_unsat 0.338 flip_rate 0.077 abs_q 0.115
+  rep 29 P4-nc  abs_m 0.545 m 0.545 persistence 0.437 excess_unsat 0.265 flip_rate 0.119 abs_q 0.293
+  rep 30 P1     abs_m 0.292 m -0.101 persistence 0.687 excess_unsat 0.150 flip_rate 0.051 abs_q 0.202
+  rep 30 P2     abs_m 0.606 m 0.606 persistence 0.601 excess_unsat 0.306 flip_rate 0.053 abs_q 0.382
+  rep 30 P3     abs_m 0.277 m -0.277 persistence 0.935 excess_unsat 0.184 flip_rate 0.006 abs_q 0.164
+  rep 30 P4     abs_m 0.895 m 0.895 persistence 0.827 excess_unsat 0.106 flip_rate 0.047 abs_q 0.803
+  rep 30 P5     abs_m 0.205 m -0.110 persistence 0.188 excess_unsat 0.349 flip_rate 0.299 abs_q 0.120
+  rep 30 P2-nc  abs_m 0.374 m 0.374 persistence 0.510 excess_unsat 0.323 flip_rate 0.076 abs_q 0.136
+  rep 30 P4-nc  abs_m 0.521 m 0.521 persistence 0.444 excess_unsat 0.279 flip_rate 0.126 abs_q 0.250
+  rep 31 P1     abs_m 0.290 m 0.138 persistence 0.655 excess_unsat 0.147 flip_rate 0.054 abs_q 0.150
+  rep 31 P2     abs_m 0.627 m 0.627 persistence 0.560 excess_unsat 0.320 flip_rate 0.057 abs_q 0.388
+  rep 31 P3     abs_m 0.369 m -0.369 persistence 0.906 excess_unsat 0.173 flip_rate 0.008 abs_q 0.184
+  rep 31 P4     abs_m 0.897 m 0.897 persistence 0.836 excess_unsat 0.112 flip_rate 0.048 abs_q 0.804
+  rep 31 P5     abs_m 0.138 m -0.011 persistence 0.149 excess_unsat 0.372 flip_rate 0.327 abs_q 0.109
+  rep 31 P2-nc  abs_m 0.377 m 0.377 persistence 0.483 excess_unsat 0.353 flip_rate 0.076 abs_q 0.179
+  rep 31 P4-nc  abs_m 0.518 m 0.518 persistence 0.433 excess_unsat 0.279 flip_rate 0.125 abs_q 0.268
+  rep 32 P1     abs_m 0.266 m 0.096 persistence 0.671 excess_unsat 0.161 flip_rate 0.051 abs_q 0.165
+  rep 32 P2     abs_m 0.702 m 0.702 persistence 0.649 excess_unsat 0.320 flip_rate 0.052 abs_q 0.497
+  rep 32 P3     abs_m 0.282 m -0.282 persistence 0.914 excess_unsat 0.194 flip_rate 0.008 abs_q 0.126
+  rep 32 P4     abs_m 0.887 m 0.887 persistence 0.820 excess_unsat 0.109 flip_rate 0.048 abs_q 0.789
+  rep 32 P5     abs_m 0.130 m 0.068 persistence 0.134 excess_unsat 0.389 flip_rate 0.347 abs_q 0.082
+  rep 32 P2-nc  abs_m 0.404 m 0.404 persistence 0.512 excess_unsat 0.355 flip_rate 0.073 abs_q 0.142
+  rep 32 P4-nc  abs_m 0.556 m 0.556 persistence 0.476 excess_unsat 0.264 flip_rate 0.120 abs_q 0.299
+  rep 33 P1     abs_m 0.336 m -0.188 persistence 0.704 excess_unsat 0.143 flip_rate 0.052 abs_q 0.166
+  rep 33 P2     abs_m 0.627 m 0.627 persistence 0.614 excess_unsat 0.310 flip_rate 0.056 abs_q 0.393
+  rep 33 P3     abs_m 0.293 m -0.283 persistence 0.932 excess_unsat 0.163 flip_rate 0.005 abs_q 0.112
+  rep 33 P4     abs_m 0.874 m 0.874 persistence 0.777 excess_unsat 0.112 flip_rate 0.053 abs_q 0.771
+  rep 33 P5     abs_m 0.162 m 0.001 persistence 0.162 excess_unsat 0.365 flip_rate 0.316 abs_q 0.096
+  rep 33 P2-nc  abs_m 0.404 m 0.404 persistence 0.505 excess_unsat 0.346 flip_rate 0.078 abs_q 0.146
+  rep 33 P4-nc  abs_m 0.535 m 0.535 persistence 0.453 excess_unsat 0.259 flip_rate 0.121 abs_q 0.276
+  rep 34 P1     abs_m 0.320 m 0.112 persistence 0.703 excess_unsat 0.163 flip_rate 0.051 abs_q 0.094
+  rep 34 P2     abs_m 0.622 m 0.622 persistence 0.622 excess_unsat 0.320 flip_rate 0.055 abs_q 0.390
+  rep 34 P3     abs_m 0.289 m -0.289 persistence 0.943 excess_unsat 0.170 flip_rate 0.005 abs_q 0.123
+  rep 34 P4     abs_m 0.908 m 0.908 persistence 0.809 excess_unsat 0.112 flip_rate 0.039 abs_q 0.824
+  rep 34 P2-nc  abs_m 0.391 m 0.391 persistence 0.491 excess_unsat 0.348 flip_rate 0.074 abs_q 0.175
+  rep 34 P5     abs_m 0.202 m 0.133 persistence 0.186 excess_unsat 0.367 flip_rate 0.312 abs_q 0.106
+  rep 34 P4-nc  abs_m 0.564 m 0.564 persistence 0.449 excess_unsat 0.268 flip_rate 0.125 abs_q 0.319
+  rep 35 P1     abs_m 0.342 m -0.030 persistence 0.714 excess_unsat 0.139 flip_rate 0.045 abs_q 0.193
+  rep 35 P2     abs_m 0.615 m 0.615 persistence 0.631 excess_unsat 0.304 flip_rate 0.055 abs_q 0.384
+  rep 35 P3     abs_m 0.240 m -0.227 persistence 0.939 excess_unsat 0.190 flip_rate 0.005 abs_q 0.105
+  rep 35 P4     abs_m 0.910 m 0.910 persistence 0.824 excess_unsat 0.105 flip_rate 0.044 abs_q 0.829
+  rep 35 P2-nc  abs_m 0.372 m 0.372 persistence 0.465 excess_unsat 0.350 flip_rate 0.077 abs_q 0.191
+  rep 35 P5     abs_m 0.172 m -0.096 persistence 0.148 excess_unsat 0.376 flip_rate 0.320 abs_q 0.091
+  rep 35 P4-nc  abs_m 0.538 m 0.538 persistence 0.441 excess_unsat 0.265 flip_rate 0.128 abs_q 0.297
+  rep 36 P1     abs_m 0.207 m 0.107 persistence 0.685 excess_unsat 0.150 flip_rate 0.050 abs_q 0.127
+  rep 36 P2     abs_m 0.660 m 0.660 persistence 0.642 excess_unsat 0.307 flip_rate 0.058 abs_q 0.477
+  rep 36 P4     abs_m 0.884 m 0.884 persistence 0.835 excess_unsat 0.111 flip_rate 0.048 abs_q 0.784
+  rep 36 P3     abs_m 0.312 m -0.311 persistence 0.929 excess_unsat 0.175 flip_rate 0.006 abs_q 0.174
+  rep 36 P5     abs_m 0.180 m -0.034 persistence 0.138 excess_unsat 0.373 flip_rate 0.324 abs_q 0.105
+  rep 36 P2-nc  abs_m 0.375 m 0.375 persistence 0.444 excess_unsat 0.333 flip_rate 0.077 abs_q 0.168
+  rep 36 P4-nc  abs_m 0.578 m 0.578 persistence 0.469 excess_unsat 0.260 flip_rate 0.113 abs_q 0.314
+  rep 37 P1     abs_m 0.297 m 0.194 persistence 0.689 excess_unsat 0.139 flip_rate 0.050 abs_q 0.168
+  rep 37 P2     abs_m 0.577 m 0.577 persistence 0.596 excess_unsat 0.311 flip_rate 0.061 abs_q 0.332
+  rep 37 P3     abs_m 0.175 m -0.159 persistence 0.948 excess_unsat 0.209 flip_rate 0.005 abs_q 0.066
+  rep 37 P4     abs_m 0.895 m 0.895 persistence 0.811 excess_unsat 0.113 flip_rate 0.046 abs_q 0.804
+  rep 37 P5     abs_m 0.114 m -0.009 persistence 0.155 excess_unsat 0.385 flip_rate 0.334 abs_q 0.113
+  rep 37 P2-nc  abs_m 0.377 m 0.377 persistence 0.514 excess_unsat 0.345 flip_rate 0.077 abs_q 0.178
+  rep 37 P4-nc  abs_m 0.546 m 0.546 persistence 0.467 excess_unsat 0.271 flip_rate 0.117 abs_q 0.306
+  rep 38 P1     abs_m 0.300 m 0.213 persistence 0.710 excess_unsat 0.143 flip_rate 0.049 abs_q 0.162
+  rep 38 P2     abs_m 0.634 m 0.634 persistence 0.618 excess_unsat 0.300 flip_rate 0.062 abs_q 0.387
+  rep 38 P3     abs_m 0.250 m -0.235 persistence 0.941 excess_unsat 0.203 flip_rate 0.005 abs_q 0.125
+  rep 38 P4     abs_m 0.890 m 0.890 persistence 0.791 excess_unsat 0.113 flip_rate 0.055 abs_q 0.795
+  rep 38 P5     abs_m 0.147 m -0.040 persistence 0.176 excess_unsat 0.367 flip_rate 0.317 abs_q 0.094
+  rep 38 P2-nc  abs_m 0.413 m 0.413 persistence 0.531 excess_unsat 0.349 flip_rate 0.076 abs_q 0.125
+  rep 38 P4-nc  abs_m 0.553 m 0.553 persistence 0.472 excess_unsat 0.264 flip_rate 0.120 abs_q 0.303
+  rep 39 P2     abs_m 0.660 m 0.660 persistence 0.663 excess_unsat 0.310 flip_rate 0.052 abs_q 0.481
+  rep 39 P1     abs_m 0.347 m -0.008 persistence 0.695 excess_unsat 0.159 flip_rate 0.049 abs_q 0.131
+  rep 39 P3     abs_m 0.318 m -0.291 persistence 0.916 excess_unsat 0.193 flip_rate 0.007 abs_q 0.147
+  rep 39 P4     abs_m 0.899 m 0.899 persistence 0.806 excess_unsat 0.114 flip_rate 0.048 abs_q 0.810
+  rep 39 P5     abs_m 0.176 m -0.006 persistence 0.144 excess_unsat 0.376 flip_rate 0.328 abs_q 0.087
+  rep 39 P2-nc  abs_m 0.380 m 0.380 persistence 0.520 excess_unsat 0.363 flip_rate 0.076 abs_q 0.126
+  rep 39 P4-nc  abs_m 0.555 m 0.555 persistence 0.476 excess_unsat 0.270 flip_rate 0.114 abs_q 0.294
+  rep 40 P1     abs_m 0.355 m 0.105 persistence 0.693 excess_unsat 0.144 flip_rate 0.050 abs_q 0.099
+  rep 40 P2     abs_m 0.652 m 0.652 persistence 0.621 excess_unsat 0.328 flip_rate 0.057 abs_q 0.399
+  rep 40 P3     abs_m 0.298 m -0.297 persistence 0.925 excess_unsat 0.186 flip_rate 0.007 abs_q 0.212
+  rep 40 P4     abs_m 0.871 m 0.871 persistence 0.784 excess_unsat 0.113 flip_rate 0.054 abs_q 0.758
+  rep 40 P5     abs_m 0.218 m -0.134 persistence 0.187 excess_unsat 0.352 flip_rate 0.302 abs_q 0.091
+  rep 40 P2-nc  abs_m 0.379 m 0.379 persistence 0.505 excess_unsat 0.348 flip_rate 0.077 abs_q 0.175
+  rep 40 P4-nc  abs_m 0.534 m 0.534 persistence 0.450 excess_unsat 0.274 flip_rate 0.122 abs_q 0.271
+P1 PASS {'abs_m': (0.401, '35/40', [0.24, 0.46]), 'persistence': (0.682, '36/40', [0.66, 0.74])}
+P2 FAIL {'m': (0.63, '29/40', [0.58, 0.66]), 'persistence': (0.637, '37/40', [0.59, 0.67])}
+P3 PASS {'abs_m': (0.213, '33/40', [0.2, 0.37]), 'persistence': (0.936, '34/40', [0.91, 0.95])}
+P4 PASS {'m': (0.882, '36/40', [0.87, 0.91]), 'persistence': (0.806, '40/40', [0.75, 0.84])}
+P5 PASS {'abs_m': (0.186, '33/40', [0.14, 0.24]), 'persistence': (0.167, '37/40', [0.11, 0.2])}
+P2-nc PASS {'m': (0.411, '39/40', [0.34, 0.43]), 'persistence': (0.507, '34/40', [0.47, 0.54])}
+P4-nc FAIL {'m': (0.511, '33/40', [0.52, 0.58]), 'persistence': (0.462, '38/40', [0.41, 0.48])}
+$ python llm/stage3_audit.py mock --reps 160 --points P1 P3 --workers 4
+mock: 240 tasks to run (287 done earlier)
+  rep 42 P1     abs_m 0.210 m -0.116 persistence 0.700 excess_unsat 0.156 flip_rate 0.050 abs_q 0.131
+  rep 41 P3     abs_m 0.255 m -0.255 persistence 0.941 excess_unsat 0.180 flip_rate 0.005 abs_q 0.064
+  rep 41 P1     abs_m 0.391 m 0.057 persistence 0.707 excess_unsat 0.137 flip_rate 0.048 abs_q 0.240
+  rep 42 P3     abs_m 0.182 m -0.176 persistence 0.916 excess_unsat 0.201 flip_rate 0.007 abs_q 0.093
+  rep 43 P1     abs_m 0.319 m 0.009 persistence 0.667 excess_unsat 0.145 flip_rate 0.055 abs_q 0.136
+  rep 43 P3     abs_m 0.244 m -0.244 persistence 0.934 excess_unsat 0.173 flip_rate 0.006 abs_q 0.162
+  rep 44 P1     abs_m 0.311 m -0.014 persistence 0.680 excess_unsat 0.141 flip_rate 0.055 abs_q 0.163
+  rep 44 P3     abs_m 0.221 m -0.214 persistence 0.929 excess_unsat 0.183 flip_rate 0.006 abs_q 0.090
+  rep 45 P1     abs_m 0.418 m -0.016 persistence 0.681 excess_unsat 0.139 flip_rate 0.049 abs_q 0.178
+  rep 46 P1     abs_m 0.353 m -0.037 persistence 0.701 excess_unsat 0.141 flip_rate 0.046 abs_q 0.143
+  rep 45 P3     abs_m 0.316 m -0.316 persistence 0.912 excess_unsat 0.180 flip_rate 0.007 abs_q 0.098
+  rep 46 P3     abs_m 0.369 m -0.367 persistence 0.916 excess_unsat 0.154 flip_rate 0.007 abs_q 0.177
+  rep 47 P1     abs_m 0.302 m -0.009 persistence 0.672 excess_unsat 0.150 flip_rate 0.054 abs_q 0.233
+  rep 47 P3     abs_m 0.248 m -0.248 persistence 0.910 excess_unsat 0.168 flip_rate 0.007 abs_q 0.079
+  rep 48 P1     abs_m 0.400 m 0.010 persistence 0.719 excess_unsat 0.139 flip_rate 0.048 abs_q 0.183
+  rep 48 P3     abs_m 0.247 m -0.241 persistence 0.941 excess_unsat 0.183 flip_rate 0.005 abs_q 0.126
+  rep 49 P1     abs_m 0.311 m 0.040 persistence 0.698 excess_unsat 0.160 flip_rate 0.047 abs_q 0.130
+  rep 49 P3     abs_m 0.331 m -0.331 persistence 0.934 excess_unsat 0.174 flip_rate 0.005 abs_q 0.242
+  rep 50 P1     abs_m 0.403 m -0.261 persistence 0.707 excess_unsat 0.147 flip_rate 0.046 abs_q 0.264
+  rep 50 P3     abs_m 0.238 m -0.233 persistence 0.928 excess_unsat 0.186 flip_rate 0.006 abs_q 0.036
+  rep 51 P1     abs_m 0.356 m 0.217 persistence 0.675 excess_unsat 0.151 flip_rate 0.051 abs_q 0.099
+  rep 51 P3     abs_m 0.272 m -0.272 persistence 0.938 excess_unsat 0.181 flip_rate 0.005 abs_q 0.217
+  rep 52 P1     abs_m 0.305 m -0.033 persistence 0.709 excess_unsat 0.139 flip_rate 0.044 abs_q 0.280
+  rep 52 P3     abs_m 0.196 m -0.184 persistence 0.941 excess_unsat 0.193 flip_rate 0.006 abs_q 0.071
+  rep 53 P1     abs_m 0.314 m -0.020 persistence 0.715 excess_unsat 0.149 flip_rate 0.049 abs_q 0.187
+  rep 53 P3     abs_m 0.269 m -0.269 persistence 0.930 excess_unsat 0.177 flip_rate 0.006 abs_q 0.143
+  rep 54 P1     abs_m 0.291 m 0.055 persistence 0.718 excess_unsat 0.143 flip_rate 0.048 abs_q 0.118
+  rep 54 P3     abs_m 0.370 m -0.370 persistence 0.927 excess_unsat 0.155 flip_rate 0.006 abs_q 0.157
+  rep 55 P1     abs_m 0.377 m -0.047 persistence 0.700 excess_unsat 0.141 flip_rate 0.049 abs_q 0.172
+  rep 55 P3     abs_m 0.224 m -0.223 persistence 0.934 excess_unsat 0.200 flip_rate 0.006 abs_q 0.118
+  rep 56 P1     abs_m 0.209 m -0.091 persistence 0.687 excess_unsat 0.152 flip_rate 0.051 abs_q 0.108
+  rep 56 P3     abs_m 0.268 m -0.268 persistence 0.926 excess_unsat 0.178 flip_rate 0.007 abs_q 0.102
+  rep 57 P1     abs_m 0.310 m 0.060 persistence 0.642 excess_unsat 0.150 flip_rate 0.059 abs_q 0.217
+  rep 57 P3     abs_m 0.311 m -0.311 persistence 0.927 excess_unsat 0.177 flip_rate 0.007 abs_q 0.180
+  rep 58 P1     abs_m 0.350 m 0.053 persistence 0.711 excess_unsat 0.153 flip_rate 0.050 abs_q 0.184
+  rep 58 P3     abs_m 0.331 m -0.320 persistence 0.918 excess_unsat 0.172 flip_rate 0.007 abs_q 0.196
+  rep 59 P1     abs_m 0.314 m 0.047 persistence 0.737 excess_unsat 0.137 flip_rate 0.045 abs_q 0.118
+  rep 59 P3     abs_m 0.340 m -0.318 persistence 0.929 excess_unsat 0.176 flip_rate 0.006 abs_q 0.147
+  rep 60 P1     abs_m 0.242 m -0.155 persistence 0.681 excess_unsat 0.156 flip_rate 0.054 abs_q 0.152
+  rep 60 P3     abs_m 0.231 m -0.231 persistence 0.930 excess_unsat 0.171 flip_rate 0.005 abs_q 0.121
+  rep 61 P1     abs_m 0.343 m -0.127 persistence 0.726 excess_unsat 0.147 flip_rate 0.051 abs_q 0.167
+  rep 61 P3     abs_m 0.371 m -0.371 persistence 0.924 excess_unsat 0.164 flip_rate 0.006 abs_q 0.237
+  rep 62 P1     abs_m 0.447 m 0.012 persistence 0.760 excess_unsat 0.138 flip_rate 0.046 abs_q 0.216
+  rep 62 P3     abs_m 0.268 m -0.265 persistence 0.923 excess_unsat 0.179 flip_rate 0.007 abs_q 0.107
+  rep 63 P1     abs_m 0.376 m 0.191 persistence 0.709 excess_unsat 0.135 flip_rate 0.050 abs_q 0.246
+  rep 64 P1     abs_m 0.320 m -0.035 persistence 0.683 excess_unsat 0.149 flip_rate 0.052 abs_q 0.173
+  rep 63 P3     abs_m 0.326 m -0.318 persistence 0.950 excess_unsat 0.161 flip_rate 0.005 abs_q 0.170
+  rep 64 P3     abs_m 0.280 m -0.280 persistence 0.938 excess_unsat 0.186 flip_rate 0.005 abs_q 0.195
+  rep 65 P1     abs_m 0.346 m 0.023 persistence 0.713 excess_unsat 0.138 flip_rate 0.050 abs_q 0.141
+  rep 66 P1     abs_m 0.211 m -0.117 persistence 0.660 excess_unsat 0.157 flip_rate 0.055 abs_q 0.138
+  rep 65 P3     abs_m 0.192 m -0.192 persistence 0.948 excess_unsat 0.196 flip_rate 0.005 abs_q 0.152
+  rep 66 P3     abs_m 0.240 m -0.229 persistence 0.949 excess_unsat 0.183 flip_rate 0.004 abs_q 0.098
+  rep 67 P1     abs_m 0.345 m -0.065 persistence 0.691 excess_unsat 0.152 flip_rate 0.053 abs_q 0.204
+  rep 68 P1     abs_m 0.267 m -0.041 persistence 0.661 excess_unsat 0.153 flip_rate 0.053 abs_q 0.113
+  rep 67 P3     abs_m 0.266 m -0.266 persistence 0.952 excess_unsat 0.192 flip_rate 0.004 abs_q 0.113
+  rep 68 P3     abs_m 0.252 m -0.230 persistence 0.932 excess_unsat 0.190 flip_rate 0.006 abs_q 0.060
+  rep 69 P1     abs_m 0.382 m 0.034 persistence 0.717 excess_unsat 0.131 flip_rate 0.050 abs_q 0.158
+  rep 70 P1     abs_m 0.250 m -0.002 persistence 0.680 excess_unsat 0.155 flip_rate 0.051 abs_q 0.153
+  rep 69 P3     abs_m 0.298 m -0.298 persistence 0.930 excess_unsat 0.160 flip_rate 0.006 abs_q 0.143
+  rep 70 P3     abs_m 0.275 m -0.271 persistence 0.923 excess_unsat 0.181 flip_rate 0.007 abs_q 0.099
+  rep 71 P1     abs_m 0.251 m 0.032 persistence 0.702 excess_unsat 0.157 flip_rate 0.048 abs_q 0.181
+  rep 71 P3     abs_m 0.282 m -0.280 persistence 0.933 excess_unsat 0.180 flip_rate 0.006 abs_q 0.084
+  rep 72 P1     abs_m 0.343 m -0.046 persistence 0.696 excess_unsat 0.140 flip_rate 0.046 abs_q 0.186
+  rep 72 P3     abs_m 0.240 m -0.236 persistence 0.947 excess_unsat 0.173 flip_rate 0.004 abs_q 0.120
+  rep 73 P1     abs_m 0.174 m -0.048 persistence 0.693 excess_unsat 0.143 flip_rate 0.053 abs_q 0.148
+  rep 73 P3     abs_m 0.351 m -0.351 persistence 0.936 excess_unsat 0.169 flip_rate 0.005 abs_q 0.148
+  rep 74 P1     abs_m 0.199 m -0.127 persistence 0.703 excess_unsat 0.148 flip_rate 0.047 abs_q 0.105
+  rep 74 P3     abs_m 0.251 m -0.251 persistence 0.946 excess_unsat 0.163 flip_rate 0.005 abs_q 0.097
+  rep 75 P1     abs_m 0.462 m 0.037 persistence 0.701 excess_unsat 0.144 flip_rate 0.041 abs_q 0.176
+  rep 75 P3     abs_m 0.226 m -0.226 persistence 0.942 excess_unsat 0.198 flip_rate 0.005 abs_q 0.136
+  rep 76 P1     abs_m 0.313 m -0.082 persistence 0.679 excess_unsat 0.162 flip_rate 0.054 abs_q 0.168
+  rep 76 P3     abs_m 0.317 m -0.316 persistence 0.926 excess_unsat 0.179 flip_rate 0.007 abs_q 0.143
+  rep 77 P1     abs_m 0.340 m 0.045 persistence 0.708 excess_unsat 0.142 flip_rate 0.046 abs_q 0.204
+  rep 77 P3     abs_m 0.283 m -0.243 persistence 0.933 excess_unsat 0.181 flip_rate 0.006 abs_q 0.112
+  rep 78 P1     abs_m 0.159 m 0.076 persistence 0.682 excess_unsat 0.150 flip_rate 0.052 abs_q 0.119
+  rep 78 P3     abs_m 0.262 m -0.260 persistence 0.934 excess_unsat 0.195 flip_rate 0.006 abs_q 0.122
+  rep 79 P1     abs_m 0.364 m -0.128 persistence 0.660 excess_unsat 0.153 flip_rate 0.050 abs_q 0.157
+  rep 80 P1     abs_m 0.208 m -0.073 persistence 0.697 excess_unsat 0.141 flip_rate 0.050 abs_q 0.137
+  rep 79 P3     abs_m 0.269 m -0.269 persistence 0.941 excess_unsat 0.179 flip_rate 0.006 abs_q 0.168
+  rep 80 P3     abs_m 0.255 m -0.243 persistence 0.947 excess_unsat 0.162 flip_rate 0.005 abs_q 0.064
+  rep 81 P1     abs_m 0.326 m -0.142 persistence 0.710 excess_unsat 0.153 flip_rate 0.052 abs_q 0.153
+  rep 81 P3     abs_m 0.276 m -0.276 persistence 0.926 excess_unsat 0.195 flip_rate 0.006 abs_q 0.136
+  rep 82 P1     abs_m 0.372 m 0.118 persistence 0.715 excess_unsat 0.145 flip_rate 0.052 abs_q 0.190
+  rep 82 P3     abs_m 0.245 m -0.214 persistence 0.947 excess_unsat 0.179 flip_rate 0.005 abs_q 0.148
+  rep 83 P1     abs_m 0.313 m -0.190 persistence 0.720 excess_unsat 0.146 flip_rate 0.051 abs_q 0.265
+  rep 83 P3     abs_m 0.280 m -0.278 persistence 0.925 excess_unsat 0.180 flip_rate 0.007 abs_q 0.129
+  rep 84 P1     abs_m 0.267 m 0.094 persistence 0.687 excess_unsat 0.160 flip_rate 0.051 abs_q 0.203
+  rep 84 P3     abs_m 0.196 m -0.165 persistence 0.918 excess_unsat 0.186 flip_rate 0.007 abs_q 0.098
+  rep 85 P1     abs_m 0.372 m 0.191 persistence 0.745 excess_unsat 0.146 flip_rate 0.047 abs_q 0.116
+  rep 85 P3     abs_m 0.299 m -0.299 persistence 0.931 excess_unsat 0.166 flip_rate 0.006 abs_q 0.224
+  rep 86 P1     abs_m 0.317 m 0.128 persistence 0.670 excess_unsat 0.154 flip_rate 0.053 abs_q 0.171
+  rep 86 P3     abs_m 0.244 m -0.227 persistence 0.929 excess_unsat 0.167 flip_rate 0.007 abs_q 0.114
+  rep 87 P1     abs_m 0.374 m 0.126 persistence 0.697 excess_unsat 0.144 flip_rate 0.048 abs_q 0.163
+  rep 87 P3     abs_m 0.322 m -0.320 persistence 0.931 excess_unsat 0.170 flip_rate 0.006 abs_q 0.148
+  rep 88 P1     abs_m 0.291 m -0.075 persistence 0.737 excess_unsat 0.149 flip_rate 0.047 abs_q 0.185
+  rep 88 P3     abs_m 0.264 m -0.264 persistence 0.922 excess_unsat 0.180 flip_rate 0.008 abs_q 0.074
+  rep 89 P1     abs_m 0.300 m -0.025 persistence 0.709 excess_unsat 0.161 flip_rate 0.052 abs_q 0.136
+  rep 89 P3     abs_m 0.278 m -0.257 persistence 0.933 excess_unsat 0.168 flip_rate 0.005 abs_q 0.084
+  rep 90 P1     abs_m 0.314 m -0.088 persistence 0.712 excess_unsat 0.157 flip_rate 0.046 abs_q 0.190
+  rep 90 P3     abs_m 0.305 m -0.305 persistence 0.914 excess_unsat 0.157 flip_rate 0.007 abs_q 0.167
+  rep 91 P1     abs_m 0.373 m -0.083 persistence 0.698 excess_unsat 0.146 flip_rate 0.051 abs_q 0.229
+  rep 91 P3     abs_m 0.399 m -0.399 persistence 0.924 excess_unsat 0.171 flip_rate 0.007 abs_q 0.160
+  rep 92 P1     abs_m 0.342 m -0.171 persistence 0.690 excess_unsat 0.156 flip_rate 0.051 abs_q 0.180
+  rep 92 P3     abs_m 0.349 m -0.349 persistence 0.923 excess_unsat 0.171 flip_rate 0.007 abs_q 0.196
+  rep 93 P1     abs_m 0.389 m 0.015 persistence 0.677 excess_unsat 0.148 flip_rate 0.052 abs_q 0.246
+  rep 93 P3     abs_m 0.213 m -0.211 persistence 0.913 excess_unsat 0.178 flip_rate 0.008 abs_q 0.111
+  rep 94 P1     abs_m 0.282 m 0.072 persistence 0.727 excess_unsat 0.140 flip_rate 0.048 abs_q 0.224
+  rep 94 P3     abs_m 0.194 m -0.193 persistence 0.925 excess_unsat 0.187 flip_rate 0.007 abs_q 0.067
+  rep 95 P1     abs_m 0.389 m -0.062 persistence 0.702 excess_unsat 0.134 flip_rate 0.045 abs_q 0.182
+  rep 95 P3     abs_m 0.231 m -0.204 persistence 0.931 excess_unsat 0.183 flip_rate 0.006 abs_q 0.147
+  rep 96 P1     abs_m 0.252 m 0.195 persistence 0.683 excess_unsat 0.149 flip_rate 0.048 abs_q 0.157
+  rep 96 P3     abs_m 0.227 m -0.226 persistence 0.946 excess_unsat 0.181 flip_rate 0.005 abs_q 0.121
+  rep 97 P1     abs_m 0.302 m 0.083 persistence 0.631 excess_unsat 0.147 flip_rate 0.052 abs_q 0.144
+  rep 97 P3     abs_m 0.249 m -0.249 persistence 0.944 excess_unsat 0.185 flip_rate 0.004 abs_q 0.111
+  rep 98 P1     abs_m 0.381 m -0.140 persistence 0.706 excess_unsat 0.138 flip_rate 0.046 abs_q 0.288
+  rep 98 P3     abs_m 0.302 m -0.302 persistence 0.948 excess_unsat 0.172 flip_rate 0.005 abs_q 0.157
+  rep 99 P1     abs_m 0.329 m 0.048 persistence 0.688 excess_unsat 0.144 flip_rate 0.049 abs_q 0.148
+  rep 99 P3     abs_m 0.260 m -0.248 persistence 0.916 excess_unsat 0.174 flip_rate 0.007 abs_q 0.104
+  rep 100 P1     abs_m 0.397 m -0.089 persistence 0.725 excess_unsat 0.140 flip_rate 0.050 abs_q 0.090
+  rep 100 P3     abs_m 0.300 m -0.300 persistence 0.921 excess_unsat 0.184 flip_rate 0.007 abs_q 0.120
+  rep 101 P1     abs_m 0.433 m 0.104 persistence 0.725 excess_unsat 0.135 flip_rate 0.044 abs_q 0.292
+  rep 101 P3     abs_m 0.218 m -0.202 persistence 0.924 excess_unsat 0.200 flip_rate 0.007 abs_q 0.119
+  rep 102 P1     abs_m 0.284 m 0.131 persistence 0.686 excess_unsat 0.153 flip_rate 0.049 abs_q 0.167
+  rep 102 P3     abs_m 0.294 m -0.294 persistence 0.926 excess_unsat 0.172 flip_rate 0.007 abs_q 0.139
+  rep 103 P1     abs_m 0.455 m -0.066 persistence 0.723 excess_unsat 0.142 flip_rate 0.048 abs_q 0.200
+  rep 103 P3     abs_m 0.171 m -0.167 persistence 0.929 excess_unsat 0.180 flip_rate 0.006 abs_q 0.045
+  rep 104 P1     abs_m 0.252 m 0.125 persistence 0.671 excess_unsat 0.167 flip_rate 0.055 abs_q 0.112
+  rep 105 P1     abs_m 0.318 m 0.058 persistence 0.664 excess_unsat 0.151 flip_rate 0.054 abs_q 0.162
+  rep 104 P3     abs_m 0.310 m -0.310 persistence 0.926 excess_unsat 0.176 flip_rate 0.006 abs_q 0.199
+  rep 105 P3     abs_m 0.224 m -0.205 persistence 0.937 excess_unsat 0.168 flip_rate 0.005 abs_q 0.143
+  rep 106 P1     abs_m 0.394 m 0.041 persistence 0.695 excess_unsat 0.143 flip_rate 0.045 abs_q 0.196
+  rep 107 P1     abs_m 0.322 m -0.072 persistence 0.700 excess_unsat 0.149 flip_rate 0.049 abs_q 0.224
+  rep 107 P3     abs_m 0.262 m -0.262 persistence 0.929 excess_unsat 0.191 flip_rate 0.007 abs_q 0.060
+  rep 106 P3     abs_m 0.270 m -0.268 persistence 0.924 excess_unsat 0.168 flip_rate 0.007 abs_q 0.130
+  rep 108 P1     abs_m 0.293 m 0.077 persistence 0.709 excess_unsat 0.137 flip_rate 0.050 abs_q 0.158
+  rep 108 P3     abs_m 0.261 m -0.256 persistence 0.931 excess_unsat 0.169 flip_rate 0.006 abs_q 0.132
+  rep 109 P1     abs_m 0.252 m 0.095 persistence 0.694 excess_unsat 0.154 flip_rate 0.050 abs_q 0.208
+  rep 109 P3     abs_m 0.239 m -0.239 persistence 0.951 excess_unsat 0.195 flip_rate 0.004 abs_q 0.154
+  rep 110 P1     abs_m 0.142 m 0.001 persistence 0.674 excess_unsat 0.163 flip_rate 0.052 abs_q 0.112
+  rep 111 P1     abs_m 0.374 m -0.301 persistence 0.685 excess_unsat 0.147 flip_rate 0.050 abs_q 0.131
+  rep 110 P3     abs_m 0.314 m -0.314 persistence 0.932 excess_unsat 0.172 flip_rate 0.006 abs_q 0.168
+  rep 111 P3     abs_m 0.275 m -0.275 persistence 0.909 excess_unsat 0.196 flip_rate 0.008 abs_q 0.084
+  rep 112 P1     abs_m 0.265 m 0.002 persistence 0.704 excess_unsat 0.153 flip_rate 0.049 abs_q 0.188
+  rep 112 P3     abs_m 0.292 m -0.292 persistence 0.916 excess_unsat 0.181 flip_rate 0.007 abs_q 0.126
+  rep 113 P1     abs_m 0.306 m -0.012 persistence 0.727 excess_unsat 0.147 flip_rate 0.050 abs_q 0.154
+  rep 113 P3     abs_m 0.247 m -0.247 persistence 0.921 excess_unsat 0.176 flip_rate 0.006 abs_q 0.126
+  rep 114 P1     abs_m 0.258 m -0.007 persistence 0.704 excess_unsat 0.155 flip_rate 0.052 abs_q 0.102
+  rep 114 P3     abs_m 0.317 m -0.313 persistence 0.934 excess_unsat 0.157 flip_rate 0.006 abs_q 0.155
+  rep 115 P1     abs_m 0.382 m -0.127 persistence 0.728 excess_unsat 0.143 flip_rate 0.045 abs_q 0.250
+  rep 115 P3     abs_m 0.300 m -0.300 persistence 0.931 excess_unsat 0.176 flip_rate 0.006 abs_q 0.133
+  rep 116 P1     abs_m 0.313 m -0.193 persistence 0.725 excess_unsat 0.135 flip_rate 0.048 abs_q 0.132
+  rep 116 P3     abs_m 0.248 m -0.221 persistence 0.924 excess_unsat 0.170 flip_rate 0.006 abs_q 0.087
+  rep 117 P1     abs_m 0.360 m 0.107 persistence 0.683 excess_unsat 0.141 flip_rate 0.050 abs_q 0.220
+  rep 118 P1     abs_m 0.262 m -0.011 persistence 0.674 excess_unsat 0.154 flip_rate 0.052 abs_q 0.125
+  rep 117 P3     abs_m 0.247 m -0.238 persistence 0.930 excess_unsat 0.167 flip_rate 0.006 abs_q 0.073
+  rep 119 P1     abs_m 0.258 m -0.075 persistence 0.694 excess_unsat 0.163 flip_rate 0.050 abs_q 0.078
+  rep 118 P3     abs_m 0.320 m -0.320 persistence 0.929 excess_unsat 0.169 flip_rate 0.007 abs_q 0.168
+  rep 119 P3     abs_m 0.288 m -0.286 persistence 0.915 excess_unsat 0.182 flip_rate 0.007 abs_q 0.100
+  rep 120 P1     abs_m 0.308 m 0.013 persistence 0.693 excess_unsat 0.155 flip_rate 0.053 abs_q 0.146
+  rep 121 P1     abs_m 0.278 m 0.097 persistence 0.698 excess_unsat 0.152 flip_rate 0.046 abs_q 0.154
+  rep 120 P3     abs_m 0.312 m -0.310 persistence 0.919 excess_unsat 0.186 flip_rate 0.007 abs_q 0.127
+  rep 122 P1     abs_m 0.356 m 0.184 persistence 0.719 excess_unsat 0.145 flip_rate 0.050 abs_q 0.120
+  rep 121 P3     abs_m 0.348 m -0.348 persistence 0.925 excess_unsat 0.157 flip_rate 0.006 abs_q 0.175
+  rep 122 P3     abs_m 0.310 m -0.310 persistence 0.934 excess_unsat 0.194 flip_rate 0.005 abs_q 0.071
+  rep 123 P1     abs_m 0.329 m -0.207 persistence 0.695 excess_unsat 0.150 flip_rate 0.050 abs_q 0.132
+  rep 124 P1     abs_m 0.299 m 0.272 persistence 0.699 excess_unsat 0.155 flip_rate 0.046 abs_q 0.156
+  rep 123 P3     abs_m 0.319 m -0.319 persistence 0.918 excess_unsat 0.185 flip_rate 0.007 abs_q 0.210
+  rep 124 P3     abs_m 0.270 m -0.270 persistence 0.938 excess_unsat 0.178 flip_rate 0.006 abs_q 0.118
+  rep 125 P1     abs_m 0.250 m -0.070 persistence 0.672 excess_unsat 0.150 flip_rate 0.052 abs_q 0.099
+  rep 125 P3     abs_m 0.236 m -0.225 persistence 0.917 excess_unsat 0.195 flip_rate 0.007 abs_q 0.117
+  rep 126 P1     abs_m 0.312 m 0.090 persistence 0.724 excess_unsat 0.153 flip_rate 0.044 abs_q 0.223
+  rep 126 P3     abs_m 0.368 m -0.368 persistence 0.933 excess_unsat 0.165 flip_rate 0.006 abs_q 0.152
+  rep 127 P1     abs_m 0.186 m 0.017 persistence 0.709 excess_unsat 0.141 flip_rate 0.047 abs_q 0.064
+  rep 127 P3     abs_m 0.282 m -0.282 persistence 0.930 excess_unsat 0.155 flip_rate 0.006 abs_q 0.156
+  rep 128 P1     abs_m 0.272 m -0.005 persistence 0.669 excess_unsat 0.147 flip_rate 0.052 abs_q 0.170
+  rep 128 P3     abs_m 0.297 m -0.296 persistence 0.920 excess_unsat 0.182 flip_rate 0.007 abs_q 0.153
+  rep 129 P1     abs_m 0.330 m -0.302 persistence 0.733 excess_unsat 0.133 flip_rate 0.045 abs_q 0.192
+  rep 129 P3     abs_m 0.280 m -0.259 persistence 0.930 excess_unsat 0.168 flip_rate 0.006 abs_q 0.166
+  rep 130 P1     abs_m 0.254 m 0.042 persistence 0.728 excess_unsat 0.139 flip_rate 0.051 abs_q 0.138
+  rep 130 P3     abs_m 0.243 m -0.210 persistence 0.950 excess_unsat 0.189 flip_rate 0.005 abs_q 0.082
+  rep 131 P1     abs_m 0.298 m 0.127 persistence 0.679 excess_unsat 0.145 flip_rate 0.050 abs_q 0.137
+  rep 132 P1     abs_m 0.464 m -0.112 persistence 0.662 excess_unsat 0.147 flip_rate 0.050 abs_q 0.186
+  rep 131 P3     abs_m 0.282 m -0.282 persistence 0.934 excess_unsat 0.175 flip_rate 0.006 abs_q 0.105
+  rep 132 P3     abs_m 0.297 m -0.297 persistence 0.941 excess_unsat 0.173 flip_rate 0.005 abs_q 0.106
+  rep 133 P1     abs_m 0.299 m 0.202 persistence 0.682 excess_unsat 0.143 flip_rate 0.050 abs_q 0.122
+  rep 133 P3     abs_m 0.281 m -0.281 persistence 0.925 excess_unsat 0.179 flip_rate 0.006 abs_q 0.050
+  rep 134 P1     abs_m 0.239 m -0.086 persistence 0.741 excess_unsat 0.141 flip_rate 0.047 abs_q 0.124
+  rep 134 P3     abs_m 0.313 m -0.313 persistence 0.917 excess_unsat 0.190 flip_rate 0.007 abs_q 0.162
+  rep 135 P1     abs_m 0.287 m -0.050 persistence 0.703 excess_unsat 0.143 flip_rate 0.049 abs_q 0.113
+  rep 135 P3     abs_m 0.289 m -0.287 persistence 0.941 excess_unsat 0.157 flip_rate 0.005 abs_q 0.106
+  rep 136 P1     abs_m 0.265 m 0.015 persistence 0.679 excess_unsat 0.149 flip_rate 0.051 abs_q 0.148
+  rep 136 P3     abs_m 0.218 m -0.218 persistence 0.930 excess_unsat 0.196 flip_rate 0.006 abs_q 0.096
+  rep 137 P1     abs_m 0.409 m -0.030 persistence 0.718 excess_unsat 0.151 flip_rate 0.044 abs_q 0.162
+  rep 137 P3     abs_m 0.196 m -0.185 persistence 0.923 excess_unsat 0.189 flip_rate 0.007 abs_q 0.094
+  rep 138 P1     abs_m 0.343 m 0.131 persistence 0.719 excess_unsat 0.144 flip_rate 0.045 abs_q 0.124
+  rep 138 P3     abs_m 0.303 m -0.303 persistence 0.924 excess_unsat 0.183 flip_rate 0.007 abs_q 0.085
+  rep 139 P1     abs_m 0.242 m -0.019 persistence 0.673 excess_unsat 0.155 flip_rate 0.050 abs_q 0.176
+  rep 140 P1     abs_m 0.342 m -0.050 persistence 0.658 excess_unsat 0.144 flip_rate 0.049 abs_q 0.206
+  rep 139 P3     abs_m 0.261 m -0.247 persistence 0.928 excess_unsat 0.177 flip_rate 0.006 abs_q 0.108
+  rep 140 P3     abs_m 0.186 m -0.180 persistence 0.941 excess_unsat 0.188 flip_rate 0.005 abs_q 0.123
+  rep 141 P1     abs_m 0.199 m -0.011 persistence 0.716 excess_unsat 0.143 flip_rate 0.048 abs_q 0.128
+  rep 141 P3     abs_m 0.312 m -0.312 persistence 0.932 excess_unsat 0.154 flip_rate 0.006 abs_q 0.149
+  rep 142 P1     abs_m 0.223 m -0.037 persistence 0.688 excess_unsat 0.151 flip_rate 0.052 abs_q 0.120
+  rep 143 P1     abs_m 0.318 m 0.015 persistence 0.714 excess_unsat 0.148 flip_rate 0.052 abs_q 0.157
+  rep 142 P3     abs_m 0.212 m -0.208 persistence 0.936 excess_unsat 0.194 flip_rate 0.006 abs_q 0.048
+  rep 144 P1     abs_m 0.180 m 0.132 persistence 0.681 excess_unsat 0.151 flip_rate 0.054 abs_q 0.130
+  rep 143 P3     abs_m 0.295 m -0.293 persistence 0.936 excess_unsat 0.167 flip_rate 0.005 abs_q 0.141
+  rep 145 P1     abs_m 0.400 m -0.247 persistence 0.712 excess_unsat 0.145 flip_rate 0.045 abs_q 0.222
+  rep 144 P3     abs_m 0.236 m -0.236 persistence 0.934 excess_unsat 0.160 flip_rate 0.005 abs_q 0.088
+  rep 145 P3     abs_m 0.239 m -0.239 persistence 0.915 excess_unsat 0.194 flip_rate 0.007 abs_q 0.139
+  rep 146 P1     abs_m 0.366 m 0.069 persistence 0.751 excess_unsat 0.139 flip_rate 0.042 abs_q 0.212
+  rep 147 P1     abs_m 0.200 m 0.031 persistence 0.699 excess_unsat 0.143 flip_rate 0.052 abs_q 0.181
+  rep 146 P3     abs_m 0.280 m -0.280 persistence 0.933 excess_unsat 0.190 flip_rate 0.006 abs_q 0.154
+  rep 148 P1     abs_m 0.294 m -0.173 persistence 0.694 excess_unsat 0.146 flip_rate 0.047 abs_q 0.126
+  rep 147 P3     abs_m 0.265 m -0.265 persistence 0.923 excess_unsat 0.179 flip_rate 0.006 abs_q 0.124
+  rep 148 P3     abs_m 0.311 m -0.293 persistence 0.921 excess_unsat 0.165 flip_rate 0.007 abs_q 0.045
+  rep 149 P1     abs_m 0.343 m -0.078 persistence 0.696 excess_unsat 0.152 flip_rate 0.050 abs_q 0.198
+  rep 149 P3     abs_m 0.364 m -0.364 persistence 0.920 excess_unsat 0.158 flip_rate 0.006 abs_q 0.122
+  rep 150 P1     abs_m 0.325 m 0.082 persistence 0.709 excess_unsat 0.140 flip_rate 0.047 abs_q 0.136
+  rep 150 P3     abs_m 0.322 m -0.322 persistence 0.921 excess_unsat 0.160 flip_rate 0.006 abs_q 0.124
+  rep 151 P1     abs_m 0.252 m -0.042 persistence 0.711 excess_unsat 0.156 flip_rate 0.048 abs_q 0.116
+  rep 151 P3     abs_m 0.329 m -0.322 persistence 0.946 excess_unsat 0.182 flip_rate 0.004 abs_q 0.144
+  rep 152 P1     abs_m 0.200 m -0.009 persistence 0.666 excess_unsat 0.162 flip_rate 0.057 abs_q 0.074
+  rep 152 P3     abs_m 0.317 m -0.317 persistence 0.922 excess_unsat 0.172 flip_rate 0.007 abs_q 0.101
+  rep 153 P1     abs_m 0.211 m -0.007 persistence 0.729 excess_unsat 0.137 flip_rate 0.046 abs_q 0.140
+  rep 153 P3     abs_m 0.276 m -0.276 persistence 0.905 excess_unsat 0.157 flip_rate 0.007 abs_q 0.075
+  rep 154 P3     abs_m 0.303 m -0.303 persistence 0.927 excess_unsat 0.169 flip_rate 0.006 abs_q 0.205
+  rep 154 P1     abs_m 0.198 m -0.013 persistence 0.684 excess_unsat 0.150 flip_rate 0.056 abs_q 0.144
+  rep 155 P1     abs_m 0.357 m -0.175 persistence 0.708 excess_unsat 0.141 flip_rate 0.050 abs_q 0.241
+  rep 155 P3     abs_m 0.286 m -0.275 persistence 0.936 excess_unsat 0.174 flip_rate 0.006 abs_q 0.126
+  rep 156 P1     abs_m 0.317 m -0.125 persistence 0.695 excess_unsat 0.163 flip_rate 0.053 abs_q 0.182
+  rep 156 P3     abs_m 0.313 m -0.293 persistence 0.941 excess_unsat 0.175 flip_rate 0.005 abs_q 0.110
+  rep 157 P1     abs_m 0.375 m -0.289 persistence 0.712 excess_unsat 0.140 flip_rate 0.051 abs_q 0.223
+  rep 158 P1     abs_m 0.249 m 0.019 persistence 0.679 excess_unsat 0.154 flip_rate 0.049 abs_q 0.135
+  rep 157 P3     abs_m 0.178 m -0.163 persistence 0.924 excess_unsat 0.183 flip_rate 0.006 abs_q 0.106
+  rep 158 P3     abs_m 0.251 m -0.248 persistence 0.932 excess_unsat 0.186 flip_rate 0.006 abs_q 0.138
+  rep 159 P1     abs_m 0.404 m 0.113 persistence 0.737 excess_unsat 0.134 flip_rate 0.043 abs_q 0.186
+  rep 159 P3     abs_m 0.299 m -0.299 persistence 0.938 excess_unsat 0.168 flip_rate 0.006 abs_q 0.153
+  rep 160 P1     abs_m 0.275 m -0.089 persistence 0.743 excess_unsat 0.138 flip_rate 0.044 abs_q 0.246
+  rep 160 P3     abs_m 0.345 m -0.313 persistence 0.943 excess_unsat 0.162 flip_rate 0.005 abs_q 0.132
+P1 PASS {'abs_m': (0.401, '35/40', [0.24, 0.46]), 'persistence': (0.682, '36/40', [0.66, 0.74])}
+P2 FAIL {'m': (0.63, '29/40', [0.58, 0.66]), 'persistence': (0.637, '37/40', [0.59, 0.67])}
+P3 PASS {'abs_m': (0.213, '33/40', [0.2, 0.37]), 'persistence': (0.936, '34/40', [0.91, 0.95])}
+P4 PASS {'m': (0.882, '36/40', [0.87, 0.91]), 'persistence': (0.806, '40/40', [0.75, 0.84])}
+P5 PASS {'abs_m': (0.186, '33/40', [0.14, 0.24]), 'persistence': (0.167, '37/40', [0.11, 0.2])}
+P2-nc PASS {'m': (0.411, '39/40', [0.34, 0.43]), 'persistence': (0.507, '34/40', [0.47, 0.54])}
+P4-nc FAIL {'m': (0.511, '33/40', [0.52, 0.58]), 'persistence': (0.462, '38/40', [0.41, 0.48])}
+$ python llm/stage3_audit.py mock-summary
+P1 PASS {'abs_m': (0.401, '35/40', [0.24, 0.46]), 'persistence': (0.682, '36/40', [0.66, 0.74])}
+P2 FAIL {'m': (0.63, '29/40', [0.58, 0.66]), 'persistence': (0.637, '37/40', [0.59, 0.67])}
+P3 PASS {'abs_m': (0.213, '33/40', [0.2, 0.37]), 'persistence': (0.936, '34/40', [0.91, 0.95])}
+P4 PASS {'m': (0.882, '36/40', [0.87, 0.91]), 'persistence': (0.806, '40/40', [0.75, 0.84])}
+P5 PASS {'abs_m': (0.186, '33/40', [0.14, 0.24]), 'persistence': (0.167, '37/40', [0.11, 0.2])}
+P2-nc PASS {'m': (0.411, '39/40', [0.34, 0.43]), 'persistence': (0.507, '34/40', [0.47, 0.54])}
+P4-nc FAIL {'m': (0.511, '33/40', [0.52, 0.58]), 'persistence': (0.462, '38/40', [0.41, 0.48])}
+$ python llm/stage3_audit.py sim-diag
+P1 {'abs_m': (0.308, 0.312, -0.63, '136/160', '342/400'), 'persistence': (0.697, 0.701, -1.87, '145/160', '360/400')}
+P2 {'m': (0.621, 0.622, -0.15, '29/40', '319/400'), 'persistence': (0.626, 0.627, -0.33, '37/40', '351/400')}
+P3 {'abs_m': (0.281, 0.271, 2.21, '139/160', '365/400'), 'persistence': (0.93, 0.93, -0.01, '140/160', '360/400')}
+P4 {'m': (0.885, 0.886, -0.85, '36/40', '358/400'), 'persistence': (0.798, 0.799, -0.24, '40/40', '381/400')}
+P5 {'abs_m': (0.184, 0.179, 0.77, '33/40', '349/400'), 'persistence': (0.168, 0.167, 0.11, '37/40', '346/400')}
+P2-nc {'m': (0.389, 0.386, 0.86, '39/40', '372/400'), 'persistence': (0.505, 0.507, -0.4, '34/40', '372/400')}
+P4-nc {'m': (0.541, 0.539, 0.68, '33/40', '343/400'), 'persistence': (0.45, 0.45, -0.02, '38/40', '352/400')}
+$ python llm/stage3_audit.py surrogate
+{
+ "points": {
+  "P1": {
+   "endpoint": "qwen-122b",
+   "framing_arm": "neutral_own",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.025609401334867044,
+    "b_a": 0.8786676545351024,
+    "b_r": -0.15687190352815025,
+    "gamma": 2.1983309646771914,
+    "h_C": 0.0,
+    "h_L": -0.1417446555025864,
+    "h_O": 0.20978633680139505
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 8.326672684688674e-17
+  },
+  "P2": {
+   "endpoint": "qwen-9b",
+   "framing_arm": "political",
+   "rho": 0.5,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.6249526907751412,
+    "b_a": 0.9310476771152305,
+    "b_r": -0.25972630225699506,
+    "gamma": 2.4067159345220017,
+    "h_C": 0.4808140913227173,
+    "h_L": -0.05964649799919383,
+    "h_O": -0.0006519396369567786
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 5.551115123125783e-17
+  },
+  "P3": {
+   "endpoint": "llama-70b",
+   "framing_arm": "political",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.4179939492661923,
+    "b_a": 2.054373389188017,
+    "b_r": 1.3154307846933753,
+    "gamma": 5.845065722687529,
+    "h_C": -1.2601553168731396,
+    "h_L": 0.19519980704260423,
+    "h_O": 0.024131999091131503
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 1.1102230246251565e-16
+  },
+  "P4": {
+   "endpoint": "nemo-12b",
+   "framing_arm": "workplace",
+   "rho": 0.25,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 1.928749847963918e-22,
+    "alpha": 0.6725703485082185,
+    "b_a": 1.2647201098321041,
+    "b_r": -0.03580112988486206,
+    "gamma": 1.8528875379753027,
+    "h_C": 0.7585880686080774,
+    "h_L": 0.10738788503683948,
+    "h_O": -0.6587035951064664
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 1.1102230246251565e-16
+  },
+  "P5": {
+   "endpoint": "gpt6-luna",
+   "framing_arm": "neutral_own",
+   "rho": 0.0,
+   "mode": "fitted",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "MF",
+   "params_point_estimate": {
+    "p_voter": 0.23408104463842092,
+    "alpha": 0.881636642914803,
+    "b_a": 1.4507328201080596,
+    "b_r": 0.6841871953157935,
+    "gamma": 0.597030966389406,
+    "h_C": 0.0,
+    "h_L": -0.1210671861787517,
+    "h_O": 0.8441546651367748
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 9.020562075079397e-17
+  },
+  "P2-nc": {
+   "endpoint": "qwen-9b",
+   "framing_arm": "political",
+   "rho": 0.5,
+   "mode": "fields_only",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 0.0,
+    "alpha": 0.6249526907751412,
+    "b_a": 0.0,
+    "b_r": 0.0,
+    "gamma": 2.4067159345220017,
+    "h_C": 0.4808140913227173,
+    "h_L": -0.05964649799919383,
+    "h_O": -0.0006519396369567786
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 6.938893903907228e-17
+  },
+  "P4-nc": {
+   "endpoint": "nemo-12b",
+   "framing_arm": "workplace",
+   "rho": 0.25,
+   "mode": "fields_only",
+   "runs": 40,
+   "runs_N": [
+    100
+   ],
+   "runs_n_warm_meas": [
+    [
+     10,
+     10
+    ]
+   ],
+   "explicit_jitter": [
+    false
+   ],
+   "surrogate_choice": "A3",
+   "params_point_estimate": {
+    "p_voter": 0.0,
+    "alpha": 0.6725703485082185,
+    "b_a": 0.0,
+    "b_r": 0.0,
+    "gamma": 1.8528875379753027,
+    "h_C": 0.7585880686080774,
+    "h_L": 0.10738788503683948,
+    "h_O": -0.6587035951064664
+   },
+   "neutral_h_applied_as_letter_field": true,
+   "fit_file_changed_since_predictions_commit": null,
+   "stage3_csv_changed_since_predictions_commit": null,
+   "max_abs_diff_interval_recomputed_vs_committed": 5.551115123125783e-17
+  }
+ },
+ "common": {
+  "predictions_commit": null,
+  "per_call_L_O_redrawn": true,
+  "nocontacts_prediction": "fields_only rows (social terms and voter step zeroed) = the k = 0 update"
+ }
+}
+$ python llm/stage3_audit.py report
+| check | result | evidence |
+|---|---|---|
+| A P1 | PASS | abs_m: live-seeds 0.401 in [0.24, 0.46] yes, reps inside 35/40; persistence: live-seeds 0.682 in [0.66, 0.74] yes, reps inside 36/40 |
+| A P2 | FAIL | m: live-seeds 0.630 in [0.58, 0.66] yes, reps inside 29/40; persistence: live-seeds 0.637 in [0.59, 0.67] yes, reps inside 37/40 |
+| A P3 | PASS | abs_m: live-seeds 0.213 in [0.20, 0.37] yes, reps inside 33/40; persistence: live-seeds 0.936 in [0.91, 0.95] yes, reps inside 34/40 |
+| A P4 | PASS | m: live-seeds 0.882 in [0.87, 0.91] yes, reps inside 36/40; persistence: live-seeds 0.806 in [0.75, 0.84] yes, reps inside 40/40 |
+| A P5 | PASS | abs_m: live-seeds 0.186 in [0.14, 0.24] yes, reps inside 33/40; persistence: live-seeds 0.167 in [0.11, 0.20] yes, reps inside 37/40 |
+| A P2-nc | PASS | m: live-seeds 0.411 in [0.34, 0.43] yes, reps inside 39/40; persistence: live-seeds 0.507 in [0.47, 0.54] yes, reps inside 34/40 |
+| A P4-nc | FAIL | m: live-seeds 0.511 in [0.52, 0.58] NO, reps inside 33/40; persistence: live-seeds 0.462 in [0.41, 0.48] yes, reps inside 38/40 |
+| B1 | PASS | all chains 20 sweeps x 100 updates; agent draw χ² min p (Bonferroni) P1 1.00, P2 1.00, P3 0.03, P4 0.44, P5 1.00, P2-nc 1.00, P4-nc 0.85 |
+| B2 | PASS | 140005 calls; stale/mismatched neighbour states 0 |
+| B3 | PASS | mismatches {'mapping_logged_vs_prompt': 0, 'order_logged_vs_prompt': 0, 'gloss_inconsistent': 0, 'pA_mismatch': 0, 'letter_mismatch': 0, 'applied_position_mismatch': 0, 'exact_replay_chains_differing': 0}; chains replayed 70 |
+| B4 | PASS | own-line mismatches 0 |
+| B5 | PASS | P1 ρ=0.25 realised 0.220–0.280; P2 ρ=0.5 realised 0.485–0.550; P3 ρ=0.25 realised 0.220–0.280; P4 ρ=0.25 realised 0.210–0.255; P5 ρ=0.0 realised 0.000–0.000; P2-nc ρ=0.5 realised 0.485–0.550; P4-nc ρ=0.25 realised 0.210–0.255 |
+| B6 | PASS | P1 map0 0.502 ord0 0.499; P2 map0 0.495 ord0 0.497; P3 map0 0.503 ord0 0.498; P4 map0 0.499 ord0 0.502; P5 map0 0.500 ord0 0.496; P2-nc map0 0.505 ord0 0.501; P4-nc map0 0.500 ord0 0.496 |
+| B7 | PASS | P1 {'Alibaba': 20000}; P2 {'Parasail': 20004}; P3 {'CoreWeave': 20000}; P4 {'Io Net': 20000}; P5 {'OpenAI': 20000}; P2-nc {'Parasail': 20000}; P4-nc {'Io Net': 20001} |
+| B8 | PASS | P1 0/20000 kept 0; P2 4/20000 kept 0; P3 0/20000 kept 0; P4 0/20000 kept 0; P5 0/20000 kept 0; P2-nc 0/20000 kept 0; P4-nc 1/20000 kept 0 |
+| B9 | PASS | warm-up/measured 10/10 both; initial m z: mean -0.11, var 1.11 over 70 chains |
+| B10 | PASS | max |Δ| vs measures_by_graph 1.1e-16, vs summary.csv 1.1e-16 |
+| B11 | PASS | P1 qwen-122b/neutral_own/ρ0.25/fitted 40 runs; P2 qwen-9b/political/ρ0.5/fitted 40 runs; P3 llama-70b/political/ρ0.25/fitted 40 runs; P4 nemo-12b/workplace/ρ0.25/fitted 40 runs; P5 gpt6-luna/neutral_own/ρ0.0/fitted 40 runs; P2-nc qwen-9b/political/ρ0.5/fields_only 40 runs; P4-nc nemo-12b/workplace/ρ0.25/fields_only 40 runs |
+| C P1 | PASS | n 20000; observed A 0.490 vs battery 0.493 (Δ -0.003); slope 0.91 [0.89, 0.94]; RMS logit live vs battery pA 0.83 |
+| C P2 | PASS | n 20000; observed A 0.492 vs battery 0.492 (Δ -0.000); slope 0.97 [0.94, 0.99]; RMS logit live vs battery pA 0.40 |
+| C P3 | FAIL | n 20000; observed A 0.507 vs battery 0.506 (Δ +0.001); slope 0.67 [0.64, 0.70]; RMS logit live vs battery pA 0.55 |
+| C P4 | PASS | n 20000; observed A 0.502 vs battery 0.504 (Δ -0.002); slope 0.95 [0.92, 0.98]; RMS logit live vs battery pA 0.78 |
+| C P5 | FAIL | n 20000; observed A 0.488 vs battery 0.484 (Δ +0.003); slope 0.39 [0.38, 0.40] |
+| C P2-nc | PASS | no battery cell (no contacts): n/a |
+| C P4-nc | PASS | no battery cell (no contacts): n/a |
+$ python llm/stage3_audit_order.py
+P1 {"different_order": {"n": 15177, "obs_A": 0.49126968439085456, "battery": 0.49451107599994726, "mean_abs_diff_prob": 0.029935381693642314, "rms_logit": 0.9483884237072564}, "same_order_as_battery": {"n": 4823, "obs_A": 0.48579722164627825, "battery": 0.4862493112935273, "mean_abs_diff_prob": 0.003932347339300645, "rms_logit": 0.18289774273524873}}
+P2 {"different_order": {"n": 16448, "obs_A": 0.49270428015564205, "battery": 0.4942015482107968, "mean_abs_diff_prob": 0.020617343419882854, "rms_logit": 0.43590391249657984}, "same_order_as_battery": {"n": 3552, "obs_A": 0.48817567567567566, "battery": 0.4833441696768961, "mean_abs_diff_prob": 0.0015876809350806125, "rms_logit": 0.06091340480139683}}
+P3 {"different_order": {"n": 16321, "obs_A": 0.5059738986581704, "battery": 0.5051399567722777, "mean_abs_diff_prob": 0.00378677921563735, "rms_logit": 0.602966306316087}, "same_order_as_battery": {"n": 3679, "obs_A": 0.5107366132101114, "battery": 0.5104817476742725, "mean_abs_diff_prob": 0.00031299407720762547, "rms_logit": 0.07500411490146952}}
+P4 {"different_order": {"n": 11894, "obs_A": 0.49899108794350094, "battery": 0.502778063587704, "mean_abs_diff_prob": 0.02522322884509702, "rms_logit": 0.9706255008277365}, "same_order_as_battery": {"n": 8106, "obs_A": 0.5054280779669381, "battery": 0.5055980564197845, "mean_abs_diff_prob": 0.003488929299870902, "rms_logit": 0.354604928096903}}
+P5 {"different_order": {"n": 8584, "obs_A": 0.47914725069897485, "battery": 0.475318421870146, "mean_abs_diff_prob": 0.20632183908045976}, "same_order_as_battery": {"n": 11416, "obs_A": 0.4938682550805886, "battery": 0.49090165849100675, "mean_abs_diff_prob": 0.040025694931090865}}

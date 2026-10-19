@@ -1,0 +1,233 @@
+{
+ "a_tokens": {
+  "P1": {
+   "prompts": 20000,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P2": {
+   "prompts": 20004,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P3": {
+   "prompts": 20000,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P4": {
+   "prompts": 20000,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P5": {
+   "prompts": 20000,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P2-nc": {
+   "prompts": 20000,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "P4-nc": {
+   "prompts": 20001,
+   "differ_from_deterministic_render": 0,
+   "distinct_request_bodies_excluding_message": 1
+  },
+  "distinct_prompt_lines_all_points": 44,
+  "prompt_lines": [
+   "",
+   "- A rival holds A (adopt the new tool).",
+   "- A rival holds A (keep the current tool).",
+   "- A rival holds A (oppose the measure).",
+   "- A rival holds A (support the measure).",
+   "- A rival holds A.",
+   "- A rival holds B (adopt the new tool).",
+   "- A rival holds B (keep the current tool).",
+   "- A rival holds B (oppose the measure).",
+   "- A rival holds B (support the measure).",
+   "- A rival holds B.",
+   "- An ally holds A (adopt the new tool).",
+   "- An ally holds A (keep the current tool).",
+   "- An ally holds A (oppose the measure).",
+   "- An ally holds A (support the measure).",
+   "- An ally holds A.",
+   "- An ally holds B (adopt the new tool).",
+   "- An ally holds B (keep the current tool).",
+   "- An ally holds B (oppose the measure).",
+   "- An ally holds B (support the measure).",
+   "- An ally holds B.",
+   "The people you are in contact with, and the position each currently holds:",
+   "Which position do you take now? Reply with exactly one letter, A or B, and nothing else.",
+   "Which position do you take now? Reply with exactly one letter, B or A, and nothing else.",
+   "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (oppose the measure) or B (support the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).",
+   "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, A (support the measure) or B (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).",
+   "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, B (oppose the measure) or A (support the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).",
+   "You are a voter in a mid-sized town. The town will vote on a ballot measure to raise the local sales tax by half a percent to fund public transit. Every voter holds one of two positions, B (support the measure) or A (oppose the measure), and can switch at any time before the vote. Some voters are your political allies (people who usually vote the way you do) and some are your political rivals (people who usually vote against your side).",
+   "You are one member of a group. Every member holds one of two positions, A or B, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).",
+   "You are one member of a group. Every member holds one of two positions, B or A, and can switch at any time. Some members are your allies (people you usually side with) and some are your rivals (people you usually oppose).",
+   "You currently hold position A (adopt the new tool).",
+   "You currently hold position A (keep the current tool).",
+   "You currently hold position A (oppose the measure).",
+   "You currently hold position A (support the measure).",
+   "You currently hold position A.",
+   "You currently hold position B (adopt the new tool).",
+   "You currently hold position B (keep the current tool).",
+   "You currently hold position B (oppose the measure).",
+   "You currently hold position B (support the measure).",
+   "You currently hold position B.",
+   "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, A (adopt the new tool) or B (keep the current tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).",
+   "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, A (keep the current tool) or B (adopt the new tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).",
+   "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, B (adopt the new tool) or A (keep the current tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work).",
+   "You work on a team that is deciding whether to switch to a new project-management tool. Every team member holds one of two positions, B (keep the current tool) or A (adopt the new tool), and can switch at any time before the decision. Some colleagues are your allies (people you usually back at work) and some are your rivals (people you usually clash with at work)."
+  ]
+ },
+ "b_variance": {
+  "P1": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 2.3736918298773504,
+    "null_mean": 2.148747028003407,
+    "null_sd": 0.09642046091428512,
+    "z": 2.332957131100137,
+    "p": 0.012987012987012988,
+    "excess_ss_per_update": 1.1247240093697174e-05
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 1.2976858920472707,
+    "null_mean": 1.0722029276055118,
+    "null_sd": 0.0663766762484632,
+    "z": 3.3970210198191326,
+    "p": 0.000999000999000999,
+    "excess_ss_per_update": 1.1274148222087943e-05
+   }
+  },
+  "P2": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 0.7628920778606487,
+    "null_mean": 0.7969010944094499,
+    "null_sd": 0.03375375701782809,
+    "z": -1.007562403522614,
+    "p": 0.8421578421578422,
+    "excess_ss_per_update": 0.0
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 0.37741776497449675,
+    "null_mean": 0.3980085221555136,
+    "null_sd": 0.024922533012609143,
+    "z": -0.8261903864506579,
+    "p": 0.7952047952047953,
+    "excess_ss_per_update": 0.0
+   }
+  },
+  "P3": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 2.0545016291389118,
+    "null_mean": 2.273884926987981,
+    "null_sd": 0.11304274390735675,
+    "z": -1.9407110113043864,
+    "p": 0.987012987012987,
+    "excess_ss_per_update": 0.0
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 1.0491985755803905,
+    "null_mean": 1.1357456106292039,
+    "null_sd": 0.0754781535591856,
+    "z": -1.1466501360681558,
+    "p": 0.8871128871128872,
+    "excess_ss_per_update": 0.0
+   }
+  },
+  "P4": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 3.7411624477380068,
+    "null_mean": 3.417890354558903,
+    "null_sd": 0.1495041075215513,
+    "z": 2.1622957291156935,
+    "p": 0.01898101898101898,
+    "excess_ss_per_update": 1.616360465895519e-05
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 1.8518684011379527,
+    "null_mean": 1.7053584882985602,
+    "null_sd": 0.10455576289893403,
+    "z": 1.4012609996544363,
+    "p": 0.08491508491508491,
+    "excess_ss_per_update": 7.325495641969626e-06
+   }
+  },
+  "P5": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 70.47686783871235,
+    "null_mean": 69.24788188340375,
+    "null_sd": 3.0138421139980425,
+    "z": 0.4077804705165123,
+    "p": 0.3386613386613387,
+    "excess_ss_per_update": 6.144929776543008e-05
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 35.743197079110715,
+    "null_mean": 34.430107653784596,
+    "null_sd": 2.1015958378095894,
+    "z": 0.6248058745180521,
+    "p": 0.25274725274725274,
+    "excess_ss_per_update": 6.565447126630595e-05
+   }
+  },
+  "P2-nc": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 0.030227458185896637,
+    "null_mean": 0.031980783446027075,
+    "null_sd": 0.0013759708689625326,
+    "z": -1.274245915869154,
+    "p": 0.9110889110889111,
+    "excess_ss_per_update": 0.0
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 0.014888780206300706,
+    "null_mean": 0.01600266611912864,
+    "null_sd": 0.0009678142958095212,
+    "z": -1.150929385576219,
+    "p": 0.8771228771228772,
+    "excess_ss_per_update": 0.0
+   }
+  },
+  "P4-nc": {
+   "agent": {
+    "units": 1000,
+    "obs_ss": 1.5206419551486041,
+    "null_mean": 1.3496596256174858,
+    "null_sd": 0.06244588596088033,
+    "z": 2.7380879764958648,
+    "p": 0.004995004995004995,
+    "excess_ss_per_update": 8.549116476555918e-06
+   },
+   "graph_position": {
+    "units": 500,
+    "obs_ss": 0.7939516960078775,
+    "null_mean": 0.6741561604174414,
+    "null_sd": 0.04311688609407616,
+    "z": 2.7783902420285136,
+    "p": 0.004995004995004995,
+    "excess_ss_per_update": 5.989776779521805e-06
+   }
+  }
+ },
+ "b_fisher_p": {
+  "agent": 0.007787432176900237,
+  "graph_position": 0.002824935257681162
+ },
+ "c_triggered": true
+}

@@ -1,0 +1,11 @@
+{
+ "R": 400,
+ "K_avg": {
+  "points_passing": [
+   "P2",
+   "P4"
+  ],
+  "P1_P4_passing": 2,
+  "reproduces": false
+ }
+}

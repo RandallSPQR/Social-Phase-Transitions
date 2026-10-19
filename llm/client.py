@@ -18,10 +18,21 @@ _locks = {}
 _index = {}          # model -> {hash: record}
 _glock = threading.Lock()
 _spend = {"usd": 0.0, "calls": 0}
+# CLIENT_SLIM=1: keep only key/rep/t/resp in memory (the on-disk cache keeps the request bodies). For long runs whose
+# callers only read rec["resp"] (llm/stage3_replicate.py); cuts the in-memory index by more than half.
+SLIM = os.environ.get("CLIENT_SLIM") == "1"
 
 
 class BudgetExceeded(RuntimeError):
     pass
+
+
+class CacheMiss(RuntimeError):
+    pass
+
+
+# SPT_OFFLINE=1 (set by `make replicate`): never call the API; a request missing from the cache raises CacheMiss.
+OFFLINE = os.environ.get("SPT_OFFLINE") == "1"
 
 
 def _slug(model):
@@ -58,6 +69,8 @@ def _load(model):
                     line = line.strip()
                     if line:
                         r = json.loads(line)
+                        if SLIM:
+                            r.pop("body", None)
                         idx[r["key"]] = r
         _index[model], _locks[model] = idx, threading.Lock()
         return idx, _locks[model]
@@ -106,6 +119,8 @@ def chat(body, rep=0, budget_usd=None, retries=6, timeout=60):
     key = request_key(body, rep)
     if key in idx:
         return idx[key]
+    if OFFLINE:   # replication (tier 1): a cache miss is an error, never a live call
+        raise CacheMiss(f"{model} rep={rep}: request not in cache (SPT_OFFLINE=1)")
     if budget_usd is not None and _spend["usd"] >= budget_usd:
         raise BudgetExceeded(f"session spend ${_spend['usd']:.4f} >= cap ${budget_usd}")
     payload = dict(body)
@@ -128,7 +143,7 @@ def chat(body, rep=0, budget_usd=None, retries=6, timeout=60):
                         os.makedirs(CACHE_DIR, exist_ok=True)
                         with open(_path(model), "a") as f:
                             f.write(json.dumps(rec, separators=(",", ":")) + "\n")
-                        idx[key] = rec
+                        idx[key] = {k: v for k, v in rec.items() if k != "body"} if SLIM else rec
                     with _glock:
                         _spend["usd"] += float(cost); _spend["calls"] += 1
                     return rec

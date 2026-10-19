@@ -1,0 +1,23 @@
+{
+ "key": "gemma-31b-local",
+ "layers": [
+  10,
+  20,
+  30,
+  40,
+  50,
+  60
+ ],
+ "readout_token_ids": {
+  "A": 236776,
+  "B": 236799
+ },
+ "cos_rival_probe_vs_WU_A_minus_B_last_layer": -0.013267106304397978,
+ "rival_neutral_own_best_layer": 50,
+ "rival_best_auc": 0.9859339045036161,
+ "rival_best_auc_letter_count": 0.9554158448389217,
+ "b_a": 1.2967658879874502,
+ "b_r": 0.9271601094693485,
+ "abs_b_r_over_b_a": 0.7149787930559146,
+ "rival_decodable": true
+}

@@ -1,0 +1,54 @@
+$ python llm/kernel_test.py run --R 400
+P1 {'K_fixed': False, 'K_fixed-A3': False, 'K_live_n0100': True, 'K_live_n020': True, 'K_live_n05': False}
+P2 {'K_fixed': True, 'K_fixed-A3': True, 'K_live_n0100': True, 'K_live_n020': True, 'K_live_n05': True}
+P3 {'K_fixed': False, 'K_fixed-A3': False, 'K_live_n0100': False, 'K_live_n020': False, 'K_live_n05': True}
+P4 {'K_fixed': True, 'K_fixed-A3': False, 'K_live_n0100': False, 'K_live_n020': False, 'K_live_n05': False}
+P5 {'K_fixed': False, 'K_fixed-A3': False, 'K_live_n0100': True, 'K_live_n020': True, 'K_live_n05': True}
+P2-nc {'K_fixed': False, 'K_fixed-A3': False, 'K_live_n0100': True, 'K_live_n020': False, 'K_live_n05': True}
+P4-nc {'K_fixed': False, 'K_fixed-A3': False, 'K_live_n0100': False, 'K_live_n020': False, 'K_live_n05': False}
+{
+ "K_fixed": {
+  "points_passing": [
+   "P2",
+   "P4"
+  ],
+  "P1_P4_passing": 2,
+  "reproduces": false
+ },
+ "K_fixed-A3": {
+  "points_passing": [
+   "P2"
+  ],
+  "P1_P4_passing": 1,
+  "reproduces": false
+ },
+ "K_live_n0100": {
+  "points_passing": [
+   "P1",
+   "P2",
+   "P5",
+   "P2-nc"
+  ],
+  "P1_P4_passing": 2,
+  "reproduces": false
+ },
+ "K_live_n020": {
+  "points_passing": [
+   "P1",
+   "P2",
+   "P5"
+  ],
+  "P1_P4_passing": 2,
+  "reproduces": false
+ },
+ "K_live_n05": {
+  "points_passing": [
+   "P2",
+   "P3",
+   "P5",
+   "P2-nc"
+  ],
+  "P1_P4_passing": 2,
+  "reproduces": false
+ }
+}

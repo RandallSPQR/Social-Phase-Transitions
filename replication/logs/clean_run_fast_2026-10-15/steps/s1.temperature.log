@@ -1,0 +1,121 @@
+$ python llm/temp_check.py semantics llama-8b llama-70b llama-70b-pa qwen-9b qwen-122b gemma-26b gemma-31b nemo-12b mistral-small mistral-large gpt4o-mini
+          key                                    model            tag                                  logit_T1                                 logit_T05 logprobs
+     llama-8b         meta-llama/llama-3.1-8b-instruct coreweave/bf16  [-4.250000145286322, 1.2500000596046448]  [-4.250000145286322, 1.2500000596046448]      pre
+    llama-70b        meta-llama/llama-3.3-70b-instruct coreweave/fp16                [8.499999663080313, -15.0]                [8.749999893335842, -15.0]  unclear
+ llama-70b-pa        meta-llama/llama-3.3-70b-instruct   parasail/fp8                [8.999999649982156, -15.0]                [8.999999649982156, -15.0]      pre
+      qwen-9b                          qwen/qwen3.5-9b  parasail/bf16 [1.3755884094292665, -0.1200965235494699] [1.3755884094292665, -0.1200965238388156]      pre
+    qwen-122b                   qwen/qwen3.5-122b-a10b        alibaba    [6.875000100000778, -8.00006593896643]  [6.875000100000778, -7.7500333722088826]  unclear
+    gemma-26b                google/gemma-4-26b-a4b-it  parasail/bf16  [9.375000003602096, -13.437499526615646]  [8.937500127852708, -12.812500123576621]  unclear
+    gemma-31b                    google/gemma-4-31b-it         io-net               [10.500009654152047, -15.0]                 [8.75002170191219, -15.0]  unclear
+     nemo-12b                   mistralai/mistral-nemo    io-net/fp16  [-1.624999940395355, 0.7499999701976773] [-1.6250000149011614, 0.8750000298023224]      pre
+mistral-small mistralai/mistral-small-3.2-24b-instruct  parasail/bf16 [-2.1250000447034836, 0.1250000000000002]                [-2.1250000447034836, 0.0]      pre
+mistral-large              mistralai/mistral-large-4-0        mistral                [11.43749964343903, -15.0]                [8.875000258049132, -15.0]  unclear
+   gpt4o-mini                       openai/gpt-4o-mini         openai [1.7500000727412661, -3.5000001077769687]   [1.7500000727412661, -3.75000010218904]  unclear
+$ python llm/temp_check.py verify
+{
+ "0.5": {
+  "slope": 1.6655434347389753,
+  "slope_lo": 1.3701172117850142,
+  "slope_hi": 2.074090214327554,
+  "expected": 2.0,
+  "chi2": 99.76284425810769,
+  "df": 20,
+  "p_chi2": 1.3888874444993756e-12,
+  "n_invalid": 0,
+  "passes": false
+ },
+ "1.5": {
+  "slope": 0.634904041873641,
+  "slope_lo": 0.4574459730440183,
+  "slope_hi": 0.8184183462153933,
+  "expected": 0.6666666666666666,
+  "chi2": 38.53579887358784,
+  "df": 20,
+  "p_chi2": 0.007611029316613672,
+  "n_invalid": 0,
+  "passes": false
+ }
+}
+spend {'usd': 0.0, 'calls': 0}
+$ python llm/temp_check.py verify qwen-9b
+{
+ "0.5": {
+  "slope": 2.2195021483820616,
+  "slope_lo": 1.8722177730138276,
+  "slope_hi": 2.605050863744655,
+  "expected": 2.0,
+  "chi2": 27.375718832502667,
+  "df": 20,
+  "p_chi2": 0.12502049720431585,
+  "n_invalid": 0,
+  "passes": true
+ },
+ "1.5": {
+  "slope": 0.6794682356581699,
+  "slope_lo": 0.44942657578155676,
+  "slope_hi": 0.9309611748778602,
+  "expected": 0.6666666666666666,
+  "chi2": 18.242075233221698,
+  "df": 20,
+  "p_chi2": 0.5714651522878678,
+  "n_invalid": 99,
+  "passes": true
+ }
+}
+spend {'usd': 0.0, 'calls': 0}
+$ python llm/temp_check.py verify qwen-122b
+{
+ "0.5": {
+  "slope": 2.336450667992574,
+  "slope_lo": 1.8882270087306103,
+  "slope_hi": 2.937829321535126,
+  "expected": 2.0,
+  "chi2": 47.635486080138996,
+  "df": 20,
+  "p_chi2": 0.0004784468542835898,
+  "n_invalid": 0,
+  "passes": false
+ },
+ "1.5": {
+  "slope": 0.8647304730319653,
+  "slope_lo": 0.6753863247019677,
+  "slope_hi": 1.0768520253893066,
+  "expected": 0.6666666666666666,
+  "chi2": 29.217596857224585,
+  "df": 20,
+  "p_chi2": 0.08356240045508927,
+  "n_invalid": 0,
+  "passes": false
+ }
+}
+spend {'usd': 0.0, 'calls': 0}
+$ python llm/temp_check.py verify nemo-12b
+{
+ "0.5": {
+  "slope": 1.7880512879498125,
+  "slope_lo": 1.3738227954887448,
+  "slope_hi": 2.3072084871016147,
+  "expected": 2.0,
+  "chi2": 43.07452779895625,
+  "df": 20,
+  "p_chi2": 0.001998460789162204,
+  "n_invalid": 0,
+  "passes": false
+ },
+ "1.5": {
+  "slope": 0.5358159281552497,
+  "slope_lo": 0.22124545750741614,
+  "slope_hi": 0.8634059736351342,
+  "expected": 0.6666666666666666,
+  "chi2": 22.830124675603233,
+  "df": 20,
+  "p_chi2": 0.2972125835130923,
+  "n_invalid": 92,
+  "passes": true
+ }
+}
+spend {'usd': 0.0, 'calls': 0}
+$ python llm/temp_diag.py
+reference repeat SD on the 20 prompts: 0.251 nats (max |diff| 1.00)
+T=0.5: chi2 vs mean-of-2-reps reference = 63.3 (p=2.1e-06); simulated under 1/T rule + reference noise: median 31.9, 95th pct 57.2
+T=1.5: chi2 vs mean-of-2-reps reference = 36.1 (p=0.015); simulated under 1/T rule + reference noise: median 22.1, 95th pct 35.7
