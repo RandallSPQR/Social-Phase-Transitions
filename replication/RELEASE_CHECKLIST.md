@@ -33,7 +33,7 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 - [x] Created and filled: all 535 files of the private dataset except `code/` and `cleanup/`, hash-checked against the
       original; scanned (no PDF, no generation id, including inside tarballs). Card uploaded as `README.md`.
 - [x] Manifests and docs point at it; a test fetch from it passes.
-- [ ] **Owner:** Settings → Visibility → Public.
+- [x] Public (owner, 2026-10-30).
 
 ## 2. Public code: `RandallSPQR/social-phase-transitions-public` (done 2026-10-30)
 
@@ -41,9 +41,12 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 
 ## 3. Zenodo
 
-- [ ] **Owner:** download the public repository as a ZIP (Code → Download ZIP), upload it as a new Zenodo upload,
-      fill in the metadata from `.zenodo.json`, publish.
-- [ ] Add the DOI to `CITATION.cff`, `paper/paper.md` and the dataset card.
+- [x] Published by the owner: DOI 10.5281/zenodo.23821225 (v1.0.0). Added to `CITATION.cff`, `paper/paper.md`, the
+      README and the dataset card.
+- [x] The v1.0.0 pack held the root commit, which GitHub created with the owner's personal email. The pack now omits
+      that commit (`OMIT_COMMITS` in `build_provenance.py`; its two children are shallow boundaries in
+      `verify_pack.py`), and the public repository's single commit was replaced. **Owner:** upload the new ZIP as a
+      new Zenodo version (v1.0.1) and ask Zenodo support to remove the files of v1.0.0.
 
 ## 0b. Retired: RunPod CPU pod for the full-mode steps (owner decision 2026-10-30, not run)
 

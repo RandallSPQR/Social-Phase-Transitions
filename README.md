@@ -1,5 +1,7 @@
 # Social phase transitions in LLM agents
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23821225.svg)](https://doi.org/10.5281/zenodo.23821225)
+
 Code, pre-registrations, results and replication package for **"Do LLM agents behave like spins? Response functions,
 live networks and amplification near tipping points"** (Randall S. Bennington, 2026). Draft paper: `paper/paper.md`.
 

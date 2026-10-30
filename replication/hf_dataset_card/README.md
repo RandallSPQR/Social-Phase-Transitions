@@ -22,7 +22,7 @@ figure exactly, with no API keys and no GPU.
 
 - **Code, results and replication package:** https://github.com/RandallSPQR/social-phase-transitions-public
   (`make replicate-fast` / `make replicate`; see `replication/README.md`)
-- **Archived release (code + this card):** DOI [10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)
+- **Archived release (code + this card):** DOI [10.5281/zenodo.23821225](https://doi.org/10.5281/zenodo.23821225)
 - **Licence:** CC BY 4.0 (see "Terms of the model outputs" below)
 
 ## Contents
@@ -96,7 +96,7 @@ This dataset is released under CC BY 4.0. Use of the outputs also remains subjec
   author = {Bennington, Randall S.},
   title  = {Do {LLM} agents behave like spins? Response functions, live networks and amplification near tipping points: code, data and replication package},
   year   = {2026},
-  doi    = {10.5281/zenodo.XXXXXXX},
+  doi    = {10.5281/zenodo.23821225},
   url    = {https://github.com/RandallSPQR/social-phase-transitions-public}
 }
 ```

@@ -237,12 +237,20 @@ def table():
 
 
 # ---------------------------------------------------------------- verification pack
+# The repository's root commit was made by GitHub's "create repository" page and carries the owner's personal email
+# address as author; it holds only an empty README. It is left out of the pack, and its children are marked as
+# shallow boundaries in the verifying repository (verify_pack.py). Every other commit id stays verifiable.
+OMIT_COMMITS = {"5e990d78f2363933163b604dc0a85d7ff07b3a23": "root commit created by GitHub; carries a personal email"}
+
+
 def pack(out):
     os.makedirs(out, exist_ok=True)
     objs = git("rev-list", "--objects", "--all").splitlines()
     keep, dropped = [], 0
     for line in objs:
         sha, _, path = line.partition(" ")
+        if sha in OMIT_COMMITS:
+            continue
         if path and any(path.startswith(x) for x in EXCLUDE) and git("cat-file", "-t", sha) == "blob":
             dropped += 1; continue
         keep.append(sha)
@@ -251,8 +259,10 @@ def pack(out):
                        text=True, check=True)
     name = p.stdout.strip()
     refs = {r.split()[1]: r.split()[0] for r in git("show-ref").splitlines()}
+    children = sorted(l.split()[0] for l in git("rev-list", "--all", "--parents").splitlines()
+                      if set(l.split()[1:]) & set(OMIT_COMMITS))
     json.dump(dict(pack=f"original-history-{name}.pack", objects=len(keep), blobs_omitted=dropped,
-                   omitted_paths=list(EXCLUDE), refs=refs), open(os.path.join(out, "pack_manifest.json"), "w"), indent=1)
+                   omitted_paths=list(EXCLUDE), commits_omitted=OMIT_COMMITS, shallow=children, refs=refs), open(os.path.join(out, "pack_manifest.json"), "w"), indent=1)
     print(f"pack {name}: {len(keep)} objects, {dropped} blobs omitted ({', '.join(EXCLUDE)})")
 
 

@@ -9,7 +9,8 @@ archive). The script:
   2. checks the pack holds no PDF and no OpenRouter generation id (the omitted material);
   3. for every row of provenance.json: the commit exists, the pre-registration document at that commit hashes to the
      recorded SHA-256, and the commit is an ancestor of the commit GitHub's push log records for that push.
-Blobs under papers/ and results/llm/cache/ are deliberately absent: commits and trees reference them by hash only, so
+The repository's root commit (an empty README made by GitHub, carrying a personal email) is also left out; its
+children are history boundaries. Blobs under papers/ and results/llm/cache/ are deliberately absent: commits and trees reference them by hash only, so
 step 3 does not need them. `git fsck` therefore reports them missing; that is expected.
 """
 import glob, hashlib, json, os, re, shutil, subprocess, sys, tempfile
@@ -27,6 +28,9 @@ def main(pack_dir):
     dst = os.path.join(repo, "objects", "pack", os.path.basename(pack)); shutil.copy(pack, dst)
     g("index-pack", dst)                                   # recomputes and verifies every object hash
     print("index-pack: every object hash verified from content")
+    man = json.load(open(os.path.join(pack_dir, "pack_manifest.json")))
+    # commits left out of the pack (pack_manifest.json, commits_omitted): their children are history boundaries
+    open(os.path.join(repo, "shallow"), "w").write("".join(c + "\n" for c in man.get("shallow", [])))
 
     # 2. omitted material really is absent
     objs = g("cat-file", "--batch-all-objects", "--batch-check").stdout.decode().split("\n")
@@ -37,6 +41,10 @@ def main(pack_dir):
         bad_pdf += data[:5] == b"%PDF-"
         bad_gen += bool(re.search(rb"gen-[0-9]{10}-[A-Za-z0-9]{10,}", data))
     print(f"blobs in pack: {len(blobs)}; PDFs: {bad_pdf}; blobs with generation ids: {bad_gen}")
+    commits = [l.split()[0] for l in objs if " commit " in l]
+    for c in commits:                                      # no personal email in any commit header
+        bad_gen += bool(re.search(rb"<(?!noreply@)[^>\s]*@[^>\s]*>", g("cat-file", "commit", c).stdout))
+    print(f"commits in pack: {len(commits)}; only noreply addresses: {'yes' if not bad_gen else 'NO'}")
 
     # 3. every pre-registration document as committed
     fails = 0
