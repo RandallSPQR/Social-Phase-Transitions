@@ -683,7 +683,7 @@ this paper depends on their correctness.
 # Data and code availability {-}
 
 All code, pre-registrations, amendments, the execution log and result files are archived with DOI
-[10.5281/zenodo.23821962](https://doi.org/10.5281/zenodo.23821962), with a public copy at https://github.com/RandallSPQR/social-phase-transitions-public. The commit ids cited in this paper are
+[10.5281/zenodo.23821224](https://doi.org/10.5281/zenodo.23821224), with a public copy at https://github.com/RandallSPQR/social-phase-transitions-public. The commit ids cited in this paper are
 those of the original development repository, which stays private because its history contains third-party documents
 that cannot be redistributed. The archive includes a pack of that history without those documents, GitHub's and
 Hugging Face's server-side logs, and a script that checks, for every pre-registration, its content hash and that it

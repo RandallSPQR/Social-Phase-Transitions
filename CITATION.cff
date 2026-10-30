@@ -11,7 +11,7 @@ version: 1.0.1
 date-released: 2026-10-30
 license: Apache-2.0
 repository-code: "https://github.com/RandallSPQR/social-phase-transitions-public"
-doi: 10.5281/zenodo.23821962
+doi: 10.5281/zenodo.23821224
 keywords:
   - large language models
   - multi-agent systems

@@ -41,8 +41,8 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 
 ## 3. Zenodo
 
-- [x] Published by the owner: v1.0.0 (DOI 10.5281/zenodo.23821225) and v1.0.1; the all-versions DOI
-      10.5281/zenodo.23821962 is in `CITATION.cff`, `paper/paper.md`, the
+- [x] Published by the owner: v1.0.0 (DOI 10.5281/zenodo.23821225) and v1.0.1 (DOI 10.5281/zenodo.23821962); the
+      all-versions DOI 10.5281/zenodo.23821224 is in `CITATION.cff`, `paper/paper.md`, the
       README and the dataset card.
 - [x] The v1.0.0 pack held the root commit, which GitHub created with the owner's personal email. The pack now omits
       that commit (`OMIT_COMMITS` in `build_provenance.py`; its two children are shallow boundaries in
