@@ -9,7 +9,7 @@ make replicate             # about 37 h on 4 cores (recomputes everything; about
 
 Both modes run the same pipeline:
 
-1. **Fetch** the public Hugging Face dataset `RandallSPQR/social-phase-transitions-llm-cache`: the response cache
+1. **Fetch** the public Hugging Face dataset `RandallSPQR/social-phase-transitions-data`: the response cache
    (31 files, 58.5 MB) and, in fast mode, the simulation unit bundles (140 MB). Full mode instead fetches the Gemma
    activations used by the exploratory probes (820 MB).
 2. **Verify** every downloaded file against its committed SHA-256: `results/llm/cache_manifest.json`,

@@ -3,7 +3,7 @@
 | what | licence | file |
 |---|---|---|
 | Code: everything under `llm/`, `sim/`, `replication/`, plus `Makefile` and `Dockerfile` | Apache License 2.0 | `LICENSE` |
-| Data and results: `results/`, `data/`, `figures/`, the pre-registrations and logs in `llm/*.md`, `paper/`, and the Hugging Face dataset `RandallSPQR/social-phase-transitions-llm-cache` | Creative Commons Attribution 4.0 International (CC BY 4.0) | `LICENSE-DATA` |
+| Data and results: `results/`, `data/`, `figures/`, the pre-registrations and logs in `llm/*.md`, `paper/`, and the Hugging Face dataset `RandallSPQR/social-phase-transitions-data` | Creative Commons Attribution 4.0 International (CC BY 4.0) | `LICENSE-DATA` |
 | (removed) the five unrefereed OpenAI proofs (September 2026) that motivated the study | third-party; not redistributed | see note 1 |
 
 ## Notes

@@ -2,7 +2,7 @@
  "dataset": {
   "host": "huggingface.co",
   "repo_type": "dataset",
-  "repo_id": "RandallSPQR/social-phase-transitions-llm-cache",
+  "repo_id": "RandallSPQR/social-phase-transitions-data",
   "revision": "main",
   "url_template": "https://huggingface.co/datasets/{repo_id}/resolve/{revision}/{file}"
  },

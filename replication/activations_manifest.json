@@ -1,5 +1,5 @@
 {
- "dataset": "RandallSPQR/social-phase-transitions-llm-cache",
+ "dataset": "RandallSPQR/social-phase-transitions-data",
  "note": "Gemma-4 activations used by the exploratory probes (Amendments 4-5); SHA-256 of each file (LFS object ids, and computed for the small non-LFS index files).",
  "files": {
   "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/index.csv": {

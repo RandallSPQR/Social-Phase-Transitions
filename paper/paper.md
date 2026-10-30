@@ -683,14 +683,14 @@ this paper depends on their correctness.
 # Data and code availability {-}
 
 All code, pre-registrations, amendments, the execution log and result files are archived with DOI
-[10.5281/zenodo.XXXXXXX, to be added], with a public copy at [URL to be added]. The commit ids cited in this paper are
+[10.5281/zenodo.XXXXXXX, to be added], with a public copy at https://github.com/RandallSPQR/social-phase-transitions-public. The commit ids cited in this paper are
 those of the original development repository, which stays private because its history contains third-party documents
 that cannot be redistributed. The archive includes a pack of that history without those documents, GitHub's and
 Hugging Face's server-side logs, and a script that checks, for every pre-registration, its content hash and that it
 reached GitHub's servers before the data it governs (`replication/provenance/PREREG_PROVENANCE.md`).
 Code is released under Apache-2.0 and data under CC BY 4.0 (`LICENSES.md`).
 
-**Data.** A public Hugging Face dataset [name to be added; a copy of the private `RandallSPQR/social-phase-transitions-llm-cache` without its code bundles] holds:
+**Data.** The public Hugging Face dataset `RandallSPQR/social-phase-transitions-data` holds:
 - the raw API cache: every request body and compact reply, keyed by the SHA-256 of the request plus replicate index,
   with no credentials or account-linked identifiers; 31 files, 709,422 records, each listed with its SHA-256 in
   `results/llm/cache_manifest.json`;

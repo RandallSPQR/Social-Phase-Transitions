@@ -11,7 +11,7 @@ authors:
 version: 1.0.0
 date-released: 2026-10-15          # CHECK: set to the release date
 license: Apache-2.0
-repository-code: "https://github.com/RandallSPQR/Social-Phase-Transitions"
+repository-code: "https://github.com/RandallSPQR/social-phase-transitions-public"
 # doi: 10.5281/zenodo.XXXXXXX      # CHECK: add after Zenodo mints the DOI
 keywords:
   - large language models
@@ -23,9 +23,9 @@ keywords:
   - replication
 references:
   - type: dataset
-    title: "social-phase-transitions-llm-cache: LLM response cache, pod outputs and simulation units"
+    title: "social-phase-transitions-data: LLM response cache, pod outputs and simulation units"
     authors:
       - family-names: Bennington
         given-names: Randall S.
-    url: "https://huggingface.co/datasets/RandallSPQR/social-phase-transitions-llm-cache"
+    url: "https://huggingface.co/datasets/RandallSPQR/social-phase-transitions-data"
     license: CC-BY-4.0

@@ -14,17 +14,13 @@ size_categories:
 - 100K<n<1M
 ---
 
-<!-- Card prepared 2026-10-15 for when the dataset is made public. Upload it as README.md at the dataset root.
-     CHECK before publishing: author name; the DOI (replace 10.5281/zenodo.XXXXXXX once Zenodo has minted it);
-     the model-output terms table (LICENSES.md in the repository); the secrets audit (replication/RELEASE_CHECKLIST.md). -->
-
 # Social phase transitions: LLM response cache, pod outputs and simulation units
 
 This dataset holds the raw material behind the study **"Do LLM agents behave like spins? Response functions, live
 networks and amplification near tipping points"**. Together with the code repository it reproduces every analysis and
 figure exactly, with no API keys and no GPU.
 
-- **Code, results and replication package:** https://github.com/RandallSPQR/Social-Phase-Transitions
+- **Code, results and replication package:** https://github.com/RandallSPQR/social-phase-transitions-public
   (`make replicate-fast` / `make replicate`; see `replication/README.md`)
 - **Archived release (code + this card):** DOI [10.5281/zenodo.XXXXXXX](https://doi.org/10.5281/zenodo.XXXXXXX)
 - **Licence:** CC BY 4.0 (see "Terms of the model outputs" below)
@@ -60,7 +56,7 @@ has two answers in the committed CSV but only one in the cache. The replication 
 ## How to verify and use
 
 ```bash
-git clone https://github.com/RandallSPQR/Social-Phase-Transitions && cd Social-Phase-Transitions
+git clone https://github.com/RandallSPQR/social-phase-transitions-public && cd social-phase-transitions-public
 make env && make replicate-fast PY=.venv/bin/python     # or: make docker-replicate-fast
 ```
 
@@ -101,7 +97,7 @@ This dataset is released under CC BY 4.0. Use of the outputs also remains subjec
   title  = {Do {LLM} agents behave like spins? Response functions, live networks and amplification near tipping points: code, data and replication package},
   year   = {2026},
   doi    = {10.5281/zenodo.XXXXXXX},
-  url    = {https://github.com/RandallSPQR/Social-Phase-Transitions}
+  url    = {https://github.com/RandallSPQR/social-phase-transitions-public}
 }
 ```
 

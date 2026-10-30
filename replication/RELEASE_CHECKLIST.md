@@ -28,32 +28,22 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 - [ ] Rebuild the pack from the final commit just before release (`python replication/provenance/build_provenance.py
       logs` then `table` then `pack DIR`, then `verify_pack.py DIR`), so the pack contains the release commit too.
 
-## 1. Public data: a new Hugging Face dataset
+## 1. Public data: `RandallSPQR/social-phase-transitions-data` (done 2026-10-30, private until switched)
 
-- [ ] Create a new **public** dataset, e.g. `RandallSPQR/social-phase-transitions-data`.
-- [ ] Copy into it everything from the private dataset **except `code/`** (the bundles holding the PDFs): `cache/`,
-      `runs/`, `sim_units/`, plus the card `replication/hf_dataset_card/README.md` as `README.md`. Before upload,
-      check that no copied file is a PDF or a tarball containing one.
-- [ ] Ask a session to point the fetch scripts and manifests at the new dataset id (`llm/pod_tracker.py`,
-      `llm/run_relay.py`, `replication/*` and the docs that name `social-phase-transitions-llm-cache`), then run
-      `make replicate-fast` from a machine with no `HF_TOKEN`.
+- [x] Created and filled: all 535 files of the private dataset except `code/` and `cleanup/`, hash-checked against the
+      original; scanned (no PDF, no generation id, including inside tarballs). Card uploaded as `README.md`.
+- [x] Manifests and docs point at it; a test fetch from it passes.
+- [ ] **Owner:** Settings → Visibility → Public.
 
-## 2. Public code: a new GitHub repository
+## 2. Public code: `RandallSPQR/social-phase-transitions-public` (done 2026-10-30)
 
-- [ ] Create a new public repository, e.g. `randallspqr/social-phase-transitions-public`, and push **one snapshot
-      commit** of the release tree (no history: `git archive` of the release commit, or an orphan branch). Its README
-      says it is a snapshot of private commit `<sha>` and points to `replication/provenance/PREREG_PROVENANCE.md`.
-      Commit ids cited in the paper are the original ones; they are checked with the pack, not with this repository.
-- [ ] Tag `v1.0.0` there, with the release notes below.
+- [x] One snapshot commit of the release tree plus the verification pack under `replication/provenance/pack/`.
 
-## 3. Zenodo (one DOI for code, provenance and pack)
+## 3. Zenodo
 
-- [ ] Make a **manual** Zenodo upload (not the GitHub integration, which archives only the source zip and would leave
-      out the pack): the snapshot `.tar.gz`, `original-history-<id>.pack` with `pack_manifest.json`, and the
-      `replication/provenance/` files. Metadata from `.zenodo.json`.
-- [ ] Publish; add the DOI to `CITATION.cff`, `paper/paper.md` (Data and code availability) and the dataset card.
-- [ ] Optional: offer reviewers read access to the private originals so they can check the exported logs against
-      GitHub's and HF's own (`PREREG_PROVENANCE.md`, "How to verify").
+- [ ] **Owner:** download the public repository as a ZIP (Code → Download ZIP), upload it as a new Zenodo upload,
+      fill in the metadata from `.zenodo.json`, publish.
+- [ ] Add the DOI to `CITATION.cff`, `paper/paper.md` and the dataset card.
 
 ## 0b. Retired: RunPod CPU pod for the full-mode steps (owner decision 2026-10-30, not run)
 
