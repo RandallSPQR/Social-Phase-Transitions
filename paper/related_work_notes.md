@@ -130,7 +130,7 @@ is binary, so that the population's behaviour can be compared with a measured ke
 
 - **Kline & Santos (2012)**, "A score based approach to wild bootstrap inference" — `kline2012score` — **verify**.
   Used for the H3 score test with wild bootstrap (Amendment 1).
-- **Five unrefereed preprints (September 2026)**, author "OpenAI", PDFs in `papers/` — `openai2026rokhlin`,
+- **Five unrefereed preprints (September 2026)**, author "OpenAI", PDFs not redistributed — `openai2026rokhlin`,
   `openai2026mezardparisi`, `openai2026nopercolation`, `openai2026cubic`, `openai2026nonuniqueness` — **verify**
   (titles and dates are taken from the PDF title pages; no archival identifier is known). Cite them as unrefereed
   preprints and as motivation only.

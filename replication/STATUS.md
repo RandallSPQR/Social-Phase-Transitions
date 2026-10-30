@@ -14,7 +14,7 @@ This note is for a session that resumes the work without the earlier conversatio
 | 1 | `make replicate` / `make replicate-fast`: fetch → verify SHA-256 → rerun from cache (no keys, no GPU) → regenerate figures → compare with stated tolerances → pass/fail per claim | **done** |
 | 2 | Pinned environment (lock file, Dockerfile), graph fingerprints, runtime and hardware for both modes | **done**. Fast mode measured; full mode partly measured, rest estimated |
 | 3 | README: claims map, tier 1 vs tier 2 | **done** |
-| 4 | Fresh-container test, fixes, clean-run log | **done for fast mode**. Full mode interrupted after 8 of 25 steps (all pass); the rest is prepared for RunPod |
+| 4 | Fresh-container test, fixes, clean-run log | **done for fast mode**. Full mode interrupted after 8 of 25 steps (all pass); the rest stays estimated (no RunPod jobs, owner 2026-10-30) |
 | 5 | Licences: code Apache-2.0, data CC BY 4.0, model-output terms | **done**; the terms table is still to be verified by the owner |
 | 6 | GitHub release, Zenodo, HF dataset card | **prepared, not published** |
 
@@ -48,40 +48,25 @@ Owner follow-ups, all done:
     nondeterminism (0.86 nats RMS, 2.5% of majority answers flip).
   - The deterministic reference is local bf16 Gemma-4 at batch size 1 (identical replicates; repeat SD 0.114).
 
-## Prepared for the owner (not launched): RunPod CPU pods
+## Owner decisions of 2026-10-30 (done in this commit)
 
-Recipe: `replication/runpod/` (`README.md`, `launch_cpu.py`, `pod_full_remaining.sh`). The owner's steps are in
-`replication/RELEASE_CHECKLIST.md` §0b.
+- **OpenAI PDFs removed** from the tree (`papers/`, now in `.gitignore`); cited by title in `paper/refs.bib`. They
+  remain in git history and in 10 HF code bundles, so the original repository and dataset stay private.
+- **Author:** Randall S. Bennington (`CITATION.cff`, `.zenodo.json`, dataset card, `paper/paper.md`).
+- **Model-output terms** confirmed (`LICENSES.md`, note 2).
+- **No more RunPod jobs.** The recipe in `replication/runpod/` is kept for reference only; the remaining full-mode
+  times stay estimates.
+- **Versioning with the pre-registration timestamps:** `replication/provenance/`. `PREREG_PROVENANCE.md` lists all 22
+  pre-registration commits with GitHub's server-side first-push time and the earliest data each governs (all 22:
+  plan pushed before data). `verify_pack.py` checks them against a pack of the original history without the PDFs
+  and cache blobs (verified 2026-10-30 in a fresh repository: all 22 OK, no PDF, no generation id). The pack is not
+  committed (80 MB); it goes into the Zenodo deposit.
 
-- **Jobs:**
-  - `--job remaining`: the 18 unmeasured full-mode steps, without `s1.null`. About 13 h; job cap 20 h; check-in caps
-    24 h / $12.
-  - `--job null`: all 100 null replicates. About 21–25 h; job cap 30 h; check-in caps 34 h / $16.
-  - `--e2e`: a 4-step end-to-end test, to run first.
-- **Storage:** a new dedicated network volume named `spt-replication-…`, which the owner creates. The launcher refuses
-  any other volume, so the shared volume can never be mounted.
-- **Record:** HF `runs/<RUN>/` (heartbeat every 90 s, each step uploaded and verified, final tarball).
-- **Safety:** nothing is created without `--confirm`. `check --job …` (or `check --e2e`) removes a pod only after a
-  verified final upload or on a cap.
-- **Tested so far:** the pod script ran locally in dry mode (3 steps, no RunPod, no HF writes). The HF uploads, the
-  volume mount and the RunPod create/remove calls are exercised only by the `--e2e` launch.
-- **After a run:** import `runs/<RUN>/final.tar.gz` into `replication/logs/clean_run_full_<job>_<date>/`. Replace the
-  estimated full-mode times in `replication/README.md`, `Makefile`, `.zenodo.json` and `paper/paper.md`, and update
-  the null-distribution note. Then delete the volume (deletion needs the owner's OK).
+## Open for the owner (publishing; nothing published)
 
-## Open decisions for the owner (reported; not acted on)
-
-1. **Generation ids in the git history.** Cache files committed before 2026-10-09 still contain OpenRouter generation
-   ids. The options (accept; rewrite history; fresh public repository) are in `RELEASE_CHECKLIST.md`. Only "accept"
-   keeps the pre-registration commit ids verifiable.
-2. **`papers/*.pdf`** (OpenAI's documents): confirm redistribution rights or remove them. They are also in the history.
-3. **Author metadata:** "Randall Bennington", inferred from the email address, appears in `CITATION.cff`,
-   `.zenodo.json` and the dataset card. Confirm it and add an ORCID.
-4. **Model-output terms:** verify the table in `LICENSES.md`. The Gemma 4 licence page was unreachable; the HF card
-   says Apache-2.0.
-5. **Publishing:** nothing is published. The HF dataset is private, there is no release or tag, and Zenodo is not
-   enabled. Steps: `RELEASE_CHECKLIST.md` §§1–2.
-6. **Optional measurement:** the RunPod jobs above.
+Steps in `RELEASE_CHECKLIST.md` §§0–3: rebuild the pack at the release commit; a new public HF dataset without
+`code/`; a new public GitHub repository holding a snapshot; a manual Zenodo upload with the snapshot, the pack and the
+provenance files. Optional: ORCID; reviewer access to the private originals.
 
 ## Environment notes for a resuming session
 

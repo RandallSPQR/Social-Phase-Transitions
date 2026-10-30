@@ -5,8 +5,8 @@ message: "If you use this code or data, please cite it as below."
 title: "Do LLM agents behave like spins? Response functions, live networks and amplification near tipping points — code, data and replication package"
 type: software
 authors:
-  - family-names: Bennington        # CHECK
-    given-names: Randall            # CHECK
+  - family-names: Bennington
+    given-names: Randall S.
     # orcid: https://orcid.org/0000-0000-0000-0000   # CHECK: add if available
 version: 1.0.0
 date-released: 2026-10-15          # CHECK: set to the release date
@@ -25,7 +25,7 @@ references:
   - type: dataset
     title: "social-phase-transitions-llm-cache: LLM response cache, pod outputs and simulation units"
     authors:
-      - family-names: Bennington    # CHECK
-        given-names: Randall        # CHECK
+      - family-names: Bennington
+        given-names: Randall S.
     url: "https://huggingface.co/datasets/RandallSPQR/social-phase-transitions-llm-cache"
     license: CC-BY-4.0

@@ -83,7 +83,8 @@ result).
 ## 1. Motivation
 
 **Pairwise versus higher-order structure.** The project began from five unrefereed mathematical results released
-publicly in September 2026 (PDFs in `papers/`):
+publicly in September 2026 (cited by title and date; the PDFs are third-party documents and are not
+redistributed with this repository):
 
 - Rokhlin multiple mixing for one transformation;
 - the Mézard–Parisi formula for diluted spin glasses;
@@ -777,7 +778,7 @@ account billing.
 1. **Claims list.** The five claims in the Abstract were confirmed by the owner (2026-10-15).
 2. **External literature.** Full entries are in the References section. They were written from knowledge, not checked
    against the publications in this session, so verify volume and page numbers before submission. The five September
-   2026 proofs are identified only by their PDF titles in `papers/`.
+   2026 proofs are identified only by their titles and dates (the PDFs are not redistributed).
 3. **Cost total.** The total is a sum of per-phase figures. GPU figures are estimated as rate × uptime.
 4. **Cache manifest.** It was regenerated on 2026-10-14 to include this phase's API calls. The upload is verified by
    re-download; see the commit that accompanies this report.
@@ -800,7 +801,7 @@ account billing.
   Studies*, 60(3), 531–542.
 - Viana, L., & Bray, A. J. (1985). Phase diagrams for dilute spin glasses. *Journal of Physics C: Solid State Physics*,
   18(15), 3037–3051.
-- Five unrefereed proofs released in September 2026 (motivation only), PDFs in `papers/`: Rokhlin's multiple mixing
+- Five unrefereed proofs released in September 2026 (motivation only; not redistributed here): Rokhlin's multiple mixing
   problem for one transformation; the Mézard–Parisi formula for diluted spin glasses; no percolation at criticality on
   quasi-transitive graphs; critical bond and site percolation on the cubic lattice; nonuniqueness of percolation on
   nonamenable quasi-transitive graphs.

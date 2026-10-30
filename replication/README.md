@@ -104,9 +104,12 @@ restarted, and all 20 equal the committed runs (agreement, slope and verdict; `s
 `replication/logs/clean_run_full_2026-10-15_partial/`; the first 12 were also compared field by field). Replicates
 20–99 have not been recomputed. A full run recomputes all 100 (about 21 h on 4 cores).
 
-**Unmeasured full-mode steps.** `replication/runpod/` holds a prepared, not launched, recipe that runs them on a
-RunPod CPU pod. It skips the null distribution, keeps logs on a dedicated network volume and in the HF dataset, and
-includes an end-to-end test mode.
+**Unmeasured full-mode steps.** Their times are estimates. `replication/runpod/` holds a recipe for running them on a
+RunPod CPU pod; it was not run and is kept for reference only.
+
+**Pre-registration timestamps.** `replication/provenance/PREREG_PROVENANCE.md` ties every pre-registration commit to
+GitHub's server-side push time and to the earliest data it governs; `verify_pack.py` checks it against the
+original-history pack in the Zenodo deposit.
 
 Per-step times are in the generated report and in the table below.
 
@@ -261,6 +264,7 @@ analyses can be rerun on the new data with the same step commands.
 | `hf_dataset_card/README.md` | dataset card for the Hugging Face dataset |
 | `RELEASE_CHECKLIST.md` | the steps for the owner to make the release public |
 | `canary.py` | comparator canary (step `qc.canary`) |
-| `runpod/` | prepared CPU-pod recipe for the unmeasured full-mode steps (`README.md`, `launch_cpu.py`, `pod_full_remaining.sh`) |
+| `runpod/` | CPU-pod recipe for the unmeasured full-mode steps (not run; reference only) |
+| `provenance/` | pre-registration timestamps: `PREREG_PROVENANCE.md`, exported GitHub and HF logs, `build_provenance.py`, `verify_pack.py` |
 | `STATUS.md` | working status and handoff note |
 | `logs/` | the clean-run logs from a fresh container |

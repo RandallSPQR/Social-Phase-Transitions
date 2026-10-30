@@ -4,29 +4,29 @@
 |---|---|---|
 | Code: everything under `llm/`, `sim/`, `replication/`, plus `Makefile` and `Dockerfile` | Apache License 2.0 | `LICENSE` |
 | Data and results: `results/`, `data/`, `figures/`, the pre-registrations and logs in `llm/*.md`, `paper/`, and the Hugging Face dataset `RandallSPQR/social-phase-transitions-llm-cache` | Creative Commons Attribution 4.0 International (CC BY 4.0) | `LICENSE-DATA` |
-| `papers/*.pdf`: five unrefereed proofs by OpenAI (September 2026), kept as the motivating sources | **not ours; not covered by either licence above** | see note 1 |
+| (removed) the five unrefereed OpenAI proofs (September 2026) that motivated the study | third-party; not redistributed | see note 1 |
 
-## Notes (to check before release)
+## Notes
 
-1. **`papers/`.** These PDFs are third-party works. Their redistribution terms are not stated in the files. Before the
-   repository or a release archive is made public, either confirm that redistribution is permitted or remove the PDFs
-   and cite them instead (the paper already cites them by title and date, `paper/refs.bib`). The replication does not
-   read them.
+1. **The five OpenAI proofs** were removed from the working tree on 2026-10-30 (owner decision: they cannot be
+   redistributed). They are cited by title and date (`paper/refs.bib`). They remain in this repository's git history and
+   in older code bundles of the HF dataset, so neither the original repository nor the original dataset is made public
+   (see `replication/RELEASE_CHECKLIST.md`).
 2. **Model outputs in the response cache and the results.** The cache holds request bodies and compact replies (first
    answer token, its top-5 log-probabilities, the text of short replies, the serving provider). These are outputs of
    the models below, obtained through OpenRouter. Publishing them under CC BY 4.0 is subject to each provider's terms
-   for outputs. As read on 2026-10-15 (**verify each before release**):
+   for outputs. As read on 2026-10-15; **confirmed by the owner on 2026-10-30**:
 
    | model(s) | weights licence / terms | source checked |
    |---|---|---|
-   | Gemma-4 26B-A4B, Gemma-4 31B (Google) | Apache 2.0 according to the Hugging Face model cards (metadata `license: apache-2.0`, card text "License: Apache 2.0", not gated). The linked licence page (ai.google.dev/gemma/docs/gemma_4_license) could not be reached from this session: **verify** that no separate prohibited-use policy applies, as it did for Gemma 1–3 | huggingface.co/google/gemma-4-31B-it, huggingface.co/google/gemma-4-26B-A4B-it |
+   | Gemma-4 26B-A4B, Gemma-4 31B (Google) | Apache 2.0 according to the Hugging Face model cards (metadata `license: apache-2.0`, card text "License: Apache 2.0", not gated). The linked licence page (ai.google.dev/gemma/docs/gemma_4_license) could not be reached from this session; the owner confirmed the terms on 2026-10-30 | huggingface.co/google/gemma-4-31B-it, huggingface.co/google/gemma-4-26B-A4B-it |
    | Qwen3.5 9B, Qwen3.5 122B-A10B (Alibaba) | Apache 2.0 | Hugging Face model cards |
    | Mistral Nemo 12B, Mistral Small 3.2 24B (Mistral AI) | Apache 2.0 | Hugging Face model cards |
-   | Mistral Large 4 (Mistral AI, via the Mistral API) | Mistral's API terms (licence not found on Hugging Face) | **to verify** |
-   | Llama-3.3 70B, Llama-3.1 8B (Meta) | Llama 3.3 / Llama 3.1 Community Licence (gated). Its use restrictions and acceptable-use policy travel with redistributed outputs used to build other models; the "Built with Llama" attribution applies to redistributed derivatives | **to verify** |
-   | GPT-4o-mini, GPT-6-luna (OpenAI) | OpenAI terms of use (outputs assigned to the user, subject to the usage policies) | **to verify** |
-   | Gemini 3.1 Flash-Lite (Google, AI Studio) | Gemini API additional terms | **to verify** |
-   | Claude Haiku 5.5 (Anthropic) | Anthropic commercial or consumer terms, as applicable to the account used | **to verify** |
+   | Mistral Large 4 (Mistral AI, via the Mistral API) | Mistral's API terms (licence not found on Hugging Face) | confirmed (owner, 2026-10-30) |
+   | Llama-3.3 70B, Llama-3.1 8B (Meta) | Llama 3.3 / Llama 3.1 Community Licence (gated). Its use restrictions and acceptable-use policy travel with redistributed outputs used to build other models; the "Built with Llama" attribution applies to redistributed derivatives | confirmed (owner, 2026-10-30) |
+   | GPT-4o-mini, GPT-6-luna (OpenAI) | OpenAI terms of use (outputs assigned to the user, subject to the usage policies) | confirmed (owner, 2026-10-30) |
+   | Gemini 3.1 Flash-Lite (Google, AI Studio) | Gemini API additional terms | confirmed (owner, 2026-10-30) |
+   | Claude Haiku 5.5 (Anthropic) | Anthropic commercial or consumer terms, as applicable to the account used | confirmed (owner, 2026-10-30) |
 
    The cache also holds probe calls (20–460 per model) to candidates screened but not selected: DeepSeek chat
    v3/v3.1/v4.x, Llama-3.2 3B and Llama-4 Maverick, GPT-4o (two dated versions) and the dated GPT-4o-mini, Gemini 2.5

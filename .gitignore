@@ -42,3 +42,4 @@ results/llm/confirm/gemma_mechanism/glass/
 replication/out/
 .venv/
 replication/runpod/pod_*.json
+papers/

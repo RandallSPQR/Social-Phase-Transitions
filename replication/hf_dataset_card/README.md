@@ -97,7 +97,7 @@ This dataset is released under CC BY 4.0. Use of the outputs also remains subjec
 
 ```bibtex
 @misc{social_phase_transitions_2026,
-  author = {Bennington, Randall},
+  author = {Bennington, Randall S.},
   title  = {Do {LLM} agents behave like spins? Response functions, live networks and amplification near tipping points: code, data and replication package},
   year   = {2026},
   doi    = {10.5281/zenodo.XXXXXXX},

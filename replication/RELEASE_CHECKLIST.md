@@ -3,72 +3,61 @@
 Everything below is ready for the owner to switch on. Nothing in this list has been done to a public surface: the
 GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face dataset visibility are unchanged.
 
+## Release plan (owner decisions, 2026-10-30)
+
+- The five OpenAI PDFs cannot be redistributed. They were removed from the tree, but they stay in this repository's
+  git history and in 10 code bundles (`code/pod_code_*.tgz`) of the HF dataset. The history also holds the OpenRouter
+  generation ids (see "Audit results"). So **the original repository and the original HF dataset stay private**,
+  unchanged, as the attested record. Their history is never rewritten or force-pushed: rewriting would change every
+  commit id cited in the paper and break the link to GitHub's and HF's server logs.
+- **No more RunPod jobs.** Section 0b is retired; the remaining full-mode times stay marked as estimates.
+- The public version is a clean copy plus a **provenance package** that ties each pre-registration to its timestamp:
+  `replication/provenance/` (`PREREG_PROVENANCE.md`, `provenance.json`, the exported GitHub push log and HF commit
+  log, `verify_pack.py`) and the verification pack `original-history-<id>.pack` (original commits and trees without
+  the PDFs and the cache blobs; 80 MB; built by `build_provenance.py pack DIR`, not committed).
+
 ## 0. Before anything is public
 
-- [x] **Secrets audit of the Hugging Face dataset.** Done 2026-10-15 over every file except the activation arrays;
-      results in "Audit results" below. Re-run if files are added: `replication/audit_secrets.py`.
-- [x] **Secrets audit of the git history** (done; one finding needs an owner decision) (the whole history becomes public with the repository): see "Audit results".
-- [ ] **Third-party PDFs** in `papers/`: confirm redistribution rights or remove them before the repository/release is
-      public (LICENSES.md, note 1). Removing them from the working tree does not remove them from history; if they must
-      not be public, the history needs rewriting before the repository is made public (owner decision).
-- [ ] **Model-output terms:** confirm the table in `LICENSES.md` (note 2), which is copied into the dataset card.
-- [ ] **Author metadata:** name, affiliation and ORCID in `CITATION.cff`, `.zenodo.json` and the dataset card (fields
-      marked CHECK).
+- [x] Secrets audit of the Hugging Face dataset and of the git history (see "Audit results").
+- [x] Third-party PDFs removed from the tree (2026-10-30); the originals stay private (above).
+- [x] Model-output terms confirmed by the owner (2026-10-30; `LICENSES.md`, note 2).
+- [x] Author: Randall S. Bennington (`CITATION.cff`, `.zenodo.json`, dataset card, paper). Optional: affiliation and
+      ORCID.
+- [x] Provenance package built and verified: `verify_pack.py` on the pack in a fresh repository reports all 22
+      pre-registrations verified, no PDF and no generation id in the pack.
+- [ ] Rebuild the pack from the final commit just before release (`python replication/provenance/build_provenance.py
+      logs` then `table` then `pack DIR`, then `verify_pack.py DIR`), so the pack contains the release commit too.
 
-## 0b. Optional before release: the full-mode steps not yet measured (RunPod CPU pod)
+## 1. Public data: a new Hugging Face dataset
 
-Fast mode passes in a fresh container. Full mode was measured for 8 of 25 steps before the host restarted
-(`replication/logs/clean_run_full_2026-10-15_partial/`). This section completes the measurement. It is not required
-for the release, and the README already marks the remaining full-mode times as estimates. Recipe and failure-mode
-table: `replication/runpod/README.md`. Run the commands from a checkout of the release commit, with
-`RUNPOD_API_KEY` and `HF_TOKEN` in your shell. Never commit or paste them.
+- [ ] Create a new **public** dataset, e.g. `RandallSPQR/social-phase-transitions-data`.
+- [ ] Copy into it everything from the private dataset **except `code/`** (the bundles holding the PDFs): `cache/`,
+      `runs/`, `sim_units/`, plus the card `replication/hf_dataset_card/README.md` as `README.md`. Before upload,
+      check that no copied file is a PDF or a tarball containing one.
+- [ ] Ask a session to point the fetch scripts and manifests at the new dataset id (`llm/pod_tracker.py`,
+      `llm/run_relay.py`, `replication/*` and the docs that name `social-phase-transitions-llm-cache`), then run
+      `make replicate-fast` from a machine with no `HF_TOKEN`.
 
-- [x] RunPod secret `HF_TOKEN` exists. `launch_cpu.py` passes it to the pod by reference
-      (`{{ RUNPOD_SECRET_HF_TOKEN }}`, the default `--hf-secret`). It needs **write** access to the dataset, because
-      the pod uploads `runs/<RUN>/`.
-- [ ] Create a **new, dedicated** network volume in the RunPod console (Storage → New Network Volume):
-      - name `spt-replication-logs`, about 10 GB;
-      - in a data centre that offers CPU pods (the pod runs where the volume is);
-      - never the shared volume. The launcher refuses any volume whose name does not start with `spt-replication`.
+## 2. Public code: a new GitHub repository
 
-      Note the volume id.
-- [ ] `python replication/runpod/launch_cpu.py plan`: no API call; check the spec, the steps and the caps.
-- [ ] `python replication/runpod/launch_cpu.py volume-check --volume-id <ID>`: read-only; must print
-      `spt-replication-logs`.
-- [ ] **End-to-end test first** (CLAUDE.md rule 6), costing a few cents:
-      `python replication/runpod/launch_cpu.py launch --volume-id <ID> --e2e` (dry run, prints the request), then the
-      same with `--confirm`. Run `python replication/runpod/launch_cpu.py check --e2e` every few minutes until it reports
-      `final_verified: true`; check then removes the pod. Confirm `runs/e2e-<sha>/` on HF holds `status.json`,
-      `pod.log`, `steps/*.log`, `records.json` and `final.tar.gz`, with all 4 steps passing.
-- [ ] **The real run:** `python replication/runpod/launch_cpu.py launch --volume-id <ID> --confirm` (about 13 h; job
-      cap 20 h; check removes the pod at 24 h or $12). Run `check` every few hours. It removes the pod only after the
-      final upload is verified.
-- [ ] Ask a session to import `runs/full-remaining-<sha>/final.tar.gz` into
-      `replication/logs/clean_run_full_remaining_<date>/` and replace the estimated full-mode times in
-      `replication/README.md`, `Makefile`, `.zenodo.json` and `paper/paper.md` with the measured ones.
-- [ ] Delete the network volume once the record is imported (it is billed monthly).
-- [ ] Optional, in parallel or later: the Amendment 4 null distribution (all 100 replicates; 20 are already checked
-      and identical). Launch `python replication/runpod/launch_cpu.py launch --volume-id <ID> --job null` (dry run),
-      then the same with `--confirm`. Monitor with `check --job null`. It takes about 21–25 h; the job cap is 30 h and
-      check removes the pod at 34 h or $16. Import `runs/full-null-<sha>/final.tar.gz` the same way, then update the
-      null-distribution note in `replication/README.md` and `STATUS.md`.
+- [ ] Create a new public repository, e.g. `randallspqr/social-phase-transitions-public`, and push **one snapshot
+      commit** of the release tree (no history: `git archive` of the release commit, or an orphan branch). Its README
+      says it is a snapshot of private commit `<sha>` and points to `replication/provenance/PREREG_PROVENANCE.md`.
+      Commit ids cited in the paper are the original ones; they are checked with the pack, not with this repository.
+- [ ] Tag `v1.0.0` there, with the release notes below.
 
-## 1. Hugging Face dataset (`RandallSPQR/social-phase-transitions-llm-cache`)
+## 3. Zenodo (one DOI for code, provenance and pack)
 
-- [x] Simulation unit bundles uploaded to `sim_units/` and verified by re-download (`replication/sim_units_manifest.json`).
-- [ ] Upload the card: `replication/hf_dataset_card/README.md` → `README.md` at the dataset root.
-- [ ] Switch the dataset to public (Settings → Visibility).
-- [ ] From a machine with no `HF_TOKEN`, check that `python llm/fetch_cache.py` and `python replication/fetch_units.py` succeed.
-- [ ] After the Zenodo DOI exists, replace `10.5281/zenodo.XXXXXXX` in the card and re-upload it.
+- [ ] Make a **manual** Zenodo upload (not the GitHub integration, which archives only the source zip and would leave
+      out the pack): the snapshot `.tar.gz`, `original-history-<id>.pack` with `pack_manifest.json`, and the
+      `replication/provenance/` files. Metadata from `.zenodo.json`.
+- [ ] Publish; add the DOI to `CITATION.cff`, `paper/paper.md` (Data and code availability) and the dataset card.
+- [ ] Optional: offer reviewers read access to the private originals so they can check the exported logs against
+      GitHub's and HF's own (`PREREG_PROVENANCE.md`, "How to verify").
 
-## 2. GitHub release
+## 0b. Retired: RunPod CPU pod for the full-mode steps (owner decision 2026-10-30, not run)
 
-- [ ] Make the repository public (Zenodo's GitHub integration archives public repositories).
-- [ ] Merge the branch with the replication package into the default branch.
-- [ ] Enable the repository in Zenodo (zenodo.org → GitHub → toggle the repository). `.zenodo.json` supplies the metadata.
-- [ ] Create the release: tag `v1.0.0` on the default branch, title "v1.0.0: paper draft and replication package",
-      body = the release notes below. Zenodo then archives the tagged source and mints the DOI.
-- [ ] Add the DOI to `CITATION.cff`, `paper/paper.md` (Data and code availability) and the dataset card; commit.
+The recipe stays in `replication/runpod/` for reference only.
 
 ## Release notes (v1.0.0)
 
