@@ -41,13 +41,13 @@ GitHub repository visibility, releases and tags, Zenodo, and the Hugging Face da
 
 ## 3. Zenodo
 
-- [x] Published by the owner: v1.0.0 (DOI 10.5281/zenodo.23821225) and v1.0.1 (DOI 10.5281/zenodo.23821962); the
+- [x] Published by the owner: v1.0.0 (DOI 10.5281/zenodo.23821225; deleted by the owner on 2026-10-30) and v1.0.1 (DOI 10.5281/zenodo.23821962); the
       all-versions DOI 10.5281/zenodo.23821224 is in `CITATION.cff`, `paper/paper.md`, the
       README and the dataset card.
 - [x] The v1.0.0 pack held the root commit, which GitHub created with the owner's personal email. The pack now omits
       that commit (`OMIT_COMMITS` in `build_provenance.py`; its two children are shallow boundaries in
-      `verify_pack.py`), and the public repository's single commit was replaced. **Owner:** upload the new ZIP as a
-      new Zenodo version (v1.0.1) and ask Zenodo support to remove the files of v1.0.0.
+      `verify_pack.py`), and the public repository's single commit was replaced. Done: v1.0.1 published from the
+      clean snapshot; v1.0.0 deleted on Zenodo; GitHub release and tag v1.0.0 deleted and the public history replaced.
 
 ## 0b. Retired: RunPod CPU pod for the full-mode steps (owner decision 2026-10-30, not run)
 
