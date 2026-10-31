@@ -1,0 +1,8 @@
+{
+ "H4_verdict": "not supported (1 of 1 testable families significant in neutral; \u22653 of 4 required)",
+ "H4_gemma_family_local": {
+  "neutral_own": "excluded: noise gate failed, no passing backup (gemma-26b-local)",
+  "political": "excluded: noise gate failed, no passing backup (gemma-26b-local)",
+  "workplace": "excluded: noise gate failed, no passing backup (gemma-26b-local)"
+ }
+}

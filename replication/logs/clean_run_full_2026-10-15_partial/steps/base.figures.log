@@ -1,0 +1,73 @@
+$ cd sim && python plots.py 1 2 3
+
+== f_r00: c=4.0 rho=0.0  predicted T = 3.915  sizes [250, 500, 1000, 2000]
+  N=  250 S=150 min swap=0.67 equil lowest-T: <x2>=0.3240 last-prev=-0.0004±0.0006
+  N=  500 S=120 min swap=0.56 equil lowest-T: <x2>=0.3383 last-prev=-0.0008±0.0004
+  N= 1000 S=100 min swap=0.42 equil lowest-T: <x2>=0.3479 last-prev=+0.0000±0.0002
+  N= 2000 S=80 min swap=0.25 equil lowest-T: <x2>=0.3488 last-prev=+0.0000±0.0002
+  cross 250/500: Binder 3.914 [3.806,4.066] (found 100%) | scaled-chi 3.928 [3.830,4.030] (found 100%)
+  cross 500/1000: Binder 3.978 [3.866,4.125] (found 100%) | scaled-chi 3.970 [3.892,4.056] (found 100%)
+  cross 1000/2000: Binder 3.868 [3.800,3.944] (found 100%) | scaled-chi 3.917 [3.849,4.007] (found 100%)
+
+== f_r10: c=4.0 rho=0.1  predicted T = 3.093  sizes [250, 500, 1000, 2000]
+  N=  250 S=150 min swap=0.73 equil lowest-T: <x2>=0.2240 last-prev=+0.0004±0.0006
+  N=  500 S=120 min swap=0.62 equil lowest-T: <x2>=0.2324 last-prev=+0.0002±0.0005
+  N= 1000 S=100 min swap=0.48 equil lowest-T: <x2>=0.2393 last-prev=-0.0002±0.0003
+  N= 2000 S=80 min swap=0.32 equil lowest-T: <x2>=0.2416 last-prev=-0.0001±0.0002
+  cross 250/500: Binder 3.045 [2.897,3.193] (found 100%) | scaled-chi 3.087 [2.962,3.214] (found 100%)
+  cross 500/1000: Binder 3.161 [3.015,3.350] (found 100%) | scaled-chi 3.096 [2.994,3.201] (found 100%)
+  cross 1000/2000: Binder 3.126 [3.025,3.267] (found 100%) | scaled-chi 3.099 [3.037,3.188] (found 100%)
+
+== f_r20: c=4.0 rho=0.2  predicted T = 2.254  sizes [250, 500, 1000, 2000]
+  N=  250 S=150 min swap=0.74 equil lowest-T: <x2>=0.1189 last-prev=+0.0002±0.0004
+  N=  500 S=120 min swap=0.63 equil lowest-T: <x2>=0.1056 last-prev=+0.0005±0.0006
+  N= 1000 S=100 min swap=0.49 equil lowest-T: <x2>=0.1096 last-prev=-0.0005±0.0004
+  N= 2000 S=80 min swap=0.33 equil lowest-T: <x2>=0.1018 last-prev=+0.0002±0.0004
+  cross 250/500: Binder 2.206 [1.955,2.631] (found 99%) | scaled-chi 2.127 [1.886,2.323] (found 100%)
+  cross 500/1000: Binder 2.381 [2.193,2.805] (found 98%) | scaled-chi 2.334 [2.186,2.469] (found 100%)
+  cross 1000/2000: Binder 2.145 [1.909,2.582] (found 100%) | scaled-chi 2.156 [1.986,2.276] (found 100%)
+
+== sg_c4: c=4.0 rho=0.5  predicted T = 1.820  sizes [250, 500, 1000, 2000]
+  N=  250 S=400 min swap=0.65 equil lowest-T: <x2>=0.1151 last-prev=+0.0009±0.0005
+  N=  500 S=300 min swap=0.52 equil lowest-T: <x2>=0.1006 last-prev=-0.0003±0.0007
+  N= 1000 S=200 min swap=0.37 equil lowest-T: <x2>=0.0969 last-prev=+0.0005±0.0007
+  N= 2000 S=160 min swap=0.31 equil lowest-T: <x2>=0.0903 last-prev=+0.0003±0.0010
+  cross 250/500: Binder 1.719 [1.576,1.857] (found 100%) | scaled-chi 1.802 [1.723,1.877] (found 100%)
+  cross 500/1000: Binder 1.811 [1.715,1.922] (found 100%) | scaled-chi 1.853 [1.791,1.898] (found 100%)
+  cross 1000/2000: Binder 1.730 [1.520,1.856] (found 100%) | scaled-chi 1.813 [1.738,1.874] (found 100%)
+[(0.0, np.float64(3.91678890823336), np.float64(3.849108070468821), np.float64(4.007195238483134), np.float64(3.915230377942435), (1000, 2000)), (0.1, np.float64(3.0987602735179984), np.float64(3.037390281436771), np.float64(3.1875307972389058), np.float64(3.092972439894032), (1000, 2000)), (0.2, np.float64(2.15556836886604), np.float64(1.985910152363204), np.float64(2.276387749598842), np.float64(2.254020960668315), (1000, 2000)), (0.5, np.float64(1.8131448575806677), np.float64(1.7380694023347383), np.float64(1.8744103286668352), np.float64(1.8204784532536746), (1000, 2000))]
+
+== sg_c3: c=3.0 rho=0.5  predicted T = 1.519  sizes [500, 1000, 2000]
+  N=  500 S=200 min swap=0.53 equil lowest-T: <x2>=0.0940 last-prev=+0.0003±0.0007
+  N= 1000 S=150 min swap=0.37 equil lowest-T: <x2>=0.0823 last-prev=+0.0004±0.0007
+  N= 2000 S=100 min swap=0.32 equil lowest-T: <x2>=0.0774 last-prev=+0.0002±0.0012
+  cross 500/1000: Binder 1.565 [1.380,1.801] (found 100%) | scaled-chi 1.467 [1.385,1.542] (found 100%)
+  cross 1000/2000: Binder 1.454 [1.143,1.894] (found 99%) | scaled-chi 1.528 [1.446,1.577] (found 100%)
+
+== sg_c4: c=4.0 rho=0.5  predicted T = 1.820  sizes [250, 500, 1000, 2000]
+  N=  250 S=400 min swap=0.65 equil lowest-T: <x2>=0.1151 last-prev=+0.0009±0.0005
+  N=  500 S=300 min swap=0.52 equil lowest-T: <x2>=0.1006 last-prev=-0.0003±0.0007
+  N= 1000 S=200 min swap=0.37 equil lowest-T: <x2>=0.0969 last-prev=+0.0005±0.0007
+  N= 2000 S=160 min swap=0.31 equil lowest-T: <x2>=0.0903 last-prev=+0.0003±0.0010
+  cross 250/500: Binder 1.719 [1.572,1.874] (found 100%) | scaled-chi 1.802 [1.727,1.871] (found 100%)
+  cross 500/1000: Binder 1.811 [1.712,1.902] (found 100%) | scaled-chi 1.853 [1.795,1.897] (found 100%)
+  cross 1000/2000: Binder 1.730 [1.496,1.844] (found 100%) | scaled-chi 1.813 [1.742,1.872] (found 100%)
+
+== sg_c6: c=6.0 rho=0.5  predicted T = 2.307  sizes [500, 1000, 2000]
+  N=  500 S=200 min swap=0.56 equil lowest-T: <x2>=0.0933 last-prev=+0.0018±0.0007
+  N= 1000 S=150 min swap=0.41 equil lowest-T: <x2>=0.0897 last-prev=+0.0006±0.0008
+  N= 2000 S=100 min swap=0.35 equil lowest-T: <x2>=0.0775 last-prev=-0.0007±0.0011
+  cross 500/1000: Binder 2.363 [2.255,2.472] (found 100%) | scaled-chi 2.339 [2.246,2.403] (found 100%)
+  cross 1000/2000: Binder 2.055 [1.735,3.079] (found 98%) | scaled-chi 2.233 [2.098,2.327] (found 100%)
+[(3, np.float64(1.527675749287175), np.float64(1.4458616748310293), np.float64(1.5770633266191247), np.float64(1.5186514350004134)), (4, np.float64(1.8131448575806677), np.float64(1.741955190232723), np.float64(1.871997104003575), np.float64(1.8204784532536746)), (6, np.float64(2.2331334923167905), np.float64(2.0976881429436225), np.float64(2.326967993802198), np.float64(2.306765893233953))]
+
+== sg_c4: c=4.0 rho=0.5  predicted T = 1.820  sizes [250, 500, 1000, 2000]
+  N=  250 S=400 min swap=0.65 equil lowest-T: <x2>=0.1151 last-prev=+0.0009±0.0005
+  N=  500 S=300 min swap=0.52 equil lowest-T: <x2>=0.1006 last-prev=-0.0003±0.0007
+  N= 1000 S=200 min swap=0.37 equil lowest-T: <x2>=0.0969 last-prev=+0.0005±0.0007
+  N= 2000 S=160 min swap=0.31 equil lowest-T: <x2>=0.0903 last-prev=+0.0003±0.0010
+  cross 250/500: Binder 1.719 [1.568,1.871] (found 100%) | scaled-chi 1.802 [1.729,1.874] (found 100%)
+  cross 500/1000: Binder 1.811 [1.717,1.920] (found 100%) | scaled-chi 1.853 [1.798,1.895] (found 100%)
+  cross 1000/2000: Binder 1.730 [1.508,1.857] (found 100%) | scaled-chi 1.813 [1.743,1.872] (found 100%)
+$ cd sim && python plot_asym.py
+ok

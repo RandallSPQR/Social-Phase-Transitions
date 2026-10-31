@@ -1,0 +1,17 @@
+{
+ "key": "cand20",
+ "model": "openai/gpt-4o-mini",
+ "tag": "openai",
+ "n": 2116,
+ "acc_ally_majority": 1.0,
+ "meanP_ally_majority": 0.9977,
+ "worst_k_ally_majority": 1.0,
+ "acc_own": 1.0,
+ "meanP_own": 1.0,
+ "worst_k_own": 1.0,
+ "acc_rival_majority": 0.9891,
+ "meanP_rival_majority": 0.9876,
+ "worst_k_rival_majority": 0.875,
+ "leak_gt5": 0,
+ "passes": true
+}

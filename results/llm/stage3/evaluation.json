@@ -1,0 +1,47 @@
+{
+ "per_point": {
+  "P1": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P2": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P3": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": false,
+   "ising_rejected": false
+  },
+  "P4": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P5": {
+   "surrogate_passes_both_primary": false,
+   "discriminating": true,
+   "ising_rejected": true
+  },
+  "P2-nc": {
+   "passes_both_primary": false
+  },
+  "P4-nc": {
+   "passes_both_primary": false
+  }
+ },
+ "P1_P4_points_passing_both_primary": 0,
+ "overall_surrogate_supported (>=3 of 4)": false,
+ "amplification_observed": {
+  "P2": {
+   "m": 0.407,
+   "persistence": -0.195
+  },
+  "P4": {
+   "m": 0.292,
+   "persistence": 0.2
+  }
+ }
+}

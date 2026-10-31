@@ -4,7 +4,7 @@ Owner: Randall. Prepared in a Claude (Cowork) session, 2026-10-07. Next phase: t
 
 ## 1. The idea in one paragraph
 
-Five OpenAI proofs from September 2026 (in `papers/`) suggest a chain from local interaction to collective structure:
+Five OpenAI proofs from September 2026 (cited by title; the PDFs are not redistributed) suggest a chain from local interaction to collective structure:
 
 - **Rokhlin multiple mixing.** Along a single time axis, pairwise decorrelation forces decorrelation at every order. This is the null model: time alone can't build collective structure, so the interaction *network* is necessary.
 - **Percolation at criticality and nonuniqueness.** The network either has macroscopic connectivity or it doesn't, and the transition is continuous. On expanding (nonamenable) graphs there is a phase with many permanent giant clusters.
@@ -151,7 +151,7 @@ data/       raw validation output (.npz per tag/size); data/asym/asym.npy
 results/    CSV summaries of every run above
 figures/    fig1–fig4
 logs/       run logs
-papers/     the five OpenAI PDFs
+papers/     (removed 2026-10-30: third-party PDFs, not redistributed; cited by title in paper/refs.bib)
 ```
 
 Dependencies: numpy, scipy, numba, matplotlib. Charts follow Tufte style: off-white background, serif type, direct labels, no legends, CI and n always shown, a source note under each chart.

@@ -1,0 +1,140 @@
+2026-10-09 16:50:50 UTC dry run: stock {'NVIDIA A100 80GB PCIe': {'uninterruptablePrice': None, 'stockStatus': None}, 'NVIDIA A100-SXM4-80GB': {'uninterruptablePrice': None, 'stockStatus': None}} account {'clientBalance': 45.6206781126, 'currentSpendPerHr': 1.816}
+2026-10-09 17:27:16 UTC poller start: A100 80GB in EUR-IS-1 with volume u0isne6ams; code 975453b
+2026-10-09 17:27:18 UTC CREATED pod w9m8lg9txkisc5 ({'dataCenterId': 'EUR-IS-1', 'diskThroughputMBps': 5111, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'NL', 'maxDownloadSpeedMbps': 9307, 'maxUploadSpeedMbps': 70364, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 222060}, $1.79/h); baseline balance $44.55, other burn $1.816/h
+2026-10-09 17:29:20 UTC pod w9m8lg9txkisc5 RUNNING 0.03 h, est. spend $-0.06
+2026-10-09 17:31:20 UTC pod w9m8lg9txkisc5 is gone (self-terminated or removed); watchdog done
+2026-10-09 17:32:42 UTC dry run: stock {'NVIDIA A100 80GB PCIe': {'uninterruptablePrice': 1.79, 'stockStatus': 'Low'}, 'NVIDIA A100-SXM4-80GB': {'uninterruptablePrice': 1.79, 'stockStatus': 'Low'}} account {'clientBalance': 44.3359582249, 'currentSpendPerHr': 1.816}
+2026-10-09 17:33:06 UTC poller start: A100 80GB, any secure data centre, no volume; code f37b7ef
+2026-10-09 17:33:09 UTC CREATED pod kwzw7yoclbtlq1 ({'dataCenterId': 'US-MD-1', 'diskThroughputMBps': 4197, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'US', 'maxDownloadSpeedMbps': 3418, 'maxUploadSpeedMbps': 2030, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 43155}, $1.79/h); baseline balance $44.34, other burn $1.816/h
+2026-10-09 17:35:10 UTC pod kwzw7yoclbtlq1 RUNNING 0.03 h, est. spend $-0.06
+2026-10-09 17:37:11 UTC pod kwzw7yoclbtlq1 RUNNING 0.07 h, est. spend $0.03
+2026-10-09 17:39:12 UTC pod kwzw7yoclbtlq1 RUNNING 0.10 h, est. spend $-0.03
+2026-10-09 17:40:46 UTC CLEANUP pod lr9trys3tx4vtc created (NVIDIA RTX PRO 6000 Blackwell Server Edition, $2.49/h)
+2026-10-09 17:41:14 UTC pod kwzw7yoclbtlq1 RUNNING 0.13 h, est. spend $0.05
+2026-10-09 17:41:47 UTC cleanup pod lr9trys3tx4vtc gone
+2026-10-09 17:43:15 UTC pod kwzw7yoclbtlq1 RUNNING 0.17 h, est. spend $-0.01
+2026-10-09 17:45:16 UTC pod kwzw7yoclbtlq1 RUNNING 0.20 h, est. spend $-0.07
+2026-10-09 17:47:18 UTC pod kwzw7yoclbtlq1 RUNNING 0.24 h, est. spend $0.05
+2026-10-09 17:49:19 UTC pod kwzw7yoclbtlq1 RUNNING 0.27 h, est. spend $-0.01
+2026-10-09 17:51:20 UTC pod kwzw7yoclbtlq1 RUNNING 0.30 h, est. spend $0.08
+2026-10-09 17:53:21 UTC pod kwzw7yoclbtlq1 RUNNING 0.34 h, est. spend $0.02
+2026-10-09 17:55:23 UTC pod kwzw7yoclbtlq1 RUNNING 0.37 h, est. spend $-0.04
+2026-10-09 17:57:24 UTC pod kwzw7yoclbtlq1 RUNNING 0.40 h, est. spend $0.05
+2026-10-09 17:59:25 UTC pod kwzw7yoclbtlq1 RUNNING 0.44 h, est. spend $-0.01
+2026-10-09 18:01:27 UTC pod kwzw7yoclbtlq1 RUNNING 0.47 h, est. spend $-0.01
+2026-10-09 18:03:29 UTC pod kwzw7yoclbtlq1 RUNNING 0.51 h, est. spend $-0.07
+2026-10-09 18:05:30 UTC pod kwzw7yoclbtlq1 RUNNING 0.54 h, est. spend $-0.13
+2026-10-09 18:07:32 UTC pod kwzw7yoclbtlq1 RUNNING 0.57 h, est. spend $-0.19
+2026-10-09 18:09:34 UTC pod kwzw7yoclbtlq1 RUNNING 0.61 h, est. spend $-0.26
+2026-10-09 18:11:36 UTC pod kwzw7yoclbtlq1 RUNNING 0.64 h, est. spend $-0.22
+2026-10-09 18:13:38 UTC pod kwzw7yoclbtlq1 RUNNING 0.67 h, est. spend $-0.29
+2026-10-09 18:15:40 UTC pod kwzw7yoclbtlq1 RUNNING 0.71 h, est. spend $-0.20
+2026-10-09 18:17:41 UTC pod kwzw7yoclbtlq1 RUNNING 0.74 h, est. spend $-0.26
+2026-10-09 18:19:43 UTC pod kwzw7yoclbtlq1 RUNNING 0.78 h, est. spend $-0.32
+2026-10-09 18:21:45 UTC pod kwzw7yoclbtlq1 RUNNING 0.81 h, est. spend $-0.23
+2026-10-09 18:23:47 UTC pod kwzw7yoclbtlq1 RUNNING 0.84 h, est. spend $-0.29
+2026-10-09 18:25:48 UTC pod kwzw7yoclbtlq1 RUNNING 0.88 h, est. spend $-0.20
+2026-10-09 18:27:50 UTC pod kwzw7yoclbtlq1 RUNNING 0.91 h, est. spend $-0.27
+2026-10-09 18:28:42 UTC watchdog on pod kwzw7yoclbtlq1: $1.79/h, started 17:33:08 UTC
+2026-10-09 18:30:43 UTC pod kwzw7yoclbtlq1 RUNNING 0.96 h, spend $1.72
+2026-10-09 18:32:45 UTC pod kwzw7yoclbtlq1 RUNNING 0.99 h, spend $1.78
+2026-10-09 18:34:46 UTC pod kwzw7yoclbtlq1 RUNNING 1.03 h, spend $1.84
+2026-10-09 18:36:47 UTC pod kwzw7yoclbtlq1 RUNNING 1.06 h, spend $1.90
+2026-10-09 18:38:48 UTC pod kwzw7yoclbtlq1 RUNNING 1.09 h, spend $1.96
+2026-10-09 18:40:50 UTC pod kwzw7yoclbtlq1 RUNNING 1.13 h, spend $2.02
+2026-10-09 18:42:51 UTC pod kwzw7yoclbtlq1 RUNNING 1.16 h, spend $2.08
+2026-10-09 18:44:52 UTC pod kwzw7yoclbtlq1 RUNNING 1.20 h, spend $2.14
+2026-10-09 18:46:53 UTC pod kwzw7yoclbtlq1 RUNNING 1.23 h, spend $2.20
+2026-10-09 18:48:54 UTC pod kwzw7yoclbtlq1 RUNNING 1.26 h, spend $2.26
+2026-10-09 18:50:55 UTC pod kwzw7yoclbtlq1 RUNNING 1.30 h, spend $2.32
+2026-10-09 18:52:56 UTC pod kwzw7yoclbtlq1 RUNNING 1.33 h, spend $2.38
+2026-10-09 18:54:58 UTC pod kwzw7yoclbtlq1 RUNNING 1.36 h, spend $2.44
+2026-10-09 18:56:59 UTC pod kwzw7yoclbtlq1 RUNNING 1.40 h, spend $2.50
+2026-10-09 18:59:00 UTC pod kwzw7yoclbtlq1 RUNNING 1.43 h, spend $2.56
+2026-10-09 19:01:01 UTC pod kwzw7yoclbtlq1 RUNNING 1.46 h, spend $2.62
+2026-10-09 19:03:02 UTC pod kwzw7yoclbtlq1 RUNNING 1.50 h, spend $2.68
+2026-10-09 19:05:04 UTC pod kwzw7yoclbtlq1 RUNNING 1.53 h, spend $2.74
+2026-10-09 19:07:05 UTC pod kwzw7yoclbtlq1 RUNNING 1.57 h, spend $2.80
+2026-10-09 19:09:07 UTC pod kwzw7yoclbtlq1 RUNNING 1.60 h, spend $2.86
+2026-10-09 19:11:08 UTC pod kwzw7yoclbtlq1 RUNNING 1.63 h, spend $2.92
+2026-10-09 19:13:09 UTC pod kwzw7yoclbtlq1 RUNNING 1.67 h, spend $2.98
+2026-10-09 19:15:10 UTC pod kwzw7yoclbtlq1 RUNNING 1.70 h, spend $3.04
+2026-10-09 19:17:11 UTC pod kwzw7yoclbtlq1 RUNNING 1.73 h, spend $3.10
+2026-10-09 19:19:12 UTC pod kwzw7yoclbtlq1 RUNNING 1.77 h, spend $3.16
+2026-10-09 19:21:14 UTC pod kwzw7yoclbtlq1 RUNNING 1.80 h, spend $3.23
+2026-10-09 19:23:15 UTC pod kwzw7yoclbtlq1 RUNNING 1.84 h, spend $3.29
+2026-10-09 19:25:16 UTC pod kwzw7yoclbtlq1 RUNNING 1.87 h, spend $3.35
+2026-10-09 19:27:17 UTC pod kwzw7yoclbtlq1 RUNNING 1.90 h, spend $3.41
+2026-10-09 19:29:19 UTC pod kwzw7yoclbtlq1 RUNNING 1.94 h, spend $3.47
+2026-10-09 19:31:20 UTC pod kwzw7yoclbtlq1 RUNNING 1.97 h, spend $3.53
+2026-10-09 19:33:21 UTC pod kwzw7yoclbtlq1 RUNNING 2.00 h, spend $3.59
+2026-10-09 19:35:23 UTC pod kwzw7yoclbtlq1 RUNNING 2.04 h, spend $3.65
+2026-10-09 19:37:24 UTC pod kwzw7yoclbtlq1 RUNNING 2.07 h, spend $3.71
+2026-10-09 19:39:25 UTC pod kwzw7yoclbtlq1 RUNNING 2.10 h, spend $3.77
+2026-10-09 19:41:26 UTC pod kwzw7yoclbtlq1 RUNNING 2.14 h, spend $3.83
+2026-10-09 19:43:27 UTC pod kwzw7yoclbtlq1 RUNNING 2.17 h, spend $3.89
+2026-10-09 19:45:28 UTC pod kwzw7yoclbtlq1 RUNNING 2.21 h, spend $3.95
+2026-10-09 19:47:29 UTC pod kwzw7yoclbtlq1 RUNNING 2.24 h, spend $4.01
+2026-10-09 19:49:31 UTC pod kwzw7yoclbtlq1 RUNNING 2.27 h, spend $4.07
+2026-10-09 19:51:32 UTC pod kwzw7yoclbtlq1 RUNNING 2.31 h, spend $4.13
+2026-10-09 19:53:33 UTC pod kwzw7yoclbtlq1 RUNNING 2.34 h, spend $4.19
+2026-10-09 19:55:34 UTC pod kwzw7yoclbtlq1 RUNNING 2.37 h, spend $4.25
+2026-10-09 19:57:35 UTC pod kwzw7yoclbtlq1 RUNNING 2.41 h, spend $4.31
+2026-10-09 19:59:36 UTC pod kwzw7yoclbtlq1 RUNNING 2.44 h, spend $4.37
+2026-10-09 20:01:38 UTC pod kwzw7yoclbtlq1 RUNNING 2.48 h, spend $4.43
+2026-10-09 20:03:39 UTC pod kwzw7yoclbtlq1 RUNNING 2.51 h, spend $4.49
+2026-10-09 20:05:40 UTC pod kwzw7yoclbtlq1 RUNNING 2.54 h, spend $4.55
+2026-10-09 20:07:41 UTC pod kwzw7yoclbtlq1 RUNNING 2.58 h, spend $4.61
+2026-10-09 20:09:43 UTC pod kwzw7yoclbtlq1 RUNNING 2.61 h, spend $4.67
+2026-10-09 20:11:44 UTC pod kwzw7yoclbtlq1 RUNNING 2.64 h, spend $4.73
+2026-10-09 20:13:45 UTC pod kwzw7yoclbtlq1 RUNNING 2.68 h, spend $4.79
+2026-10-09 20:15:46 UTC pod kwzw7yoclbtlq1 RUNNING 2.71 h, spend $4.85
+2026-10-09 20:17:48 UTC pod kwzw7yoclbtlq1 RUNNING 2.74 h, spend $4.91
+2026-10-09 20:19:49 UTC pod kwzw7yoclbtlq1 RUNNING 2.78 h, spend $4.97
+2026-10-09 20:21:51 UTC pod kwzw7yoclbtlq1 RUNNING 2.81 h, spend $5.03
+2026-10-09 20:23:52 UTC pod kwzw7yoclbtlq1 RUNNING 2.85 h, spend $5.09
+2026-10-09 20:25:53 UTC pod kwzw7yoclbtlq1 RUNNING 2.88 h, spend $5.15
+2026-10-09 20:27:54 UTC pod kwzw7yoclbtlq1 RUNNING 2.91 h, spend $5.21
+2026-10-09 20:29:56 UTC pod kwzw7yoclbtlq1 RUNNING 2.95 h, spend $5.27
+2026-10-09 20:31:57 UTC pod kwzw7yoclbtlq1 RUNNING 2.98 h, spend $5.33
+2026-10-09 20:33:58 UTC pod kwzw7yoclbtlq1 RUNNING 3.01 h, spend $5.40
+2026-10-09 20:35:59 UTC pod kwzw7yoclbtlq1 RUNNING 3.05 h, spend $5.46
+2026-10-09 20:38:00 UTC pod kwzw7yoclbtlq1 is gone (self-terminated or removed); watchdog done
+2026-10-09 21:23:24 UTC poller start: A100 80GB, any secure data centre, no volume; code 1630a50
+2026-10-09 21:23:27 UTC CREATED pod 2nt34s8z62hxwt ({'dataCenterId': 'US-KS-2', 'diskThroughputMBps': 6814, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'US', 'maxDownloadSpeedMbps': 3660, 'maxUploadSpeedMbps': 19437, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 165184}, $1.79/h); baseline balance $37.63, other burn $1.820/h
+2026-10-09 21:23:27 UTC watchdog on pod 2nt34s8z62hxwt: $1.79/h, started 21:23:27 UTC
+2026-10-09 21:25:28 UTC pod 2nt34s8z62hxwt RUNNING 0.03 h, spend $0.06
+2026-10-09 21:27:29 UTC pod 2nt34s8z62hxwt RUNNING 0.07 h, spend $0.12
+2026-10-09 21:29:30 UTC pod 2nt34s8z62hxwt is gone (self-terminated or removed); watchdog done
+2026-10-09 21:30:19 UTC poller start: A100 80GB, any secure data centre, no volume; code 3e4ed15
+2026-10-09 21:30:22 UTC CREATED pod 225e35mmgqhn3d ({'diskThroughputMBps': 5714, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'US', 'maxDownloadSpeedMbps': 10820, 'maxUploadSpeedMbps': 61229, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 163828}, $1.79/h); baseline balance $37.42, other burn $1.820/h
+2026-10-09 21:30:22 UTC watchdog on pod 225e35mmgqhn3d: $1.79/h, started 21:30:22 UTC
+2026-10-09 21:32:23 UTC pod 225e35mmgqhn3d RUNNING 0.03 h, spend $0.06
+2026-10-09 21:34:24 UTC pod 225e35mmgqhn3d RUNNING 0.07 h, spend $0.12
+2026-10-09 21:36:25 UTC pod 225e35mmgqhn3d RUNNING 0.10 h, spend $0.18
+2026-10-09 21:37:32 UTC TERMINATING pod 225e35mmgqhn3d: download cannot succeed: weights capped near 20 GB on this pod layout; relaunching with a pod-local 200 GB volume
+2026-10-09 21:37:33 UTC terminate -> http 204 
+2026-10-09 21:37:51 UTC poller start: A100 80GB, any secure data centre, no volume; code b47bdaf
+2026-10-09 21:37:54 UTC CREATED pod e3zan9ygnmqe45 ({'diskThroughputMBps': 5714, 'gpuTypeId': 'NVIDIA A100-SXM4-80GB', 'location': 'US', 'maxDownloadSpeedMbps': 10820, 'maxUploadSpeedMbps': 61229, 'secureCloud': True, 'supportPublicIp': True, 'reservedCountVersion': 163830}, $1.79/h); baseline balance $36.86, other burn $1.820/h
+2026-10-09 21:37:54 UTC watchdog on pod e3zan9ygnmqe45: $1.79/h, started 21:37:54 UTC
+2026-10-09 21:38:26 UTC pod 225e35mmgqhn3d is gone (self-terminated or removed); watchdog done
+2026-10-09 21:39:54 UTC pod e3zan9ygnmqe45 RUNNING 0.03 h, spend $0.06
+2026-10-09 21:41:56 UTC pod e3zan9ygnmqe45 RUNNING 0.07 h, spend $0.12
+2026-10-09 21:43:57 UTC pod e3zan9ygnmqe45 RUNNING 0.10 h, spend $0.18
+2026-10-09 21:45:58 UTC pod e3zan9ygnmqe45 RUNNING 0.13 h, spend $0.24
+2026-10-09 21:47:59 UTC pod e3zan9ygnmqe45 RUNNING 0.17 h, spend $0.30
+2026-10-09 21:50:01 UTC pod e3zan9ygnmqe45 RUNNING 0.20 h, spend $0.36
+2026-10-09 21:52:02 UTC pod e3zan9ygnmqe45 RUNNING 0.24 h, spend $0.42
+2026-10-09 21:54:03 UTC pod e3zan9ygnmqe45 RUNNING 0.27 h, spend $0.48
+2026-10-09 21:56:04 UTC pod e3zan9ygnmqe45 RUNNING 0.30 h, spend $0.54
+2026-10-09 21:58:06 UTC pod e3zan9ygnmqe45 RUNNING 0.34 h, spend $0.60
+2026-10-09 22:00:07 UTC pod e3zan9ygnmqe45 RUNNING 0.37 h, spend $0.66
+2026-10-09 22:02:08 UTC pod e3zan9ygnmqe45 RUNNING 0.40 h, spend $0.72
+2026-10-09 22:04:09 UTC pod e3zan9ygnmqe45 RUNNING 0.44 h, spend $0.78
+2026-10-09 22:06:10 UTC pod e3zan9ygnmqe45 RUNNING 0.47 h, spend $0.84
+2026-10-09 22:08:12 UTC pod e3zan9ygnmqe45 RUNNING 0.51 h, spend $0.90
+2026-10-09 22:10:13 UTC pod e3zan9ygnmqe45 RUNNING 0.54 h, spend $0.96
+2026-10-09 22:12:14 UTC pod e3zan9ygnmqe45 RUNNING 0.57 h, spend $1.02
+2026-10-09 22:14:16 UTC pod e3zan9ygnmqe45 RUNNING 0.61 h, spend $1.08
+2026-10-09 22:16:18 UTC pod e3zan9ygnmqe45 RUNNING 0.64 h, spend $1.15
+2026-10-09 22:18:20 UTC pod e3zan9ygnmqe45 is gone (self-terminated or removed); watchdog done

@@ -1,0 +1,3 @@
+key,model,tag,n,acc_ally_majority,meanP_ally_majority,worst_k_ally_majority,acc_own,meanP_own,worst_k_own,acc_rival_majority,meanP_rival_majority,worst_k_rival_majority,leak_gt5,passes
+gemma-26b-local,google/gemma-4-26b-a4b-it,local/bf16,4232,1.0,0.9999,1.0,1.0,1.0,1.0,0.9984,0.9986,0.996,0,True
+gemma-31b-local,google/gemma-4-31b-it,local/bf16,4232,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0,True

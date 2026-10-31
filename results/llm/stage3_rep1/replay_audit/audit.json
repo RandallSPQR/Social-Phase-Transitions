@@ -1,0 +1,80 @@
+{
+ "R1": {
+  "passed": true,
+  "misses": 0,
+  "chains_failed": []
+ },
+ "R2": {
+  "passed": true,
+  "chains_failed": []
+ },
+ "R3": {
+  "passed": true,
+  "chains_failed": []
+ },
+ "R4": {
+  "passed": true,
+  "resume_points": 23,
+  "chains_with_resume": 17,
+  "reused_earlier_replies": 730,
+  "chains_with_reuse": 5,
+  "nonconsecutive": 0,
+  "redrawn_keys": 0
+ },
+ "R5": {
+  "passed": true,
+  "provider_bad": 0,
+  "pin_bad": 0
+ },
+ "R6": {
+  "passed": true,
+  "per_point": {
+   "P1": {
+    "invalid_first": 0,
+    "resampled": 0,
+    "kept": 0
+   },
+   "P2": {
+    "invalid_first": 1,
+    "resampled": 1,
+    "kept": 0
+   },
+   "P2-nc": {
+    "invalid_first": 2,
+    "resampled": 2,
+    "kept": 0
+   },
+   "P3": {
+    "invalid_first": 0,
+    "resampled": 0,
+    "kept": 0
+   },
+   "P4": {
+    "invalid_first": 0,
+    "resampled": 0,
+    "kept": 0
+   },
+   "P4-nc": {
+    "invalid_first": 0,
+    "resampled": 0,
+    "kept": 0
+   },
+   "P5": {
+    "invalid_first": 0,
+    "resampled": 0,
+    "kept": 0
+   }
+  }
+ },
+ "R7": {
+  "passed": true,
+  "note": "R2 includes the logged configuration (counts) of every update, recomputed on the recorded graph"
+ },
+ "orphaned": {
+  "records": 6656,
+  "distinct_keys": 6656,
+  "cost_usd": 0.269,
+  "duplicate_records_same_key": 0,
+  "total_records": 146659
+ }
+}

@@ -1,0 +1,5174 @@
+[boot] 2026-10-13T15:10:09Z pod awuyv140v54lxv
+[boot] secret HF_TOKEN len 37 ok
+[boot] secret OPENROUTER_API_KEY len 73 ok
+/root/code/code/pod_code_bde62d9.tgz
+[boot] code ready
+[2026-10-13T15:10:15Z] pod awuyv140v54lxv starting; installing deps
+[2026-10-13T15:10:26Z] restoring run state from HF runs/stage3-rep1/
+restored 154 files; cache records {'meta-llama__llama-3.3-70b-instruct.jsonl': 62268, 'mistralai__mistral-nemo.jsonl': 98272, 'openai__gpt-6-luna.jsonl': 67446, 'qwen__qwen3.5-122b-a10b.jsonl': 57625, 'qwen__qwen3.5-9b.jsonl': 99492}
+[2026-10-13T15:12:42Z] starting replicate (deadline 40 h)
+RUN_START {"event": "start", "t": 1791904365.464216, "utc": "2026-10-13T15:12:45Z", "host": "d8f53b05a708", "pod": "awuyv140v54lxv", "chains_saved": 67, "chains_midrun": ["P2-nc:4:1", "P4-nc:4:1", "P5:4:1"]}
+HEARTBEAT {"elapsed_h": 14.357, "spend_usd": 5.2351, "done": false, "stopped": false, "rss_mb": 133, "peak_rss_mb": 130} alibaba: 10/10 ch, 0 calls, eta 0.0 h, sent None | parasail: 9/20 ch, 0 calls, eta 0.0 h, sent None | coreweave: 2/10 ch, 0 calls, eta 0.0 h, sent None | ionet: 2/20 ch, 0 calls, eta 0.0 h, sent None | openai: 0/10 ch, 0 calls, eta 0.0 h, sent None
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A
+
+
+  ...hains/P1/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...hains/P1/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P1/g3_r0.csv.gz: 100%|██████████| 32.1kB / 32.1kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P1/g1_r1.csv.gz: 100%|██████████| 32.4kB / 32.4kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A
+
+
+  ...hains/P1/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...hains/P1/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P1/g3_r0.csv.gz: 100%|██████████| 32.1kB / 32.1kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P1/g1_r1.csv.gz: 100%|██████████| 32.4kB / 32.4kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 1 files]                 : 100%|██████████| 33.8kB / 33.8kB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (11 / 139)   :   0%|          |  177kB / 38.2MB, 17.5kB/s  
+
+  ...hains/P1/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P1/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g3_r0.csv.gz: 100%|██████████| 32.1kB / 32.1kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P1/g1_r1.csv.gz: 100%|██████████| 32.4kB / 32.4kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P4/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 96 files]                : 100%|██████████| 1.39MB / 1.39MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (106 / 139)  :   4%|▍         | 1.50MB / 38.2MB,  147kB/s  
+
+  ...p1/chains/P2/g1_r0.csv.gz: 100%|██████████| 38.8kB / 38.8kB            [A[A
+
+
+  ...hains/P3/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...chains/P4-nc/g3_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A
+
+
+
+
+  ...hains/P2/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P4-nc/g1_r0.csv.gz: 100%|██████████| 15.1kB / 15.1kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P1/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 124 files]               : 100%|██████████| 1.70MB / 1.70MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (134 / 139)  :   5%|▍         | 1.79MB / 38.2MB,  174kB/s  
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A
+
+
+
+  ...ns/P2-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P2/g4_r1.csv.gz: 100%|██████████| 40.6kB / 40.6kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P4/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r1.csv.gz: 100%|██████████| 32.6kB / 32.6kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P5/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P2/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               :   6%|▌         | 2.20MB / 38.1MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (134 / 139)  :   6%|▌         | 2.32MB / 38.2MB,  224kB/s  
+New Data Upload               :   1%|▏         |  524kB / 36.5MB, 51.3kB/s  [A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r0.csv.gz: 100%|██████████| 15.2kB / 15.2kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (134 / 139)  : 100%|█████████▉| 38.2MB / 38.2MB, 3.56MB/s  
+New Data Upload               : 100%|█████████▉| 36.5MB / 36.5MB, 3.41MB/s  [A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g3_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P2/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g0_r0.csv.gz: 100%|██████████| 13.7kB / 13.7kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.75MB / 1.75MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g1_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g2_r1.csv.gz: 100%|██████████| 31.1kB / 31.1kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r1.csv.gz: 100%|██████████| 15.3kB / 15.3kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.70MB / 1.70MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r1.csv.gz: 100%|██████████| 32.6kB / 32.6kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g2_r1.csv.gz: 100%|██████████| 14.2kB / 14.2kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r0.csv.gz: 100%|██████████| 32.5kB / 32.5kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g0_r0.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P1/g0_r0.csv.gz: 100%|██████████| 31.5kB / 31.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P2-nc/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g2_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g3_r1.csv.gz: 100%|██████████| 13.8kB / 13.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g2_r1.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P5/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g3_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.75MB / 1.75MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 4.14MB / 4.14MB            [A[A
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 6.14MB / 6.14MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.3MB / 10.3MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g3_r1.csv.gz: 100%|██████████| 22.0kB / 22.0kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 1.74MB / 1.74MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (139 / 139)  : 100%|██████████| 38.2MB / 38.2MB, 3.32MB/s  
+New Data Upload               : 100%|██████████| 36.5MB / 36.5MB, 3.18MB/s  [A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P5/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P4/g4_r1.csv.gz: 100%|██████████| 32.6kB / 32.6kB            [A[A[A
+
+
+
+  ...chains/P2-nc/g1_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A[A[A
+
+
+
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g3_r0.csv.gz: 100%|██████████| 31.6kB / 31.6kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ns/P2-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P2/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g0_r1.csv.gz: 100%|██████████| 13.6kB / 13.6kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 38.1MB / 38.1MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P2/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P2/g3_r1.csv.gz: 100%|██████████| 40.3kB / 40.3kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A[A
+
+
+
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P1/g1_r0.csv.gz: 100%|██████████| 37.2kB / 37.2kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P2/g0_r0.csv.gz: 100%|██████████| 38.0kB / 38.0kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g4_r1.csv.gz: 100%|██████████| 34.4kB / 34.4kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 27.6MB / 27.6MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...ns/P4-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P1/g1_r1.csv.gz: 100%|██████████| 32.4kB / 32.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 6.14MB / 6.14MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.3MB / 10.3MB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g4_r0.csv.gz: 100%|██████████| 21.2kB / 21.2kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 21.7MB / 21.7MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...ns/P4-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P4/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...hains/P5/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...hains/P1/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P2/g3_r1.csv.gz: 100%|██████████| 40.3kB / 40.3kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 27.7MB / 27.7MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P2/g1_r0.csv.gz: 100%|██████████| 38.8kB / 38.8kB            [A[A
+
+
+  ...p1/chains/P5/g1_r0.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A
+
+
+
+  ...ns/P2-nc/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...hains/P3/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 129 files]               : 100%|██████████| 38.1MB / 38.1MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[AProcessing Files (139 / 139)  : 100%|██████████| 38.2MB / 38.2MB, 3.20MB/s  
+New Data Upload               : 100%|██████████| 36.5MB / 36.5MB, 3.07MB/s  
+Validating                    : ██████████| 100%            
+  ...p1/chains/P2/g1_r0.csv.gz: 100%|██████████| 38.8kB / 38.8kB            
+  ...p1/chains/P5/g1_r0.csv.gz: 100%|██████████| 10.6kB / 10.6kB            
+  ...ns/P2-nc/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...hains/P3/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            
+  ...hains/P1/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            
+  [+ 129 files]               : 100%|██████████| 38.1MB / 38.1MB            
+UPLOAD verified 148/148 files
+[ionet] chain P4-nc g4 r1 saved; invalid_first 0.000%; spend $5.247
+HEARTBEAT {"elapsed_h": 14.611, "spend_usd": 5.2622, "done": false, "stopped": false, "rss_mb": 1943, "peak_rss_mb": 2056} alibaba: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9998, 'typical_2': 0.9964} | parasail: 19/20 ch, 866 calls, eta 33.74 h, sent {'near_half': 0.5625, 'typical_1': 0.974, 'typical_2': 0.982} | coreweave: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.3775, 'typical_1': 0.0, 'typical_2': 0.0} | ionet: 20/20 ch, 2000 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9964, 'typical_2': 0.9983} | openai: 9/10 ch, 1224 calls, eta 23.87 h, sent {'near_half': 0.4, 'typical_1': 0.0, 'typical_2': 0.0}
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+  ...hains/P5/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P5/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r1.csv.gz: 100%|██████████| 20.5kB / 20.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g4_r1.csv.gz: 100%|██████████| 20.9kB / 20.9kB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P5/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P5/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r1.csv.gz: 100%|██████████| 20.5kB / 20.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 124 files]               : 100%|██████████| 1.66MB / 1.66MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (134 / 141)  :   5%|▍         | 1.79MB / 38.4MB,   ???B/s  
+
+  ...hains/P3/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P1/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g3_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A[A
+
+
+
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P2/g3_r1.csv.gz: 100%|██████████| 40.3kB / 40.3kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g3_r1.csv.gz: 100%|██████████| 32.9kB / 32.9kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g3_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 124 files]               : 100%|██████████| 1.67MB / 1.67MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ns/P4-nc/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P4/g0_r0.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A
+
+
+
+  ...p1/chains/P2/g1_r0.csv.gz: 100%|██████████| 38.8kB / 38.8kB            [A[A[A[A
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 124 files]               : 100%|██████████| 1.70MB / 1.70MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P3/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P5/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A[A[A
+
+
+
+
+  ...hains/P5/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g1_r1.csv.gz: 100%|██████████| 21.1kB / 21.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g1_r1.csv.gz: 100%|██████████| 15.5kB / 15.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P4/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g2_r0.csv.gz: 100%|██████████| 33.0kB / 33.0kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 124 files]               : 100%|██████████| 1.68MB / 1.68MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A
+
+
+  ...hains/P4/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P5/g3_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P2/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r0.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|█████████▉| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (134 / 141)  : 100%|█████████▉| 38.4MB / 38.4MB, 3.79MB/s  
+New Data Upload               : 100%|█████████▉|  739kB /  739kB, 73.0kB/s  [A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.79MB / 1.79MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g1_r0.csv.gz: 100%|██████████| 15.1kB / 15.1kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P2/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.77MB / 1.77MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g3_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.79MB / 1.79MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g3_r0.csv.gz: 100%|██████████| 15.7kB / 15.7kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.77MB / 1.77MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|█████████▉| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.79MB / 1.79MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 6.14MB / 6.14MB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.5MB / 10.5MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 4.19MB / 4.19MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r1.csv.gz: 100%|██████████| 15.8kB / 15.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.75MB / 1.75MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (141 / 141)  : 100%|██████████| 38.4MB / 38.4MB, 3.54MB/s  
+New Data Upload               : 100%|██████████|  739kB /  739kB, 68.1kB/s  [A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P4/g2_r1.csv.gz: 100%|██████████| 34.5kB / 34.5kB            [A[A
+
+
+  ...hains/P4/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P4-nc/g2_r0.csv.gz: 100%|██████████| 15.2kB / 15.2kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P5/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g2_r1.csv.gz: 100%|██████████| 14.2kB / 14.2kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...ns/P4-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A
+
+
+
+
+  ...ns/P2-nc/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g3_r1.csv.gz: 100%|██████████| 22.0kB / 22.0kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g3_r0.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g3_r1.csv.gz: 100%|██████████| 13.8kB / 13.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A
+
+
+  ...p1/chains/P3/g4_r0.csv.gz: 100%|██████████| 21.2kB / 21.2kB            [A[A[A
+
+
+
+  ...p1/chains/P2/g3_r1.csv.gz: 100%|██████████| 40.3kB / 40.3kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P1/g0_r0.csv.gz: 100%|██████████| 31.5kB / 31.5kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g3_r1.csv.gz: 100%|██████████| 32.9kB / 32.9kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r0.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P2/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P4/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g1_r0.csv.gz: 100%|██████████| 37.2kB / 37.2kB            [A[A[A[A
+
+
+
+
+  ...chains/P2-nc/g2_r0.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g2_r0.csv.gz: 100%|██████████| 33.0kB / 33.0kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g1_r1.csv.gz: 100%|██████████| 21.1kB / 21.1kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P4-nc/g3_r0.csv.gz: 100%|██████████| 15.7kB / 15.7kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r0.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g4_r1.csv.gz: 100%|██████████| 34.4kB / 34.4kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[AProcessing Files (141 / 141)  : 100%|██████████| 38.4MB / 38.4MB, 3.38MB/s  
+New Data Upload               : 100%|██████████|  739kB /  739kB, 65.0kB/s  
+Validating                    : ██████████| 100%            
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            
+  ...p1/chains/P3/g1_r1.csv.gz: 100%|██████████| 21.1kB / 21.1kB            
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            
+  ...chains/P4-nc/g3_r0.csv.gz: 100%|██████████| 15.7kB / 15.7kB            
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            
+  ...chains/P2-nc/g4_r0.csv.gz: 100%|██████████| 15.9kB / 15.9kB            
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            
+  ...p1/chains/P1/g4_r1.csv.gz: 100%|██████████| 34.4kB / 34.4kB            
+  [+ 131 files]               : 100%|██████████| 38.3MB / 38.3MB            
+UPLOAD verified 150/150 files
+HEARTBEAT {"elapsed_h": 14.863, "spend_usd": 5.2877, "done": false, "stopped": false, "rss_mb": 1964, "peak_rss_mb": 2238} alibaba: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9998, 'typical_2': 0.9964} | parasail: 19/20 ch, 1673 calls, eta 17.77 h, sent {'near_half': 0.5625, 'typical_1': 0.974, 'typical_2': 0.982} | coreweave: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.4378, 'typical_1': 0.0, 'typical_2': 0.0} | ionet: 20/20 ch, 2000 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9914, 'typical_2': 0.9984} | openai: 9/10 ch, 1988 calls, eta 14.95 h, sent {'near_half': 0.4, 'typical_1': 0.0, 'typical_2': 0.4}
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+  ...p1/chains/P5/g4_r0.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A
+
+
+  ...p1/chains/P1/g2_r0.csv.gz: 100%|██████████| 33.4kB / 33.4kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r1.csv.gz: 100%|██████████| 15.3kB / 15.3kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g0_r1.csv.gz: 100%|██████████| 13.6kB / 13.6kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P5/g4_r0.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A
+
+
+  ...p1/chains/P1/g2_r0.csv.gz: 100%|██████████| 33.4kB / 33.4kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r1.csv.gz: 100%|██████████| 15.3kB / 15.3kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g0_r1.csv.gz: 100%|██████████| 13.6kB / 13.6kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.68MB / 1.68MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (136 / 141)  :   5%|▍         | 1.81MB / 38.6MB,   ???B/s  
+
+  ...hains/P3/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g2_r1.csv.gz: 100%|██████████| 31.1kB / 31.1kB            [A[A[A[A
+
+
+
+
+  ...hains/P2/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P4-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r1.csv.gz: 100%|██████████| 15.8kB / 15.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.69MB / 1.69MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P4-nc/g3_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A
+
+
+  ...hains/P4/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...ns/P2-nc/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P5/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P2/g0_r0.csv.gz: 100%|██████████| 38.0kB / 38.0kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P2/g4_r1.csv.gz: 100%|██████████| 40.6kB / 40.6kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.69MB / 1.69MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P4/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P4/g2_r0.csv.gz: 100%|██████████| 33.0kB / 33.0kB            [A[A[A
+
+
+
+  ...hains/P5/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P3/g3_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P1/g4_r1.csv.gz: 100%|██████████| 34.4kB / 34.4kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g2_r0.csv.gz: 100%|██████████| 10.9kB / 10.9kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.67MB / 1.67MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P5/g1_r1.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A
+
+
+  ...hains/P5/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P2/g2_r1.csv.gz: 100%|██████████| 38.6kB / 38.6kB            [A[A[A[A
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...hains/P3/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P4/g0_r0.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g0_r0.csv.gz: 100%|██████████| 31.5kB / 31.5kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|█████████▉| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (136 / 141)  : 100%|█████████▉| 38.6MB / 38.6MB, 3.80MB/s  
+New Data Upload               : 100%|█████████▉|  752kB /  752kB, 74.3kB/s  [A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P4/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.80MB / 1.80MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r1.csv.gz: 100%|██████████| 32.6kB / 32.6kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.77MB / 1.77MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g4_r0.csv.gz: 100%|██████████| 33.4kB / 33.4kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.76MB / 1.76MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P4/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.80MB / 1.80MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g2_r0.csv.gz: 100%|██████████| 10.9kB / 10.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P2/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.79MB / 1.79MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P4/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r1.csv.gz: 100%|██████████| 15.8kB / 15.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g4_r0.csv.gz: 100%|██████████| 21.2kB / 21.2kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.77MB / 1.77MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.6MB / 10.6MB            [A[A
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 5.39MB / 5.39MB            [A[A[A[A
+
+
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 4.24MB / 4.24MB            [A[A[A[A[A
+
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 6.15MB / 6.15MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r1.csv.gz: 100%|██████████| 15.3kB / 15.3kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r1.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 1.78MB / 1.78MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (141 / 141)  : 100%|██████████| 38.6MB / 38.6MB, 3.55MB/s  
+New Data Upload               : 100%|██████████|  752kB /  752kB, 69.3kB/s  [A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P2-nc/g4_r0.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A
+
+
+  ...p1/chains/P3/g2_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A
+
+
+
+  ...ns/P4-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P1/g4_r0.csv.gz: 100%|██████████| 33.4kB / 33.4kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g3_r0.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P2/g2_r1.csv.gz: 100%|██████████| 38.6kB / 38.6kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A
+
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A[A
+
+
+
+  ...hains/P3/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...hains/P3/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P4/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g0_r0.csv.gz: 100%|██████████| 31.5kB / 31.5kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P3/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P1/g3_r0.csv.gz: 100%|██████████| 32.1kB / 32.1kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g1_r1.csv.gz: 100%|██████████| 21.1kB / 21.1kB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P2-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r0.csv.gz: 100%|██████████| 32.5kB / 32.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P5/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g3_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...chains/P2-nc/g2_r1.csv.gz: 100%|██████████| 14.2kB / 14.2kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P4/g4_r1.csv.gz: 100%|██████████| 32.6kB / 32.6kB            [A[A
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...chains/P2-nc/g2_r0.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A
+
+
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P1/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r1.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 27.9MB / 27.9MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...hains/P2/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P4-nc/g3_r0.csv.gz: 100%|██████████| 15.7kB / 15.7kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               : 100%|██████████| 28.1MB / 28.1MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[AProcessing Files (141 / 141)  : 100%|██████████| 38.6MB / 38.6MB, 3.40MB/s  
+New Data Upload               : 100%|██████████|  752kB /  752kB, 66.3kB/s  
+Validating                    : ██████████| 100%            
+  ...hains/P2/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            
+  ...hains/P4/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...chains/P4-nc/g3_r0.csv.gz: 100%|██████████| 15.7kB / 15.7kB            
+  ...p1/chains/P2/g4_r0.csv.gz: 100%|██████████| 46.5kB / 46.5kB            
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            
+  ...hains/P5/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  [+ 131 files]               : 100%|██████████| 28.1MB / 28.1MB            
+UPLOAD verified 150/150 files
+[openai] chain P5 g4 r1 saved; invalid_first 0.000%; spend $5.288
+[parasail] chain P2-nc g4 r1 saved; invalid_first 0.000%; spend $5.293
+HEARTBEAT {"elapsed_h": 14.997, "spend_usd": 5.2934, "done": true, "stopped": false, "rss_mb": 1973, "peak_rss_mb": 2255} alibaba: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9998, 'typical_2': 0.9964} | parasail: 20/20 ch, 2000 calls, eta 0.0 h, sent {'near_half': 0.5625, 'typical_1': 0.974, 'typical_2': 0.982} | coreweave: 10/10 ch, 0 calls, eta 0.0 h, sent {'near_half': 0.4378, 'typical_1': 0.0, 'typical_2': 0.0} | ionet: 20/20 ch, 2000 calls, eta 0.0 h, sent {'near_half': 0.5, 'typical_1': 0.9964, 'typical_2': 0.9975} | openai: 10/10 ch, 2000 calls, eta 0.0 h, sent {'near_half': 0.4, 'typical_1': 0.0, 'typical_2': 0.4}
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A
+
+
+  ...p1/chains/P3/g4_r1.csv.gz: 100%|██████████| 20.9kB / 20.9kB            [A[A[A
+
+
+
+  ...hains/P1/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P2/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P1/g2_r1.csv.gz: 100%|██████████| 31.1kB / 31.1kB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A
+
+
+  ...p1/chains/P3/g4_r1.csv.gz: 100%|██████████| 20.9kB / 20.9kB            [A[A[A
+
+
+
+  ...hains/P1/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P2/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P2/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.69MB / 1.69MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (136 / 145)  :   5%|▍         | 1.81MB / 38.6MB,   ???B/s  
+
+  ...p1/chains/P5/g4_r0.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A
+
+
+  ...hains/P1/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g0_r1.csv.gz: 100%|██████████| 20.5kB / 20.5kB            [A[A[A[A
+
+
+
+
+  ...hains/P1/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g1_r1.csv.gz: 100%|██████████| 21.1kB / 21.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g2_r1.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P5/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.72MB / 1.72MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P2-nc/g0_r0.csv.gz: 100%|██████████| 13.7kB / 13.7kB            [A[A
+
+
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            [A[A[A
+
+
+
+  ...p1/chains/P4/g1_r0.csv.gz: 100%|██████████| 34.1kB / 34.1kB            [A[A[A[A
+
+
+
+
+  ...hains/P4/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g3_r0.csv.gz: 100%|██████████| 31.6kB / 31.6kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P2-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P4/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.67MB / 1.67MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P4-nc/g0_r0.csv.gz: 100%|██████████| 16.4kB / 16.4kB            [A[A
+
+
+  ...chains/P4-nc/g4_r1.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A
+
+
+
+  ...p1/chains/P1/g3_r1.csv.gz: 100%|██████████| 32.5kB / 32.5kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P5/g0_r1.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g1_r0.csv.gz: 100%|██████████| 21.0kB / 21.0kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P5/g0_r0.csv.gz: 100%|██████████| 10.8kB / 10.8kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r0.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P4/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P3/g4_r0.csv.gz: 100%|██████████| 21.2kB / 21.2kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 126 files]               : 100%|██████████| 1.66MB / 1.66MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ns/P4-nc/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A
+
+
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A
+
+
+
+  ...hains/P4/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...hains/P2/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...ns/P2-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...hains/P1/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g3_r1.csv.gz: 100%|██████████| 32.9kB / 32.9kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P4/g4_r0.csv.gz: 100%|██████████| 32.5kB / 32.5kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 131 files]               :  98%|█████████▊| 37.9MB / 38.5MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (136 / 145)  :  98%|█████████▊| 38.0MB / 38.6MB, 3.75MB/s  
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P2/g1_r1.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...p1/chains/P2/g4_r1.csv.gz: 100%|██████████| 40.6kB / 40.6kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|█████████▉| 1.76MB / 1.76MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (136 / 145)  : 100%|█████████▉| 38.6MB / 38.6MB, 3.77MB/s  
+New Data Upload               : 100%|█████████▉|  625kB /  625kB, 61.6kB/s  [A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|█████████▉| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|█████████▉| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|█████████▉| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 10.4MB / 10.4MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 4.24MB / 4.24MB            [A[A[A
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 6.15MB / 6.15MB            [A[A[A[A
+
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 5.39MB / 5.39MB            [A[A[A[A[A
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 10.6MB / 10.6MB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P2-nc/g4_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g4_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 1.81MB / 1.81MB            [A[A[A[A[A[A[A[A[A[A[AProcessing Files (145 / 145)  : 100%|██████████| 38.6MB / 38.6MB, 3.52MB/s  
+New Data Upload               : 100%|██████████|  625kB /  625kB, 57.4kB/s  [A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P2/g3_r1.csv.gz: 100%|██████████| 40.3kB / 40.3kB            [A[A
+
+
+  ...hains/P4/g4_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g2_r0.csv.gz: 100%|██████████| 21.4kB / 21.4kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P4/g0_r0.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g3_r0.csv.gz: 100%|██████████| 14.9kB / 14.9kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P1/g0_r1.csv.gz: 100%|██████████| 33.1kB / 33.1kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P4/g1_r1.csv.gz: 100%|██████████| 31.4kB / 31.4kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P1/g1_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P4-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 38.4MB / 38.4MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P2-nc/g0_r0.csv.gz: 100%|██████████| 13.7kB / 13.7kB            [A[A
+
+
+  ...ns/P2-nc/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...hains/P2/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A
+
+
+
+
+  ...p1/chains/P3/g3_r1.csv.gz: 100%|██████████| 22.0kB / 22.0kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g2_r1.csv.gz: 100%|██████████| 34.5kB / 34.5kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P3/g4_r1.csv.gz: 100%|██████████| 20.9kB / 20.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g1_r0.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g2_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 38.5MB / 38.5MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P2-nc/g1_r1.csv.gz: 100%|██████████| 14.3kB / 14.3kB            [A[A
+
+
+  ...chains/P4-nc/g4_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A[A
+
+
+
+  ...p1/chains/P4/g4_r0.csv.gz: 100%|██████████| 32.5kB / 32.5kB            [A[A[A[A
+
+
+
+
+  ...ns/P4-nc/g2_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...chains/P2-nc/g4_r0.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...chains/P4-nc/g3_r1.csv.gz: 100%|██████████| 15.9kB / 15.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P2/g0_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P5/g4_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...hains/P2/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 38.5MB / 38.5MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...chains/P2-nc/g1_r0.csv.gz: 100%|██████████| 14.0kB / 14.0kB            [A[A
+
+
+  ...p1/chains/P5/g1_r0.csv.gz: 100%|██████████| 10.6kB / 10.6kB            [A[A[A
+
+
+
+  ...chains/P4-nc/g2_r1.csv.gz: 100%|██████████| 15.3kB / 15.3kB            [A[A[A[A
+
+
+
+
+  ...ns/P4-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P4/g0_r0.csv.gz: 100%|██████████| 36.1kB / 36.1kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P1/g3_r0.csv.gz: 100%|██████████| 32.1kB / 32.1kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P1/g3_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...chains/P4-nc/g2_r0.csv.gz: 100%|██████████| 15.2kB / 15.2kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...p1/chains/P5/g3_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 38.5MB / 38.5MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[A
+
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            [A[A
+
+
+  ...hains/P3/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A
+
+
+
+  ...p1/chains/P3/g3_r1.csv.gz: 100%|██████████| 22.0kB / 22.0kB            [A[A[A[A
+
+
+
+
+  ...hains/P2/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P2/g0_r0.csv.gz: 100%|██████████| 38.0kB / 38.0kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...p1/chains/P4/g3_r1.csv.gz: 100%|██████████| 32.9kB / 32.9kB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+  [+ 135 files]               : 100%|██████████| 38.5MB / 38.5MB            [A[A[A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A[A[A[AProcessing Files (145 / 145)  : 100%|██████████| 38.6MB / 38.6MB, 3.38MB/s  
+New Data Upload               : 100%|██████████|  625kB /  625kB, 55.1kB/s  
+Validating                    : ██████████| 100%            
+  ...p1/chains/P2/g0_r1.csv.gz: 100%|██████████| 42.9kB / 42.9kB            
+  ...hains/P3/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...p1/chains/P3/g3_r1.csv.gz: 100%|██████████| 22.0kB / 22.0kB            
+  ...hains/P2/g1_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...p1/chains/P2/g0_r0.csv.gz: 100%|██████████| 38.0kB / 38.0kB            
+  ...p1/chains/P4/g3_r1.csv.gz: 100%|██████████| 32.9kB / 32.9kB            
+  ...p1/chains/P5/g2_r1.csv.gz: 100%|██████████| 10.7kB / 10.7kB            
+  ...hains/P3/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  ...ns/P2-nc/g3_r1_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+  [+ 135 files]               : 100%|██████████| 38.5MB / 38.5MB            
+UPLOAD verified 154/154 files
+RUN_END {"run": "rep1", "mock": false, "t": 1791906677.210903, "elapsed_h": 14.999, "spend_usd": 5.2934, "budget_usd": 7.0, "stopped": false, "done": true, "streams_finished": true}
+[2026-10-13T15:51:22Z] runner exited (code 0); final upload
+[2026-10-13T15:51:29Z] final upload attempt 1: UPLOAD verified 154/154 files
+[2026-10-13T15:51:29Z] FINAL UPLOAD VERIFIED (run done: True)
+[2026-10-13T15:53:29Z] removing pod awuyv140v54lxv
+Runpod config file not found, please run `runpodctl config` to create it
+pod "awuyv140v54lxv" removed

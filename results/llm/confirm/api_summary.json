@@ -1,0 +1,757 @@
+{
+ "temp_qwen-122b": {
+  "0.5": {
+   "slope": 2.336450667992574,
+   "slope_lo": 1.8882270087306103,
+   "slope_hi": 2.937829321535126,
+   "expected": 2.0,
+   "chi2": 47.635486080138996,
+   "df": 20,
+   "p_chi2": 0.0004784468542835898,
+   "n_invalid": 0,
+   "passes": false
+  },
+  "1.5": {
+   "slope": 0.8647304730319653,
+   "slope_lo": 0.6753863247019677,
+   "slope_hi": 1.0768520253893066,
+   "expected": 0.6666666666666666,
+   "chi2": 29.217596857224585,
+   "df": 20,
+   "p_chi2": 0.08356240045508927,
+   "n_invalid": 0,
+   "passes": false
+  }
+ },
+ "spend": {
+  "usd": 3.2523070780007557,
+  "calls": 133052
+ },
+ "temp_nemo-12b": {
+  "0.5": {
+   "slope": 1.7880512879498125,
+   "slope_lo": 1.3738227954887448,
+   "slope_hi": 2.3072084871016147,
+   "expected": 2.0,
+   "chi2": 43.07452779895625,
+   "df": 20,
+   "p_chi2": 0.001998460789162204,
+   "n_invalid": 0,
+   "passes": false
+  },
+  "1.5": {
+   "slope": 0.5358159281552497,
+   "slope_lo": 0.22124545750741614,
+   "slope_hi": 0.8634059736351342,
+   "expected": 0.6666666666666666,
+   "chi2": 22.830124675603233,
+   "df": 20,
+   "p_chi2": 0.2972125835130923,
+   "n_invalid": 92,
+   "passes": true
+  }
+ },
+ "gemini_logprob_probe": {
+  "calls": 2,
+  "errors": 2,
+  "first_error": "google/gemini-3.1-flash-lite rep=confirm-probe:gemini-lpprobe:0:0: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, vis",
+  "share_logprobs_ab": 0.0,
+  "cost": 0.0
+ },
+ "gemini_temp_probe": {
+  "0.5": {
+   "ok": true,
+   "content": "B",
+   "provider": "Google AI Studio",
+   "rt": 0
+  },
+  "1.5": {
+   "ok": true,
+   "content": "B",
+   "provider": "Google AI Studio",
+   "rt": 0
+  },
+  "accepted": true
+ },
+ "luna_logprob_probe": {
+  "calls": 2,
+  "errors": 2,
+  "first_error": "openai/gpt-6-luna rep=confirm-probe:luna-lpprobe:0:0: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://o",
+  "share_logprobs_ab": 0.0,
+  "cost": 0.0
+ },
+ "luna_temp_probe": {
+  "0.5": {
+   "ok": false,
+   "error": "openai/gpt-6-luna rep=confirm-tprobe:luna:0.5: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404,\"metadata\":{\"routing_funnel\":[{\"step\":\"Init"
+  },
+  "1.5": {
+   "ok": false,
+   "error": "openai/gpt-6-luna rep=confirm-tprobe:luna:1.5: http 404: {\"error\":{\"message\":\"No endpoints found that can handle the requested parameters. To learn more about provider routing, visit: https://openrouter.ai/docs/guides/routing/provider-selection\",\"code\":404,\"metadata\":{\"routing_funnel\":[{\"step\":\"Init"
+  },
+  "accepted": false
+ },
+ "selection": {
+  "tried": [
+   {
+    "rank": 2,
+    "id": "deepseek/deepseek-v4-flash-vision-exp",
+    "pin": "gmicloud/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.4463392602901678,
+     "mean_leak": 0.00043606811654312494,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "GMICloud": 40
+     },
+     "cost": 0.0021647999999999997
+    },
+    "cost": 0.0021647999999999997,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.0021647999999999997
+   },
+   {
+    "rank": 1,
+    "id": "deepseek/deepseek-v4.1-flash",
+    "pin": "streamlake/fp8",
+    "pin_rule_original": "deepseek",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.47516448000565664,
+     "mean_leak": 0.00039920685619346843,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "StreamLake": 40
+     },
+     "cost": 0.00072912
+    },
+    "cost": 0.00072912,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.0028939199999999995
+   },
+   {
+    "rank": 3,
+    "id": "deepseek/deepseek-v4-pro-0813",
+    "pin": "gmicloud/fp8",
+    "pin_rule_original": "deepseek",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.9824033086396984,
+     "mean_leak": 4.0560044368522223e-07,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "GMICloud": 40
+     },
+     "cost": 0.0051955199999999995
+    },
+    "cost": 0.0051955199999999995,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.00808944
+   },
+   {
+    "rank": 4,
+    "id": "deepseek/deepseek-v4-flash-0731",
+    "pin": "coreweave/fp8",
+    "pin_rule_original": "coreweave/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.7816248969640612,
+     "mean_leak": 2.0598845202057793e-07,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "CoreWeave": 40
+     },
+     "cost": 0.0006352
+    },
+    "cost": 0.0006352,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.00872464
+   },
+   {
+    "rank": 5,
+    "id": "deepseek/deepseek-v4-pro",
+    "pin": "parasail/fp8",
+    "pin_rule_original": "parasail/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.35189222019858085,
+     "mean_leak": 4.656015633981757e-05,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "Parasail": 40
+     },
+     "cost": 0.0022992
+    },
+    "cost": 0.0022992,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.01102384
+   },
+   {
+    "rank": 6,
+    "id": "deepseek/deepseek-v4-flash",
+    "pin": "streamlake/fp8",
+    "pin_rule_original": "streamlake/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.9429010922411141,
+     "mean_leak": 0.00015268534575645746,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "StreamLake": 40
+     },
+     "cost": 0.000403088
+    },
+    "cost": 0.000403088,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.011426928
+   },
+   {
+    "rank": 7,
+    "id": "deepseek/deepseek-v3.2",
+    "pin": "atlas-cloud/fp8",
+    "pin_rule_original": "atlas-cloud/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 40,
+     "first_error": "deepseek/deepseek-v3.2 rep=confirm-probe:cand7:0:0: http 400: {\"error\":{\"message\":\"Provider returned error\",\"code\":400,\"metadata\":{\"raw\":\"{\\\"code\\\":400,\\\"msg\\\":\\\"invalid request params\\\"}\",\"provider_n",
+     "share_logprobs_ab": 0.0,
+     "cost": 0.0
+    },
+    "cost": 0.0,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.011426928
+   },
+   {
+    "rank": 8,
+    "id": "deepseek/deepseek-chat-v3.1",
+    "pin": "coreweave/fp8",
+    "pin_rule_original": "coreweave/fp8",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.3913119199517227,
+     "mean_leak": 0.012429595777009852,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "CoreWeave": 40
+     },
+     "cost": 0.002772
+    },
+    "cost": 0.002772,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.014198928
+   },
+   {
+    "rank": 9,
+    "id": "openai/gpt-oss-120b",
+    "pin": "akashml/bf16",
+    "pin_rule_original": "akashml/bf16",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 40,
+     "first_error": "openai/gpt-oss-120b rep=confirm-probe:cand9:0:0: http 400: {\"error\":{\"message\":\"Reasoning is mandatory for this endpoint and cannot be disabled.\",\"code\":400,\"metadata\":{\"provider_name\":null}}}",
+     "share_logprobs_ab": 0.0,
+     "cost": 0.0
+    },
+    "cost": 0.0,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.014198928
+   },
+   {
+    "rank": 10,
+    "id": "openai/gpt-oss-20b",
+    "pin": "dekallm/bf16",
+    "pin_rule_original": "dekallm/bf16",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 40,
+     "first_error": "openai/gpt-oss-20b rep=confirm-probe:cand10:0:0: http 400: {\"error\":{\"message\":\"Reasoning is mandatory for this endpoint and cannot be disabled.\",\"code\":400,\"metadata\":{\"provider_name\":null}}}",
+     "share_logprobs_ab": 0.0,
+     "cost": 0.0
+    },
+    "cost": 0.0,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.014198928
+   },
+   {
+    "rank": 11,
+    "id": "deepseek/deepseek-r1-0528",
+    "pin": "streamlake",
+    "pin_rule_original": "streamlake",
+    "reasoning_param": true,
+    "lp": {
+     "calls": 40,
+     "errors": 40,
+     "first_error": "deepseek/deepseek-r1-0528 rep=confirm-probe:cand11:0:0: http 400: {\"error\":{\"message\":\"Reasoning is mandatory for this endpoint and cannot be disabled.\",\"code\":400,\"metadata\":{\"provider_name\":null}}}",
+     "share_logprobs_ab": 0.0,
+     "cost": 0.0
+    },
+    "cost": 0.0,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.014198928
+   },
+   {
+    "rank": 12,
+    "id": "meta-llama/llama-4-maverick",
+    "pin": "parasail/fp8",
+    "pin_rule_original": "parasail/fp8",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.1425219595034486,
+     "mean_leak": 0.4967777576896889,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "Parasail": 40
+     },
+     "cost": 0.001156
+    },
+    "cost": 0.001156,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.015354928
+   },
+   {
+    "rank": 13,
+    "id": "deepseek/deepseek-chat-v3-0324",
+    "pin": "gmicloud/fp8",
+    "pin_rule_original": "gmicloud/fp8",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.8926785556479211,
+     "mean_leak": 0.013005660104414934,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "GMICloud": 40
+     },
+     "cost": 0.0011380799999999999
+    },
+    "cost": 0.0011380799999999999,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.016493008
+   },
+   {
+    "rank": 14,
+    "id": "meta-llama/llama-3.3-70b-instruct",
+    "pin": "novita/bf16",
+    "pin_rule_original": "novita/bf16",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 0.9,
+     "repeat_sd": 0.30333792420641936,
+     "mean_leak": 1.5678979905389078e-08,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "Novita": 40
+     },
+     "cost": 0.0008313999999999999
+    },
+    "cost": 0.0008313999999999999,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.017324408
+   },
+   {
+    "rank": 15,
+    "id": "openai/gpt-4o-2024-11-20",
+    "pin": "openai",
+    "pin_rule_original": "openai",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.3699200233961553,
+     "mean_leak": 1.1518902448851171e-07,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "OpenAI": 40
+     },
+     "cost": 0.012700000000000001
+    },
+    "cost": 0.012700000000000001,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.030024408000000002
+   },
+   {
+    "rank": 16,
+    "id": "meta-llama/llama-3.2-3b-instruct",
+    "pin": "parasail/bf16",
+    "pin_rule_original": "parasail/bf16",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.044194171716827095,
+     "mean_leak": 0.0001609147158218187,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "Parasail": 40
+     },
+     "cost": 0.0003152
+    },
+    "cost": 0.00315319,
+    "pass_a": true,
+    "temp": {
+     "kappa": -0.15499999999999925,
+     "ci": [
+      -0.8249999999999998,
+      0.42000000000000126
+     ],
+     "ci_at_grid_edge": false,
+     "lr_gof": 163.16737875621135,
+     "df": 9,
+     "p_gof": 1.630878171855834e-30,
+     "invalid_rate": 0.0325
+    },
+    "pass_b": false,
+    "passes": false,
+    "probe_spent_cum": 0.033177598
+   },
+   {
+    "rank": 17,
+    "id": "openai/gpt-4o-2024-08-06",
+    "pin": "openai",
+    "pin_rule_original": "openai",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.4256916583072283,
+     "mean_leak": 2.3676765414940402e-07,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "OpenAI": 40
+     },
+     "cost": 0.012700000000000001
+    },
+    "cost": 0.012700000000000001,
+    "pass_a": false,
+    "passes": false,
+    "probe_spent_cum": 0.045877598000000006
+   },
+   {
+    "rank": 18,
+    "id": "meta-llama/llama-3.1-8b-instruct",
+    "pin": "coreweave/bf16",
+    "pin_rule_original": "coreweave/bf16",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.0,
+     "mean_leak": 6.378655704950554e-05,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "CoreWeave": 40
+     },
+     "cost": 0.0013376
+    },
+    "cost": 0.01269268,
+    "pass_a": true,
+    "temp": {
+     "kappa": 1.4700000000000024,
+     "ci": [
+      0.5500000000000014,
+      2.070000000000003
+     ],
+     "ci_at_grid_edge": false,
+     "lr_gof": 8.041036526154244,
+     "df": 9,
+     "p_gof": 0.5300160754947101,
+     "invalid_rate": 0.0
+    },
+    "pass_b": true,
+    "passes": true,
+    "probe_spent_cum": 0.058570278,
+    "comprehension_passes": false,
+    "comprehension": {
+     "key": "cand18",
+     "model": "meta-llama/llama-3.1-8b-instruct",
+     "tag": "coreweave/bf16",
+     "n": 2116,
+     "acc_ally_majority": 0.7797,
+     "meanP_ally_majority": 0.7257,
+     "worst_k_ally_majority": 0.375,
+     "acc_own": 0.9868,
+     "meanP_own": 0.9606,
+     "worst_k_own": 0.925,
+     "acc_rival_majority": 0.7156,
+     "meanP_rival_majority": 0.6526,
+     "worst_k_rival_majority": 0.375,
+     "leak_gt5": 0,
+     "passes": false
+    }
+   },
+   {
+    "rank": 19,
+    "id": "openai/gpt-4o-mini-2024-07-18",
+    "pin": "openai",
+    "pin_rule_original": "openai",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.21650634644129302,
+     "mean_leak": 5.1688841353838034e-08,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "OpenAI": 40
+     },
+     "cost": 0.000762
+    },
+    "cost": 0.008382,
+    "pass_a": true,
+    "temp": {
+     "kappa": 0.120000000000001,
+     "ci": [
+      -0.2199999999999993,
+      0.43000000000000127
+     ],
+     "ci_at_grid_edge": false,
+     "lr_gof": 54.19097547622829,
+     "df": 9,
+     "p_gof": 1.7364018973301156e-08,
+     "invalid_rate": 0.0
+    },
+    "pass_b": false,
+    "passes": false,
+    "probe_spent_cum": 0.066952278
+   },
+   {
+    "rank": 20,
+    "id": "openai/gpt-4o-mini",
+    "pin": "openai",
+    "pin_rule_original": "openai",
+    "reasoning_param": false,
+    "lp": {
+     "calls": 40,
+     "errors": 0,
+     "share_logprobs_ab": 1.0,
+     "repeat_sd": 0.29580399536163826,
+     "mean_leak": 5.2920815695215935e-08,
+     "reasoning_tokens_max": 0,
+     "providers": {
+      "OpenAI": 40
+     },
+     "cost": 0.000762
+    },
+    "cost": 0.008382,
+    "pass_a": true,
+    "temp": {
+     "kappa": 0.8850000000000016,
+     "ci": [
+      0.4800000000000013,
+      1.2750000000000021
+     ],
+     "ci_at_grid_edge": false,
+     "lr_gof": 29.981417371641726,
+     "df": 9,
+     "p_gof": 0.0004419271744712388,
+     "invalid_rate": 0.0
+    },
+    "pass_b": true,
+    "passes": true,
+    "probe_spent_cum": 0.075334278,
+    "comprehension_passes": true,
+    "comprehension": {
+     "key": "cand20",
+     "model": "openai/gpt-4o-mini",
+     "tag": "openai",
+     "n": 2116,
+     "acc_ally_majority": 1.0,
+     "meanP_ally_majority": 0.9977,
+     "worst_k_ally_majority": 1.0,
+     "acc_own": 1.0,
+     "meanP_own": 1.0,
+     "worst_k_own": 1.0,
+     "acc_rival_majority": 0.9891,
+     "meanP_rival_majority": 0.9876,
+     "worst_k_rival_majority": 0.875,
+     "leak_gt5": 0,
+     "passes": true
+    }
+   }
+  ],
+  "guardrail_blocked": {
+   "deepseek/deepseek-v4.1-flash": [
+    "deepseek"
+   ],
+   "deepseek/deepseek-v4-pro-0813": [
+    "deepseek"
+   ]
+  },
+  "amendment2_removed_attempts": [
+   {
+    "rank": 1,
+    "id": "deepseek/deepseek-v4.1-flash",
+    "pin": "deepseek",
+    "errors": 40,
+    "reason": "all calls 404: Filter by Guardrails removed deepseek (Paid model training violation (account settings))"
+   },
+   {
+    "rank": 3,
+    "id": "deepseek/deepseek-v4-pro-0813",
+    "pin": "deepseek",
+    "errors": 40,
+    "reason": "all calls 404: Filter by Guardrails removed deepseek (Paid model training violation (account settings))"
+   }
+  ],
+  "selected": {
+   "name": "cand20",
+   "key": "openai/gpt-4o-mini",
+   "model": "openai/gpt-4o-mini",
+   "tag": "openai",
+   "mode": "lp",
+   "roff": false,
+   "extra": {},
+   "rank": 20
+  }
+ },
+ "comprehension_gemini": {
+  "key": "gemini",
+  "n": 2116,
+  "invalid_rate": 0.0,
+  "acc_ally_majority": 1.0,
+  "acc_own": 1.0,
+  "acc_rival_majority": 0.9984,
+  "passes": true
+ },
+ "comprehension_luna": {
+  "key": "luna",
+  "n": 2116,
+  "invalid_rate": 0.0,
+  "acc_ally_majority": 1.0,
+  "acc_own": 1.0,
+  "acc_rival_majority": 0.9969,
+  "passes": true
+ },
+ "kavg_selected": {
+  "calls": 1536,
+  "invalid": 0.0,
+  "cost": 0.0292608,
+  "providers": {
+   "OpenAI": 1536
+  },
+  "reasoning_tokens_max": 0
+ },
+ "temp_selected": {
+  "0.5": {
+   "slope": 1.5109731254656291,
+   "slope_ci": [
+    1.1599628995093887,
+    1.9444344440554813
+   ],
+   "expected": 2.0,
+   "chi2": 168.1484276287543,
+   "df": 20,
+   "p_chi2": 1.9848787200569963e-25,
+   "invalid_rate": 0.0,
+   "passes": false
+  },
+  "1.5": {
+   "slope": 0.5957691776239189,
+   "slope_ci": [
+    0.4328664539735272,
+    0.7561917251694652
+   ],
+   "expected": 0.6666666666666666,
+   "chi2": 22.748532776982376,
+   "df": 20,
+   "p_chi2": 0.3013101615445473,
+   "invalid_rate": 0.0,
+   "passes": true
+  },
+  "passes": false,
+  "cost": 0.0381
+ },
+ "temp_gemini": {
+  "kappa": 1.1300000000000017,
+  "ci": [
+   0.9550000000000018,
+   1.3100000000000023
+  ],
+  "ci_at_grid_edge": false,
+  "lr_gof": 46.22860819929929,
+  "df": 39,
+  "p_gof": 0.19843122504406627,
+  "n_prompts": 20,
+  "invalid_rate_by_T": {
+   "0.5": 0.0,
+   "1.0": 0.0,
+   "1.5": 0.0
+  },
+  "cost": 0.12474999999999999,
+  "passes": true
+ },
+ "kavg_gemini": {
+  "calls": 38400,
+  "invalid": 0.0,
+  "cost": 1.2480029999999998,
+  "providers": {
+   "Google AI Studio": 38400
+  },
+  "reasoning_tokens_max": 2
+ },
+ "temp_luna": {
+  "passes": false,
+  "reason": "temperature not accepted (require_parameters refused)"
+ },
+ "kavg_luna": {
+  "calls": 38400,
+  "invalid": 0.0,
+  "cost": 0.566766,
+  "providers": {
+   "OpenAI": 38400
+  },
+  "reasoning_tokens_max": 0
+ }
+}

@@ -41,6 +41,14 @@ def letter_ids(tok):
     return A, B
 
 
+def progress(**kw):
+    """Live progress for llm/pod_tracker.py (results/llm/logs/progress.json, atomic write)."""
+    import json
+    p = os.path.join(ROOT, "results", "llm", "logs", "progress.json"); os.makedirs(os.path.dirname(p), exist_ok=True)
+    kw["t"] = time.time()
+    open(p + ".tmp", "w").write(json.dumps(kw)); os.replace(p + ".tmp", p)
+
+
 def parse_top5(top):
     """Stage 1 rule (run_stage1.parse_lp) on [(token_text, logprob)] top-5."""
     pa = sum(math.exp(l) for t, l in top if t.strip() == "A")
@@ -57,19 +65,35 @@ def main():
     ap.add_argument("--batch-size", type=int, default=16); ap.add_argument("--max-prompts", type=int, default=None)
     ap.add_argument("--layer-fracs", default="0.1667,0.3333,0.5,0.6667,0.8333,1.0")
     ap.add_argument("--device", default="cuda")
+    ap.add_argument("--rep1-batch-size", type=int, default=None,
+                    help="replicate 1 batch size (default: batch_size // 2 + 3, a different batch composition)")
+    ap.add_argument("--deterministic", action="store_true",
+                    help="Amendment 5: deterministic kernels, TF32 off, fixed seeds (use with --batch-size 1 --rep1-batch-size 1)")
     a = ap.parse_args()
+    pid_dir = os.path.join(ROOT, "results", "llm", "logs"); os.makedirs(pid_dir, exist_ok=True)
+    open(os.path.join(pid_dir, "local_gemma.pid"), "w").write(str(os.getpid()))   # pod_run.sh stops it by PID
+    if a.deterministic:
+        os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")       # must be set before CUDA initialises
     import torch
+    if a.deterministic:
+        torch.use_deterministic_algorithms(True)
+        torch.backends.cudnn.deterministic = True; torch.backends.cudnn.benchmark = False
+        torch.backends.cuda.matmul.allow_tf32 = False; torch.backends.cudnn.allow_tf32 = False
+        torch.manual_seed(0); random.seed(0); np.random.seed(0)
+        print(f"deterministic mode: batch sizes {a.batch_size}/{a.rep1_batch_size}, "
+              f"CUBLAS_WORKSPACE_CONFIG={os.environ['CUBLAS_WORKSPACE_CONFIG']}", flush=True)
     from transformers import AutoTokenizer, AutoModelForCausalLM
+    progress(key=a.key, stage="loading model", model=a.model_id)
     tok = AutoTokenizer.from_pretrained(a.model_id); tok.padding_side = "left"
     try:
-        model = AutoModelForCausalLM.from_pretrained(a.model_id, torch_dtype=torch.bfloat16, device_map=a.device)
+        model = AutoModelForCausalLM.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
     except (ValueError, KeyError):
         from transformers import AutoModelForImageTextToText      # multimodal checkpoints (text-only use)
-        model = AutoModelForImageTextToText.from_pretrained(a.model_id, torch_dtype=torch.bfloat16, device_map=a.device)
+        model = AutoModelForImageTextToText.from_pretrained(a.model_id, dtype=torch.bfloat16, device_map=a.device)
     model.eval()
+    progress(key=a.key, stage="vocabulary scan", model=a.model_id)
     A_ids, B_ids = letter_ids(tok)
-    # padding check (abort if left-padding changes next-token logprobs): 4 prompts batched with a long
-    # neighbour vs run alone; tolerance 0.05 nats in bf16
+    # padding diagnostic: 4 prompts batched with a long neighbour vs run alone (reported, not used to abort)
     probe = [it["prompt"] for it in list(battery.items("political"))[:4]]
     pt = [tok.apply_chat_template([{"role": "user", "content": p}], tokenize=False, add_generation_prompt=True) for p in probe]
     long_t = tok.apply_chat_template([{"role": "user", "content": probe[0] + " " + "filler " * 60}], tokenize=False, add_generation_prompt=True)
@@ -82,9 +106,11 @@ def main():
             l1 = torch.log_softmax(model(**e1).logits[:, -1, :].float(), -1)
             top = torch.topk(l1[0], 20).indices
             worst = max(worst, float((lb[i + 1, top] - l1[0, top]).abs().max()))
-    print(f"padding check: max |batched − single| over top-20 tokens = {worst:.4f} nats", flush=True)
-    if worst > 0.05:
-        sys.exit(f"ABORT: left padding changes logprobs by {worst:.3f} nats (> 0.05)")
+    # Diagnostic only since 2026-10-09: the battery is run with padding-free batches (every batch holds prompts of
+    # identical token length), so left padding cannot touch any recorded logprob. On tiny random Gemma-4 checkpoints
+    # the padded/unpadded gap is 8e-5 nats in fp32 but 0.57 in bf16 (numerics, not masking), so a 0.05 abort would
+    # have stopped a correct run.
+    print(f"padding check (diagnostic): max |batched − single| over top-20 tokens = {worst:.4f} nats", flush=True)
     its, comp = all_items(a.max_prompts)
     jobs = [("main", it) for it in its] + [("comprehension", it) for it in comp]
     texts = [tok.apply_chat_template([{"role": "user", "content": it["prompt"]}], tokenize=False, add_generation_prompt=True)
@@ -95,12 +121,50 @@ def main():
     rows = [[None, None] for _ in jobs]
     lens = [len(tok(t, add_special_tokens=False).input_ids) for t in texts]
     print(f"{a.key}: {len(jobs)} prompts, mean {np.mean(lens):.0f} tokens, layers {layers}/{n_layers}, |A ids|={len(A_ids)} |B ids|={len(B_ids)}", flush=True)
+    def write_outputs(key, reps):
+        """Write Stage 1 CSVs (main + comprehension) for the given replicates, activations and index under `key`."""
+        import csv
+        for phase in ("main", "comprehension"):
+            recs = []
+            for (ph, it), rr in zip(jobs, rows):
+                if ph != phase: continue
+                base = {k: v for k, v in it.items() if k != "prompt"}
+                base.update(counts="".join(map(str, it["counts"])), key=key, model=a.model_id, tag="local/bf16", temperature=1.0,
+                            served="local-hf-transformers", cost=0.0)
+                for rep in reps:
+                    recs.append({**base, "rep": rep, **rr[rep]})
+            d = os.path.join(ROOT, "results", "llm", "stage1", phase); os.makedirs(d, exist_ok=True)
+            keys = list(dict.fromkeys(k for r in recs for k in r))
+            with open(os.path.join(d, f"{key}.csv"), "w", newline="") as f:
+                w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(recs)
+        ad = os.path.join(ROOT, "results", "llm", "activations", key); os.makedirs(ad, exist_ok=True)
+        for L in layers:
+            np.save(os.path.join(ad, f"layer_{L:03d}.npy"), acts[L])
+        with open(os.path.join(ad, "index.csv"), "w", newline="") as f:
+            w = csv.writer(f); w.writerow(["row", "phase", "arm", "question", "counts", "s0", "mapping", "order", "perm", "seq"])
+            for i, (ph, it) in enumerate(jobs):
+                w.writerow([i, ph, it["arm"], it.get("question", ""), "".join(map(str, it["counts"])), it["s0"], it["mapping"], it["order"], it["perm"], it["seq"]])
+
     t0 = time.time()
     for rep in (0, 1):
-        order = sorted(range(len(jobs)), key=lambda i: lens[i]) if rep == 0 else random.Random(1).sample(range(len(jobs)), len(jobs))
-        bs = a.batch_size if rep == 0 else max(1, a.batch_size // 2 + 3)          # different batch composition
-        for s in range(0, len(order), bs):
-            idx = order[s:s + bs]
+        # padding-free batches: group prompts by exact token length; replicate 1 uses a different batch size and a
+        # shuffled order within each length, so batch composition differs between replicates
+        bs = a.batch_size if rep == 0 else (a.rep1_batch_size or max(1, a.batch_size // 2 + 3))
+        rr = random.Random(1)
+        groups = {}
+        for i in range(len(jobs)):
+            groups.setdefault(lens[i], []).append(i)
+        batches = []
+        for L in sorted(groups):
+            g = groups[L] if rep == 0 else rr.sample(groups[L], len(groups[L]))
+            batches += [g[k:k + bs] for k in range(0, len(g), bs)]
+        if rep == 0:
+            bs1 = a.rep1_batch_size or max(1, a.batch_size // 2 + 3)     # replicate 1's batch count, exactly
+            n_total = len(batches) + sum(-(-len(g) // bs1) for g in groups.values())
+            done_before = 0
+        else:
+            n_total = done_before + len(batches)
+        for s, idx in enumerate(batches):
             enc = tok([texts[i] for i in idx], return_tensors="pt", padding=True, add_special_tokens=False).to(a.device)
             with torch.no_grad():
                 out = model(**enc, output_hidden_states=(rep == 0))
@@ -119,29 +183,21 @@ def main():
                     if acts[L].shape[1] == 0:
                         acts[L] = np.zeros((len(jobs), h.shape[1]), np.float16)
                     acts[L][idx] = h
-            if (s // bs) % 50 == 0:
-                print(f"  rep {rep} {s + len(idx)}/{len(jobs)} {time.time() - t0:.0f}s", flush=True)
-    import csv
-    for phase in ("main", "comprehension"):
-        recs = []
-        for (ph, it), rr in zip(jobs, rows):
-            if ph != phase: continue
-            base = {k: v for k, v in it.items() if k != "prompt"}
-            base.update(counts="".join(map(str, it["counts"])), key=a.key, model=a.model_id, tag="local/bf16", temperature=1.0,
-                        served="local-hf-transformers", cost=0.0)
-            for rep in (0, 1):
-                recs.append({**base, "rep": rep, **rr[rep]})
-        d = os.path.join(ROOT, "results", "llm", "stage1", phase); os.makedirs(d, exist_ok=True)
-        keys = list(dict.fromkeys(k for r in recs for k in r))
-        with open(os.path.join(d, f"{a.key}.csv"), "w", newline="") as f:
-            w = csv.DictWriter(f, fieldnames=keys); w.writeheader(); w.writerows(recs)
-    ad = os.path.join(ROOT, "results", "llm", "activations", a.key); os.makedirs(ad, exist_ok=True)
-    for L in layers:
-        np.save(os.path.join(ad, f"layer_{L:03d}.npy"), acts[L])
-    with open(os.path.join(ad, "index.csv"), "w", newline="") as f:
-        w = csv.writer(f); w.writerow(["row", "phase", "arm", "question", "counts", "s0", "mapping", "order", "perm", "seq"])
-        for i, (ph, it) in enumerate(jobs):
-            w.writerow([i, ph, it["arm"], it.get("question", ""), "".join(map(str, it["counts"])), it["s0"], it["mapping"], it["order"], it["perm"], it["seq"]])
+            assert int(enc["attention_mask"].sum()) == enc["attention_mask"].numel(), "padding in a batch"
+            done = done_before + s + 1; el = time.time() - t0
+            progress(key=a.key, stage="forward passes", model=a.model_id, rep=rep, batch=s + 1, n_batches=len(batches),
+                     done=done, total=n_total, elapsed_s=el, eta_s=el / done * (n_total - done), n_prompts=len(jobs))
+            if s % 50 == 0:
+                print(f"  rep {rep} batch {s}/{len(batches)} {time.time() - t0:.0f}s", flush=True)
+        done_before += len(batches)
+        if rep == 0:     # replicate-0 checkpoint: written and (on a pod) uploaded before replicate 1 starts
+            write_outputs(a.key + "-rep0", (0,))
+            if os.environ.get("RUN"):
+                import pod_tracker
+                pod_tracker.upload(os.environ["RUN"], a.key + "-rep0")
+    progress(key=a.key, stage="writing outputs", model=a.model_id, done=done_before, total=done_before)
+    write_outputs(a.key, (0, 1))
+    progress(key=a.key, stage="done", model=a.model_id, done=done_before, total=done_before, elapsed_s=time.time() - t0)
     print(f"done {a.key}: {len(jobs)} prompts x 2 reps in {time.time() - t0:.0f}s", flush=True)
 
 

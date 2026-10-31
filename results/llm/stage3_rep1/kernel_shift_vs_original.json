@@ -1,0 +1,44 @@
+{
+ "P1": {
+  "configs": 41,
+  "mean_abs_dP": 0.0012332269599118733,
+  "mean_dP_signed_toward_stay": -0.00023949960467756874,
+  "mean_abs_dlogit": 0.055969671698293894
+ },
+ "P2": {
+  "configs": 59,
+  "mean_abs_dP": 0.0012896553520717858,
+  "mean_dP_signed_toward_stay": 0.00017914460121474415,
+  "mean_abs_dlogit": 0.018930505269897566
+ },
+ "P3": {
+  "configs": 48,
+  "mean_abs_dP": 0.001914186954138261,
+  "mean_dP_signed_toward_stay": 0.0019141869441495105,
+  "mean_abs_dlogit": 0.05518855470065721
+ },
+ "P4": {
+  "configs": 34,
+  "mean_abs_dP": 0.0025826361899235315,
+  "mean_dP_signed_toward_stay": 0.0009161904507898263,
+  "mean_abs_dlogit": 0.10698133662585461
+ },
+ "P5": {
+  "configs": 10,
+  "mean_abs_dP": 0.006003943577124667,
+  "mean_dP_signed_toward_stay": 0.0024843750775411745,
+  "mean_abs_dlogit": 0.10631862735603717
+ },
+ "P2-nc": {
+  "configs": 2,
+  "mean_abs_dP": 0.00016815445876592987,
+  "mean_dP_signed_toward_stay": -0.00016815445876592057,
+  "mean_abs_dlogit": 0.006709222809369172
+ },
+ "P4-nc": {
+  "configs": 2,
+  "mean_abs_dP": 0.0013362334509476868,
+  "mean_dP_signed_toward_stay": -0.0013362334509476794,
+  "mean_abs_dlogit": 0.030500809048258238
+ }
+}

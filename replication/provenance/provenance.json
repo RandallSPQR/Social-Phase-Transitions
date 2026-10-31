@@ -1,0 +1,458 @@
+{
+ "generated_utc": "2026-10-30T20:56:02Z",
+ "rows": [
+  {
+   "commit": "e9c7e47a71105ad2eacdf235b0c62f5e451510d4",
+   "short": "e9c7e47",
+   "document": "llm/PREREG.md",
+   "fixes": "Stage 1 battery, hypotheses H1\u2013H5",
+   "committed": "2026-10-08T15:51:37+00:00",
+   "github_first_push": "2026-10-08T15:51:39Z",
+   "github_push_event": 45866889418,
+   "file_git_blob": "da92e4ceb2bf459a3794aad7008c8838946c1ea1",
+   "file_sha256": "8d088aa648849fb3c85949f45615dc704864fdf5f3cdbee27e0c3668330dbb17",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_pilot",
+     "time": "2026-10-08T16:28:13Z"
+    },
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_main",
+     "time": "2026-10-08T18:36:15Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "8c0ab352e7607ce7f71118c406b68e15b1bdc45b",
+   "short": "8c0ab35",
+   "document": "llm/PREREG.md (Amendment 1)",
+   "fixes": "H3 test, estimand",
+   "committed": "2026-10-08T15:59:12+00:00",
+   "github_first_push": "2026-10-08T15:59:14Z",
+   "github_push_event": 45867614371,
+   "file_git_blob": "5ea5c1d6ddce18bcded3efc3bece1ad01a4af176",
+   "file_sha256": "13e929e0ea80a1b714937730189cba8f082a3ae0c82ce964847423d628f3c8f8",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_pilot",
+     "time": "2026-10-08T16:28:13Z"
+    },
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_main",
+     "time": "2026-10-08T18:36:15Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "9bf6c28f54467373ae32cd4beccf32419fa5d498",
+   "short": "9bf6c28",
+   "document": "llm/PREREG.md (Amendment 2)",
+   "fixes": "answer instruction v2 after the pilot",
+   "committed": "2026-10-08T16:53:38+00:00",
+   "github_first_push": "2026-10-08T16:53:41Z",
+   "github_push_event": 45872754059,
+   "file_git_blob": "1dbb551c9c2c133a96b39c61100b590a85e49610",
+   "file_sha256": "aaf630049eaa5812d57a06a921585892fe5f00d3a722b6ad28816b1f04216cda",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_main",
+     "time": "2026-10-08T18:36:15Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "483decc1b031226e328a22d0ae581f2e8bcf9738",
+   "short": "483decc",
+   "document": "llm/PREREG.md (Amendment 3)",
+   "fixes": "comprehension gate, temperature check, Stage 3 option order",
+   "committed": "2026-10-08T18:34:02+00:00",
+   "github_first_push": "2026-10-08T18:34:05Z",
+   "github_push_event": 45881955302,
+   "file_git_blob": "c7a2c4eacda0d6503b6227c5ee3228624e85922b",
+   "file_sha256": "a4f7f37fc2d193717aa0464567987fa248dc58883dc5c7bbaf7be25cb1ad4e13",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_comprehension",
+     "time": "2026-10-08T18:34:22Z"
+    },
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_main",
+     "time": "2026-10-08T18:36:15Z"
+    },
+    {
+     "kind": "first API call (client clock)",
+     "what": "s1_temp",
+     "time": "2026-10-08T20:03:09Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "ee18890192a54af67019c1946e0a21fd51e02acd",
+   "short": "ee18890",
+   "document": "llm/PREREG.md (Amendment 4)",
+   "fixes": "self-hosted bf16 Gemma-4",
+   "committed": "2026-10-08T23:48:49+00:00",
+   "github_first_push": "2026-10-08T23:48:51Z",
+   "github_push_event": 45906683326,
+   "file_git_blob": "b3b4cec3c6f2a7f2ef3b3828f0e476b763f4bac6",
+   "file_sha256": "6f2714336478674544ebb401f33cbed0f2aa2f5d97b2ceb14148db42b600f112",
+   "data": [
+    {
+     "kind": "HF run upload (server)",
+     "what": "first upload of run e3zan9ygnmqe45",
+     "time": "2026-10-09T21:38:14Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "7705d1295730880a458260287d8dd5c475ed607c",
+   "short": "7705d12",
+   "document": "llm/PREREG.md (Amendment 5)",
+   "fixes": "rescue rerun of Gemma-26B at batch size 1",
+   "committed": "2026-10-11T15:16:37+00:00",
+   "github_first_push": "2026-10-11T15:16:40Z",
+   "github_push_event": 46144240340,
+   "file_git_blob": "9be75872473f24d8db6a4df299e2f78804df0550",
+   "file_sha256": "21369b59c952772f5a002475bab4c05d3ed7bc001d0b72ca124fedc5501904cc",
+   "data": [
+    {
+     "kind": "HF run upload (server)",
+     "what": "first upload of run 4p4a463q78clp0",
+     "time": "2026-10-11T15:53:10Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "878724e40403ff4647c891767181730c4be3745b",
+   "short": "878724e",
+   "document": "llm/STAGE3_PREDICTIONS.md",
+   "fixes": "Stage 3 predictions",
+   "committed": "2026-10-09T00:44:57+00:00",
+   "github_first_push": "2026-10-09T00:44:59Z",
+   "github_push_event": 45910050457,
+   "file_git_blob": "bcbda48340d2649b64244a49ad3269f22c738ffb",
+   "file_sha256": "2c23c118954137233a0c15e124ed1e954afb4b26e88c318e7e15b0c256a421d1",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "stage3",
+     "time": "2026-10-09T16:39:31Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "de0ff0829ed5f47898177acedd15868dd840fd33",
+   "short": "de0ff08",
+   "document": "llm/STAGE3_PREDICTIONS.md (addendum)",
+   "fixes": "Stage 3 pre-data addendum",
+   "committed": "2026-10-09T16:38:58+00:00",
+   "github_first_push": "2026-10-09T16:39:00Z",
+   "github_push_event": 45982993861,
+   "file_git_blob": "0f950795650790384a714f36e517f66fd6563e4b",
+   "file_sha256": "08496e885cbb0577d180f33a487c31adf7bb100854c31322106f0ee6377b1063",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "stage3",
+     "time": "2026-10-09T16:39:31Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "4c3924a4844bb4edc70de022bbe130f1e1dcac88",
+   "short": "4c3924a",
+   "document": "llm/STAGE3_AUDIT_PLAN.md",
+   "fixes": "harness audit",
+   "committed": "2026-10-12T17:12:38+00:00",
+   "github_first_push": "2026-10-12T17:12:41Z",
+   "github_push_event": 46254670479,
+   "file_git_blob": "e54d66743e6fb3ff0b65d3dc8c410793d0cfd75a",
+   "file_sha256": "01b43f741c7ba4cb70db342ef6d8f793966ed3bdd62826dfa1104415087c584e",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/STAGE3_AUDIT_RESULTS.md (d945bbb)",
+     "time": "2026-10-12T17:27:12Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "fe65958821c56a47e09644355aeedc0d9e8baa6e",
+   "short": "fe65958",
+   "document": "llm/KERNEL_TEST_PLAN.md",
+   "fixes": "three-kernel test, outcome map",
+   "committed": "2026-10-12T17:59:49+00:00",
+   "github_first_push": "2026-10-12T17:59:51Z",
+   "github_push_event": 46258644353,
+   "file_git_blob": "3a882ac67050b79d5778a539fe203878eeafa286",
+   "file_sha256": "959ae7429667a395e8a54ba79a375ac26c7847f8bc71ebd34104e176708e64f0",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "kavg",
+     "time": "2026-10-12T19:00:01Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "f6b1922a5a48c84b03bd536cdf743ba38dd29246",
+   "short": "f6b1922",
+   "document": "llm/KERNEL_TEST_PLAN.md (amendment)",
+   "fixes": "K_avg options",
+   "committed": "2026-10-12T18:59:05+00:00",
+   "github_first_push": "2026-10-12T18:59:06Z",
+   "github_push_event": 46263630280,
+   "file_git_blob": "a6544f63278e5d35479121d6b3ba396dc76dfbbf",
+   "file_sha256": "8412ea12b4997d661f1915a9deb6f6deeb03b9bf9c3bb0c2f381ba371a8abbcd",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "kavg",
+     "time": "2026-10-12T19:00:01Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "9c759f7228e6fcf17cd651493397e0483fee2005",
+   "short": "9c759f7",
+   "document": "llm/RESIDUAL_TEST_PLAN.md",
+   "fixes": "heterogeneity test, replicate design",
+   "committed": "2026-10-12T20:22:05+00:00",
+   "github_first_push": "2026-10-12T20:22:07Z",
+   "github_push_event": 46270558279,
+   "file_git_blob": "8033ede32eebb7e08c3b7e3c1c3bd44d977c42ec",
+   "file_sha256": "fa3accb05df2a502837b0af5dcf182cd423ad090bb971a698dbbf6420c09038c",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "stage3-rep1",
+     "time": "2026-10-13T00:51:54Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "b27d83af27eadbb52b9cf2ee858be83e0826d565",
+   "short": "b27d83a",
+   "document": "llm/RESIDUAL_TEST_PLAN.md (amendment 1)",
+   "fixes": "power, sentinels",
+   "committed": "2026-10-13T00:40:24+00:00",
+   "github_first_push": "2026-10-13T00:40:27Z",
+   "github_push_event": 46288622307,
+   "file_git_blob": "aaafdf111f5afc502c899de66ba71de2001a38ba",
+   "file_sha256": "c51666687ddcaffc00057ff7ecd92ce5ba116a3bdd3bfac7db45926008d6c8dd",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "stage3-rep1",
+     "time": "2026-10-13T00:51:54Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "93bd950ebb09e0903516ea983cd1168b1f6f13de",
+   "short": "93bd950",
+   "document": "llm/RESIDUAL_TEST_PLAN.md (amendment 2)",
+   "fixes": "no-contacts predictions",
+   "committed": "2026-10-13T00:51:19+00:00",
+   "github_first_push": "2026-10-13T00:51:21Z",
+   "github_push_event": 46289277982,
+   "file_git_blob": "007f0d33c9f45a0cfb2e58c696abaf67b8c11843",
+   "file_sha256": "99ef02ea801985f66b84c86acef58d6c1074b69795d7349badded76227f42829",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "stage3-rep1",
+     "time": "2026-10-13T00:51:54Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "f06db97475d4fd6fda906dba75b25f19a4afbd54",
+   "short": "f06db97",
+   "document": "llm/REPLAY_AUDIT_PLAN.md",
+   "fixes": "replay audit, combined effect",
+   "committed": "2026-10-13T17:25:03+00:00",
+   "github_first_push": "2026-10-13T17:25:08Z",
+   "github_push_event": 46374260535,
+   "file_git_blob": "f0d7da3f1fc3ff0951a3adfdbfcf8ea8afd17fcb",
+   "file_sha256": "42a46a1463cd7af386cd2e7e3d4ea4541a5639037ed6e34abbd4f5a6ea0359ff",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/stage3_rep1/persistence_effect_combined.json (546c564)",
+     "time": "2026-10-13T17:29:28Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "18f619e3d3e54a7d81ba44952a142440bbe5a6c4",
+   "short": "18f619e",
+   "document": "llm/AMPLIFICATION_PLAN.md",
+   "fixes": "Stage B amplification test",
+   "committed": "2026-10-13T18:15:49+00:00",
+   "github_first_push": "2026-10-13T18:15:51Z",
+   "github_push_event": 46379224123,
+   "file_git_blob": "ec09b3b61ae72c8cb946dfc21900f1ce793667b4",
+   "file_sha256": "da6cd089fe944a6cd9751065ab514a14228a26480c83e76f0992423f1c6c171d",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/amplification/verdict.json (8da7862)",
+     "time": "2026-10-13T23:43:52Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "eef27e661b788eb71f8f2e3f0285005ea66bb929",
+   "short": "eef27e6",
+   "document": "llm/AMPLIFICATION_PLAN.md (amendment 1)",
+   "fixes": "T_c relocation rule",
+   "committed": "2026-10-13T18:20:45+00:00",
+   "github_first_push": "2026-10-13T18:20:47Z",
+   "github_push_event": 46379701165,
+   "file_git_blob": "3434fa64fe1946f80a7438db41458724a9734257",
+   "file_sha256": "24a41a3d376af83f5911d9ef1335e0a7e60d99517269557c81a8f8f94c0da238",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/amplification/verdict.json (8da7862)",
+     "time": "2026-10-13T23:43:52Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "76aad7829e7dbfe61dbe280f5d6f9827be689bb3",
+   "short": "76aad78",
+   "document": "llm/AMPLIFICATION_CONFIRM_PLAN.md",
+   "fixes": "corrected confirmatory test",
+   "committed": "2026-10-14T00:00:35+00:00",
+   "github_first_push": "2026-10-14T00:00:37Z",
+   "github_push_event": 46408574470,
+   "file_git_blob": "f75c961fbd2b2b9eb2703e03f48918a2e0af9871",
+   "file_sha256": "981a3eefd07c81928572b0c68e0dd6336a0fb2b1cfb40290dc7faa206b9beaa2",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "confirm",
+     "time": "2026-10-14T00:29:13Z"
+    },
+    {
+     "kind": "HF run upload (server)",
+     "what": "first upload of run yor638ho767zok",
+     "time": "2026-10-14T01:00:45Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "32daeac5f301affa33ef34f72da253f2f1f9580f",
+   "short": "32daeac",
+   "document": "llm/AMPLIFICATION_CONFIRM_PLAN.md (amendment 1)",
+   "fixes": "model selection",
+   "committed": "2026-10-14T00:16:49+00:00",
+   "github_first_push": "2026-10-14T00:16:51Z",
+   "github_push_event": 46409681059,
+   "file_git_blob": "9669b554b331ea2482b5be607b9af15a000dc763",
+   "file_sha256": "c5134ea1fa926179ed27eed898958ecde2c04743f4d0dd20681dd59ddc0ce72e",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "confirm",
+     "time": "2026-10-14T00:29:13Z"
+    },
+    {
+     "kind": "HF run upload (server)",
+     "what": "first upload of run yor638ho767zok",
+     "time": "2026-10-14T01:00:45Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "0b699983fd8a6b759cc27dde6247ddf6c65baf97",
+   "short": "0b69998",
+   "document": "llm/AMPLIFICATION_CONFIRM_PLAN.md (amendment 2)",
+   "fixes": "guardrail re-pin of candidates 1 and 3",
+   "committed": "2026-10-14T00:30:28+00:00",
+   "github_first_push": "2026-10-14T00:30:30Z",
+   "github_push_event": 46410576978,
+   "file_git_blob": "cf096477d90543b75a897c5f51244dfaac1e3ce3",
+   "file_sha256": "8a2d13bc43b17e37b247a8dfaee549c37e7fa5e1b4ce694f542e042162bfe99d",
+   "data": [
+    {
+     "kind": "first API call (client clock)",
+     "what": "calls to deepseek/deepseek-v4.1-flash",
+     "time": "2026-10-14T00:30:37Z"
+    },
+    {
+     "kind": "first API call (client clock)",
+     "what": "calls to deepseek/deepseek-v4-pro-0813",
+     "time": "2026-10-14T00:30:42Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "ef5674dfb2488bd33469a0726820af5ae251dc00",
+   "short": "ef5674d",
+   "document": "llm/AMPLIFICATION_CONFIRM_PLAN.md (amendment 3)",
+   "fixes": "negative control, labels",
+   "committed": "2026-10-14T14:35:11+00:00",
+   "github_first_push": "2026-10-14T14:35:14Z",
+   "github_push_event": 46480637036,
+   "file_git_blob": "96f85163c7ad4887f3a3d30e3b6d7e391be4734d",
+   "file_sha256": "beecfcf1fe0498e4ccefe4c62fe467c8d21a26a37aa1c51853412198aaa92796",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/confirm/results/step4.json (a9f0807)",
+     "time": "2026-10-14T17:24:04Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  },
+  {
+   "commit": "f9d5e0c5a202c65851c5ac1df30003bae443a34e",
+   "short": "f9d5e0c",
+   "document": "llm/GEMMA_MECHANISM_PLAN.md",
+   "fixes": "Gemma mechanism test (exploratory)",
+   "committed": "2026-10-14T23:23:05+00:00",
+   "github_first_push": "2026-10-14T23:23:07Z",
+   "github_push_event": 46530983800,
+   "file_git_blob": "b9080e397c6f800d6f47f78cd4bfcadab2149476",
+   "file_sha256": "b155866b2c520e5b25a11f127ffeeea1adaef5d1ae07fe5111534de39482573c",
+   "data": [
+    {
+     "kind": "GitHub push (server)",
+     "what": "first push of results/llm/confirm/gemma_mechanism/summary.json (7899e5c)",
+     "time": "2026-10-14T23:26:57Z"
+    }
+   ],
+   "plan_pushed_before_data": true
+  }
+ ]
+}

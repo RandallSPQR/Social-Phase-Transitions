@@ -24,7 +24,9 @@ from analysis import fit_ce, logit
 OUT = os.path.join(client.ROOT, "results", "llm")
 
 
-def semantics():
+def semantics(*keys):
+    """keys: optional endpoint keys (default: every logprob endpoint in endpoints.E). The committed table predates the
+    backup endpoints added to endpoints.E later; replication/steps.py passes the 11 keys it was made from."""
     rows = []
     texts = [battery.render("neutral", (1, 0, 1, 0), 1, 0, 0, 0)[0], battery.render("neutral", (0, 2, 1, 0), -1, 0, 1, 0)[0]]
     def one(args):
@@ -36,7 +38,7 @@ def semantics():
             p = parse_lp(r["first"])["pA"]
             L[T] = None if p is None else float(np.clip(logit(np.array(p)), -15, 15))
         return key, i, L
-    jobs = [(k, i) for k, v in E.items() if v[2] == "lp" for i in range(2)]
+    jobs = [(k, i) for k, v in E.items() if v[2] == "lp" and (not keys or k in keys) for i in range(2)]
     with ThreadPoolExecutor(8) as ex:
         res = list(ex.map(one, jobs))
     by = {}

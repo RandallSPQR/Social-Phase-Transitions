@@ -1,0 +1,475 @@
+{
+ "per_point": {
+  "P1": {
+   "abs_m": {
+    "observed": 0.4431999999999999,
+    "ref_mean": 0.36332299999999995,
+    "ref_sd": 0.05217911575815805,
+    "ref_lo": 0.28197999999999995,
+    "ref_hi": 0.45922,
+    "inside": true,
+    "z": 1.5308231816387468,
+    "prereg_ref_mean_on_original_graphs": 0.360937
+   },
+   "m": {
+    "observed": -0.11400000000000002,
+    "ref_mean": -0.018527000000000002,
+    "ref_sd": 0.06765087785229001,
+    "ref_lo": -0.12761000000000003,
+    "ref_hi": 0.10283999999999996,
+    "inside": true,
+    "z": -1.4112603270050281,
+    "prereg_ref_mean_on_original_graphs": -0.048116000000000006
+   },
+   "persistence": {
+    "observed": 0.8187999999999999,
+    "ref_mean": 0.7987909999999999,
+    "ref_sd": 0.016163342882362923,
+    "ref_lo": 0.77238,
+    "ref_hi": 0.82442,
+    "inside": true,
+    "z": 1.2379246140866884,
+    "prereg_ref_mean_on_original_graphs": 0.795047
+   },
+   "excess_unsat": {
+    "observed": 0.11977500000000003,
+    "ref_mean": 0.130952,
+    "ref_sd": 0.006706408187468339,
+    "ref_lo": 0.12037000000000002,
+    "ref_hi": 0.14218,
+    "inside": false,
+    "z": -1.6666149282242366,
+    "prereg_ref_mean_on_original_graphs": 0.13572375
+   },
+   "flip_rate": {
+    "observed": 0.025500000000000002,
+    "ref_mean": 0.027489,
+    "ref_sd": 0.001952590721660786,
+    "ref_lo": 0.024495,
+    "ref_hi": 0.030604999999999993,
+    "inside": true,
+    "z": -1.0186466513106462,
+    "prereg_ref_mean_on_original_graphs": 0.028133
+   },
+   "abs_q": {
+    "observed": 0.2008,
+    "ref_mean": 0.175012,
+    "ref_sd": 0.053091447621310114,
+    "ref_lo": 0.09872000000000002,
+    "ref_hi": 0.26365999999999995,
+    "inside": true,
+    "z": 0.4857279497055772,
+    "prereg_ref_mean_on_original_graphs": 0.163446
+   }
+  },
+  "P2": {
+   "abs_m": {
+    "observed": 0.5554,
+    "ref_mean": 0.5796005000000001,
+    "ref_sd": 0.030471566922736622,
+    "ref_lo": 0.5311699999999999,
+    "ref_hi": 0.62885,
+    "inside": true,
+    "z": -0.7941993945162911,
+    "prereg_ref_mean_on_original_graphs": 0.5770234999999999
+   },
+   "m": {
+    "observed": 0.5554,
+    "ref_mean": 0.5796005000000001,
+    "ref_sd": 0.030471566922736622,
+    "ref_lo": 0.5311699999999999,
+    "ref_hi": 0.62885,
+    "inside": true,
+    "z": -0.7941993945162911,
+    "prereg_ref_mean_on_original_graphs": 0.5770184999999999
+   },
+   "persistence": {
+    "observed": 0.5993999999999999,
+    "ref_mean": 0.6175495,
+    "ref_sd": 0.019041507220887422,
+    "ref_lo": 0.5852,
+    "ref_hi": 0.6476299999999999,
+    "inside": true,
+    "z": -0.9531545895742485,
+    "prereg_ref_mean_on_original_graphs": 0.6140774999999999
+   },
+   "excess_unsat": {
+    "observed": 0.29155000000000003,
+    "ref_mean": 0.29564,
+    "ref_sd": 0.007555011283163105,
+    "ref_lo": 0.28315,
+    "ref_hi": 0.308155,
+    "inside": true,
+    "z": -0.5413625270308791,
+    "prereg_ref_mean_on_original_graphs": 0.29591850000000003
+   },
+   "flip_rate": {
+    "observed": 0.0655,
+    "ref_mean": 0.05891825,
+    "ref_sd": 0.0027768180952910553,
+    "ref_lo": 0.054395000000000006,
+    "ref_hi": 0.0637,
+    "inside": false,
+    "z": 2.3702488870846006,
+    "prereg_ref_mean_on_original_graphs": 0.05925450000000001
+   },
+   "abs_q": {
+    "observed": 0.32280000000000003,
+    "ref_mean": 0.351491,
+    "ref_sd": 0.04144969616632554,
+    "ref_lo": 0.28359999999999996,
+    "ref_hi": 0.4244,
+    "inside": true,
+    "z": -0.6921884272654583,
+    "prereg_ref_mean_on_original_graphs": 0.34501899999999996
+   }
+  },
+  "P3": {
+   "abs_m": {
+    "observed": 0.181,
+    "ref_mean": 0.17208949999999998,
+    "ref_sd": 0.0097445821847264,
+    "ref_lo": 0.15569,
+    "ref_hi": 0.18902499999999997,
+    "inside": true,
+    "z": 0.9144055467012511,
+    "prereg_ref_mean_on_original_graphs": 0.156891
+   },
+   "m": {
+    "observed": -0.1006,
+    "ref_mean": -0.09572949999999998,
+    "ref_sd": 0.01018541538014849,
+    "ref_lo": -0.11190999999999997,
+    "ref_hi": -0.078295,
+    "inside": true,
+    "z": -0.4781837380429946,
+    "prereg_ref_mean_on_original_graphs": -0.074446
+   },
+   "persistence": {
+    "observed": 0.9673999999999999,
+    "ref_mean": 0.9770645,
+    "ref_sd": 0.005358864929566117,
+    "ref_lo": 0.9675,
+    "ref_hi": 0.9856,
+    "inside": false,
+    "z": -1.8034602713493968,
+    "prereg_ref_mean_on_original_graphs": 0.9795430000000002
+   },
+   "excess_unsat": {
+    "observed": 0.260775,
+    "ref_mean": 0.257415875,
+    "ref_sd": 0.0033721248567481475,
+    "ref_lo": 0.25197500000000006,
+    "ref_hi": 0.2629275000000001,
+    "inside": true,
+    "z": 0.9961449064609308,
+    "prereg_ref_mean_on_original_graphs": 0.28375525
+   },
+   "flip_rate": {
+    "observed": 0.0026000000000000007,
+    "ref_mean": 0.0017793750000000004,
+    "ref_sd": 0.00038741914428483783,
+    "ref_lo": 0.0012000000000000001,
+    "ref_hi": 0.0024999999999999996,
+    "inside": false,
+    "z": 2.118183915549257,
+    "prereg_ref_mean_on_original_graphs": 0.0015952499999999997
+   },
+   "abs_q": {
+    "observed": 0.06999999999999999,
+    "ref_mean": 0.23581100000000002,
+    "ref_sd": 0.013445095965212915,
+    "ref_lo": 0.21459000000000003,
+    "ref_hi": 0.2584100000000001,
+    "inside": false,
+    "z": -12.332451953411868,
+    "prereg_ref_mean_on_original_graphs": 0.08093600000000001
+   }
+  },
+  "P4": {
+   "abs_m": {
+    "observed": 0.959,
+    "ref_mean": 0.936537,
+    "ref_sd": 0.008465067893176657,
+    "ref_lo": 0.9225799999999998,
+    "ref_hi": 0.94942,
+    "inside": false,
+    "z": 2.6536113216654185,
+    "prereg_ref_mean_on_original_graphs": 0.937106
+   },
+   "m": {
+    "observed": 0.959,
+    "ref_mean": 0.936537,
+    "ref_sd": 0.008465067893176657,
+    "ref_lo": 0.9225799999999998,
+    "ref_hi": 0.94942,
+    "inside": false,
+    "z": 2.6536113216654185,
+    "prereg_ref_mean_on_original_graphs": 0.937106
+   },
+   "persistence": {
+    "observed": 0.9038,
+    "ref_mean": 0.879093,
+    "ref_sd": 0.014791000142418787,
+    "ref_lo": 0.8550000000000001,
+    "ref_hi": 0.90346,
+    "inside": false,
+    "z": 1.6704076642622272,
+    "prereg_ref_mean_on_original_graphs": 0.8802679999999999
+   },
+   "excess_unsat": {
+    "observed": 0.08807500000000004,
+    "ref_mean": 0.09316675000000003,
+    "ref_sd": 0.0028557389674347547,
+    "ref_lo": 0.08857500000000003,
+    "ref_hi": 0.09827500000000004,
+    "inside": false,
+    "z": -1.7829885917667732,
+    "prereg_ref_mean_on_original_graphs": 0.09353800000000004
+   },
+   "flip_rate": {
+    "observed": 0.0206,
+    "ref_mean": 0.0274755,
+    "ref_sd": 0.0024597817108765784,
+    "ref_lo": 0.0236,
+    "ref_hi": 0.0317,
+    "inside": false,
+    "z": -2.7951667294695905,
+    "prereg_ref_mean_on_original_graphs": 0.027442
+   },
+   "abs_q": {
+    "observed": 0.9219999999999999,
+    "ref_mean": 0.881066,
+    "ref_sd": 0.015559926809139056,
+    "ref_lo": 0.8548,
+    "ref_hi": 0.9040200000000002,
+    "inside": false,
+    "z": 2.6307321687372918,
+    "prereg_ref_mean_on_original_graphs": 0.881454
+   }
+  },
+  "P5": {
+   "abs_m": {
+    "observed": 0.2934,
+    "ref_mean": 0.39517,
+    "ref_sd": 0.08467290980080545,
+    "ref_lo": 0.25692000000000004,
+    "ref_hi": 0.54209,
+    "inside": true,
+    "z": -1.2019192471289317,
+    "prereg_ref_mean_on_original_graphs": 0.38228100000000004
+   },
+   "m": {
+    "observed": -0.15739999999999998,
+    "ref_mean": 0.00672,
+    "ref_sd": 0.12732386428333103,
+    "ref_lo": -0.19996,
+    "ref_hi": 0.20580999999999997,
+    "inside": true,
+    "z": -1.2889963788311303,
+    "prereg_ref_mean_on_original_graphs": 0.002986
+   },
+   "persistence": {
+    "observed": 0.5721999999999999,
+    "ref_mean": 0.481537,
+    "ref_sd": 0.057516871501048894,
+    "ref_lo": 0.38479,
+    "ref_hi": 0.5748099999999999,
+    "inside": true,
+    "z": 1.5762853165326731,
+    "prereg_ref_mean_on_original_graphs": 0.476607
+   },
+   "excess_unsat": {
+    "observed": 0.24559999999999998,
+    "ref_mean": 0.24861775000000003,
+    "ref_sd": 0.02842397078568657,
+    "ref_lo": 0.201435,
+    "ref_hi": 0.29306999999999994,
+    "inside": true,
+    "z": -0.10616919158669015,
+    "prereg_ref_mean_on_original_graphs": 0.25186625
+   },
+   "flip_rate": {
+    "observed": 0.1085,
+    "ref_mean": 0.13442500000000002,
+    "ref_sd": 0.019344711672035473,
+    "ref_lo": 0.10235000000000001,
+    "ref_hi": 0.16513499999999998,
+    "inside": true,
+    "z": -1.3401595453850546,
+    "prereg_ref_mean_on_original_graphs": 0.1352025
+   },
+   "abs_q": {
+    "observed": 0.1092,
+    "ref_mean": 0.19858,
+    "ref_sd": 0.06658008312304574,
+    "ref_lo": 0.1072,
+    "ref_hi": 0.3176999999999999,
+    "inside": true,
+    "z": -1.3424435027336636,
+    "prereg_ref_mean_on_original_graphs": 0.188514
+   }
+  },
+  "P2-nc": {
+   "abs_m": {
+    "observed": 0.165,
+    "ref_mean": 0.1899995,
+    "ref_sd": 0.025185035532771592,
+    "ref_lo": 0.14998999999999998,
+    "ref_hi": 0.233,
+    "inside": true,
+    "z": -0.9926331041887876,
+    "prereg_ref_mean_on_original_graphs": 0.18909299999999998
+   },
+   "m": {
+    "observed": 0.165,
+    "ref_mean": 0.18711950000000002,
+    "ref_sd": 0.02675766340934536,
+    "ref_lo": 0.14297999999999997,
+    "ref_hi": 0.23103999999999997,
+    "inside": true,
+    "z": -0.8266603724551889,
+    "prereg_ref_mean_on_original_graphs": 0.186099
+   },
+   "persistence": {
+    "observed": 0.7558,
+    "ref_mean": 0.7701825,
+    "ref_sd": 0.014771950448404758,
+    "ref_lo": 0.74718,
+    "ref_hi": 0.79401,
+    "inside": true,
+    "z": -0.9736358140541386,
+    "prereg_ref_mean_on_original_graphs": 0.77047
+   },
+   "excess_unsat": {
+    "observed": 0.35555000000000003,
+    "ref_mean": 0.34867925,
+    "ref_sd": 0.009729863567909123,
+    "ref_lo": 0.33321,
+    "ref_hi": 0.364455,
+    "inside": true,
+    "z": 0.7061507031466538,
+    "prereg_ref_mean_on_original_graphs": 0.34640574999999996
+   },
+   "flip_rate": {
+    "observed": 0.0259,
+    "ref_mean": 0.024397500000000003,
+    "ref_sd": 0.0014761576316177953,
+    "ref_lo": 0.021995,
+    "ref_hi": 0.0269,
+    "inside": true,
+    "z": 1.0178452272426568,
+    "prereg_ref_mean_on_original_graphs": 0.02435425
+   },
+   "abs_q": {
+    "observed": 0.06920000000000001,
+    "ref_mean": 0.08118700000000001,
+    "ref_sd": 0.020903507422353577,
+    "ref_lo": 0.05080000000000001,
+    "ref_hi": 0.1196,
+    "inside": true,
+    "z": -0.5734444348407035,
+    "prereg_ref_mean_on_original_graphs": 0.08271800000000001
+   }
+  },
+  "P4-nc": {
+   "abs_m": {
+    "observed": 0.606,
+    "ref_mean": 0.606089,
+    "ref_sd": 0.019582250645696395,
+    "ref_lo": 0.5723700000000002,
+    "ref_hi": 0.635,
+    "inside": true,
+    "z": -0.004544932122986861,
+    "prereg_ref_mean_on_original_graphs": 0.6035335
+   },
+   "m": {
+    "observed": 0.606,
+    "ref_mean": 0.606089,
+    "ref_sd": 0.019582250645696395,
+    "ref_lo": 0.5723700000000002,
+    "ref_hi": 0.635,
+    "inside": true,
+    "z": -0.004544932122986861,
+    "prereg_ref_mean_on_original_graphs": 0.6035335
+   },
+   "persistence": {
+    "observed": 0.6372000000000001,
+    "ref_mean": 0.640654,
+    "ref_sd": 0.01695134372654093,
+    "ref_lo": 0.6153799999999999,
+    "ref_hi": 0.6674399999999999,
+    "inside": true,
+    "z": -0.20375965797872858,
+    "prereg_ref_mean_on_original_graphs": 0.6392924999999999
+   },
+   "excess_unsat": {
+    "observed": 0.24837500000000007,
+    "ref_mean": 0.2501955,
+    "ref_sd": 0.0095266138095701,
+    "ref_lo": 0.23416499999999998,
+    "ref_hi": 0.264905,
+    "inside": true,
+    "z": -0.19109623171363754,
+    "prereg_ref_mean_on_original_graphs": 0.252264
+   },
+   "flip_rate": {
+    "observed": 0.0503,
+    "ref_mean": 0.050786,
+    "ref_sd": 0.0024655936160890846,
+    "ref_lo": 0.046695,
+    "ref_hi": 0.05499999999999999,
+    "inside": true,
+    "z": -0.19711277512589107,
+    "prereg_ref_mean_on_original_graphs": 0.05087375000000001
+   },
+   "abs_q": {
+    "observed": 0.3752,
+    "ref_mean": 0.367294,
+    "ref_sd": 0.030003748537737577,
+    "ref_lo": 0.31439999999999996,
+    "ref_hi": 0.4136,
+    "inside": true,
+    "z": 0.26350040862581225,
+    "prereg_ref_mean_on_original_graphs": 0.36531099999999994
+   }
+  }
+ },
+ "primary": {
+  "arms": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "P2-nc",
+   "P4-nc"
+  ],
+  "z": {
+   "P1": 1.2379246140866884,
+   "P2": -0.9531545895742485,
+   "P3": -1.8034602713493968,
+   "P4": 1.6704076642622272,
+   "P2-nc": -0.9736358140541386,
+   "P4-nc": -0.20375965797872858
+  },
+  "stouffer_Z": -0.4187313123598522,
+  "p_one_sided": 0.6622937455538206,
+  "excess_repeats": false
+ },
+ "flip_rate_stouffer": 0.6104748461903443,
+ "repeat_or_move": {
+  "P1_abs_m_below": false,
+  "P1_abs_m_z": 1.5308231816387468,
+  "P3_persistence_above": false,
+  "P3_persistence_z": -1.8034602713493968
+ },
+ "per_point_primary_pass": {
+  "P1": true,
+  "P2": true,
+  "P3": false,
+  "P4": false,
+  "P5": true,
+  "P2-nc": true,
+  "P4-nc": true
+ }
+}

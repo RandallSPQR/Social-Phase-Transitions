@@ -1,0 +1,58 @@
+{
+ "run": "e3zan9ygnmqe45",
+ "dataset": "RandallSPQR/social-phase-transitions-llm-cache (private)",
+ "activations": {
+  "gemma-26b-local": {
+   "path": "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local/",
+   "files": [
+    "index.csv",
+    "layer_005.npy",
+    "layer_010.npy",
+    "layer_015.npy",
+    "layer_020.npy",
+    "layer_025.npy",
+    "layer_030.npy"
+   ],
+   "bytes": 281928251
+  },
+  "gemma-26b-local-smoke": {
+   "path": "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-26b-local-smoke/",
+   "files": [
+    "index.csv",
+    "layer_005.npy",
+    "layer_010.npy",
+    "layer_015.npy",
+    "layer_020.npy",
+    "layer_025.npy",
+    "layer_030.npy"
+   ],
+   "bytes": 1692929
+  },
+  "gemma-31b-local": {
+   "path": "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local/",
+   "files": [
+    "index.csv",
+    "layer_010.npy",
+    "layer_020.npy",
+    "layer_030.npy",
+    "layer_040.npy",
+    "layer_050.npy",
+    "layer_060.npy"
+   ],
+   "bytes": 537825851
+  },
+  "gemma-31b-local-smoke": {
+   "path": "runs/e3zan9ygnmqe45/results/results/llm/activations/gemma-31b-local-smoke/",
+   "files": [
+    "index.csv",
+    "layer_010.npy",
+    "layer_020.npy",
+    "layer_030.npy",
+    "layer_040.npy",
+    "layer_050.npy",
+    "layer_060.npy"
+   ],
+   "bytes": 3228929
+  }
+ }
+}

@@ -1,0 +1,105 @@
+{
+ "run": "rep1",
+ "mock": false,
+ "t": 1791906670.208681,
+ "elapsed_h": 14.997,
+ "spend_usd": 5.2934,
+ "budget_usd": 7.0,
+ "streams": {
+  "alibaba": {
+   "points": [
+    "P1"
+   ],
+   "current": null,
+   "chains_done": 10,
+   "chains_total": 10,
+   "calls": 0,
+   "errors": 0,
+   "sentinel_rounds": 8,
+   "last_sentinel": {
+    "near_half": 0.5,
+    "typical_1": 0.9998,
+    "typical_2": 0.9964
+   },
+   "finished": true,
+   "eta_h": 0.0
+  },
+  "parasail": {
+   "points": [
+    "P2",
+    "P2-nc"
+   ],
+   "current": null,
+   "chains_done": 20,
+   "chains_total": 20,
+   "calls": 2000,
+   "errors": 0,
+   "sentinel_rounds": 8,
+   "last_sentinel": {
+    "near_half": 0.5625,
+    "typical_1": 0.974,
+    "typical_2": 0.982
+   },
+   "finished": true,
+   "eta_h": 0.0
+  },
+  "coreweave": {
+   "points": [
+    "P3"
+   ],
+   "current": null,
+   "chains_done": 10,
+   "chains_total": 10,
+   "calls": 0,
+   "errors": 0,
+   "sentinel_rounds": 8,
+   "last_sentinel": {
+    "near_half": 0.4378,
+    "typical_1": 0.0,
+    "typical_2": 0.0
+   },
+   "finished": true,
+   "eta_h": 0.0
+  },
+  "ionet": {
+   "points": [
+    "P4",
+    "P4-nc"
+   ],
+   "current": null,
+   "chains_done": 20,
+   "chains_total": 20,
+   "calls": 2000,
+   "errors": 0,
+   "sentinel_rounds": 8,
+   "last_sentinel": {
+    "near_half": 0.5,
+    "typical_1": 0.9964,
+    "typical_2": 0.9975
+   },
+   "finished": true,
+   "eta_h": 0.0
+  },
+  "openai": {
+   "points": [
+    "P5"
+   ],
+   "current": null,
+   "chains_done": 10,
+   "chains_total": 10,
+   "calls": 2000,
+   "errors": 0,
+   "sentinel_rounds": 8,
+   "last_sentinel": {
+    "near_half": 0.4,
+    "typical_1": 0.0,
+    "typical_2": 0.4
+   },
+   "finished": true,
+   "eta_h": 0.0
+  }
+ },
+ "stopped": false,
+ "done": true,
+ "streams_finished": true
+}

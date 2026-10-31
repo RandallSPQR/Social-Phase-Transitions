@@ -1,0 +1,300 @@
+$ python llm/replicate_predictions.py
+P1 K_avg {'abs_m': '0.361 [0.273, 0.449]', 'm': '-0.048 [-0.176, 0.075]', 'persistence': '0.795 [0.765, 0.825]', 'flip_rate': '0.028 [0.025, 0.032]'}
+P2 K_avg {'abs_m': '0.577 [0.522, 0.631]', 'm': '0.577 [0.522, 0.631]', 'persistence': '0.614 [0.581, 0.650]', 'flip_rate': '0.059 [0.055, 0.064]'}
+P3 K_avg {'abs_m': '0.157 [0.140, 0.176]', 'm': '-0.074 [-0.092, -0.053]', 'persistence': '0.980 [0.970, 0.987]', 'flip_rate': '0.002 [0.001, 0.002]'}
+P4 K_avg {'abs_m': '0.937 [0.923, 0.950]', 'm': '0.937 [0.923, 0.950]', 'persistence': '0.880 [0.854, 0.903]', 'flip_rate': '0.027 [0.024, 0.032]'}
+P5 K_avg {'abs_m': '0.382 [0.238, 0.524]', 'm': '0.003 [-0.222, 0.209]', 'persistence': '0.477 [0.388, 0.570]', 'flip_rate': '0.135 [0.106, 0.166]'}
+P2-nc K_live (original run; secondary) {'abs_m': '0.188 [0.150, 0.227]', 'm': '0.184 [0.147, 0.227]', 'persistence': '0.771 [0.745, 0.796]', 'flip_rate': '0.024 [0.022, 0.027]'}
+P4-nc K_live (original run; secondary) {'abs_m': '0.616 [0.587, 0.650]', 'm': '0.616 [0.587, 0.650]', 'persistence': '0.655 [0.621, 0.682]', 'flip_rate': '0.048 [0.044, 0.052]'}
+$ python llm/stage3_replicate.py ncbattery
+       calls  leak_max      cost
+point                           
+P2-nc     16  0.001905  0.000230
+P4-nc     16  0.034361  0.000025 {'Parasail': 16, 'Io Net': 16}
+P2-nc {'m': '0.186 [0.145, 0.228]', 'persistence': '0.770 [0.746, 0.796]', 'flip_rate': '0.024 [0.022, 0.027]'}
+P4-nc {'m': '0.604 [0.572, 0.636]', 'persistence': '0.639 [0.611, 0.668]', 'flip_rate': '0.051 [0.047, 0.055]'}
+$ python llm/stage3_replicate_analyse.py
+{
+ "primary": {
+  "arms": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "P2-nc",
+   "P4-nc"
+  ],
+  "z": {
+   "P1": 1.347322387451614,
+   "P2": -0.6825673119644797,
+   "P3": -2.3194593107238,
+   "P4": 1.559819895454749,
+   "P2-nc": -0.9605348016336899,
+   "P4-nc": -0.11654119504598365
+  },
+  "stouffer_Z": -0.478450803851898,
+  "p_one_sided": 0.6838353092422809,
+  "excess_repeats": false
+ },
+ "repeat_or_move": {
+  "P1_abs_m_below": false,
+  "P1_abs_m_z": 1.5556027899547813,
+  "P3_persistence_above": false,
+  "P3_persistence_z": -2.3194593107238
+ },
+ "sentinels": {
+  "qwen-122b": {
+   "rounds": 101,
+   "var_round_over_noise": 25.06157154002931,
+   "segments": 9,
+   "lag1_autocorr": 0.3203256070807047
+  },
+  "qwen-9b": {
+   "rounds": 101,
+   "var_round_over_noise": 0.5357119155352492,
+   "segments": 9,
+   "lag1_autocorr": -0.12121895848720837
+  },
+  "llama-70b": {
+   "rounds": 101,
+   "var_round_over_noise": 6.239870751275792,
+   "segments": 9,
+   "lag1_autocorr": -0.23063227623540117
+  },
+  "nemo-12b": {
+   "rounds": 101,
+   "var_round_over_noise": 1.0547684186051736,
+   "segments": 9,
+   "lag1_autocorr": -0.09014693695448334
+  },
+  "gpt6-luna": {
+   "rounds": 100,
+   "var_round_over_noise": 0.9011370109848985,
+   "segments": 9,
+   "lag1_autocorr": 0.03298014599668254
+  }
+ }
+}
+                          abs_m                            m               persistence              excess_unsat                 flip_rate                     abs_q
+P1         0.443 [0.273, 0.449]       -0.114 [-0.176, 0.075]      0.819 [0.765, 0.825]  0.195 [0.125, 0.146] OUT      0.026 [0.025, 0.032]      0.201 [0.081, 0.245]
+P2         0.555 [0.522, 0.631]         0.555 [0.522, 0.631]      0.599 [0.581, 0.650]  0.355 [0.285, 0.308] OUT  0.066 [0.055, 0.064] OUT      0.323 [0.272, 0.417]
+P3     0.181 [0.140, 0.176] OUT  -0.101 [-0.092, -0.053] OUT  0.967 [0.970, 0.987] OUT  0.304 [0.278, 0.290] OUT  0.003 [0.001, 0.002] OUT      0.070 [0.055, 0.112]
+P4     0.959 [0.923, 0.950] OUT     0.959 [0.923, 0.950] OUT  0.904 [0.854, 0.903] OUT  0.104 [0.089, 0.098] OUT  0.021 [0.024, 0.032] OUT  0.922 [0.857, 0.906] OUT
+P5         0.293 [0.238, 0.524]       -0.157 [-0.222, 0.209]  0.572 [0.388, 0.570] OUT      0.246 [0.205, 0.297]      0.108 [0.106, 0.166]      0.109 [0.102, 0.300]
+P2-nc      0.165 [0.150, 0.229]         0.165 [0.145, 0.228]      0.756 [0.746, 0.796]      0.343 [0.330, 0.362]      0.026 [0.022, 0.027]      0.069 [0.053, 0.120]
+P4-nc      0.606 [0.572, 0.636]         0.606 [0.572, 0.636]      0.637 [0.611, 0.668]      0.255 [0.237, 0.267]      0.050 [0.047, 0.055]      0.375 [0.315, 0.416]
+$ python llm/stage3_replicate_reanalyse.py
+P1 {'abs_m': '0.443 [0.282,0.459] z+1.53', 'm': '-0.114 [-0.128,0.103] z-1.41', 'persistence': '0.819 [0.772,0.824] z+1.24', 'excess_unsat': '0.120 [0.120,0.142] z-1.67', 'flip_rate': '0.026 [0.024,0.031] z-1.02', 'abs_q': '0.201 [0.099,0.264] z+0.49'}
+P2 {'abs_m': '0.555 [0.531,0.629] z-0.79', 'm': '0.555 [0.531,0.629] z-0.79', 'persistence': '0.599 [0.585,0.648] z-0.95', 'excess_unsat': '0.292 [0.283,0.308] z-0.54', 'flip_rate': '0.066 [0.054,0.064] z+2.37', 'abs_q': '0.323 [0.284,0.424] z-0.69'}
+P3 {'abs_m': '0.181 [0.156,0.189] z+0.91', 'm': '-0.101 [-0.112,-0.078] z-0.48', 'persistence': '0.967 [0.968,0.986] z-1.80', 'excess_unsat': '0.261 [0.252,0.263] z+1.00', 'flip_rate': '0.003 [0.001,0.002] z+2.12', 'abs_q': '0.070 [0.215,0.258] z-12.33'}
+P4 {'abs_m': '0.959 [0.923,0.949] z+2.65', 'm': '0.959 [0.923,0.949] z+2.65', 'persistence': '0.904 [0.855,0.903] z+1.67', 'excess_unsat': '0.088 [0.089,0.098] z-1.78', 'flip_rate': '0.021 [0.024,0.032] z-2.80', 'abs_q': '0.922 [0.855,0.904] z+2.63'}
+P5 {'abs_m': '0.293 [0.257,0.542] z-1.20', 'm': '-0.157 [-0.200,0.206] z-1.29', 'persistence': '0.572 [0.385,0.575] z+1.58', 'excess_unsat': '0.246 [0.201,0.293] z-0.11', 'flip_rate': '0.108 [0.102,0.165] z-1.34', 'abs_q': '0.109 [0.107,0.318] z-1.34'}
+P2-nc {'abs_m': '0.165 [0.150,0.233] z-0.99', 'm': '0.165 [0.143,0.231] z-0.83', 'persistence': '0.756 [0.747,0.794] z-0.97', 'excess_unsat': '0.356 [0.333,0.364] z+0.71', 'flip_rate': '0.026 [0.022,0.027] z+1.02', 'abs_q': '0.069 [0.051,0.120] z-0.57'}
+P4-nc {'abs_m': '0.606 [0.572,0.635] z-0.00', 'm': '0.606 [0.572,0.635] z-0.00', 'persistence': '0.637 [0.615,0.667] z-0.20', 'excess_unsat': '0.248 [0.234,0.265] z-0.19', 'flip_rate': '0.050 [0.047,0.055] z-0.20', 'abs_q': '0.375 [0.314,0.414] z+0.26'}
+{
+ "primary": {
+  "arms": [
+   "P1",
+   "P2",
+   "P3",
+   "P4",
+   "P2-nc",
+   "P4-nc"
+  ],
+  "z": {
+   "P1": 1.2379246140866884,
+   "P2": -0.9531545895742485,
+   "P3": -1.8034602713493968,
+   "P4": 1.6704076642622272,
+   "P2-nc": -0.9736358140541386,
+   "P4-nc": -0.20375965797872858
+  },
+  "stouffer_Z": -0.4187313123598522,
+  "p_one_sided": 0.6622937455538206,
+  "excess_repeats": false
+ },
+ "flip_rate_stouffer": 0.6104748461903443,
+ "repeat_or_move": {
+  "P1_abs_m_below": false,
+  "P1_abs_m_z": 1.5308231816387468,
+  "P3_persistence_above": false,
+  "P3_persistence_z": -1.8034602713493968
+ },
+ "per_point_primary_pass": {
+  "P1": true,
+  "P2": true,
+  "P3": false,
+  "P4": false,
+  "P5": true,
+  "P2-nc": true,
+  "P4-nc": true
+ }
+}
+$ python llm/replicate_replay_audit.py
+replicate records: 146659 distinct keys: 146659 tags: 140003
+{'chain': 'P1:0:0', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 6, 'reused_earlier_replies': 46}
+{'chain': 'P1:0:1', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:1:0', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:1:1', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:2:0', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:2:1', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:3:0', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P1:3:1', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:4:0', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P1:4:1', 'point': 'P1', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:0:0', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 6, 'reused_earlier_replies': 86}
+{'chain': 'P2:0:1', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:1:0', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:1:1', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:2:0', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:2:1', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2001, 'calls_expected': 2001, 'invalid_first': 1, 'resampled': 1, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:3:0', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:3:1', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:4:0', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2:4:1', 'point': 'P2', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P3:0:0', 'point': 'P3', 'graph': 'nx37', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 3, 'reused_earlier_replies': 0}
+{'chain': 'P3:0:1', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 3, 'reused_earlier_replies': 72}
+{'chain': 'P3:1:0', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P3:1:1', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:2:0', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:2:1', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:3:0', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:3:1', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:4:0', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P3:4:1', 'point': 'P3', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:0:0', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 6, 'reused_earlier_replies': 297}
+{'chain': 'P4:0:1', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:1:0', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:1:1', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:2:0', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:2:1', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:3:0', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:3:1', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:4:0', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4:4:1', 'point': 'P4', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:0:0', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 6, 'reused_earlier_replies': 229}
+{'chain': 'P5:0:1', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:1:0', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:1:1', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:2:0', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P5:2:1', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:3:0', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:3:1', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P5:4:0', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P5:4:1', 'point': 'P5', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:0:0', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2001, 'calls_expected': 2001, 'invalid_first': 1, 'resampled': 1, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:0:1', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:1:0', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2001, 'calls_expected': 2001, 'invalid_first': 1, 'resampled': 1, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:1:1', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:2:0', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:2:1', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:3:0', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:3:1', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:4:0', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P2-nc:4:1', 'point': 'P2-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:0:0', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:0:1', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:1:0', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:1:1', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:2:0', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:2:1', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:3:0', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:3:1', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:4:0', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 1, 'reused_earlier_replies': 0}
+{'chain': 'P4-nc:4:1', 'point': 'P4-nc', 'graph': 'nx33', 'replay_ok': True, 'misses': 0, 'R2': True, 'R3': True, 'redrawn_keys': 0, 'provider_bad': 0, 'pin_bad': 0, 'calls_used': 2000, 'calls_expected': 2000, 'invalid_first': 0, 'resampled': 0, 'kept': 0, 'segments_spanned': 2, 'reused_earlier_replies': 0}
+| check | result | evidence |
+|---|---|---|
+| R1 | PASS | 0 cache misses over 140003 replayed calls |
+| R2 | PASS | 70/70 chains reproduce log, pA and states exactly |
+| R3 | PASS | 70/70 chains with exactly 2,000 updates, complete (sweep, step), 21 states |
+| R4 | PASS | 23 resume points in 17 chains, all consecutive (non-consecutive 0); re-drawn keys 0; 730 replies in 5 chains reused from an earlier host's identical request |
+| R5 | PASS | provider mismatches 0, pin violations 0 |
+| R6 | PASS | calls used = 2,000 + resamples in every chain: True; P1 inv 0 res 0 kept 0; P2 inv 1 res 1 kept 0; P2-nc inv 2 res 2 kept 0; P3 inv 0 res 0 kept 0; P4 inv 0 res 0 kept 0; P4-nc inv 0 res 0 kept 0; P5 inv 0 res 0 kept 0 |
+| R7 | PASS | configurations recomputed on the recorded graph match the log in every update (part of R2) |
+{"records": 6656, "distinct_keys": 6656, "cost_usd": 0.269, "duplicate_records_same_key": 0, "total_records": 146659}
+$ python llm/persistence_effect_combined.py
+      run   arm  observed  ref_mean     se       d       z
+ original    P1    0.7784    0.7872 0.0177 -0.0088 -0.4981
+replicate    P1    0.8188    0.7988 0.0162  0.0200  1.2379
+ original    P2    0.6034    0.6063 0.0219 -0.0029 -0.1334
+replicate    P2    0.5994    0.6175 0.0190 -0.0181 -0.9532
+ original    P3    0.9908    0.9826 0.0051  0.0082  1.6189
+replicate    P3    0.9674    0.9771 0.0054 -0.0097 -1.8035
+ original    P4    0.8974    0.8794 0.0155  0.0180  1.1656
+replicate    P4    0.9038    0.8791 0.0148  0.0247  1.6704
+ original P2-nc    0.7980    0.7715 0.0158  0.0265  1.6763
+replicate P2-nc    0.7558    0.7702 0.0148 -0.0144 -0.9736
+ original P4-nc    0.6974    0.6401 0.0181  0.0573  3.1691
+replicate P4-nc    0.6372    0.6407 0.0170 -0.0035 -0.2038
+ original    P5    0.6596    0.5025 0.0647  0.1571  2.4281
+replicate    P5    0.5722    0.4815 0.0575  0.0907  1.5763
+{
+ "original": {
+  "raw": {
+   "estimate": 0.011626797953831576,
+   "se": 0.004261006876237407,
+   "ci95": [
+    0.0032752244764062584,
+    0.019978371431256893
+   ],
+   "z": 2.7286503616484135,
+   "p_two_sided": 0.0063594090762804445
+  },
+  "standardised": {
+   "mean_z": 1.1664033444988784,
+   "se": 0.4082482904638631,
+   "ci95": [
+    0.3662366951897068,
+    1.9665699938080499
+   ],
+   "stouffer": 2.8570930282979967
+  }
+ },
+ "replicate": {
+  "raw": {
+   "estimate": -0.00508874035041319,
+   "se": 0.004301660796783921,
+   "ci95": [
+    -0.013519995512109674,
+    0.0033425148112832944
+   ],
+   "z": -1.182971087403665,
+   "p_two_sided": 0.23682060622260204
+  },
+  "standardised": {
+   "mean_z": -0.1709463424345995,
+   "se": 0.4082482904638631,
+   "ci95": [
+    -0.9711129917437711,
+    0.6292203068745721
+   ],
+   "stouffer": -0.4187313123598522
+  }
+ },
+ "pooled": {
+  "raw": {
+   "estimate": 0.003348389215326243,
+   "se": 0.003027257826892518,
+   "ci95": [
+    -0.0025850361253830926,
+    0.009281814556035578
+   ],
+   "z": 1.1060799597513524,
+   "p_two_sided": 0.2686919118949256
+  },
+  "standardised": {
+   "mean_z": 0.49772850103213956,
+   "se": 0.2886751345948129,
+   "ci95": [
+    -0.06807476277369368,
+    1.0635317648379727
+   ],
+   "stouffer": 1.7241821043255283
+  }
+ },
+ "heterogeneity_between_runs": {
+  "Q": 7.621540512393471,
+  "df": 1,
+  "p": 0.0057675199410202995
+ }
+}

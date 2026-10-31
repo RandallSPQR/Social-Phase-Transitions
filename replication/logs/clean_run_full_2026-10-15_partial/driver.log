@@ -1,0 +1,25 @@
+2026-10-15T04:54:21Z start pid 24921 : <scratch>/cleanfull/run_full.sh
+sha256:1997985955e65c0b246156c123a57fc397363ed9dee97a5635fa6e7b7c2143a1
+commit 9e378582497f16d6ba503df0eb5f0be28685230e
+Thu Oct 15 04:54:31 UTC 2026
+04:54:32 python 3.13.16 on Linux-6.18.44-fc-v114-x86_64-with-glibc2.41, 4 CPUs; mode full
+04:54:48 cache: 31 snapshots, all verified
+04:54:50 reference snapshot: 447 new files in replication/out/reference
+04:54:50 ---- base.sim: Viana-Bray validation sweep and asymmetry sweep (raw simulation output)
+07:28:34 FAIL base.sim        153.7 min  23 files compared, 1 differ
+07:28:34       data/asym/asym.npy: comparison error: ValueError: Object arrays cannot be loaded when allow_pickle=False
+07:28:34 ---- base.tables: Crossing table and asymmetry table from the raw output
+07:28:39 PASS base.tables       0.1 min  2 files compared, 0 differ
+07:28:39 ---- base.figures: Baseline figures 1-4
+07:28:45 PASS base.figures      0.1 min  4 files compared, 0 differ
+07:28:45 ---- s1.cache: Stage 1: rebuild every API request and check every committed CSV row against the cache
+07:32:35 PASS s1.cache          3.8 min  0 files compared, 0 differ
+07:32:35 ---- s1.fits: Stage 1: response-function fits (bootstrap B = 1000) for every endpoint
+07:40:56 PASS s1.fits           8.3 min  20 files compared, 0 differ
+07:40:56 ---- s1.summary: Stage 1: comprehension gate, hypothesis verdicts H1-H5, secondary contrasts, bridge
+07:41:11 PASS s1.summary        0.2 min  17 files compared, 0 differ
+07:41:11 ---- s1.temperature: Stage 1: 1/T temperature checks (re-materialised from the cache) and diagnostic
+07:42:40 PASS s1.temperature    1.5 min  9 files compared, 0 differ
+07:42:40 ---- s1.amendments: Amendments 4-5: local-vs-provider comparison, cubic replication, batch effect
+09:02:11 PASS s1.amendments    79.5 min  17 files compared, 0 differ
+09:02:11 ---- s1.null: Amendment 4: null distribution of the local-vs-provider rule (100 replicates)

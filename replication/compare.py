@@ -1,0 +1,249 @@
+"""Compare regenerated result files with the committed reference copies.
+
+Profiles (stated tolerances; |new - ref| <= atol + rtol * |ref| for every numeric value):
+  exact   rtol 0,     atol 0       bit-identical values: deterministic code on the pinned environment (simulations,
+                                   kernels, verdicts, tables)
+  ulp     |d| <= 4 ulp             results/asymmetry_sweep.csv only: transcribed by hand from data/asym/asym.npy; the
+                                   transcription script was not kept, so its summation order is unknown and a few
+                                   means differ in the last bit (largest 4e-20)
+  fit     rtol 1e-6,  atol 1e-9    iterative optimisers whose last digits may move with BLAS thread scheduling
+  print4  rtol 0,     atol 6e-5    values that were transcribed at 4 decimals
+  rows    exact, but row/record order ignored (logs written in completion order): CSV rows are sorted on every
+          column, JSON-lines records on their canonical JSON, before comparison
+  boot    per-column               bootstrap CI bounds whose generator state depends on an unrecorded call order
+  figure  file exists, is a valid PNG, and each pixel dimension is within 2% of the committed one. Bytes are not
+          compared: figures are saved with a tight bounding box, so the installed fonts move the size by a few pixels
+          (measured: up to 18 px, under 1%, between this machine and the clean container) without changing content
+  media   file exists and is non-empty (MP4/GIF)
+  text    the file exists and is non-empty (logs, Markdown tables)
+
+JSON fields present only in the regenerated file (added by a later version of the producing script) are listed as
+"extra" in the record, not counted as differences; every committed field must be reproduced.
+Strings must match exactly except for keys that record where or when a file was made (IGNORE_KEYS) and values that
+are absolute paths.
+"""
+import json, math, os, struct
+import numpy as np
+import pandas as pd
+
+PROFILES = {"exact": (0.0, 0.0), "fit": (1e-6, 1e-9), "print4": (0.0, 6e-5)}
+ULPS = 4   # profile "ulp"
+IGNORE_KEYS = {"source", "path", "paths", "created", "created_utc", "time", "timestamp", "generated", "generated_utc",
+               "git", "commit", "elapsed", "elapsed_s", "runtime", "runtime_s", "wall", "wall_s", "host", "date",
+               "written", "seconds",
+               "gif_bytes",   # encoded media sizes depend on the ffmpeg build
+               # Stage 3 audit B6: number of records in the response cache with the same body signature. It counts the
+               # cache as it was when the audit ran; later phases added records of the same format, so it cannot be
+               # reproduced from today's cache. The check itself (body_differs_from_battery_body = 0) is compared.
+               "stage1_records_with_same_body_signature",
+               # live API spend of the original run (confirm/api_summary.json); a replay from the cache spends 0
+               "spend",
+               # Stage 3 audit B11: checks against the git history (has a fit file changed since the predictions
+               # commit?). Archives and the Docker image carry no .git, so these are recomputed only in a git clone
+               # (python llm/stage3_audit.py surrogate); the committed values stay the record.
+               "predictions_commit", "fit_file_changed_since_predictions_commit",
+               "stage3_csv_changed_since_predictions_commit"}
+
+
+# Text of live API errors from probes that failed in the original run (confirm/api_summary.json: "error",
+# "first_error", e.g. "http 404 ..."). Failed calls are never cached, so an offline replay reports "request not in
+# cache" instead. Only string values under these keys are skipped; the probe outcomes themselves are compared.
+ERROR_TEXT_KEYS = {"error", "first_error"}
+
+
+def _num(x):
+    return isinstance(x, (int, float, np.integer, np.floating)) and not isinstance(x, bool)
+
+
+def _close(a, b, rtol, atol):
+    if a is None or b is None:
+        return a is None and b is None
+    a, b = float(a), float(b)
+    if math.isnan(a) or math.isnan(b):
+        return math.isnan(a) and math.isnan(b)
+    if math.isinf(a) or math.isinf(b):
+        return a == b
+    return abs(a - b) <= atol + rtol * abs(a)
+
+
+def _pathlike(s):
+    return isinstance(s, str) and (s.startswith("/") or "\\" in s)
+
+
+def compare_json(ref, new, rtol, atol):
+    """Return (n_values, n_bad, worst_abs_diff, first_problems)."""
+    st = {"n": 0, "bad": 0, "worst": 0.0, "probs": [], "extra": []}
+
+    def walk(a, b, p):
+        if isinstance(a, dict):
+            if not isinstance(b, dict):
+                return bad(p, "type")
+            for k in a:
+                if k in IGNORE_KEYS:
+                    continue
+                if k in ERROR_TEXT_KEYS and isinstance(a[k], str) and isinstance(b.get(k), str):
+                    continue
+                if k not in b:
+                    bad(p + "/" + str(k), "missing"); continue
+                walk(a[k], b[k], p + "/" + str(k))
+            for k in b:   # fields added by later code versions are reported, not failed (committed fields must match)
+                if k not in a and k not in IGNORE_KEYS:
+                    st["extra"].append(p + "/" + str(k))
+        elif isinstance(a, list):
+            if not isinstance(b, list) or len(a) != len(b):
+                return bad(p, f"length {len(a)} vs {len(b) if isinstance(b, list) else type(b).__name__}")
+            for i, (x, y) in enumerate(zip(a, b)):
+                walk(x, y, f"{p}[{i}]")
+        elif _num(a) or a is None:
+            st["n"] += 1
+            if _num(a) and _num(b):
+                d = abs(float(a) - float(b))
+                if not math.isnan(d):
+                    st["worst"] = max(st["worst"], d)
+            if not ((a is None and b is None) or (_num(a) and _num(b) and _close(a, b, rtol, atol))):
+                bad(p, f"{a!r} vs {b!r}")
+        else:
+            st["n"] += 1
+            if a != b and not (_pathlike(a) and _pathlike(b)):
+                bad(p, f"{str(a)[:60]!r} vs {str(b)[:60]!r}")
+
+    def bad(p, why):
+        st["bad"] += 1
+        if len(st["probs"]) < 5:
+            st["probs"].append(f"{p}: {why}")
+
+    walk(ref, new, "")
+    return st
+
+
+def read_table(path):
+    comp = "gzip" if path.endswith(".gz") else None
+    # float_precision="round_trip": pandas' default fast parser can map two strings one ulp apart to the same double,
+    # which would hide last-bit differences (found by replication/canary.py)
+    return pd.read_csv(path, compression=comp, keep_default_na=False, na_values=["", "nan", "NaN"], low_memory=False,
+                       float_precision="round_trip")
+
+
+def compare_csv(ref_path, new_path, rtol, atol, col_tol=None, unordered=False, ulp=False):
+    a, b = read_table(ref_path), read_table(new_path)
+    st = {"n": 0, "bad": 0, "worst": 0.0, "probs": []}
+    if unordered and list(a.columns) == list(b.columns):
+        key = lambda d: pd.Series(["\x1f".join(map(repr, r)) for r in d.itertuples(index=False)])
+        a = a.iloc[key(a).argsort(kind="stable")].reset_index(drop=True)
+        b = b.iloc[key(b).argsort(kind="stable")].reset_index(drop=True)
+    if list(a.columns) != list(b.columns):
+        miss = [c for c in a.columns if c not in b.columns]
+        if miss:
+            st["bad"] += 1; st["probs"].append(f"columns missing: {miss[:5]}")
+            return st
+        b = b[a.columns]
+    if len(a) != len(b):
+        st["bad"] += 1; st["probs"].append(f"rows {len(a)} vs {len(b)}")
+        return st
+    for c in a.columns:
+        if c in IGNORE_KEYS:
+            continue
+        x, y = a[c], b[c]
+        r_, a_ = (col_tol or {}).get(c, (rtol, atol))
+        xn, yn = pd.to_numeric(x, errors="coerce"), pd.to_numeric(y, errors="coerce")
+        numeric = xn.notna().sum() == x.notna().sum() and yn.notna().sum() == y.notna().sum()
+        st["n"] += len(x)
+        if numeric:
+            xv, yv = xn.to_numpy(float), yn.to_numpy(float)
+            both_nan = np.isnan(xv) & np.isnan(yv)
+            with np.errstate(invalid="ignore"):   # inf - inf; infinities are compared by equality below
+                d = np.abs(xv - yv)
+            if ulp:
+                lim = ULPS * np.spacing(np.maximum(np.abs(xv), np.abs(yv)))
+                ok = both_nan | (d <= lim) | ((xv == yv) & np.isinf(xv))
+            else:
+                with np.errstate(invalid="ignore"):
+                    ok = both_nan | (d <= a_ + r_ * np.abs(xv)) | ((xv == yv) & np.isinf(xv))
+            fin = np.isfinite(d)
+            if fin.any():
+                st["worst"] = max(st["worst"], float(d[fin].max()))
+            nb = int((~ok).sum())
+            if nb:
+                st["bad"] += nb
+                i = int(np.argmax(~ok))
+                st["probs"].append(f"{c}[{i}]: {xv[i]!r} vs {yv[i]!r} ({nb} cells)")
+        else:
+            xs, ys = x.map(str), y.map(str)
+            ok = (xs == ys) | (xs.map(_pathlike) & ys.map(_pathlike))
+            nb = int((~ok).sum())
+            if nb:
+                st["bad"] += nb
+                i = int(np.argmax(~ok.to_numpy()))
+                st["probs"].append(f"{c}[{i}]: {xs.iloc[i][:40]!r} vs {ys.iloc[i][:40]!r} ({nb} cells)")
+    return st
+
+
+def png_size(path):
+    with open(path, "rb") as f:
+        h = f.read(24)
+    if h[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", h[16:24])
+
+
+def compare_file(ref, new, profile, col_tol=None):
+    """Compare one file; returns dict(ok, n, bad, worst, probs, profile)."""
+    if not os.path.exists(new):
+        return dict(ok=False, n=0, bad=1, worst=None, probs=["not regenerated"], profile=profile)
+    if os.path.getsize(new) == 0:
+        return dict(ok=False, n=0, bad=1, worst=None, probs=["empty file"], profile=profile)
+    if profile == "figure":
+        a, b = png_size(ref), png_size(new)
+        ok = a is not None and b is not None and all(abs(x - y) <= 0.02 * x for x, y in zip(a, b))
+        return dict(ok=ok, n=1, bad=0 if ok else 1, worst=None, profile=profile,
+                    probs=[] if ok else [f"image size {a} vs {b}"])
+    if profile in ("media", "text"):
+        return dict(ok=True, n=1, bad=0, worst=None, probs=[], profile=profile)
+    rtol, atol = PROFILES.get(profile, PROFILES["exact"])
+    if new.endswith((".csv", ".csv.gz")):
+        st = compare_csv(ref, new, rtol, atol, col_tol, unordered=profile == "rows", ulp=profile == "ulp")
+    elif new.endswith(".json"):
+        st = compare_json(json.load(open(ref)), json.load(open(new)), rtol, atol)
+    elif new.endswith(".jsonl"):
+        r = [json.loads(l) for l in open(ref) if l.strip()]
+        n = [json.loads(l) for l in open(new) if l.strip()]
+        if profile == "rows":   # records written in completion order
+            r = sorted(r, key=lambda x: json.dumps(x, sort_keys=True)); n = sorted(n, key=lambda x: json.dumps(x, sort_keys=True))
+        st = compare_json(r, n, rtol, atol)
+    elif new.endswith(".npz"):
+        a, b = np.load(ref, allow_pickle=True), np.load(new, allow_pickle=True)
+        st = dict(n=0, bad=0, worst=0.0, probs=[])
+        if sorted(a.files) != sorted(b.files):
+            st["bad"] += 1; st["probs"].append("array names differ")
+        for k in a.files:
+            if k not in b.files:
+                continue
+            x, y = a[k], b[k]; st["n"] += int(x.size)
+            if x.dtype.kind in "fiu" and y.dtype.kind in "fiu":
+                ok = x.shape == y.shape and np.allclose(x, y, rtol=rtol, atol=atol, equal_nan=True)
+            else:
+                ok = str(x.tolist()) == str(y.tolist())
+            if not ok:
+                st["bad"] += 1; st["probs"].append(f"array {k} differs")
+    elif new.endswith(".npy"):
+        try:
+            a, b = np.load(ref, allow_pickle=False), np.load(new, allow_pickle=False)
+        except ValueError:   # object arrays (data/asym/asym.npy: rows of parameters + per-graph result arrays)
+            def plain(x):
+                if isinstance(x, np.ndarray):
+                    return [plain(y) for y in x.tolist()] if x.dtype == object else x.tolist()
+                if isinstance(x, (list, tuple)):
+                    return [plain(y) for y in x]
+                return x.item() if isinstance(x, np.generic) else x
+            a = plain(np.load(ref, allow_pickle=True)); b = plain(np.load(new, allow_pickle=True))
+            st = compare_json(a, b, rtol, atol)
+            st.update(ok=st["bad"] == 0, profile=profile)
+            return st
+        ok = a.shape == b.shape and np.allclose(a, b, rtol=rtol, atol=atol, equal_nan=True)
+        st = dict(n=int(a.size), bad=0 if ok else 1, worst=float(np.nanmax(np.abs(a - b))) if a.shape == b.shape else None,
+                  probs=[] if ok else ["array differs"])
+    else:
+        same = open(ref, "rb").read() == open(new, "rb").read()
+        st = dict(n=1, bad=0 if same else 1, worst=None, probs=[] if same else ["bytes differ"])
+    st.update(ok=st["bad"] == 0, profile=profile)
+    return st

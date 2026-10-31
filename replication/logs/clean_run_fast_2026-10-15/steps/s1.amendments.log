@@ -1,0 +1,131 @@
+$ python llm/compare_local.py --B 1000
+{
+ "pair": "gemma-31b (Io Net) vs gemma-31b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9889592424331534,
+ "slope_lo": 0.940421516704496,
+ "slope_hi": 1.029765346696559,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.30370728216911974,
+ "kappa": 0.9823667011367087,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
+{
+ "pair": "gemma-26b (Parasail) vs gemma-26b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9706042219599113,
+ "slope_lo": 0.9104259280488645,
+ "slope_hi": 1.0196798851678988,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.7034063711912343,
+ "kappa": 0.9150468068441989,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
+{
+ "pair": "gemma-26b-cw (CoreWeave) vs gemma-26b-local",
+ "n_coefficients": 29,
+ "frac_agree": 0.7586206896551724,
+ "slope": 0.9751094460669603,
+ "slope_lo": 0.9372768847997242,
+ "slope_hi": 1.0156936795855684,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.35402602614352846,
+ "kappa": 0.9762633502701238,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
+$ python llm/compare_local.py --B 1000 --out results/llm/amendment5 --pairs gemma-26b-local-bs1:gemma-26b:Parasail gemma-26b-local-bs1:gemma-26b-cw:CoreWeave
+{
+ "pair": "gemma-26b (Parasail) vs gemma-26b-local-bs1",
+ "n_coefficients": 29,
+ "frac_agree": 0.8620689655172413,
+ "slope": 0.9712354637099281,
+ "slope_lo": 0.9139840665430689,
+ "slope_hi": 1.0171147813802608,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.7034063711912343,
+ "kappa": 0.9150468068441989,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
+{
+ "pair": "gemma-26b-cw (CoreWeave) vs gemma-26b-local-bs1",
+ "n_coefficients": 29,
+ "frac_agree": 0.8275862068965517,
+ "slope": 0.9660918500080365,
+ "slope_lo": 0.9246498618107776,
+ "slope_hi": 1.003646554102604,
+ "slope_ci_contains_1": true,
+ "provider_sigma": 0.35402602614352846,
+ "kappa": 0.9762633502701238,
+ "slope_ci_contains_kappa": true,
+ "n_slope_entries": 21,
+ "verdict": "jitter biases estimates"
+}
+$ python llm/cubic_31b.py
+
+== gemma-31b-local neutral_own (836 prompts)
+  T_aaa: -0.075 [-0.270, +0.252]   CV gain alone +0.0194
+  T_rrr: -0.364 [-0.738, -0.111]   CV gain alone -0.0099
+  T_aar: -0.363 [-0.678, -0.166]   CV gain alone +0.0198
+  T_arr: +0.349 [+0.134, +0.701]   CV gain alone -0.0079
+  CV CE A0 (linear)     0.3213  (rel. gain vs A0 +0.0000)
+  CV CE A2 (cubic)      0.3115  (rel. gain vs A0 +0.0304)
+  CV CE majority rule   0.3892  (rel. gain vs A0 -0.2115)
+  CV CE A0 + majority   0.3220  (rel. gain vs A0 -0.0023)
+
+== gemma-31b-local political (1672 prompts)
+  T_aaa: -0.482 [-0.835, -0.368]   CV gain alone +0.0465
+  T_rrr: -0.208 [-0.510, +0.047]   CV gain alone +0.0039
+  T_aar: +0.042 [-0.115, +0.172]   CV gain alone +0.0076
+  T_arr: -0.003 [-0.151, +0.117]   CV gain alone -0.0059
+  CV CE A0 (linear)     0.1859  (rel. gain vs A0 +0.0000)
+  CV CE A2 (cubic)      0.1814  (rel. gain vs A0 +0.0242)
+  CV CE majority rule   0.2886  (rel. gain vs A0 -0.5521)
+  CV CE A0 + majority   0.1850  (rel. gain vs A0 +0.0048)
+
+== gemma-31b-local workplace (1672 prompts)
+  T_aaa: +0.018 [-0.139, +0.257]   CV gain alone -0.0021
+  T_rrr: -0.103 [-0.238, -0.002]   CV gain alone +0.0083
+  T_aar: -0.116 [-0.287, +0.004]   CV gain alone +0.0036
+  T_arr: +0.050 [-0.064, +0.220]   CV gain alone -0.0034
+  CV CE A0 (linear)     0.3357  (rel. gain vs A0 +0.0000)
+  CV CE A2 (cubic)      0.3334  (rel. gain vs A0 +0.0068)
+  CV CE majority rule   0.4046  (rel. gain vs A0 -0.2052)
+  CV CE A0 + majority   0.3337  (rel. gain vs A0 +0.0060)
+$ python llm/batch_effect.py
+{
+ "n_prompts": 6214,
+ "rms_batched_minus_bs1_logit": 0.8633675519548807,
+ "rms_rep0_minus_rep1_over_sqrt2": 0.5918999010862065,
+ "mean_batched_minus_bs1_logit": 0.014765047199537713,
+ "corr_batched_mean_vs_bs1": 0.9902280536821336,
+ "share_prompts_majority_flip": 0.025426456388799486,
+ "by_arm": {
+  "neutral_noown": 0.8346605285417444,
+  "neutral_own": 0.8390038887633399,
+  "neutral_own_w2": 0.8598580979434909,
+  "political": 0.8658284506663138,
+  "workplace": 0.8924377474311409
+ },
+ "by_k": {
+  "1": 0.9648650490780253,
+  "2": 0.7666226875946397,
+  "3": 0.6532969333557231,
+  "4": 0.8213483434951867,
+  "5": 0.8427049327256046,
+  "6": 0.9396123713762103
+ },
+ "by_own_shown": {
+  "no own": 0.8346605285417444,
+  "own shown": 0.865401051454215
+ }
+}

@@ -1,0 +1,3 @@
+$ python replication/baseline_tables.py
+wrote results/validation_crossings.csv 16 rows
+wrote results/asymmetry_sweep.csv 120 rows

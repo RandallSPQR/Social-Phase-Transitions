@@ -1,0 +1,382 @@
+[boot] 2026-10-13T04:06:45Z pod ts8ufqgcra5s7i
+[boot] secret HF_TOKEN len 37 ok
+[boot] secret OPENROUTER_API_KEY len 73 ok
+/root/code/code/pod_code_71fce52.tgz
+[boot] code ready
+[2026-10-13T04:06:51Z] pod ts8ufqgcra5s7i starting; installing deps
+[2026-10-13T04:07:07Z] restoring run state from HF runs/stage3-rep1/
+restored 18 files; cache records {'meta-llama__llama-3.3-70b-instruct.jsonl': 44976, 'mistralai__mistral-nemo.jsonl': 59502, 'openai__gpt-6-luna.jsonl': 48215, 'qwen__qwen3.5-122b-a10b.jsonl': 37797, 'qwen__qwen3.5-9b.jsonl': 61894}
+[2026-10-13T04:07:16Z] starting replicate (deadline 0.15 h)
+RUN_START {"event": "start", "t": 1791864438.9130857, "utc": "2026-10-13T04:07:18Z", "host": "ad1bab6d2f08", "pod": "ts8ufqgcra5s7i", "chains_saved": 1, "chains_midrun": ["P1:0:0", "P2:0:0", "P3:0:1", "P4:0:0", "P5:0:0"]}
+HEARTBEAT {"elapsed_h": 3.266, "spend_usd": 0.78, "done": false, "stopped": false, "rss_mb": 133, "peak_rss_mb": 132} alibaba: 0/10 ch, 0 calls, eta 0.0 h, sent None | parasail: 0/20 ch, 0 calls, eta 0.0 h, sent None | coreweave: 1/10 ch, 0 calls, eta 0.0 h, sent None | ionet: 0/20 ch, 0 calls, eta 0.0 h, sent None | openai: 0/10 ch, 0 calls, eta 0.0 h, sent None
+Processing Files (0 / 0)      : |          |  0.00B /  0.00B            
+New Data Upload               : |          |  0.00B /  0.00B            [A
+
+  ...ai__mistral-nemo.jsonl.gz:   2%|▏         |  142kB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz:   2%|▏         | 64.0kB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz:   2%|▏         | 84.8kB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz:   2%|▏         | 86.1kB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz:   2%|▏         |  147kB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz:   2%|▏         |  142kB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz:   2%|▏         | 64.0kB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz:   2%|▏         | 84.8kB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz:   2%|▏         | 86.1kB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz:   2%|▏         |  147kB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[AProcessing Files (2 / 7)      :   2%|▏         |  548kB / 24.1MB,   ???B/s  
+New Data Upload               :   2%|▏         |  524kB / 24.0MB,   ???B/s  [A
+
+  ...ai__mistral-nemo.jsonl.gz:  17%|█▋        | 1.14MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz:  17%|█▋        |  512kB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz:  17%|█▋        |  679kB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz:  17%|█▋        |  689kB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz:  17%|█▋        | 1.18MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[AProcessing Files (2 / 7)      :  18%|█▊        | 4.22MB / 24.1MB,  406kB/s  
+New Data Upload               :  17%|█▋        | 4.20MB / 24.0MB,  404kB/s  [A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[AProcessing Files (2 / 7)      : 100%|█████████▉| 24.1MB / 24.1MB, 2.31MB/s  
+New Data Upload               : 100%|█████████▉| 24.0MB / 24.0MB, 2.31MB/s  [A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|█████████▉| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|█████████▉| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|█████████▉| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|█████████▉| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|█████████▉| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[AProcessing Files (7 / 7)      : 100%|██████████| 24.1MB / 24.1MB, 2.20MB/s  
+New Data Upload               : 100%|██████████| 24.0MB / 24.0MB, 2.20MB/s  [A
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+Validating                    :           |   0%            [A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[A
+
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 6.53MB / 6.53MB            [A[A
+
+
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 2.93MB / 2.93MB            [A[A[A
+
+
+
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 3.89MB / 3.89MB            [A[A[A[A
+
+
+
+
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 3.95MB / 3.95MB            [A[A[A[A[A
+
+
+
+
+
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            [A[A[A[A[A[A
+
+
+
+
+
+
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 6.74MB / 6.74MB            [A[A[A[A[A[A[A
+
+
+
+
+
+
+
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            [A[A[A[A[A[A[A[A
+
+
+
+
+
+
+
+
+Validating                    : ██████████| 100%            [A[A[A[A[A[A[A[A[AProcessing Files (7 / 7)      : 100%|██████████| 24.1MB / 24.1MB, 2.17MB/s  
+New Data Upload               : 100%|██████████| 24.0MB / 24.0MB, 2.16MB/s  
+Validating                    : ██████████| 100%            
+  ...ai__mistral-nemo.jsonl.gz: 100%|██████████| 6.53MB / 6.53MB            
+  ...enai__gpt-6-luna.jsonl.gz: 100%|██████████| 2.93MB / 2.93MB            
+  ...3.3-70b-instruct.jsonl.gz: 100%|██████████| 3.89MB / 3.89MB            
+  ...wen3.5-122b-a10b.jsonl.gz: 100%|██████████| 3.95MB / 3.95MB            
+  ...p1/chains/P3/g0_r0.csv.gz: 100%|██████████| 21.8kB / 21.8kB            
+  ...qwen__qwen3.5-9b.jsonl.gz: 100%|██████████| 6.74MB / 6.74MB            
+  ...hains/P3/g0_r0_states.npy: 100%|██████████| 2.23kB / 2.23kB            
+UPLOAD verified 16/16 files
+[coreweave] chain P3 g0 r1 saved; invalid_first 0.000%; spend $0.966
+[2026-10-13T04:16:17Z] runner exited (code 124); final upload
+[2026-10-13T04:16:23Z] final upload attempt 1: UPLOAD verified 18/18 files
+[2026-10-13T04:16:23Z] FINAL UPLOAD VERIFIED (run done: False)

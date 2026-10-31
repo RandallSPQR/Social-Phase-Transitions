@@ -1,0 +1,466 @@
+[15:52:54] PHASE setup installing packages
+[15:53:09] run 4p4a463q78clp0; deadline 19:10:54 UTC; device cuda
+name, memory.total [MiB]
+NVIDIA A100-SXM4-80GB, 81920 MiB
+[15:53:10] PHASE download google/gemma-4-26b-a4b-it
+[tracker] download target /workspace/.cache/huggingface: 212086 GB free of 675787 GB
+[tracker] df Filesystem                   Size  Used Avail Use% Mounted on
+[tracker] df overlay                       50G  250M   50G   1% /
+[tracker] df overlay                       50G  250M   50G   1% /
+[tracker] df mfs#us-wa-1.runpod.net:9421  615T  422T  193T  69% /workspace
+[tracker] df mfs#us-wa-1.runpod.net:9421  615T  422T  193T  69% /workspace
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:02,  2.90it/s]Fetching 9 files:  44%|████▍     | 4/9 [00:00<00:00,  9.02it/s]Fetching 9 files:  67%|██████▋   | 6/9 [00:00<00:00, 10.00it/s]Fetching 9 files:  89%|████████▉ | 8/9 [00:18<00:03,  3.48s/it]Fetching 9 files: 100%|██████████| 9/9 [03:55<00:00, 49.44s/it]Fetching 9 files: 100%|██████████| 9/9 [03:55<00:00, 26.18s/it]
+[tracker] DOWNLOADED google/gemma-4-26b-a4b-it: 51.6 GB in 236 s
+[15:57:06] PHASE smoke gemma-26b-local-bs1
+deterministic mode: batch sizes 1/1, CUBLAS_WORKSPACE_CONFIG=:4096:8
+Loading weights:   0%|          | 0/1013 [00:00<?, ?it/s]Loading weights:   0%|          | 2/1013 [00:02<22:38,  1.34s/it]Loading weights:   0%|          | 4/1013 [00:04<17:20,  1.03s/it]Loading weights:   2%|▏         | 23/1013 [00:04<02:00,  8.22it/s]Loading weights:   3%|▎         | 30/1013 [00:06<03:12,  5.12it/s]Loading weights:   4%|▍         | 43/1013 [00:07<01:47,  9.06it/s]Loading weights:   5%|▍         | 50/1013 [00:09<02:45,  5.82it/s]Loading weights:   6%|▋         | 65/1013 [00:09<01:33, 10.10it/s]Loading weights:   7%|▋         | 73/1013 [00:12<02:25,  6.45it/s]Loading weights:   9%|▉         | 89/1013 [00:12<01:25, 10.78it/s]Loading weights:  10%|▉         | 98/1013 [00:14<02:13,  6.87it/s]Loading weights:  11%|█         | 107/1013 [00:15<01:40,  9.05it/s]Loading weights:  11%|█▏        | 114/1013 [00:18<02:41,  5.57it/s]Loading weights:  13%|█▎        | 127/1013 [00:18<01:42,  8.65it/s]Loading weights:  13%|█▎        | 134/1013 [00:19<01:55,  7.59it/s]Loading weights:  14%|█▎        | 139/1013 [00:21<02:33,  5.68it/s]Loading weights:  15%|█▌        | 152/1013 [00:21<01:34,  9.09it/s]Loading weights:  15%|█▌        | 157/1013 [00:24<02:56,  4.84it/s]Loading weights:  17%|█▋        | 176/1013 [00:24<01:29,  9.34it/s]Loading weights:  18%|█▊        | 183/1013 [00:27<02:17,  6.04it/s]Loading weights:  19%|█▉        | 196/1013 [00:27<01:31,  8.95it/s]Loading weights:  20%|█▉        | 202/1013 [00:31<02:38,  5.11it/s]Loading weights:  22%|██▏       | 219/1013 [00:33<02:22,  5.58it/s]Loading weights:  24%|██▎       | 240/1013 [00:33<01:20,  9.64it/s]Loading weights:  24%|██▍       | 248/1013 [00:36<01:55,  6.61it/s]Loading weights:  26%|██▌       | 261/1013 [00:36<01:24,  8.91it/s]Loading weights:  26%|██▋       | 266/1013 [00:39<02:08,  5.80it/s]Loading weights:  28%|██▊       | 285/1013 [00:39<01:12, 10.00it/s]Loading weights:  29%|██▉       | 292/1013 [00:42<01:52,  6.40it/s]Loading weights:  30%|███       | 307/1013 [00:42<01:12,  9.80it/s]Loading weights:  31%|███       | 315/1013 [00:45<01:50,  6.32it/s]Loading weights:  32%|███▏      | 329/1013 [00:45<01:12,  9.43it/s]Loading weights:  33%|███▎      | 336/1013 [00:48<01:44,  6.46it/s]Loading weights:  35%|███▍      | 352/1013 [00:48<01:03, 10.43it/s]Loading weights:  36%|███▌      | 360/1013 [00:50<01:32,  7.07it/s]Loading weights:  37%|███▋      | 373/1013 [00:50<01:01, 10.33it/s]Loading weights:  38%|███▊      | 381/1013 [00:53<01:35,  6.65it/s]Loading weights:  39%|███▉      | 393/1013 [00:53<01:05,  9.49it/s]Loading weights:  39%|███▉      | 399/1013 [00:56<01:41,  6.05it/s]Loading weights:  41%|████      | 416/1013 [00:56<00:57, 10.32it/s]Loading weights:  42%|████▏     | 423/1013 [00:58<01:28,  6.63it/s]Loading weights:  43%|████▎     | 436/1013 [00:58<00:58,  9.94it/s]Loading weights:  44%|████▎     | 443/1013 [01:01<01:31,  6.25it/s]Loading weights:  45%|████▌     | 457/1013 [01:01<00:56,  9.77it/s]Loading weights:  46%|████▌     | 465/1013 [01:04<01:31,  5.96it/s]Loading weights:  47%|████▋     | 479/1013 [01:04<00:58,  9.07it/s]Loading weights:  48%|████▊     | 486/1013 [01:07<01:30,  5.79it/s]Loading weights:  50%|████▉     | 502/1013 [01:07<00:54,  9.46it/s]Loading weights:  50%|█████     | 509/1013 [01:10<01:18,  6.40it/s]Loading weights:  52%|█████▏    | 524/1013 [01:13<01:21,  6.00it/s]Loading weights:  53%|█████▎    | 533/1013 [01:13<01:01,  7.79it/s]Loading weights:  54%|█████▍    | 546/1013 [01:13<00:41, 11.25it/s]Loading weights:  55%|█████▍    | 553/1013 [01:16<01:10,  6.56it/s]Loading weights:  56%|█████▌    | 567/1013 [01:16<00:45,  9.91it/s]Loading weights:  57%|█████▋    | 573/1013 [01:18<01:10,  6.20it/s]Loading weights:  58%|█████▊    | 589/1013 [01:18<00:41, 10.15it/s]Loading weights:  59%|█████▊    | 595/1013 [01:21<01:05,  6.35it/s]Loading weights:  59%|█████▉    | 600/1013 [01:21<00:55,  7.48it/s]Loading weights:  60%|██████    | 611/1013 [01:21<00:35, 11.19it/s]Loading weights:  61%|██████    | 617/1013 [01:24<01:04,  6.15it/s]Loading weights:  61%|██████▏   | 622/1013 [01:24<00:52,  7.51it/s]Loading weights:  62%|██████▏   | 633/1013 [01:24<00:32, 11.65it/s]Loading weights:  63%|██████▎   | 639/1013 [01:27<01:14,  5.01it/s]Loading weights:  64%|██████▍   | 651/1013 [01:28<00:48,  7.41it/s]Loading weights:  65%|██████▌   | 661/1013 [01:28<00:33, 10.54it/s]Loading weights:  66%|██████▋   | 673/1013 [01:28<00:22, 15.43it/s]Loading weights:  68%|██████▊   | 684/1013 [01:28<00:15, 21.22it/s]Loading weights:  69%|██████▉   | 699/1013 [01:28<00:09, 31.53it/s]Loading weights:  70%|███████   | 712/1013 [01:29<00:07, 40.81it/s]Loading weights:  72%|███████▏  | 725/1013 [01:29<00:05, 51.57it/s]Loading weights:  73%|███████▎  | 738/1013 [01:29<00:04, 62.11it/s]Loading weights:  74%|███████▍  | 751/1013 [01:29<00:03, 65.61it/s]Loading weights:  76%|███████▌  | 766/1013 [01:29<00:03, 80.77it/s]Loading weights:  77%|███████▋  | 779/1013 [01:29<00:02, 85.29it/s]Loading weights:  78%|███████▊  | 790/1013 [01:29<00:02, 86.24it/s]Loading weights:  79%|███████▉  | 805/1013 [01:29<00:02, 97.49it/s]Loading weights:  81%|████████  | 817/1013 [01:30<00:02, 93.72it/s]Loading weights:  82%|████████▏ | 831/1013 [01:30<00:01, 97.99it/s]Loading weights:  83%|████████▎ | 844/1013 [01:30<00:01, 105.24it/s]Loading weights:  85%|████████▍ | 857/1013 [01:30<00:01, 106.60it/s]Loading weights:  86%|████████▋ | 875/1013 [01:30<00:01, 120.25it/s]Loading weights:  88%|████████▊ | 888/1013 [01:30<00:01, 122.06it/s]Loading weights:  89%|████████▉ | 901/1013 [01:30<00:01, 102.14it/s]Loading weights:  90%|█████████ | 912/1013 [01:30<00:00, 102.38it/s]Loading weights:  91%|█████████ | 923/1013 [01:30<00:00, 99.21it/s] Loading weights:  92%|█████████▏| 934/1013 [01:31<00:00, 90.91it/s]Loading weights:  94%|█████████▎| 948/1013 [01:31<00:00, 96.59it/s]Loading weights:  95%|█████████▍| 958/1013 [01:31<00:00, 93.76it/s]Loading weights:  96%|█████████▌| 968/1013 [01:31<00:00, 92.53it/s]Loading weights:  97%|█████████▋| 978/1013 [01:31<00:00, 86.66it/s]Loading weights:  97%|█████████▋| 987/1013 [01:31<00:00, 83.68it/s]Loading weights:  99%|█████████▊| 1000/1013 [01:31<00:00, 95.49it/s]Loading weights: 100%|█████████▉| 1010/1013 [01:31<00:00, 85.92it/s]Loading weights: 100%|██████████| 1013/1013 [01:31<00:00, 11.01it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.8438 nats
+gemma-26b-local-bs1-smoke: 50 prompts, mean 173 tokens, layers [5, 10, 15, 20, 25, 30]/30, |A ids|=3 |B ids|=3
+  rep 0 batch 0/50 0s
+Upload 0 LFS files: 0it [00:00, ?it/s]Upload 0 LFS files: 0it [00:00, ?it/s]
+[tracker] UPLOADED gemma-26b-local-bs1-smoke-rep0 OK: 9 files, verified
+  rep 1 batch 0/50 24s
+done gemma-26b-local-bs1-smoke: 50 prompts x 2 reps in 46s
+Upload 0 LFS files: 0it [00:00, ?it/s]Upload 0 LFS files: 0it [00:00, ?it/s]
+[tracker] UPLOADED gemma-26b-local-bs1-smoke OK: 9 files, verified
+[15:59:49] PHASE main gemma-26b-local-bs1
+deterministic mode: batch sizes 1/1, CUBLAS_WORKSPACE_CONFIG=:4096:8
+Loading weights:   0%|          | 0/1013 [00:00<?, ?it/s]Loading weights:   0%|          | 2/1013 [00:00<02:02,  8.26it/s]Loading weights:   0%|          | 4/1013 [00:00<01:47,  9.36it/s]Loading weights:   2%|▏         | 25/1013 [00:00<00:23, 41.55it/s]Loading weights:   5%|▍         | 46/1013 [00:00<00:13, 73.91it/s]Loading weights:   6%|▌         | 56/1013 [00:01<00:14, 64.21it/s]Loading weights:   7%|▋         | 69/1013 [00:01<00:13, 72.00it/s]Loading weights:   8%|▊         | 78/1013 [00:01<00:15, 59.60it/s]Loading weights:   9%|▉         | 91/1013 [00:01<00:13, 69.84it/s]Loading weights:  10%|▉         | 100/1013 [00:01<00:15, 59.25it/s]Loading weights:  11%|█         | 113/1013 [00:02<00:18, 48.16it/s]Loading weights:  13%|█▎        | 134/1013 [00:02<00:13, 67.04it/s]Loading weights:  14%|█▍        | 143/1013 [00:02<00:14, 59.24it/s]Loading weights:  15%|█▌        | 156/1013 [00:02<00:12, 67.52it/s]Loading weights:  16%|█▌        | 164/1013 [00:02<00:14, 56.82it/s]Loading weights:  17%|█▋        | 177/1013 [00:02<00:12, 67.29it/s]Loading weights:  18%|█▊        | 185/1013 [00:03<00:14, 57.79it/s]Loading weights:  20%|█▉        | 199/1013 [00:03<00:15, 52.44it/s]Loading weights:  22%|██▏       | 222/1013 [00:03<00:10, 78.42it/s]Loading weights:  23%|██▎       | 232/1013 [00:03<00:10, 73.95it/s]Loading weights:  24%|██▍       | 245/1013 [00:04<00:11, 66.20it/s]Loading weights:  26%|██▌       | 265/1013 [00:04<00:08, 87.23it/s]Loading weights:  27%|██▋       | 276/1013 [00:04<00:09, 78.39it/s]Loading weights:  28%|██▊       | 286/1013 [00:04<00:14, 51.91it/s]Loading weights:  31%|███       | 309/1013 [00:04<00:09, 77.43it/s]Loading weights:  32%|███▏      | 321/1013 [00:05<00:09, 74.28it/s]Loading weights:  33%|███▎      | 332/1013 [00:05<00:11, 60.59it/s]Loading weights:  35%|███▍      | 353/1013 [00:05<00:07, 82.93it/s]Loading weights:  36%|███▌      | 365/1013 [00:05<00:08, 78.74it/s]Loading weights:  37%|███▋      | 375/1013 [00:05<00:07, 82.70it/s]Loading weights:  38%|███▊      | 385/1013 [00:05<00:08, 73.38it/s]Loading weights:  39%|███▉      | 396/1013 [00:06<00:10, 57.98it/s]Loading weights:  41%|████▏     | 418/1013 [00:06<00:07, 83.43it/s]Loading weights:  42%|████▏     | 429/1013 [00:06<00:07, 74.75it/s]Loading weights:  43%|████▎     | 440/1013 [00:06<00:09, 62.50it/s]Loading weights:  46%|████▌     | 462/1013 [00:07<00:08, 65.78it/s]Loading weights:  48%|████▊     | 484/1013 [00:07<00:06, 88.15it/s]Loading weights:  49%|████▉     | 496/1013 [00:07<00:05, 89.49it/s]Loading weights:  50%|█████     | 507/1013 [00:07<00:07, 66.90it/s]Loading weights:  52%|█████▏    | 527/1013 [00:07<00:07, 66.63it/s]Loading weights:  54%|█████▍    | 549/1013 [00:08<00:06, 73.75it/s]Loading weights:  56%|█████▋    | 570/1013 [00:08<00:06, 73.03it/s]Loading weights:  58%|█████▊    | 584/1013 [00:08<00:07, 58.02it/s]Loading weights:  58%|█████▊    | 592/1013 [00:09<00:08, 48.89it/s]Loading weights:  61%|██████    | 615/1013 [00:09<00:06, 58.01it/s]Loading weights:  63%|██████▎   | 637/1013 [00:09<00:05, 63.55it/s]Loading weights:  74%|███████▍  | 751/1013 [00:09<00:01, 201.16it/s]Loading weights:  88%|████████▊ | 888/1013 [00:09<00:00, 381.12it/s]Loading weights: 100%|█████████▉| 1011/1013 [00:10<00:00, 527.31it/s]Loading weights: 100%|██████████| 1013/1013 [00:10<00:00, 101.03it/s]
+padding check (diagnostic): max |batched − single| over top-20 tokens = 0.8438 nats
+gemma-26b-local-bs1: 8330 prompts, mean 169 tokens, layers [5, 10, 15, 20, 25, 30]/30, |A ids|=3 |B ids|=3
+  rep 0 batch 0/8330 1s
+  rep 0 batch 50/8330 25s
+  rep 0 batch 100/8330 50s
+  rep 0 batch 150/8330 75s
+  rep 0 batch 200/8330 100s
+  rep 0 batch 250/8330 125s
+  rep 0 batch 300/8330 150s
+  rep 0 batch 350/8330 175s
+  rep 0 batch 400/8330 200s
+  rep 0 batch 450/8330 224s
+  rep 0 batch 500/8330 249s
+  rep 0 batch 550/8330 274s
+  rep 0 batch 600/8330 299s
+  rep 0 batch 650/8330 323s
+  rep 0 batch 700/8330 348s
+  rep 0 batch 750/8330 373s
+  rep 0 batch 800/8330 398s
+  rep 0 batch 850/8330 423s
+  rep 0 batch 900/8330 448s
+  rep 0 batch 950/8330 473s
+  rep 0 batch 1000/8330 498s
+  rep 0 batch 1050/8330 523s
+  rep 0 batch 1100/8330 548s
+  rep 0 batch 1150/8330 572s
+  rep 0 batch 1200/8330 597s
+  rep 0 batch 1250/8330 622s
+  rep 0 batch 1300/8330 647s
+  rep 0 batch 1350/8330 672s
+  rep 0 batch 1400/8330 697s
+  rep 0 batch 1450/8330 721s
+  rep 0 batch 1500/8330 747s
+  rep 0 batch 1550/8330 772s
+  rep 0 batch 1600/8330 797s
+  rep 0 batch 1650/8330 822s
+  rep 0 batch 1700/8330 848s
+  rep 0 batch 1750/8330 873s
+  rep 0 batch 1800/8330 898s
+  rep 0 batch 1850/8330 923s
+  rep 0 batch 1900/8330 948s
+  rep 0 batch 1950/8330 973s
+  rep 0 batch 2000/8330 998s
+  rep 0 batch 2050/8330 1024s
+  rep 0 batch 2100/8330 1048s
+  rep 0 batch 2150/8330 1072s
+  rep 0 batch 2200/8330 1096s
+  rep 0 batch 2250/8330 1120s
+  rep 0 batch 2300/8330 1145s
+  rep 0 batch 2350/8330 1169s
+  rep 0 batch 2400/8330 1193s
+  rep 0 batch 2450/8330 1218s
+  rep 0 batch 2500/8330 1242s
+  rep 0 batch 2550/8330 1267s
+  rep 0 batch 2600/8330 1290s
+  rep 0 batch 2650/8330 1314s
+  rep 0 batch 2700/8330 1338s
+  rep 0 batch 2750/8330 1362s
+  rep 0 batch 2800/8330 1386s
+  rep 0 batch 2850/8330 1410s
+  rep 0 batch 2900/8330 1434s
+  rep 0 batch 2950/8330 1459s
+  rep 0 batch 3000/8330 1483s
+  rep 0 batch 3050/8330 1507s
+  rep 0 batch 3100/8330 1532s
+  rep 0 batch 3150/8330 1556s
+  rep 0 batch 3200/8330 1580s
+  rep 0 batch 3250/8330 1604s
+  rep 0 batch 3300/8330 1629s
+  rep 0 batch 3350/8330 1653s
+  rep 0 batch 3400/8330 1677s
+  rep 0 batch 3450/8330 1701s
+  rep 0 batch 3500/8330 1726s
+  rep 0 batch 3550/8330 1750s
+  rep 0 batch 3600/8330 1774s
+  rep 0 batch 3650/8330 1799s
+  rep 0 batch 3700/8330 1823s
+  rep 0 batch 3750/8330 1847s
+  rep 0 batch 3800/8330 1870s
+  rep 0 batch 3850/8330 1894s
+  rep 0 batch 3900/8330 1918s
+  rep 0 batch 3950/8330 1942s
+  rep 0 batch 4000/8330 1965s
+  rep 0 batch 4050/8330 1989s
+  rep 0 batch 4100/8330 2013s
+  rep 0 batch 4150/8330 2037s
+  rep 0 batch 4200/8330 2060s
+  rep 0 batch 4250/8330 2084s
+  rep 0 batch 4300/8330 2108s
+  rep 0 batch 4350/8330 2132s
+  rep 0 batch 4400/8330 2156s
+  rep 0 batch 4450/8330 2180s
+  rep 0 batch 4500/8330 2204s
+  rep 0 batch 4550/8330 2228s
+  rep 0 batch 4600/8330 2252s
+  rep 0 batch 4650/8330 2277s
+  rep 0 batch 4700/8330 2301s
+  rep 0 batch 4750/8330 2325s
+  rep 0 batch 4800/8330 2349s
+  rep 0 batch 4850/8330 2374s
+  rep 0 batch 4900/8330 2398s
+  rep 0 batch 4950/8330 2422s
+  rep 0 batch 5000/8330 2446s
+  rep 0 batch 5050/8330 2471s
+  rep 0 batch 5100/8330 2497s
+  rep 0 batch 5150/8330 2522s
+  rep 0 batch 5200/8330 2547s
+  rep 0 batch 5250/8330 2572s
+  rep 0 batch 5300/8330 2598s
+  rep 0 batch 5350/8330 2623s
+  rep 0 batch 5400/8330 2649s
+  rep 0 batch 5450/8330 2674s
+  rep 0 batch 5500/8330 2700s
+  rep 0 batch 5550/8330 2725s
+  rep 0 batch 5600/8330 2751s
+  rep 0 batch 5650/8330 2776s
+  rep 0 batch 5700/8330 2802s
+  rep 0 batch 5750/8330 2827s
+  rep 0 batch 5800/8330 2853s
+  rep 0 batch 5850/8330 2879s
+  rep 0 batch 5900/8330 2904s
+  rep 0 batch 5950/8330 2929s
+  rep 0 batch 6000/8330 2955s
+  rep 0 batch 6050/8330 2980s
+  rep 0 batch 6100/8330 3006s
+  rep 0 batch 6150/8330 3031s
+  rep 0 batch 6200/8330 3056s
+  rep 0 batch 6250/8330 3082s
+  rep 0 batch 6300/8330 3107s
+  rep 0 batch 6350/8330 3133s
+  rep 0 batch 6400/8330 3159s
+  rep 0 batch 6450/8330 3185s
+  rep 0 batch 6500/8330 3210s
+  rep 0 batch 6550/8330 3236s
+  rep 0 batch 6600/8330 3262s
+  rep 0 batch 6650/8330 3288s
+  rep 0 batch 6700/8330 3313s
+  rep 0 batch 6750/8330 3339s
+  rep 0 batch 6800/8330 3364s
+  rep 0 batch 6850/8330 3390s
+  rep 0 batch 6900/8330 3415s
+  rep 0 batch 6950/8330 3441s
+  rep 0 batch 7000/8330 3467s
+  rep 0 batch 7050/8330 3492s
+  rep 0 batch 7100/8330 3518s
+  rep 0 batch 7150/8330 3544s
+  rep 0 batch 7200/8330 3569s
+  rep 0 batch 7250/8330 3595s
+  rep 0 batch 7300/8330 3621s
+  rep 0 batch 7350/8330 3647s
+  rep 0 batch 7400/8330 3673s
+  rep 0 batch 7450/8330 3699s
+  rep 0 batch 7500/8330 3725s
+  rep 0 batch 7550/8330 3751s
+  rep 0 batch 7600/8330 3777s
+  rep 0 batch 7650/8330 3802s
+  rep 0 batch 7700/8330 3828s
+  rep 0 batch 7750/8330 3854s
+  rep 0 batch 7800/8330 3880s
+  rep 0 batch 7850/8330 3906s
+  rep 0 batch 7900/8330 3932s
+  rep 0 batch 7950/8330 3958s
+  rep 0 batch 8000/8330 3983s
+  rep 0 batch 8050/8330 4009s
+  rep 0 batch 8100/8330 4036s
+  rep 0 batch 8150/8330 4062s
+  rep 0 batch 8200/8330 4088s
+  rep 0 batch 8250/8330 4113s
+  rep 0 batch 8300/8330 4139s
+Upload 6 LFS files:   0%|          | 0/6 [00:00<?, ?it/s]
+layer_005.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A
+
+layer_010.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A
+
+
+layer_015.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A
+
+
+
+layer_020.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A[A
+
+
+
+
+layer_025.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A[A[A[A[A
+layer_005.npy:   0%|          | 65.5k/46.9M [00:00<01:27, 533kB/s][A
+
+
+layer_015.npy:   4%|▎         | 1.70M/46.9M [00:00<00:03, 13.1MB/s][A[A[A
+
+
+
+layer_020.npy:   0%|          | 65.5k/46.9M [00:00<01:53, 412kB/s][A[A[A[A
+
+
+
+
+layer_025.npy:   0%|          | 65.5k/46.9M [00:00<02:08, 364kB/s][A[A[A[A[A
+layer_005.npy:   9%|▊         | 4.00M/46.9M [00:00<00:02, 20.2MB/s][A
+
+
+layer_015.npy:  20%|█▉        | 9.18M/46.9M [00:00<00:00, 39.1MB/s][A[A[A
+
+
+
+layer_020.npy:   9%|▊         | 4.00M/46.9M [00:00<00:02, 17.6MB/s][A[A[A[A
+
+
+
+
+layer_025.npy:  21%|██        | 9.96M/46.9M [00:00<00:00, 39.5MB/s][A[A[A[A[A
+
+
+
+layer_020.npy:  33%|███▎      | 15.3M/46.9M [00:00<00:00, 48.8MB/s][A[A[A[A
+
+layer_010.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 29.3MB/s][A[A
+layer_005.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 17.2MB/s][A
+
+
+
+
+layer_025.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:02, 15.2MB/s][A[A[A[A[A
+
+
+layer_015.npy:  34%|███▍      | 16.1M/46.9M [00:01<00:02, 14.3MB/s][A[A[A
+
+
+
+layer_020.npy:  43%|████▎     | 20.4M/46.9M [00:01<00:01, 17.6MB/s][A[A[A[A
+
+
+
+
+layer_025.npy:  68%|██████▊   | 31.7M/46.9M [00:01<00:00, 35.0MB/s][A[A[A[A[A
+
+
+layer_015.npy:  64%|██████▍   | 30.1M/46.9M [00:01<00:00, 30.6MB/s][A[A[A
+layer_005.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 29.9MB/s][A
+
+layer_010.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 22.5MB/s][A[Alayer_005.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 31.1MB/s]
+Upload 6 LFS files:  17%|█▋        | 1/6 [00:01<00:08,  1.74s/it]
+layer_030.npy:   0%|          | 0.00/46.9M [00:00<?, ?B/s][A
+
+
+
+
+layer_025.npy:  84%|████████▍ | 39.3M/46.9M [00:01<00:00, 20.0MB/s][A[A[A[A[A
+
+
+layer_015.npy:  77%|███████▋  | 36.3M/46.9M [00:01<00:00, 17.8MB/s][A[A[A
+
+
+
+layer_020.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 15.7MB/s][A[A[A[Alayer_025.npy: 100%|██████████| 46.9M/46.9M [00:02<00:00, 22.5MB/s]
+layer_020.npy: 100%|██████████| 46.9M/46.9M [00:02<00:00, 22.1MB/s]
+layer_015.npy: 100%|██████████| 46.9M/46.9M [00:02<00:00, 22.0MB/s]
+layer_010.npy: 100%|██████████| 46.9M/46.9M [00:02<00:00, 21.0MB/s]
+Upload 6 LFS files:  33%|███▎      | 2/6 [00:02<00:04,  1.07s/it]Upload 6 LFS files:  83%|████████▎ | 5/6 [00:02<00:00,  2.89it/s]
+layer_030.npy:  34%|███▍      | 16.1M/46.9M [00:00<00:01, 19.1MB/s][A
+layer_030.npy:  68%|██████▊   | 32.1M/46.9M [00:01<00:00, 31.9MB/s][Alayer_030.npy: 100%|██████████| 46.9M/46.9M [00:01<00:00, 24.6MB/s]
+Upload 6 LFS files: 100%|██████████| 6/6 [00:03<00:00,  1.66it/s]Upload 6 LFS files: 100%|██████████| 6/6 [00:03<00:00,  1.55it/s]
+[tracker] UPLOADED gemma-26b-local-bs1-rep0 OK: 9 files, verified
+  rep 1 batch 0/8330 4161s
+  rep 1 batch 50/8330 4184s
+  rep 1 batch 100/8330 4208s
+  rep 1 batch 150/8330 4231s
+  rep 1 batch 200/8330 4255s
+  rep 1 batch 250/8330 4279s
+  rep 1 batch 300/8330 4302s
+  rep 1 batch 350/8330 4327s
+  rep 1 batch 400/8330 4350s
+  rep 1 batch 450/8330 4374s
+  rep 1 batch 500/8330 4398s
+  rep 1 batch 550/8330 4422s
+  rep 1 batch 600/8330 4446s
+  rep 1 batch 650/8330 4470s
+  rep 1 batch 700/8330 4494s
+  rep 1 batch 750/8330 4518s
+  rep 1 batch 800/8330 4542s
+  rep 1 batch 850/8330 4566s
+  rep 1 batch 900/8330 4590s
+  rep 1 batch 950/8330 4614s
+  rep 1 batch 1000/8330 4638s
+  rep 1 batch 1050/8330 4662s
+  rep 1 batch 1100/8330 4686s
+  rep 1 batch 1150/8330 4710s
+  rep 1 batch 1200/8330 4734s
+  rep 1 batch 1250/8330 4758s
+  rep 1 batch 1300/8330 4782s
+  rep 1 batch 1350/8330 4806s
+  rep 1 batch 1400/8330 4830s
+  rep 1 batch 1450/8330 4854s
+  rep 1 batch 1500/8330 4878s
+  rep 1 batch 1550/8330 4902s
+  rep 1 batch 1600/8330 4926s
+  rep 1 batch 1650/8330 4950s
+  rep 1 batch 1700/8330 4974s
+  rep 1 batch 1750/8330 4998s
+  rep 1 batch 1800/8330 5021s
+  rep 1 batch 1850/8330 5045s
+  rep 1 batch 1900/8330 5069s
+  rep 1 batch 1950/8330 5093s
+  rep 1 batch 2000/8330 5117s
+  rep 1 batch 2050/8330 5141s
+  rep 1 batch 2100/8330 5165s
+  rep 1 batch 2150/8330 5189s
+  rep 1 batch 2200/8330 5214s
+  rep 1 batch 2250/8330 5238s
+  rep 1 batch 2300/8330 5262s
+  rep 1 batch 2350/8330 5286s
+  rep 1 batch 2400/8330 5310s
+  rep 1 batch 2450/8330 5334s
+  rep 1 batch 2500/8330 5358s
+  rep 1 batch 2550/8330 5382s
+  rep 1 batch 2600/8330 5406s
+  rep 1 batch 2650/8330 5430s
+  rep 1 batch 2700/8330 5454s
+  rep 1 batch 2750/8330 5478s
+  rep 1 batch 2800/8330 5502s
+  rep 1 batch 2850/8330 5525s
+  rep 1 batch 2900/8330 5549s
+  rep 1 batch 2950/8330 5573s
+  rep 1 batch 3000/8330 5597s
+  rep 1 batch 3050/8330 5621s
+  rep 1 batch 3100/8330 5645s
+  rep 1 batch 3150/8330 5669s
+  rep 1 batch 3200/8330 5693s
+  rep 1 batch 3250/8330 5717s
+  rep 1 batch 3300/8330 5741s
+  rep 1 batch 3350/8330 5765s
+  rep 1 batch 3400/8330 5789s
+  rep 1 batch 3450/8330 5813s
+  rep 1 batch 3500/8330 5837s
+  rep 1 batch 3550/8330 5861s
+  rep 1 batch 3600/8330 5885s
+  rep 1 batch 3650/8330 5909s
+  rep 1 batch 3700/8330 5933s
+  rep 1 batch 3750/8330 5957s
+  rep 1 batch 3800/8330 5981s
+  rep 1 batch 3850/8330 6005s
+  rep 1 batch 3900/8330 6029s
+  rep 1 batch 3950/8330 6053s
+  rep 1 batch 4000/8330 6077s
+  rep 1 batch 4050/8330 6101s
+  rep 1 batch 4100/8330 6125s
+  rep 1 batch 4150/8330 6149s
+  rep 1 batch 4200/8330 6173s
+  rep 1 batch 4250/8330 6197s
+  rep 1 batch 4300/8330 6221s
+  rep 1 batch 4350/8330 6245s
+  rep 1 batch 4400/8330 6269s
+  rep 1 batch 4450/8330 6294s
+  rep 1 batch 4500/8330 6318s
+  rep 1 batch 4550/8330 6342s
+  rep 1 batch 4600/8330 6366s
+  rep 1 batch 4650/8330 6390s
+  rep 1 batch 4700/8330 6414s
+  rep 1 batch 4750/8330 6438s
+  rep 1 batch 4800/8330 6462s
+  rep 1 batch 4850/8330 6486s
+  rep 1 batch 4900/8330 6510s
+  rep 1 batch 4950/8330 6534s
+  rep 1 batch 5000/8330 6558s
+  rep 1 batch 5050/8330 6583s
+  rep 1 batch 5100/8330 6608s
+  rep 1 batch 5150/8330 6633s
+  rep 1 batch 5200/8330 6658s
+  rep 1 batch 5250/8330 6685s
+  rep 1 batch 5300/8330 6715s
+  rep 1 batch 5350/8330 6741s
+  rep 1 batch 5400/8330 6766s
+  rep 1 batch 5450/8330 6795s
+  rep 1 batch 5500/8330 6824s
+  rep 1 batch 5550/8330 6853s
+  rep 1 batch 5600/8330 6883s
+  rep 1 batch 5650/8330 6912s
+  rep 1 batch 5700/8330 6941s
+  rep 1 batch 5750/8330 6971s
+  rep 1 batch 5800/8330 7001s
+  rep 1 batch 5850/8330 7030s
+  rep 1 batch 5900/8330 7059s
+  rep 1 batch 5950/8330 7089s
+  rep 1 batch 6000/8330 7118s
+  rep 1 batch 6050/8330 7148s
+  rep 1 batch 6100/8330 7177s
+  rep 1 batch 6150/8330 7207s
+  rep 1 batch 6200/8330 7232s
+  rep 1 batch 6250/8330 7258s
+  rep 1 batch 6300/8330 7283s
+  rep 1 batch 6350/8330 7309s
+  rep 1 batch 6400/8330 7335s
+  rep 1 batch 6450/8330 7360s
+  rep 1 batch 6500/8330 7386s
+  rep 1 batch 6550/8330 7412s
+  rep 1 batch 6600/8330 7437s
+  rep 1 batch 6650/8330 7463s
+  rep 1 batch 6700/8330 7488s
+  rep 1 batch 6750/8330 7513s
+  rep 1 batch 6800/8330 7539s
+  rep 1 batch 6850/8330 7564s
+  rep 1 batch 6900/8330 7590s
+  rep 1 batch 6950/8330 7615s
+  rep 1 batch 7000/8330 7640s
+  rep 1 batch 7050/8330 7665s
+  rep 1 batch 7100/8330 7691s
+  rep 1 batch 7150/8330 7716s
+  rep 1 batch 7200/8330 7741s
+  rep 1 batch 7250/8330 7767s
+  rep 1 batch 7300/8330 7792s
+  rep 1 batch 7350/8330 7818s
+  rep 1 batch 7400/8330 7843s
+  rep 1 batch 7450/8330 7869s
+  rep 1 batch 7500/8330 7895s
+  rep 1 batch 7550/8330 7920s
+  rep 1 batch 7600/8330 7946s
+  rep 1 batch 7650/8330 7971s
+  rep 1 batch 7700/8330 7997s
+  rep 1 batch 7750/8330 8023s
+  rep 1 batch 7800/8330 8048s
+  rep 1 batch 7850/8330 8074s
+  rep 1 batch 7900/8330 8100s
+  rep 1 batch 7950/8330 8125s
+  rep 1 batch 8000/8330 8151s
+  rep 1 batch 8050/8330 8176s
+  rep 1 batch 8100/8330 8202s
+  rep 1 batch 8150/8330 8228s
+  rep 1 batch 8200/8330 8254s
+  rep 1 batch 8250/8330 8279s
+  rep 1 batch 8300/8330 8305s
+done gemma-26b-local-bs1: 8330 prompts x 2 reps in 8320s
+[18:19:00] PHASE upload gemma-26b-local-bs1
+Upload 0 LFS files: 0it [00:00, ?it/s]Upload 0 LFS files: 0it [00:00, ?it/s]
+[tracker] UPLOADED gemma-26b-local-bs1 OK: 9 files, verified
+[18:19:02] PHASE finishing exit 0
+Upload 0 LFS files: 0it [00:00, ?it/s]Upload 0 LFS files: 0it [00:00, ?it/s]
+[tracker] UPLOADED all OK: 41 files, verified
+[18:19:03] PHASE done exit 0; all outputs uploaded and verified

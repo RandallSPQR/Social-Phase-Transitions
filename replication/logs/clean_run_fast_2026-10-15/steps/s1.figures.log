@@ -1,0 +1,4 @@
+$ python llm/plot_stage1.py results/llm/stage1/pilot/llama-8b.csv results/llm/fits/pilot/llama-8b.json figures/llm_pilot_llama8b.png --pilot
+wrote figures/llm_pilot_llama8b.png
+$ python llm/plot_stage1_summary.py
+ok

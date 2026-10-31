@@ -1,0 +1,78 @@
+$ python llm/k_avg.py build
+       prompts  calls   usd_est
+point                          
+P1         764   1528  0.056811
+P2        1536   3072  0.062974
+P3        1360   2720  0.426088
+P4        1376   2752  0.006864
+P5          64   1920  0.028235
+total calls 11992 est $ 0.581 ; all prompts pass check_prompt
+$ python llm/k_avg.py run
+k_avg: 11992 calls, workers 16, budget $1.5
+  250/11992 calls, errors 0, session spend $0.0000, 2s
+  500/11992 calls, errors 0, session spend $0.0000, 2s
+  750/11992 calls, errors 0, session spend $0.0000, 2s
+  1000/11992 calls, errors 0, session spend $0.0000, 2s
+  1250/11992 calls, errors 0, session spend $0.0000, 2s
+  1500/11992 calls, errors 0, session spend $0.0000, 2s
+  1750/11992 calls, errors 0, session spend $0.0000, 12s
+  2000/11992 calls, errors 0, session spend $0.0000, 12s
+  2250/11992 calls, errors 0, session spend $0.0000, 12s
+  2500/11992 calls, errors 0, session spend $0.0000, 12s
+  2750/11992 calls, errors 0, session spend $0.0000, 12s
+  3000/11992 calls, errors 0, session spend $0.0000, 12s
+  3250/11992 calls, errors 0, session spend $0.0000, 12s
+  3500/11992 calls, errors 0, session spend $0.0000, 12s
+  3750/11992 calls, errors 0, session spend $0.0000, 12s
+  4000/11992 calls, errors 0, session spend $0.0000, 12s
+  4250/11992 calls, errors 0, session spend $0.0000, 12s
+  4500/11992 calls, errors 0, session spend $0.0000, 12s
+  4750/11992 calls, errors 0, session spend $0.0000, 17s
+  5000/11992 calls, errors 0, session spend $0.0000, 17s
+  5250/11992 calls, errors 0, session spend $0.0000, 17s
+  5500/11992 calls, errors 0, session spend $0.0000, 17s
+  5750/11992 calls, errors 0, session spend $0.0000, 17s
+  6000/11992 calls, errors 0, session spend $0.0000, 17s
+  6250/11992 calls, errors 0, session spend $0.0000, 17s
+  6500/11992 calls, errors 0, session spend $0.0000, 17s
+  6750/11992 calls, errors 0, session spend $0.0000, 17s
+  7000/11992 calls, errors 0, session spend $0.0000, 17s
+  7250/11992 calls, errors 0, session spend $0.0000, 17s
+  7500/11992 calls, errors 0, session spend $0.0000, 27s
+  7750/11992 calls, errors 0, session spend $0.0000, 27s
+  8000/11992 calls, errors 0, session spend $0.0000, 27s
+  8250/11992 calls, errors 0, session spend $0.0000, 27s
+  8500/11992 calls, errors 0, session spend $0.0000, 27s
+  8750/11992 calls, errors 0, session spend $0.0000, 27s
+  9000/11992 calls, errors 0, session spend $0.0000, 27s
+  9250/11992 calls, errors 0, session spend $0.0000, 27s
+  9500/11992 calls, errors 0, session spend $0.0000, 27s
+  9750/11992 calls, errors 0, session spend $0.0000, 27s
+  10000/11992 calls, errors 0, session spend $0.0000, 27s
+  10250/11992 calls, errors 0, session spend $0.0000, 36s
+  10500/11992 calls, errors 0, session spend $0.0000, 36s
+  10750/11992 calls, errors 0, session spend $0.0000, 36s
+  11000/11992 calls, errors 0, session spend $0.0000, 36s
+  11250/11992 calls, errors 0, session spend $0.0000, 36s
+  11500/11992 calls, errors 0, session spend $0.0000, 36s
+  11750/11992 calls, errors 0, session spend $0.0000, 36s
+  11992/11992 calls, errors 0, session spend $0.0000, 36s
+saved /repo/results/llm/kernel_test/k_avg_calls.csv 11992 rows; invalid 1 ; providers {'Parasail': 3072, 'Io Net': 2752, 'CoreWeave': 2720, 'OpenAI': 1920, 'Alibaba': 1528} ; cost $ 0.58
+$ python llm/k_avg.py analyse --R 400
+P1 {"point": "P1", "prompts_expected": 764, "calls": 1528, "invalid": 0, "live_updates_on_fallback": 0.0, "K_avg_vs_K_live_dP": 0.0037564763171786066, "K_avg_vs_K_live_dlogit_nats": 0.05332012879262336, "K_avg_vs_K_live_KL_nats": 0.0004227185460077682, "K_fixed_vs_K_live_dP": 0.010329489360720574, "K_fixed_vs_K_live_dlogit_nats": 0.22180098632949816, "K_fixed_vs_K_live_KL_nats": 0.002523514817848928, "K_avg_vs_K_fixed_dP": 0.011319728135240254, "K_avg_vs_K_fixed_dlogit_nats": 0.2324742128295699, "K_avg_vs_K_fixed_KL_nats": 0.003737808901946564, "z_obs_vs_K_avg_abs_m": -1.7716045242849958, "z_K_avg_vs_K_fixed_abs_m": 0.14499154091364902, "z_obs_vs_K_avg_persistence": -0.49806347713781707, "z_K_avg_vs_K_fixed_persistence": -1.3941337161720064}
+P2 {"point": "P2", "prompts_expected": 1536, "calls": 3072, "invalid": 1, "live_updates_on_fallback": 0.0, "K_avg_vs_K_live_dP": 0.0019927574819243797, "K_avg_vs_K_live_dlogit_nats": 0.03212586715532813, "K_avg_vs_K_live_KL_nats": 8.640583697909521e-05, "K_fixed_vs_K_live_dP": 0.00801815924403137, "K_fixed_vs_K_live_dlogit_nats": 0.16169240605097457, "K_fixed_vs_K_live_KL_nats": 0.0008331087803992542, "K_avg_vs_K_fixed_dP": 0.00817564740569374, "K_avg_vs_K_fixed_dlogit_nats": 0.1578692346728201, "K_avg_vs_K_fixed_KL_nats": 0.0008445521822190658, "z_obs_vs_K_avg_m": -0.07370310395244413, "z_K_avg_vs_K_fixed_m": -0.19084331379002023, "z_obs_vs_K_avg_persistence": -0.13336808682661888, "z_K_avg_vs_K_fixed_persistence": -0.5127940600491706}
+P3 {"point": "P3", "prompts_expected": 1360, "calls": 2720, "invalid": 0, "live_updates_on_fallback": 0.0, "K_avg_vs_K_live_dP": 0.001038351642809569, "K_avg_vs_K_live_dlogit_nats": 0.03369668975141441, "K_avg_vs_K_live_KL_nats": 0.0010822495327105109, "K_fixed_vs_K_live_dP": 0.002122274407904195, "K_fixed_vs_K_live_dlogit_nats": 0.07474065541783115, "K_fixed_vs_K_live_KL_nats": 0.010961071871787941, "K_avg_vs_K_fixed_dP": 0.0016181166086028556, "K_avg_vs_K_fixed_dlogit_nats": 0.0638049913044082, "K_avg_vs_K_fixed_KL_nats": 0.0010411026278256596, "z_obs_vs_K_avg_abs_m": -1.0305795169287295, "z_K_avg_vs_K_fixed_abs_m": -0.7456089260613917, "z_obs_vs_K_avg_persistence": 1.6188667746147025, "z_K_avg_vs_K_fixed_persistence": -2.830294022409765}
+P4 {"point": "P4", "prompts_expected": 1376, "calls": 2752, "invalid": 0, "live_updates_on_fallback": 0.0, "K_avg_vs_K_live_dP": 0.003023716747578781, "K_avg_vs_K_live_dlogit_nats": 0.06880163898776818, "K_avg_vs_K_live_KL_nats": 0.00023093465637113281, "K_fixed_vs_K_live_dP": 0.008454576547953917, "K_fixed_vs_K_live_dlogit_nats": 0.35783439795998123, "K_fixed_vs_K_live_KL_nats": 0.001745987488929114, "K_avg_vs_K_fixed_dP": 0.008446641883615904, "K_avg_vs_K_fixed_dlogit_nats": 0.3358282590155339, "K_avg_vs_K_fixed_KL_nats": 0.00146039290956323, "z_obs_vs_K_avg_m": -0.18798932349781497, "z_K_avg_vs_K_fixed_m": 0.011596455616021639, "z_obs_vs_K_avg_persistence": 1.165578403418495, "z_K_avg_vs_K_fixed_persistence": -0.3843139322345795}
+P5 {"point": "P5", "prompts_expected": 64, "calls": 1920, "invalid": 0, "live_updates_on_fallback": 0.0, "K_avg_vs_K_live_dP": 0.012935221627501822, "K_avg_vs_K_live_dlogit_nats": 0.644891840370023, "K_avg_vs_K_live_KL_nats": 0.032160550461715995, "K_fixed_vs_K_live_dP": 0.03650899370891927, "K_fixed_vs_K_live_dlogit_nats": 0.6481318582500387, "K_fixed_vs_K_live_KL_nats": 0.03036890916022111, "K_avg_vs_K_fixed_dP": 0.03839739583333332, "K_avg_vs_K_fixed_dlogit_nats": 1.104914674687696, "K_avg_vs_K_fixed_KL_nats": 0.04741535160154107, "z_obs_vs_K_avg_abs_m": 1.6798116526412796, "z_K_avg_vs_K_fixed_abs_m": 0.2546545935737859, "z_obs_vs_K_avg_persistence": 2.4280958950133393, "z_K_avg_vs_K_fixed_persistence": -0.8170094867736687}
+point     measure  observed    lo    hi  inside      z
+   P1       abs_m     0.208 0.214 0.396   False -1.772
+   P1 persistence     0.778 0.758 0.816    True -0.498
+   P2           m     0.561 0.505 0.614    True -0.074
+   P2 persistence     0.603 0.568 0.641    True -0.133
+   P3       abs_m     0.101 0.095 0.127    True -1.031
+   P3 persistence     0.991 0.974 0.991   False  1.619
+   P4           m     0.936 0.923 0.951    True -0.188
+   P4 persistence     0.897 0.854 0.903    True  1.166
+   P5       abs_m     0.596 0.300 0.596    True  1.680
+   P5 persistence     0.660 0.396 0.606   False  2.428
+{'points_passing': ['P2', 'P4'], 'P1_P4_passing': 2, 'reproduces': False}
